@@ -2,16 +2,17 @@ package ECamara;
 
 import ECamara.Pessoa;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class SystemControl {
     private Map<String, Pessoa> mapPessoas;
-    private ECamara.Validacao validaEntradas;
+    private Set<String> partidos;
+    private Validacao validaEntradas;
 
     public SystemControl(){
-        this.validaEntradas = new ECamara.Validacao();
+        this.validaEntradas = new Validacao();
         this.mapPessoas =  new HashMap<>();
+        this.partidos = new HashSet<>();
     }
 
     public void cadastrarPessoaSemPartido(String nome, String dni, String estado, String interesses) {
@@ -40,7 +41,27 @@ public class SystemControl {
 
     public String exibirPessoa(String dni) {
     }
+    */
+    public void cadastraPartido(String partido) {
+        validaEntradas.validaCadastraPartido(partido);
+        this.partidos.add(partido);
+    }
 
     public String exibirBase() {
-    } */
+        ArrayList<String> listaPartidos = new ArrayList<>(this.partidos);
+        Collections.sort(listaPartidos);
+
+        String partidos = "";
+        boolean condicao = true;
+        for (String partido : listaPartidos) {
+            if (condicao) {
+                partidos += partido;
+                condicao = false;
+            } else {
+                partidos += "," + partido;
+            }
+        }
+
+        return partidos;
+    }
 }
