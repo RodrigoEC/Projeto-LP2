@@ -34,4 +34,9 @@ public class Validacao {
             }
         }
     }
+
+    public void validarDNI(String dni){
+        validaDni(dni, "Erro ao cadastrar pessoa: dni nao pode ser vazio ou nulo");
+        validaDni(dni, "Erro ao cadastrar pessoa: dni invalido");
+    }
 }
