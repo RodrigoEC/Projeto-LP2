@@ -2,6 +2,8 @@ package ECamara;
 
 import ECamara.Pessoa;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class SystemControl {
@@ -37,13 +39,42 @@ public class SystemControl {
         }
     }
 
-    /*public void cadastraDeputado(String dni, String dataDeInicio) {
+    public void cadastraDeputado(String dni, String dataDeInicio) {
+
+        if (dni == null || dni.equals("")) {
+            throw new IllegalArgumentException("Erro ao cadastrar pessoa: dni nao pode ser vazio ou nulo");
+        } else if (dataDeInicio == null || dataDeInicio.equals("")) {
+            throw new IllegalArgumentException("Erro ao cadastrar deputado: data nao pode ser vazio ou nulo");
+        }
+
+        // SimpleDateFormat é classe que faz a formatacao da data.
+        SimpleDateFormat sdf = new SimpleDateFormat("ddMMyyyy");
+        try {
+            Date dataInicio = sdf.parse(dataDeInicio);
+            // conversao de data como String para o tipo Date.
+            Date dataAtual = new Date();
+            if (dataAtual.compareTo(dataInicio) > 1) {
+                throw new IllegalArgumentException("Erro ao cadastrar deputado: data futura");
+            }
+        } catch (ParseException pe) {
+            throw new IllegalArgumentException("Erro ao cadastrar deputado: data invalida");
+        }
+
+        if (!mapPessoas.containsKey(dni)) {
+            throw new IllegalArgumentException("Erro ao cadastrar deputado: pessoa nao encontrada");
+        } else if ((mapPessoas.get(dni).getPartido()) == null) {
+            throw new IllegalArgumentException("Erro ao cadastrar deputado: pessoa sem partido");
+        }
+        // nao tem teste no easy accept pra essa excecao
+        else if (!(mapPessoas.get(dni).getFuncao() instanceof Deputado)) {
+            throw new IllegalArgumentException("Erro ao cadastrar deputado: pessoa ja e deputado");
+        }
     }
 
 
-    public String exibirPessoa(String dni) {
-    }
-    */
+
+    //public String exibirPessoa(String dni) {
+
     public void cadastraPartido(String partido) {
         validaEntradas.validaCadastraPartido(partido);
         this.partidos.add(partido);

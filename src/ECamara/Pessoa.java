@@ -37,4 +37,13 @@ public class Pessoa {
     public int hashCode() {
         return Objects.hash(dni);
     }
+
+    public String getPartido() {
+        return partido;
+    }
+
+    public Funcao getFuncao() {
+        return funcao;
+    }
 }
+

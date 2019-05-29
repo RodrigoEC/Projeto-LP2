@@ -24,14 +24,15 @@ public class Facade {
         this.systemControl.cadastrarPessoa(nome, dni, estado, interesses, partido);
     }
 
-    /*public void cadastrarDeputado(String dni, String dataDeInicio) {
+    public void cadastrarDeputado(String dni, String dataDeInicio) {
         this.systemControl.cadastraDeputado(dni, dataDeInicio);
     }
 
-    public String exibirPessoa(String dni) {
-        return this.systemControl.exibirPessoa(dni);
-    }
-    */
+    //public String exibirPessoa(String dni) {
+        //return this.systemControl.exibirPessoa(dni);
+   // }
+
+
     public void cadastrarPartido(String partido) {
         this.systemControl.cadastraPartido(partido);
     }
