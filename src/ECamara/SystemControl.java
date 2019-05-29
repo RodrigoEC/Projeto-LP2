@@ -7,10 +7,10 @@ import java.util.*;
 public class SystemControl {
     private Map<String, Pessoa> mapPessoas;
     private Set<String> partidos;
-    private ECamara.Validacao validaEntradas;
+    private Validacao validaEntradas;
 
     public SystemControl(){
-        this.validaEntradas = new ECamara.Validacao();
+        this.validaEntradas = new Validacao();
         this.mapPessoas =  new HashMap<>();
         this.partidos = new HashSet<>();
     }
