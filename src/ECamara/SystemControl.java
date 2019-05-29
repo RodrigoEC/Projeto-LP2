@@ -15,21 +15,21 @@ public class SystemControl {
     }
 
     public void cadastrarPessoaSemPartido(String nome, String dni, String estado, String interesses) {
+        this.v.validarCadastroPessoa(dni, nome, estado);
         if (this.mapPessoas.containsKey(dni)){
             throw new IllegalArgumentException("Erro ao cadastrar pessoa: dni ja cadastrado");
         }
         else {
-            this.v.validarCadastroPessoa(dni, nome, estado);
             this.mapPessoas.put(dni, new Pessoa(nome, dni, estado, interesses));
         }
     }
 
     public void cadastrarPessoa(String nome, String dni, String estado, String interesses, String partido) {
+        this.v.validarCadastroPessoa(dni, nome, estado);
         if (this.mapPessoas.containsKey(dni)){
             throw new IllegalArgumentException("Erro ao cadastrar pessoa: dni ja cadastrado");
         }
         else {
-            this.v.validarCadastroPessoa(dni, nome, estado);
             this.mapPessoas.put(dni, new Pessoa(nome, dni, estado, interesses, partido));
         }
     }
