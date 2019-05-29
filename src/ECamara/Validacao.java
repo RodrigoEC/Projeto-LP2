@@ -44,4 +44,8 @@ public class Validacao {
         validaString(estado, "Erro ao cadastrar pessoa: estado nao pode ser vazio ou nulo");
         validaDni(dni, "Erro ao cadastrar pessoa: dni invalido");
     }
+
+    public void validaCadastraPartido(String partido) {
+        validaString(partido, "Erro ao cadastrar partido: partido nao pode ser vazio ou nulo");
+    }
 }

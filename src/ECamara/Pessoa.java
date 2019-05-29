@@ -9,11 +9,11 @@ public class Pessoa {
     private String partido;
     private String interesses;
     private Funcao funcao;
-    private Validacao v;
+    private Validacao validaEntrada;
 
     public Pessoa(String nome, String dni, String estado, String interesses){
-        this.v = new Validacao();
-        this.v.validarCadastroPessoa(dni, nome, estado);
+        this.validaEntrada = new Validacao();
+        this.validaEntrada.validarCadastroPessoa(dni, nome, estado);
         this.dni = dni;
         this.nome =  nome;
         this.estado = estado;

@@ -31,9 +31,13 @@ public class Facade {
     public String exibirPessoa(String dni) {
         return this.systemControl.exibirPessoa(dni);
     }
+    */
+    public void cadastrarPartido(String partido) {
+        this.systemControl.cadastraPartido(partido);
+    }
 
     public String exibirBase() {
         return this.systemControl.exibirBase();
-    } */
+    }
 
 }
