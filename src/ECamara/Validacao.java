@@ -1,3 +1,5 @@
+package ECamara;
+
 import java.util.HashSet;
 
 public class Validacao {

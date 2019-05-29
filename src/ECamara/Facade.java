@@ -1,15 +1,17 @@
+package ECamara;
+
 import easyaccept.EasyAccept;
 
 public class Facade {
 
     private SystemControl systemControl;
 
-    public Facade(SystemControl systemControl) {
-        this.systemControl = systemControl;
+    public Facade() {
+        this.systemControl = new SystemControl();
     }
 
     public static void main(String[] args) {
-        args = new String[] {"saga.Facade", "acceptance_test/use_case_1.txt", "acceptance_test/use_case_2.txt",
+        args = new String[] {"ECamara.Facade", "acceptance_test/use_case_1.txt", "acceptance_test/use_case_2.txt",
                 "acceptance_test/use_case_3.txt", "acceptance_test/use_case_4.txt"};
         EasyAccept.main(args);
     }
@@ -22,7 +24,7 @@ public class Facade {
         this.systemControl.cadastrarPessoa(nome, dni, estado, interesses, partido);
     }
 
-    public void cadastrarDeputado(String dni, String dataDeInicio) {
+    /*public void cadastrarDeputado(String dni, String dataDeInicio) {
         this.systemControl.cadastraDeputado(dni, dataDeInicio);
     }
 
@@ -32,6 +34,6 @@ public class Facade {
 
     public String exibirBase() {
         return this.systemControl.exibirBase();
-    }
+    } */
 
 }

@@ -1,3 +1,5 @@
+package ECamara;
+
 import java.util.Objects;
 
 public class Pessoa {

@@ -1,3 +1,7 @@
+package ECamara;
+
+import ECamara.Pessoa;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -30,7 +34,7 @@ public class SystemControl {
         }
     }
 
-    public void cadastraDeputado(String dni, String dataDeInicio) {
+    /*public void cadastraDeputado(String dni, String dataDeInicio) {
     }
 
 
@@ -38,5 +42,5 @@ public class SystemControl {
     }
 
     public String exibirBase() {
-    }
+    } */
 }
