@@ -12,9 +12,9 @@ public class SystemControl {
     private Validacao validaEntradas;
 
     public SystemControl(){
-        this.validaEntradas = new Validacao();
         this.mapPessoas =  new HashMap<>();
         this.partidos = new HashSet<>();
+        this.validaEntradas = new Validacao();
     }
 
     public void cadastrarPessoaSemPartido(String nome, String dni, String estado, String interesses) {
@@ -23,9 +23,8 @@ public class SystemControl {
         if (this.mapPessoas.containsKey(dni)){
             throw new IllegalArgumentException("Erro ao cadastrar pessoa: dni ja cadastrado");
         }
-        else {
-            this.mapPessoas.put(dni, new Pessoa(nome, dni, estado, interesses));
-        }
+
+        this.mapPessoas.put(dni, new Pessoa(nome, dni, estado, interesses));
     }
 
     public void cadastrarPessoa(String nome, String dni, String estado, String interesses, String partido) {
@@ -34,9 +33,8 @@ public class SystemControl {
         if (this.mapPessoas.containsKey(dni)){
             throw new IllegalArgumentException("Erro ao cadastrar pessoa: dni ja cadastrado");
         }
-        else {
-            this.mapPessoas.put(dni, new Pessoa(nome, dni, estado, interesses, partido));
-        }
+
+        this.mapPessoas.put(dni, new Pessoa(nome, dni, estado, interesses, partido));
     }
 
     public void cadastraDeputado(String dni, String dataDeInicio) {
@@ -77,10 +75,12 @@ public class SystemControl {
 
     public void cadastraPartido(String partido) {
         validaEntradas.validaCadastraPartido(partido);
+
         this.partidos.add(partido);
     }
 
     public String exibirBase() {
+        // Ordenando os partidos em ordem alfabetica em uma lista.
         ArrayList<String> listaPartidos = new ArrayList<>(this.partidos);
         Collections.sort(listaPartidos);
 
