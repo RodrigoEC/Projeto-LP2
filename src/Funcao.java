@@ -1,2 +1,2 @@
-public class Funcao {
+public interface Funcao {
 }

@@ -1,3 +1,3 @@
-public interface Deputado {
+public class Deputado {
 
 }
