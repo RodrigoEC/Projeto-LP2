@@ -7,15 +7,15 @@ import java.util.Map;
 
 public class SystemControl {
     private Map<String, Pessoa> mapPessoas;
-    private Validacao v;
+    private ECamara.Validacao validaEntradas;
 
     public SystemControl(){
-        this.v = new Validacao();
+        this.validaEntradas = new ECamara.Validacao();
         this.mapPessoas =  new HashMap<>();
     }
 
     public void cadastrarPessoaSemPartido(String nome, String dni, String estado, String interesses) {
-        this.v.validarCadastroPessoa(dni, nome, estado);
+        this.validaEntradas.validarCadastroPessoa(dni, nome, estado);
         if (this.mapPessoas.containsKey(dni)){
             throw new IllegalArgumentException("Erro ao cadastrar pessoa: dni ja cadastrado");
         }
@@ -25,7 +25,7 @@ public class SystemControl {
     }
 
     public void cadastrarPessoa(String nome, String dni, String estado, String interesses, String partido) {
-        this.v.validarCadastroPessoa(dni, nome, estado);
+        this.validaEntradas.validarCadastroPessoa(dni, nome, estado);
         if (this.mapPessoas.containsKey(dni)){
             throw new IllegalArgumentException("Erro ao cadastrar pessoa: dni ja cadastrado");
         }

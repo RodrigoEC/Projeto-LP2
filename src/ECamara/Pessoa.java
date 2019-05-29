@@ -8,12 +8,12 @@ public class Pessoa {
     private String estado;
     private String partido;
     private String interesses;
-    private Funcao funcao;
-    private Validacao v;
+    private ECamara.Funcao funcao;
+    private ECamara.Validacao validaEntradas;
 
     public Pessoa(String nome, String dni, String estado, String interesses){
-        this.v = new Validacao();
-        this.v.validarCadastroPessoa(dni, nome, estado);
+        this.validaEntradas = new ECamara.Validacao();
+        this.validaEntradas.validarCadastroPessoa(dni, nome, estado);
         this.dni = dni;
         this.nome =  nome;
         this.estado = estado;
