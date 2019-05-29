@@ -3,21 +3,22 @@ package ECamara;
 import java.util.HashSet;
 
 public class Validacao {
-    private HashSet<String> caractereDni;
+
+    private HashSet<Character> caractereDni;
 
     public Validacao() {
         this.caractereDni = new HashSet<>();
-        this.caractereDni.add("1");
-        this.caractereDni.add("2");
-        this.caractereDni.add("3");
-        this.caractereDni.add("4");
-        this.caractereDni.add("5");
-        this.caractereDni.add("6");
-        this.caractereDni.add("7");
-        this.caractereDni.add("8");
-        this.caractereDni.add("9");
-        this.caractereDni.add("0");
-        this.caractereDni.add("-");
+        this.caractereDni.add('1');
+        this.caractereDni.add('2');
+        this.caractereDni.add('3');
+        this.caractereDni.add('4');
+        this.caractereDni.add('5');
+        this.caractereDni.add('6');
+        this.caractereDni.add('7');
+        this.caractereDni.add('8');
+        this.caractereDni.add('9');
+        this.caractereDni.add('0');
+        this.caractereDni.add('-');
     }
 
     private void validaString(String frase, String mensagem) {
