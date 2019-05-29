@@ -17,6 +17,7 @@ public class SystemControl {
 
     public void cadastrarPessoaSemPartido(String nome, String dni, String estado, String interesses) {
         this.validaEntradas.validarCadastroPessoa(dni, nome, estado);
+
         if (this.mapPessoas.containsKey(dni)){
             throw new IllegalArgumentException("Erro ao cadastrar pessoa: dni ja cadastrado");
         }
@@ -27,6 +28,7 @@ public class SystemControl {
 
     public void cadastrarPessoa(String nome, String dni, String estado, String interesses, String partido) {
         this.validaEntradas.validarCadastroPessoa(dni, nome, estado);
+
         if (this.mapPessoas.containsKey(dni)){
             throw new IllegalArgumentException("Erro ao cadastrar pessoa: dni ja cadastrado");
         }
