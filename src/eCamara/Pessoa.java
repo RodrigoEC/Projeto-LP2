@@ -25,7 +25,7 @@ public class Pessoa {
         this.partido = partido;
     }
 
-    public void cadastraPessoa(String dataInicio){
+    public void cadastraDeputado(String dataInicio){
         this.funcao = new Deputado(dataInicio);
     }
 
