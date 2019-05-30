@@ -36,20 +36,26 @@ public class SystemControl {
     }
 
     public void cadastraDeputado(String dni, String dataDeInicio) {
+        this.validaEntradas.validaCadastroDeputado(dni);
 
-        this.validaEntradas.validaCadastroDeputado(dni, dataDeInicio);
-
-        if (!(mapPessoas.containsKey(dni))) {
+        if (dni == null || dni.trim().equals("")){
+            throw new IllegalArgumentException("Erro ao cadastrar pessoa: dni nao pode ser vazio ou nulo");
+        }
+        if (!(mapPessoas.containsKey(dni))){
             throw new IllegalArgumentException("Erro ao cadastrar deputado: pessoa nao encontrada");
+        }
+        if (dataDeInicio == null || dataDeInicio.equals("")){
+            throw new IllegalArgumentException("Erro ao cadastrar deputado: data nao pode ser vazio ou nulo");
         }
 
         // SimpleDateFormat é classe que faz a formatacao da data.
         SimpleDateFormat sdf = new SimpleDateFormat("ddMMyyyy");
+        sdf.setLenient(false);
         try {
             Date dataInicio = sdf.parse(dataDeInicio);
             // conversao de data como String para o tipo Date.
             Date dataAtual = new Date();
-            if (dataAtual.compareTo(dataInicio) > 1) {
+            if (dataInicio.compareTo(dataAtual) > 0) {
                 throw new IllegalArgumentException("Erro ao cadastrar deputado: data futura");
             }
         } catch (ParseException pe) {
@@ -61,7 +67,7 @@ public class SystemControl {
         // nao tem teste no easy accept pra essa excecao
         //else if (!(mapPessoas.get(dni).getFuncao() instanceof Deputado)) {
         //throw new IllegalArgumentException("Erro ao cadastrar deputado: pessoa ja e deputado");
-        }
+    }
 
 
     public String exibirPessoa(String dni) {

@@ -29,13 +29,11 @@ public class Validacao {
         validaDni(dni, "Erro ao cadastrar pessoa: dni invalido");
     }
 
-    public void validaCadastroDeputado(String dni, String dataDeInicio) {
-        validaString(dataDeInicio, "Erro ao cadastrar deputado: data nao pode ser vazio ou nulo");
+    public void validaCadastroDeputado(String dni) {
         validaString(dni, "Erro ao cadastrar pessoa: dni nao pode ser vazio ou nulo");
         validaDni(dni, "Erro ao cadastrar deputado: dni invalido");
 
     }
-
 
     /**
      * Metodo responsavel por validar a string que representa um partido no metodo "cadastrarPartido". Caso a entrada for
