@@ -1,6 +1,4 @@
-package ECamara;
-
-import ECamara.Pessoa;
+package eCamara;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
