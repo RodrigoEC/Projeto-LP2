@@ -85,7 +85,7 @@ public class SystemControl {
     }
 
     /**
-     * Metodo responsavel por cadastras um partidos no Hashset de partidos, o partido eh uma string.
+     * Metodo responsavel por cadastrar um partidos no Hashset de partidos, o partido eh uma string.
      * @param partido string que representa o partido
      */
     public void cadastraPartido(String partido) {

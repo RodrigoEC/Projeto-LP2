@@ -25,6 +25,10 @@ public class Pessoa {
         this.partido = partido;
     }
 
+    public void cadastraPessoa(String dataInicio){
+        this.funcao = new Deputado(dataInicio);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
