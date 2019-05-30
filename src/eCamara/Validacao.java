@@ -1,6 +1,4 @@
-package ECamara;
-
-import java.util.HashSet;
+package eCamara;
 
 public class Validacao {
 
@@ -31,6 +29,20 @@ public class Validacao {
         validaDni(dni, "Erro ao cadastrar pessoa: dni invalido");
     }
 
+    public void validaCadastroDeputado(String dni, String dataDeInicio) {
+        validaString(dataDeInicio, "Erro ao cadastrar deputado: data nao pode ser vazio ou nulo");
+        validaString(dni, "Erro ao cadastrar pessoa: dni nao pode ser vazio ou nulo");
+        validaDni(dni, "Erro ao cadastrar deputado: dni invalido");
+
+    }
+
+
+    /**
+     * Metodo responsavel por validar a string que representa um partido no metodo "cadastrarPartido". Caso a entrada for
+     * vazia, somente formada de espacos ou nula uma excecao sera lancada com a mensagem de acordo.
+     *
+     * @param partido string que representa o partido.
+     */
     public void validaCadastraPartido(String partido) {
         validaString(partido, "Erro ao cadastrar partido: partido nao pode ser vazio ou nulo");
     }
