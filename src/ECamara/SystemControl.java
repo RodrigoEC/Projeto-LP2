@@ -69,9 +69,19 @@ public class SystemControl {
         }
     }
 
+    public String exibirPessoa(String dni) {
+        this.validaEntradas.validaExibirPessoa(dni);
 
+        if (!this.mapPessoas.containsKey(dni)){
+            throw new IllegalArgumentException("Erro ao exibir pessoa: pessoa nao encontrada");
+        }
 
-    //public String exibirPessoa(String dni) {
+        if(this.mapPessoas.get(dni).getFuncao()!= null){
+            return this.mapPessoas.get(dni).toStringPelaFuncao();
+        }
+
+        return this.mapPessoas.get(dni).toString();
+    }
 
     public void cadastraPartido(String partido) {
         validaEntradas.validaCadastraPartido(partido);

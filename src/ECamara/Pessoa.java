@@ -45,5 +45,27 @@ public class Pessoa {
     public Funcao getFuncao() {
         return funcao;
     }
-}
 
+    public String toStringPelaFuncao(){
+        return "POL: " + this.toString() + funcao.toString();
+    }
+
+    @Override
+    public String toString(){
+        if (this.partido == null){
+            if (this.interesses.trim().equals("")) {
+                return this.nome + " - " + this.dni + " (" + this.estado + ")";
+            } else{
+                return this.nome + " - " + this.dni + " (" + this.estado + ")" + " - Interesses: " + this.interesses;
+            }
+        } else{
+            if (this.interesses.trim().equals("")){
+                return this.nome + " - " + this.dni + " (" + this.estado + ")" + " - " + this.partido;
+            }
+        }
+
+        return this.nome + " - " + this.dni + " (" + this.estado + ")" + " - " + this.partido + " - Interesses: " + this.interesses;
+    }
+
+
+}

@@ -2,7 +2,7 @@ package ECamara;
 
 import java.util.Objects;
 
-public class Deputado {
+public class Deputado implements Funcao{
 
     private String dataInicio;
     private Integer qtdLeis;
@@ -26,5 +26,10 @@ public class Deputado {
     @Override
     public int hashCode() {
         return Objects.hash(dataInicio, qtdLeis);
+    }
+
+    @Override
+    public String toString(){
+        return " - " + this.dataInicio + " - " + this.qtdLeis + " Leis";
     }
 }
