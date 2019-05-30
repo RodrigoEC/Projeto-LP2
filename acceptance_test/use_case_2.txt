@@ -56,5 +56,3 @@ expectError "Erro ao cadastrar deputado: dni invalido" cadastrarDeputado dni=" 2
 expectError "Erro ao cadastrar deputado: dni invalido" cadastrarDeputado dni=" 22222222-0" dataDeInicio="29022017"
 expectError "Erro ao cadastrar deputado: dni invalido" cadastrarDeputado dni=" 22222222-0" dataDeInicio="29022116"
 
-# salva o sistema em arquivos
-salvarSistema

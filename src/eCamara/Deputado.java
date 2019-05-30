@@ -1,4 +1,4 @@
-package ECamara;
+package eCamara;
 
 import java.util.Objects;
 

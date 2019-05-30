@@ -1,6 +1,4 @@
-package ECamara;
-
-import ECamara.Pessoa;
+package eCamara;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -39,10 +37,10 @@ public class SystemControl {
 
     public void cadastraDeputado(String dni, String dataDeInicio) {
 
-        if (dni == null || dni.equals("")) {
-            throw new IllegalArgumentException("Erro ao cadastrar pessoa: dni nao pode ser vazio ou nulo");
-        } else if (dataDeInicio == null || dataDeInicio.equals("")) {
-            throw new IllegalArgumentException("Erro ao cadastrar deputado: data nao pode ser vazio ou nulo");
+        this.validaEntradas.validaCadastroDeputado(dni, dataDeInicio);
+
+        if (!(mapPessoas.containsKey(dni))) {
+            throw new IllegalArgumentException("Erro ao cadastrar deputado: pessoa nao encontrada");
         }
 
         // SimpleDateFormat é classe que faz a formatacao da data.
@@ -57,17 +55,14 @@ public class SystemControl {
         } catch (ParseException pe) {
             throw new IllegalArgumentException("Erro ao cadastrar deputado: data invalida");
         }
-
-        if (!mapPessoas.containsKey(dni)) {
-            throw new IllegalArgumentException("Erro ao cadastrar deputado: pessoa nao encontrada");
-        } else if ((mapPessoas.get(dni).getPartido()) == null) {
+        if ((mapPessoas.get(dni).getPartido()) == null) {
             throw new IllegalArgumentException("Erro ao cadastrar deputado: pessoa sem partido");
         }
         // nao tem teste no easy accept pra essa excecao
-        else if (!(mapPessoas.get(dni).getFuncao() instanceof Deputado)) {
-            throw new IllegalArgumentException("Erro ao cadastrar deputado: pessoa ja e deputado");
+        //else if (!(mapPessoas.get(dni).getFuncao() instanceof Deputado)) {
+        //throw new IllegalArgumentException("Erro ao cadastrar deputado: pessoa ja e deputado");
         }
-    }
+
 
 
 
