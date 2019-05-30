@@ -71,5 +71,20 @@ public class Pessoa {
         return this.nome + " - " + this.dni + " (" + this.estado + ")" + " - " + this.partido + " - Interesses: " + this.interesses;
     }
 
+    public String getDni() {
+        return this.dni;
+    }
+
+    public String getNome() {
+        return this.nome;
+    }
+
+    public String getEstado() {
+        return this.estado;
+    }
+
+    public String getInteresses() {
+        return this.interesses;
+    }
 
 }
