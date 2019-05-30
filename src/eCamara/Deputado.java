@@ -7,7 +7,7 @@ public class Deputado implements Funcao{
     private String dataInicio;
     private Integer qtdLeis;
 
-    public Deputado(String dataInicio){
+    public Deputado(String dataInicio) {
 
         //Fazer as validacoes do construtor
         this.dataInicio = dataInicio;
@@ -30,6 +30,9 @@ public class Deputado implements Funcao{
 
     @Override
     public String toString(){
-        return " - " + this.dataInicio + " - " + this.qtdLeis + " Leis";
+        char[] data = this.dataInicio.toCharArray();
+        String dataFormatada = "" + data[0] + data[1] + "/"+ data[2] + data[3]+ "/" + data[4] + data[5] + data[6] + data[7];
+
+        return " - " + dataFormatada + " - " + this.qtdLeis + " Leis";
     }
 }

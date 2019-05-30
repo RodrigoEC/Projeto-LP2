@@ -48,4 +48,8 @@ public class Facade {
 
     }
 
+    public void limparSistema(){
+
+    }
+
 }

@@ -51,7 +51,7 @@ public class Pessoa {
     }
 
     public String toStringPelaFuncao(){
-        return "POL: " + this.toString() + funcao.toString();
+        return "POL: " + this.toString() + this.funcao.toString();
     }
 
     @Override
