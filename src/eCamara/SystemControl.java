@@ -92,4 +92,8 @@ public class SystemControl {
 
         return partidos;
     }
+
+    public Set<String> getPartidos() {
+        return partidos;
+    }
 }
