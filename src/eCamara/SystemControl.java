@@ -67,6 +67,8 @@ public class SystemControl {
         // nao tem teste no easy accept pra essa excecao
         //else if (!(mapPessoas.get(dni).getFuncao() instanceof Deputado)) {
         //throw new IllegalArgumentException("Erro ao cadastrar deputado: pessoa ja e deputado");
+        
+        this.mapPessoas.get(dni).cadastraDeputado(dataDeInicio);
     }
 
 
