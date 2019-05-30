@@ -37,6 +37,12 @@ public class Validacao {
     }
 
 
+    /**
+     * Metodo responsavel por validar a string que representa um partido no metodo "cadastrarPartido". Caso a entrada for
+     * vazia, somente formada de espacos ou nula uma excecao sera lancada com a mensagem de acordo.
+     *
+     * @param partido string que representa o partido.
+     */
     public void validaCadastraPartido(String partido) {
         validaString(partido, "Erro ao cadastrar partido: partido nao pode ser vazio ou nulo");
     }

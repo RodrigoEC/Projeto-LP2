@@ -68,12 +68,21 @@ public class SystemControl {
 
     //public String exibirPessoa(String dni) {
 
+    /**
+     * Metodo responsavel por cadastras um partidos no Hashset de partidos, o partido eh uma string.
+     * @param partido string que representa o partido
+     */
     public void cadastraPartido(String partido) {
         validaEntradas.validaCadastraPartido(partido);
 
         this.partidos.add(partido);
     }
 
+    /**
+     * Metodo responsavel por exibir todos os partidos que ja foram cadastrados no sistema.
+     *
+     * @return uma string que representa todos os partidos ja cadastrados.
+     */
     public String exibirBase() {
         // Ordenando os partidos em ordem alfabetica em uma lista.
         ArrayList<String> listaPartidos = new ArrayList<>(this.partidos);
