@@ -49,5 +49,4 @@ public class Validacao {
         validaString(dni, "Erro ao exibir pessoa: dni nao pode ser vazio ou nulo");
         validaDni(dni, "Erro ao exibir pessoa: dni invalido");
     }
-
 }
