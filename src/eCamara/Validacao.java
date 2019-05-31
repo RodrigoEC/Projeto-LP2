@@ -26,10 +26,13 @@ public class Validacao {
         }
     }
 
-    public void validaData(String dataInicio, String mensagem) {
-        if (dataInicio == null || dataInicio.equals("")) {
-            throw new IllegalArgumentException(mensagem);
-        }
+    public void validarCadastroPessoa(String dni, String nome, String estado) {
+        validaString(nome, "Erro ao cadastrar pessoa: nome nao pode ser vazio ou nulo");
+        validaString(dni, "Erro ao cadastrar pessoa: dni nao pode ser vazio ou nulo");
+        validaString(estado, "Erro ao cadastrar pessoa: estado nao pode ser vazio ou nulo");
+        validaDni(dni, "Erro ao cadastrar pessoa: dni invalido");
+    }
+    public void validaDataFutura(String dataInicio, String mensagem){
         SimpleDateFormat sdf = new SimpleDateFormat("ddMMyyyy");
         sdf.setLenient(false);
         try {
@@ -41,24 +44,33 @@ public class Validacao {
         } catch (ParseException pe) {
             throw new IllegalArgumentException(mensagem);
         }
+
+    }
+
+    public void validaFormatoData(String dataInicio, String mensagem) {
+        SimpleDateFormat sdf = new SimpleDateFormat("ddMMyyyy");
+        sdf.setLenient(false);
+        try {
+            sdf.parse(dataInicio);
+        } catch (ParseException pe) {
+            throw new IllegalArgumentException(mensagem);
+        }
+
     }
 
 
-    public void validarCadastroPessoa(String dni, String nome, String estado) {
-        validaString(nome, "Erro ao cadastrar pessoa: nome nao pode ser vazio ou nulo");
+    public void validaDniCadastraDeputado(String dni){
         validaString(dni, "Erro ao cadastrar pessoa: dni nao pode ser vazio ou nulo");
-        validaString(estado, "Erro ao cadastrar pessoa: estado nao pode ser vazio ou nulo");
-        validaDni(dni, "Erro ao cadastrar pessoa: dni invalido");
+        validaDni(dni,"Erro ao cadastrar deputado: dni invalido");
+
     }
 
-    public void validaCadastroDeputado(String dni, String dataInicio) {
-        validaString(dni, "Erro ao cadastrar pessoa: dni nao pode ser vazio ou nulo");
-        validaDni(dni, "Erro ao cadastrar deputado: dni invalido");
-        validaData(dataInicio, "Erro ao cadastrar deputado: data futura");
-        validaData(dataInicio, "Erro ao cadastrar deputado: data invalida");
-        validaData(dataInicio, "Erro ao cadastrar deputado: data nao pode ser vazio ou nulo");
-    }
+    public void validaDataCadastroDeputado(String dataInicio){
+        validaString(dataInicio, "Erro ao cadastrar deputado: data nao pode ser vazio ou nulo");
+        validaFormatoData(dataInicio, "Erro ao cadastrar deputado: data invalida");
+        validaDataFutura(dataInicio, "Erro ao cadastrar deputado: data futura");
 
+    }
 
     /**
      * Metodo responsavel por validar a string que representa um partido no metodo "cadastrarPartido". Caso a entrada for

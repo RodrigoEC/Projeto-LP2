@@ -36,11 +36,13 @@ public class SystemControl {
     }
 
     public void cadastraDeputado(String dni, String dataInicio) {
-        this.validaEntradas.validaCadastroDeputado(dni, dataInicio);
+
+        this.validaEntradas.validaDniCadastraDeputado(dni);
 
         if (!(mapPessoas.containsKey(dni))) {
             throw new IllegalArgumentException("Erro ao cadastrar deputado: pessoa nao encontrada");
         }
+        this.validaEntradas.validaDataCadastroDeputado(dataInicio);
 
         if ((mapPessoas.get(dni).getPartido()) == null) {
             throw new IllegalArgumentException("Erro ao cadastrar deputado: pessoa sem partido");
@@ -52,6 +54,7 @@ public class SystemControl {
     }
 
     public String exibirPessoa(String dni) {
+
         this.validaEntradas.validaExibirPessoa(dni);
 
         if (!this.mapPessoas.containsKey(dni)){
