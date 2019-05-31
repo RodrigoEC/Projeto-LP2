@@ -4,16 +4,40 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
+/**
+ * Objeto que representa o Controller do sistema, tem como atributos o objeto de Validacao, um Map de Pessoa e um Set de Partido (String).
+ */
+
 public class SystemControl {
+    /** Map de Pessoa */
     private Map<String, Pessoa> mapPessoas;
+    /** Set de Partidos (String) */
     private Set<String> partidos;
+    /** Objeto de Validacao */
     private Validacao validaEntradas;
 
+    /**
+     * Constroi o SystemControl(Controller), inicia o Map e o Set e instancia o Objeto de validacao.
+     */
     public SystemControl(){
         this.mapPessoas =  new HashMap<>();
         this.partidos = new HashSet<>();
         this.validaEntradas = new Validacao();
     }
+
+    /**
+     * Metodo que cadastra um Pessoa que nao tem partido. Recebe Strings com o nome, dni, estado e
+     * interesses. Delega a validacao para o objeto validador Validacao, faz uso do seu metodo validarCadastroPessoa.
+     * Tambem verifica (antes de inserir no Map) se a Pessoa ja se encontra cadastrada pelo seu dni, se ja estiver sera
+     * lancada excecao, se nao tiver sera cadastrada com sucesso.
+     *
+     * @param nome String com o nome.
+     * @param dni String com o dni.
+     * @param estado String com o estado.
+     * @param interesses String com o(s) interese(s).
+     *
+     * @throws IllegalArgumentException Erro ao cadastrar pessoa: dni ja cadastrado.
+     */
 
     public void cadastrarPessoaSemPartido(String nome, String dni, String estado, String interesses) {
         this.validaEntradas.validarCadastroPessoa(dni, nome, estado);
@@ -24,6 +48,21 @@ public class SystemControl {
 
         this.mapPessoas.put(dni, new Pessoa(nome, dni, estado, interesses));
     }
+
+    /**
+     * Metodo que cadastra um Pessoa que tem partido. Recebe Strings com o nome, dni, estado, interesses e
+     * partido. Delega a validacao para o objeto validador Validacao, faz uso do seu metodo validarCadastroPessoa.
+     * Tambem verifica (antes de inserir no Map) se a Pessoa ja se encontra cadastrada pelo seu dni, se ja estiver sera
+     * lancada excecao, se nao tiver sera cadastrada com sucesso.
+     *
+     * @param nome String com o nome.
+     * @param dni String com o dni.
+     * @param estado String com o estado.
+     * @param interesses String com o(s) interese(s).
+     * @param partido String com o partido.
+     *
+     * @throws IllegalArgumentException Erro ao cadastrar pessoa: dni ja cadastrado.
+     */
 
     public void cadastrarPessoa(String nome, String dni, String estado, String interesses, String partido) {
         this.validaEntradas.validarCadastroPessoa(dni, nome, estado);

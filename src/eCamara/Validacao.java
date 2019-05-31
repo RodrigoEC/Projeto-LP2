@@ -6,7 +6,16 @@ import java.util.Date;
 
 public class Validacao {
 
-
+    /**
+     * Metodo que verifica se uma String e valida, uma String eh valida se ela nao for nula nem vazia. Recebe uma
+     * String a ser avaliada e uma mensagem a ser exibida no erro.
+     *
+     * @param frase String com a frase a ser avaliada.
+     * @param mensagem String com a mensagem a ser exibida.
+     *
+     * @throws NullPointerException mensagem.
+     * @throws IllegalArgumentException mensagem.
+     */
     private void validaString(String frase, String mensagem) {
         if (frase == null) {
             throw new NullPointerException(mensagem);
@@ -15,6 +24,16 @@ public class Validacao {
             throw new IllegalArgumentException(mensagem);
         }
     }
+
+    /**
+     * Metodo que valida o dni, o dni eh valido se nele so contiver numeros e -. Recebe o dni a ser avaliado
+     * e a mensagem a ser exibida.
+     *
+     * @param dni String com o dni.
+     * @param mensagem String com a mensagem.
+     *
+     * @throws IllegalArgumentException mensagem.
+     */
 
     private void validaDni(String dni, String mensagem) {
         String[] array = dni.split("-");
@@ -25,6 +44,15 @@ public class Validacao {
             throw new IllegalArgumentException(mensagem);
         }
     }
+
+    /**
+     * Metodo que valida o cadastro de uma Pessoa, delega as verificacoes para os metodos validaString e validaDni.
+     * Recebe Strings com o dni, nome, e estado.
+     *
+     * @param dni String com o dni.
+     * @param nome String com nome.
+     * @param estado String com estado.
+     */
 
     public void validarCadastroPessoa(String dni, String nome, String estado) {
         validaString(nome, "Erro ao cadastrar pessoa: nome nao pode ser vazio ou nulo");

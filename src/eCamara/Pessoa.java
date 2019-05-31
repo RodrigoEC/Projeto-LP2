@@ -2,14 +2,35 @@ package eCamara;
 
 import java.util.Objects;
 
+/**
+ * Objeto que representa uma Pessoa, tem como atributos, em String, um DNI, Nome, Estado, Partido e Interesses, tem tambem
+ * uma Funcao do tipo Funcao, essa Funcao vai indicar se ele eh ou nao Deputado, por ultimo tem um Objeto de Validacao.
+ */
 public class Pessoa {
+    /** String  com o dni. */
     private String dni;
+    /** String com o nome. */
     private String nome;
+    /** String com o estado. */
     private String estado;
+    /** String com o partido. */
     private String partido;
+    /** String com os interesses. */
     private String interesses;
+    /** Funcao do tipo Funcao. */
     private Funcao funcao;
     private Validacao validaEntrada;
+
+    /**
+     * Constroi a Pessoa recebe como parametro Strings com o nome, dni, estado e interesses. Lanca uma excecao caso o dni
+     * seja invalido, um dni eh invalido se for nulo, vazio ou contiver caracteres diferentes de numero e -. Lanca excecao tambem
+     * se o nome ou estado, se pelo menos um for vazio ou nulo. Faz uso do metodo validarCadastroPessoa de Validacao.
+     *
+     * @param nome String com o nome.
+     * @param dni String com o dni.
+     * @param estado String com o estado.
+     * @param interesses String com os interesses.
+     */
 
     public Pessoa(String nome, String dni, String estado, String interesses){
         this.validaEntrada = new Validacao();
@@ -20,6 +41,18 @@ public class Pessoa {
         this.interesses = interesses;
     }
 
+    /**
+     * Constroi a Pessoa recebe como parametro Strings com o nome, dni, estado, interesses e Partido. Lanca uma excecao caso o dni
+     * seja invalido, um dni eh invalido se for nulo, vazio ou contiver caracteres diferentes de numero e -. Lanca excecao tambem
+     * se o nome ou estado, se pelo menos um for vazio ou nulo. Faz uso do primeiro construtor.
+     *
+     * @param nome String com o nome.
+     * @param dni String com o dni.
+     * @param estado String com o estado.
+     * @param interesses String com os interesses.
+     * @param partido String com o partido.
+     */
+
     public Pessoa(String nome, String dni, String estado, String interesses, String partido){
         this(nome, dni, estado, interesses);
         this.partido = partido;
@@ -29,6 +62,14 @@ public class Pessoa {
         this.funcao = new Deputado(dataInicio);
     }
 
+    /**
+     * Metodo que verifica se uma Pessoa eh igual a outro objeto. Uma Pessoa eh igual a outro objeto se esse outro objeto
+     * for do tipo Pessoa e se tiverem o mesmo dni. Retorna True se forem iguais e False se forem diferentes.
+     *
+     * @param o Objeto a ser comparado a igualdade.
+     * @return boolean True se forem iguais e False se forem diferentes.
+     */
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -36,6 +77,13 @@ public class Pessoa {
         Pessoa pessoa = (Pessoa) o;
         return Objects.equals(dni, pessoa.dni);
     }
+
+    /**
+     * Metodo que calcula o HashCode de uma Pessoa. Retorna um inteiro referente ao calculo do HashCode.
+     * O HashCode eh calculado a partir do dni.
+     *
+     * @return Inteiro calculado a partir do dni.
+     */
 
     @Override
     public int hashCode() {
@@ -71,17 +119,41 @@ public class Pessoa {
         return this.nome + " - " + this.dni + " (" + this.estado + ")" + " - " + this.partido + " - Interesses: " + this.interesses;
     }
 
+    /**
+     * Metodo que retorna uma String com o dni da Pessoa.
+     *
+     * @return String com o dni.
+     */
+
     public String getDni() {
         return this.dni;
     }
+
+    /**
+     * Metodo que retorna uma String com o nome da Pessoa.
+     *
+     * @return String com o nome.
+     */
 
     public String getNome() {
         return this.nome;
     }
 
+    /**
+     * Metodo quue retorna uma String com o estado da Pessoa.
+     *
+     * @return String com o estado.
+     */
+
     public String getEstado() {
         return this.estado;
     }
+
+    /**
+     * Metodo que retorna uma String com o(s) interesse(s) da Pessaoa.
+     *
+     * @return String com o(s) interesse(s).
+     */
 
     public String getInteresses() {
         return this.interesses;
