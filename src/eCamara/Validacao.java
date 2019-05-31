@@ -72,6 +72,10 @@ public class Validacao {
 
     }
 
+    public void validaDeputado(String dataInicio){
+        validaString(dataInicio, "Data de inicio da funcao como deputado não pode ser vazia ou nula");
+    }
+
     /**
      * Metodo responsavel por validar a string que representa um partido no metodo "cadastrarPartido". Caso a entrada for
      * vazia, somente formada de espacos ou nula uma excecao sera lancada com a mensagem de acordo.

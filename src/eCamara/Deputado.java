@@ -6,13 +6,15 @@ public class Deputado implements Funcao{
 
     private String dataInicio;
     private Integer qtdLeis;
+    private Validacao validaEntrada;
 
     public Deputado(String dataInicio) {
-
-        //Fazer as validacoes do construtor
+        this.validaEntrada = new Validacao();
+        this.validaEntrada.validaDeputado(dataInicio);
         this.dataInicio = dataInicio;
         this.qtdLeis = 0;
     }
+
 
     @Override
     public boolean equals(Object o) {
@@ -34,5 +36,8 @@ public class Deputado implements Funcao{
         String dataFormatada = "" + data[0] + data[1] + "/"+ data[2] + data[3]+ "/" + data[4] + data[5] + data[6] + data[7];
 
         return " - " + dataFormatada + " - " + this.qtdLeis + " Leis";
+    }
+    public String getDataInicio() {
+        return dataInicio;
     }
 }
