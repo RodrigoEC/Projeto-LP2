@@ -102,4 +102,8 @@ public class SystemControl {
     public Set<String> getPartidos() {
         return partidos;
     }
+
+    public Map<String, Pessoa> getMapPessoas(){
+        return this.mapPessoas;
+    }
 }
