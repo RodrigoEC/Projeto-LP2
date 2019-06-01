@@ -86,8 +86,9 @@ public class SystemControl {
         if ((mapPessoas.get(dni).getPartido()) == null) {
             throw new IllegalArgumentException("Erro ao cadastrar deputado: pessoa sem partido");
 
-        }//else if (!(mapPessoas.get(dni).getFuncao() instanceof Deputado)) {
-        //throw new IllegalArgumentException("Erro ao cadastrar deputado: pessoa ja e deputado");
+        }else if (mapPessoas.get(dni).getFuncao() instanceof Deputado) {
+            throw new IllegalArgumentException("Erro ao cadastrar deputado: pessoa ja e deputado");
+        }
 
         this.mapPessoas.get(dni).cadastraDeputado(dataInicio);
     }

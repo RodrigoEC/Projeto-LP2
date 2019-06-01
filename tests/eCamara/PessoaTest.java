@@ -11,11 +11,13 @@ class PessoaTest {
     private Pessoa p2;
     private Pessoa p3;
 
+
     @BeforeEach
     void setUp() {
         this.p = new Pessoa("Carlos", "0028490850-4", "PB", "sem interesse");
         this.p2 = new Pessoa("Joao", "0034240-234", "PB", "Rinha de galo", "LRG - LIBERA RINHA DE GALO");
         this.p3 = new Pessoa("CarlosCarlos", "0028490850-4", "PB", "sem interesse");
+
     }
 
     @Test
@@ -87,6 +89,21 @@ class PessoaTest {
             Pessoa p = new Pessoa("Jose", "563-3", null, "");
             fail("Era esperado excecao");
         } catch (NullPointerException npe) {
+        }
+    }
+    @Test
+    void deputadoTest1(){
+        this.p.cadastraDeputado("20012016");
+        assertTrue( this.p.getFuncao() != null);
+    }
+
+    @Test
+    void deputadoTest2() {
+        try {
+            this.p.cadastraDeputado("");
+            fail("Era esperado uma execao");
+        } catch (IllegalArgumentException iae) {
+
         }
     }
 
