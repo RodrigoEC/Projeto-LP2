@@ -4,6 +4,11 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+/**
+ * Classe que representa um validador de entradas dos parametros de todos os metodos os sistemas, se esses parametros
+ * forem invalidoss o nulos as excecoes adequadas serao lancadas.
+ *
+ */
 public class Validacao {
 
     /**
@@ -60,6 +65,14 @@ public class Validacao {
         validaString(estado, "Erro ao cadastrar pessoa: estado nao pode ser vazio ou nulo");
         validaDni(dni, "Erro ao cadastrar pessoa: dni invalido");
     }
+
+    /**
+     * Metodo responsavel por verificar se a data passada como parametro eh uma data que ainda nao chegou no calendario,
+     * ou seja, uma data do futuro.
+     *
+     * @param dataInicio data que sera verificada.
+     * @param mensagem mensagem quee sera enviada quando a excecao for lancada.
+     */
     public void validaDataFutura(String dataInicio, String mensagem){
         SimpleDateFormat sdf = new SimpleDateFormat("ddMMyyyy");
         sdf.setLenient(false);
@@ -75,6 +88,13 @@ public class Validacao {
 
     }
 
+    /**
+     * Metodo que verifica se a data passada no parametro esta no formato certo, ddMMyyyy, ou seja dia depois mes e depois
+     * ano.
+     *
+     * @param dataInicio data que sera validada.
+     * @param mensagem mensagem que sera enviada se a excecao for lancada.
+     */
     public void validaFormatoData(String dataInicio, String mensagem) {
         SimpleDateFormat sdf = new SimpleDateFormat("ddMMyyyy");
         sdf.setLenient(false);
@@ -87,12 +107,27 @@ public class Validacao {
     }
 
 
+    /**
+     * Metodo responsavel por validar o dni que eh passado como parametro no metodo cadastraDeputado, se o dni for nulo,
+     * composto somente de espacos ou uma string vazia uma excecao sera lancada. se o formato da dni for diferente do exigido
+     * uma excecao tambem sera lancada.
+     *
+     * @param dni dni a ser validada.
+     */
     public void validaDniCadastraDeputado(String dni){
         validaString(dni, "Erro ao cadastrar pessoa: dni nao pode ser vazio ou nulo");
         validaDni(dni,"Erro ao cadastrar deputado: dni invalido");
 
     }
 
+    /**
+     * Metodo responsavel por validar a data que eh passada como parametro no metodo cadastraDeputado, se a data for nula,
+     * composta somente de espacos ou uma string vazia uma excecao sera lancada.
+     * alem disso, se o formato da data for diferente de ddMMyyyy ou a data apresentada ainda nao chegou outra excecao
+     * sera lancada.
+     *
+     * @param dataInicio data que sera validada.
+     */
     public void validaDataCadastroDeputado(String dataInicio){
         validaString(dataInicio, "Erro ao cadastrar deputado: data nao pode ser vazio ou nulo");
         validaFormatoData(dataInicio, "Erro ao cadastrar deputado: data invalida");
@@ -100,6 +135,12 @@ public class Validacao {
 
     }
 
+    /**
+     * Metodo responsavel por validar a data que eh passada como parametro no metodo cadastraDeputado, se a data for nula,
+     * composta somente de espacos ou uma string vazia uma excecao sera lancada.
+     *
+     * @param dataInicio data que sera validada.
+     */
     public void validaDeputado(String dataInicio){
         validaString(dataInicio, "Data de inicio da funcao como deputado não pode ser vazia ou nula");
     }
@@ -114,6 +155,13 @@ public class Validacao {
         validaString(partido, "Erro ao cadastrar partido: partido nao pode ser vazio ou nulo");
     }
 
+    /**
+     * Metodo que valida o dni que eh passado como parametro no metodo ExibirPessoa, se o dni for nulo, composto somente
+     * de espacos ou uma string vazia uma excecao sera lancada. se o formato da dni for diferente do exigido uma excecao
+     * tambem sera lancada.
+     *
+     * @param dni dni a ser validada.
+     */
     public void validaExibirPessoa(String dni) {
         validaString(dni, "Erro ao exibir pessoa: dni nao pode ser vazio ou nulo");
         validaDni(dni, "Erro ao exibir pessoa: dni invalido");
