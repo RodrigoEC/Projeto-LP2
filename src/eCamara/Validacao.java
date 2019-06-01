@@ -106,6 +106,7 @@ public class Validacao {
 
     }
 
+
     /**
      * Metodo responsavel por validar o dni que eh passado como parametro no metodo cadastraDeputado, se o dni for nulo,
      * composto somente de espacos ou uma string vazia uma excecao sera lancada. se o formato da dni for diferente do exigido
