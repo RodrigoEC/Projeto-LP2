@@ -73,7 +73,7 @@ public class Validacao {
      * @param dataInicio data que sera verificada.
      * @param mensagem mensagem quee sera enviada quando a excecao for lancada.
      */
-    public void validaDataFutura(String dataInicio, String mensagem){
+    private void validaDataFutura(String dataInicio, String mensagem){
         SimpleDateFormat sdf = new SimpleDateFormat("ddMMyyyy");
         sdf.setLenient(false);
         try {
@@ -95,7 +95,7 @@ public class Validacao {
      * @param dataInicio data que sera validada.
      * @param mensagem mensagem que sera enviada se a excecao for lancada.
      */
-    public void validaFormatoData(String dataInicio, String mensagem) {
+    private void validaFormatoData(String dataInicio, String mensagem) {
         SimpleDateFormat sdf = new SimpleDateFormat("ddMMyyyy");
         sdf.setLenient(false);
         try {
