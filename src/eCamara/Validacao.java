@@ -50,21 +50,6 @@ public class Validacao {
         }
     }
 
-    /**
-     * Metodo que valida o cadastro de uma Pessoa, delega as verificacoes para os metodos validaString e validaDni.
-     * Recebe Strings com o dni, nome, e estado.
-     *
-     * @param dni String com o dni.
-     * @param nome String com nome.
-     * @param estado String com estado.
-     */
-
-    public void validarCadastroPessoa(String dni, String nome, String estado) {
-        validaString(nome, "Erro ao cadastrar pessoa: nome nao pode ser vazio ou nulo");
-        validaString(dni, "Erro ao cadastrar pessoa: dni nao pode ser vazio ou nulo");
-        validaString(estado, "Erro ao cadastrar pessoa: estado nao pode ser vazio ou nulo");
-        validaDni(dni, "Erro ao cadastrar pessoa: dni invalido");
-    }
 
     /**
      * Metodo responsavel por verificar se a data passada como parametro eh uma data que ainda nao chegou no calendario,
@@ -72,8 +57,10 @@ public class Validacao {
      *
      * @param dataInicio data que sera verificada.
      * @param mensagem mensagem quee sera enviada quando a excecao for lancada.
+     *
+     * @throws IllegalArgumentException mensagem.
      */
-    public void validaDataFutura(String dataInicio, String mensagem){
+    private void validaDataFutura(String dataInicio, String mensagem){
         SimpleDateFormat sdf = new SimpleDateFormat("ddMMyyyy");
         sdf.setLenient(false);
         try {
@@ -94,8 +81,10 @@ public class Validacao {
      *
      * @param dataInicio data que sera validada.
      * @param mensagem mensagem que sera enviada se a excecao for lancada.
+     *
+     * @throws IllegalArgumentException mensagem.
      */
-    public void validaFormatoData(String dataInicio, String mensagem) {
+    private void validaFormatoData(String dataInicio, String mensagem) {
         SimpleDateFormat sdf = new SimpleDateFormat("ddMMyyyy");
         sdf.setLenient(false);
         try {
@@ -106,6 +95,21 @@ public class Validacao {
 
     }
 
+    /**
+     * Metodo que valida o cadastro de uma Pessoa, delega as verificacoes para os metodos validaString e validaDni.
+     * Recebe Strings com o dni, nome, e estado.
+     *
+     * @param dni String com o dni.
+     * @param nome String com nome.
+     * @param estado String com estado.
+     *
+     */
+    public void validarCadastroPessoa(String dni, String nome, String estado) {
+        validaString(nome, "Erro ao cadastrar pessoa: nome nao pode ser vazio ou nulo");
+        validaString(dni, "Erro ao cadastrar pessoa: dni nao pode ser vazio ou nulo");
+        validaString(estado, "Erro ao cadastrar pessoa: estado nao pode ser vazio ou nulo");
+        validaDni(dni, "Erro ao cadastrar pessoa: dni invalido");
+    }
 
     /**
      * Metodo responsavel por validar o dni que eh passado como parametro no metodo cadastraDeputado, se o dni for nulo,
@@ -125,7 +129,7 @@ public class Validacao {
      * composta somente de espacos ou uma string vazia uma excecao sera lancada.
      * alem disso, se o formato da data for diferente de ddMMyyyy ou a data apresentada ainda nao chegou outra excecao
      * sera lancada.
-     *
+       *
      * @param dataInicio data que sera validada.
      */
     public void validaDataCadastroDeputado(String dataInicio){
