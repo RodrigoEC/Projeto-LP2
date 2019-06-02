@@ -312,6 +312,43 @@ class SystemControlTest {
     }
 
     @Test
+    void exibirPessoaArgumentosInvalidos(){
+        try{
+            this.systemControl.exibirPessoa(null);
+            fail("Era esperada uma excecao");
+        } catch (NullPointerException npe){}
+
+        try{
+            this.systemControl.exibirPessoa("");
+            fail("Era esperada uma excecao");
+        } catch (IllegalArgumentException iae){}
+
+    }
+
+    @Test
+    void exibirPessoaNaoCadastrada(){
+        try{
+            this.systemControl.exibirPessoa("1234-567");
+            fail("Era esperada uma excecao");
+        } catch (IllegalArgumentException iae){}
+    }
+
+    @Test
+    void exibirPessoaSemFuncao(){
+        this.systemControl.cadastrarPessoa("Joao", "0034240-234", "PB", "Rinha de galo", "LRG - LIBERA RINHA DE GALO");
+        assertEquals("Joao - 0034240-234 (PB) - LRG - LIBERA RINHA DE GALO - Interesses: Rinha de galo", this.systemControl.exibirPessoa("0034240-234"));
+    }
+
+    @Test
+    void exibirPessoaComFuncao(){
+        this.systemControl.cadastrarPessoa("Joao", "0034240-234", "PB", "Rinha de galo", "LRG - LIBERA RINHA DE GALO");
+        this.systemControl.cadastraDeputado("0034240-234", "01022018");
+        assertEquals("POL: Joao - 0034240-234 (PB) - LRG - LIBERA RINHA DE GALO - Interesses: Rinha de galo - 01/02/2018 - 0 Leis", this.systemControl.exibirPessoa("0034240-234"));
+    }
+
+
+
+    @Test
     void cadastraPartidoPadrao() {
         this.systemControl.cadastraPartido("PT");
         assertTrue(systemControl.getPartidos().contains("PT"));

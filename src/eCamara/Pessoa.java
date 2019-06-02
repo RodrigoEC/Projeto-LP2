@@ -106,10 +106,24 @@ public class Pessoa {
         return funcao;
     }
 
+    /**
+     * Metodo que retorna a representacao textual de uma Pessoa que tem funcao. Essa representacao e feita a partir
+     * da concatenacao do toString() de pessoa com o toString() da funcao.
+     *
+     * @return Representacao textual de Pessoa com funcao.
+     */
     public String toStringPelaFuncao(){
         return "POL: " + this.toString() + this.funcao.toString();
     }
 
+    /**
+     * Metodo que retorna a representacao textual de Pessoa. Existem 4 representacoes possiveis: quando Pessoa
+     * tem partido e interesses; quando Pessoa só tem partido, mas nao tem interesses; quando Pessoa apenas tem
+     * interesses, mas nao tem partido; e quando Pessoa nao tem partido e nao tem interesses. Essa representacao
+     * e feita na forma: [nome] - [dni] ([estado]) - [partido] - Interesses: [interesses]
+     *
+     * @return representacao textual de Pessoa.
+     */
     @Override
     public String toString(){
         if (this.partido == null){

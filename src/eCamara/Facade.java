@@ -11,8 +11,10 @@ public class Facade {
     }
 
     public static void main(String[] args) {
-        args = new String[] {"eCamara.Facade", "acceptance_test/use_case_1.txt", "acceptance_test/use_case_2.txt",
-                "acceptance_test/use_case_3.txt", "acceptance_test/use_case_4.txt"};
+        args = new String[] {"eCamara.Facade", "acceptance_test/use_case_1.txt",
+                                               "acceptance_test/use_case_2.txt",
+                                               "acceptance_test/use_case_3.txt",
+                                               "acceptance_test/use_case_4.txt"};
         EasyAccept.main(args);
     }
 
@@ -28,6 +30,13 @@ public class Facade {
         this.systemControl.cadastraDeputado(dni, dataDeInicio);
     }
 
+    /**
+     * Metodo responsavel por realizar a exibicao de uma Pessoa, com funcao ou nao.
+     *
+     * @param dni String com dni
+     *
+     * @return Representacao textual de Pessoa.
+     */
     public String exibirPessoa(String dni) {
         return this.systemControl.exibirPessoa(dni);
     }

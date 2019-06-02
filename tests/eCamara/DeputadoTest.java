@@ -94,5 +94,10 @@ class DeputadoTest {
     void equalsTest11() {
         assertFalse(this.deputado2.equals(""));
     }
+
+    @Test
+    void toStringTest(){
+        assertEquals(" - 13/01/2000 - 0 Leis", this.deputado.toString());
+    }
 }
 

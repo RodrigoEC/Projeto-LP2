@@ -46,6 +46,12 @@ public class Deputado implements Funcao{
         return Objects.hash(dataInicio, qtdLeis);
     }
 
+    /**
+     * Metodo que retorna a representacao textual de Deputado. Essa representacao e composta pela data de inicio
+     * do mandato e da quantidade de leis aprovadas, na forma: - [data] - [qtdLeis] Leis
+     *
+     * @return representacao textual de Deputado.
+     */
     @Override
     public String toString(){
         char[] data = this.dataInicio.toCharArray();

@@ -1,7 +1,5 @@
 package eCamara;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
@@ -127,6 +125,18 @@ public class SystemControl {
         this.mapPessoas.get(dni).cadastraDeputado(dataInicio);
     }
 
+    /**
+     * Metodo que exibe a representacao textual de uma Pessoa, com funcao ou nao, a partir do Dni recebido como
+     * parametro. Se a pessoa nao estiver cadastrada, uma excecao sera lancada. O dni tambem e passado como parametro
+     * para o metodo validaExibirPessoa da classe Validacao.
+     *
+     *
+     * @param dni String com dni.
+     *
+     * @throws IllegalArgumentException Erro ao exibir pessoa: pessoa nao encontrada
+     *
+     * @return Representacao textual de Pessoa.
+     */
     public String exibirPessoa(String dni) {
 
         this.validaEntradas.validaExibirPessoa(dni);

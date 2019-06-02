@@ -14,9 +14,9 @@ class PessoaTest {
 
     @BeforeEach
     void setUp() {
-        this.p = new Pessoa("Carlos", "0028490850-4", "PB", "sem interesse");
+        this.p = new Pessoa("Carlos", "0028490850-4", "PB", "");
         this.p2 = new Pessoa("Joao", "0034240-234", "PB", "Rinha de galo", "LRG - LIBERA RINHA DE GALO");
-        this.p3 = new Pessoa("CarlosCarlos", "0028490850-4", "PB", "sem interesse");
+        this.p3 = new Pessoa("CarlosCarlos", "0028490850-4", "PB", "Saude");
 
     }
 
@@ -91,6 +91,7 @@ class PessoaTest {
         } catch (NullPointerException npe) {
         }
     }
+
     @Test
     void deputadoTest1(){
         this.p.cadastraDeputado("20012016");
@@ -135,5 +136,22 @@ class PessoaTest {
     @Test
     void hashCodeTest() {
         assertEquals(this.p.hashCode(), this.p3.hashCode());
+    }
+
+    @Test
+    void toStringTest(){
+        assertEquals("Carlos - 0028490850-4 (PB)", this.p.toString());
+        assertEquals("Joao - 0034240-234 (PB) - LRG - LIBERA RINHA DE GALO - Interesses: Rinha de galo", this.p2.toString());
+        assertEquals("CarlosCarlos - 0028490850-4 (PB) - Interesses: Saude", this.p3.toString());
+
+        Pessoa pessoaComPartido = new Pessoa("Paulo", "1234-5678", "PE", "", "PTdoB");
+        assertEquals("Paulo - 1234-5678 (PE) - PTdoB", pessoaComPartido.toString());
+    }
+
+    @Test
+    void toStringPelaFuncaoTest(){
+        this.p.cadastraDeputado("01022018");
+
+        assertEquals("POL: Carlos - 0028490850-4 (PB) - 01/02/2018 - 0 Leis", this.p.toStringPelaFuncao());
     }
 }
