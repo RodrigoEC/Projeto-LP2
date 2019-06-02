@@ -51,27 +51,13 @@ public class Validacao {
     }
 
     /**
-     * Metodo que valida o cadastro de uma Pessoa, delega as verificacoes para os metodos validaString e validaDni.
-     * Recebe Strings com o dni, nome, e estado.
-     *
-     * @param dni String com o dni.
-     * @param nome String com nome.
-     * @param estado String com estado.
-     */
-
-    public void validarCadastroPessoa(String dni, String nome, String estado) {
-        validaString(nome, "Erro ao cadastrar pessoa: nome nao pode ser vazio ou nulo");
-        validaString(dni, "Erro ao cadastrar pessoa: dni nao pode ser vazio ou nulo");
-        validaString(estado, "Erro ao cadastrar pessoa: estado nao pode ser vazio ou nulo");
-        validaDni(dni, "Erro ao cadastrar pessoa: dni invalido");
-    }
-
-    /**
      * Metodo responsavel por verificar se a data passada como parametro eh uma data que ainda nao chegou no calendario,
      * ou seja, uma data do futuro.
      *
      * @param dataInicio data que sera verificada.
      * @param mensagem mensagem quee sera enviada quando a excecao for lancada.
+     *
+     * @throws IllegalArgumentException mensagem
      */
     private void validaDataFutura(String dataInicio, String mensagem){
         SimpleDateFormat sdf = new SimpleDateFormat("ddMMyyyy");
@@ -93,6 +79,8 @@ public class Validacao {
      *
      * @param dataInicio data que sera validada.
      * @param mensagem mensagem que sera enviada se a excecao for lancada.
+     *
+     * @throws IllegalArgumentException mensagem
      */
     private void validaFormatoData(String dataInicio, String mensagem) {
         SimpleDateFormat sdf = new SimpleDateFormat("ddMMyyyy");
@@ -105,11 +93,42 @@ public class Validacao {
     }
 
     /**
+     * Metodo que valida o cadastro de uma Pessoa, delega as verificacoes para os metodos validaString e validaDni.
+     * Recebe Strings com o dni, nome, e estado.
+     *
+     * @param dni String com o dni.
+     * @param nome String com nome.
+     * @param estado String com estado.
+     *
+     * @throws IllegalArgumentException "Erro ao cadastrar pessoa: nome nao pode ser vazio ou nulo".
+     * @throws IllegalArgumentException "Erro ao cadastrar pessoa: dni nao pode ser vazio ou nulo".
+     * @throws IllegalArgumentException "Erro ao cadastrar pessoa: estado nao pode ser vazio ou nulo".
+     *
+     * @throws NullPointerException "Erro ao cadastrar pessoa: nome nao pode ser vazio ou nulo".
+     * @throws NullPointerException "Erro ao cadastrar pessoa: dni nao pode ser vazio ou nulo".
+     * @throws NullPointerException "Erro ao cadastrar pessoa: estado nao pode ser vazio ou nulo".
+     *
+     * @throws IllegalArgumentException "Erro ao cadastrar pessoa: dni invalido".
+     */
+
+    public void validarCadastroPessoa(String dni, String nome, String estado) {
+        validaString(nome, "Erro ao cadastrar pessoa: nome nao pode ser vazio ou nulo");
+        validaString(dni, "Erro ao cadastrar pessoa: dni nao pode ser vazio ou nulo");
+        validaString(estado, "Erro ao cadastrar pessoa: estado nao pode ser vazio ou nulo");
+        validaDni(dni, "Erro ao cadastrar pessoa: dni invalido");
+    }
+
+    /**
      * Metodo responsavel por validar o dni que eh passado como parametro no metodo cadastraDeputado, se o dni for nulo,
      * composto somente de espacos ou uma string vazia uma excecao sera lancada. se o formato da dni for diferente do exigido
      * uma excecao tambem sera lancada.
      *
      * @param dni dni a ser validada.
+     *
+     * @throws IllegalArgumentException "Erro ao cadastrar pessoa: dni nao pode ser vazio ou nulo".
+     * @throws NullPointerException "Erro ao cadastrar pessoa: dni nao pode ser vazio ou nulo".
+     *
+     * @throws IllegalArgumentException "Erro ao cadastrar deputado: dni invalido".
      */
     public void validaDniCadastraDeputado(String dni){
         validaString(dni, "Erro ao cadastrar pessoa: dni nao pode ser vazio ou nulo");
@@ -123,6 +142,12 @@ public class Validacao {
      * sera lancada.
      *
      * @param dataInicio data que sera validada.
+     *
+     * @throws IllegalArgumentException "Erro ao cadastrar deputado: data nao pode ser vazio ou nulo".
+     * @throws NullPointerException "Erro ao cadastrar deputado: data nao pode ser vazio ou nulo".
+     *
+     * @throws IllegalArgumentException "Erro ao cadastrar deputado: data invalida".
+     * @throws IllegalArgumentException "Erro ao cadastrar deputado: data futura".
      */
 
     public void validaDataCadastroDeputado(String dataInicio){
@@ -136,6 +161,9 @@ public class Validacao {
      * composta somente de espacos ou uma string vazia uma excecao sera lancada.
      *
      * @param dataInicio data que sera validada.
+     *
+     * @throws IllegalArgumentException "Data de inicio da funcao como deputado não pode ser vazia ou nula".
+     * @throws NullPointerException "Data de inicio da funcao como deputado não pode ser vazia ou nula".
      */
     public void validaDeputado(String dataInicio){
         validaString(dataInicio, "Data de inicio da funcao como deputado não pode ser vazia ou nula");
@@ -146,6 +174,9 @@ public class Validacao {
      * vazia, somente formada de espacos ou nula uma excecao sera lancada com a mensagem de acordo.
      *
      * @param partido string que representa o partido.
+     *
+     * @throws NullPointerException "Erro ao cadastrar partido: partido nao pode ser vazio ou nulo".
+     * @throws IllegalArgumentException "Erro ao cadastrar partido: partido nao pode ser vazio ou nulo".
      */
     public void validaCadastraPartido(String partido) {
         validaString(partido, "Erro ao cadastrar partido: partido nao pode ser vazio ou nulo");
@@ -157,6 +188,11 @@ public class Validacao {
      * tambem sera lancada.
      *
      * @param dni dni a ser validada.
+     *
+     * @throws IllegalArgumentException "Erro ao exibir pessoa: dni nao pode ser vazio ou nulo".
+     * @throws NullPointerException "Erro ao exibir pessoa: dni nao pode ser vazio ou nulo".
+     *
+     * @throws IllegalArgumentException "Erro ao exibir pessoa: dni invalido".
      */
     public void validaExibirPessoa(String dni) {
         validaString(dni, "Erro ao exibir pessoa: dni nao pode ser vazio ou nulo");
