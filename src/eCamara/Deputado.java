@@ -3,7 +3,7 @@ package eCamara;
 import java.util.Objects;
 
 /**
- * Classe que representa um deputado, possui os atributos String dataInicio e Integer qtdLeis e o objeto de validacao de entradas.
+ * Classe que representa um deputado, possui os atributos String dataInicio, Integer qtdLeis e o objeto de validacao de entradas.
  */
 
 public class Deputado implements Funcao{
@@ -43,7 +43,7 @@ public class Deputado implements Funcao{
     }
 
     /**
-     *Metodo que calcula o HashCode de um deputado. Retorna um inteiro referente ao calculo do HashCode.
+     * Metodo que calcula o HashCode de um deputado. Retorna um inteiro referente ao calculo do HashCode.
      * O HashCode eh calculado a partir da dataInicio e qtdLeis.
      * @return Inteiro calculado a partir da dataInicio e a qtdLeis.
      */
@@ -67,7 +67,7 @@ public class Deputado implements Funcao{
     }
 
     /**
-     *Recupera a dataInicio na vida publica de um deputado.
+     * Recupera a dataInicio na vida publica de um deputado.
      * @return dataInicio da vida publica de um deputado.
      */
     public String getDataInicio() {
