@@ -3,7 +3,7 @@ package eCamara;
 import java.util.Objects;
 
 /**
- *
+ * Classe que representa um deputado, possui os atributos String dataInicio e Integer qtdLeis e o objeto de validacao de entradas.
  */
 
 public class Deputado implements Funcao{
@@ -13,8 +13,11 @@ public class Deputado implements Funcao{
     private Validacao validaEntrada;
 
     /**
+     * Constroi o objeto deputado, recebendo como parametro a String dataInicio.
+     * Uma excecao sera lancada, caso esta seja vazia ou nula.
+     * @throws IllegalArgumentException Data de inicio da funcao como deputado não pode ser vazia ou nula
      *
-     * @param dataInicio
+     * @param dataInicio representa a data de inicio na vida publica como deputado.
      */
     public Deputado(String dataInicio) {
         this.validaEntrada = new Validacao();
@@ -24,9 +27,11 @@ public class Deputado implements Funcao{
     }
 
     /**
+     * Metodo que verifica se um deputado eh igual a outro objeto. Uma deputado sera igual a outro objeto, se caso esse outro objeto
+     * seja do tipo deputado e se tiverem a mesma data de inicio na vida publica e a mesma quantidade de leis.
      *
-     * @param o
-     * @return
+     * @param o Objeto a ser comparado a igualdade.
+     * @return boolean True se forem iguais e False se forem diferentes.
      */
     @Override
     public boolean equals(Object o) {
@@ -38,8 +43,9 @@ public class Deputado implements Funcao{
     }
 
     /**
-     *
-     * @return
+     *Metodo que calcula o HashCode de um deputado. Retorna um inteiro referente ao calculo do HashCode.
+     * O HashCode eh calculado a partir da dataInicio e qtdLeis.
+     * @return Inteiro calculado a partir da dataInicio e a qtdLeis.
      */
     @Override
     public int hashCode() {
@@ -61,8 +67,8 @@ public class Deputado implements Funcao{
     }
 
     /**
-     *
-     * @return
+     *Recupera a dataInicio na vida publica de um deputado.
+     * @return dataInicio da vida publica de um deputado.
      */
     public String getDataInicio() {
         return dataInicio;

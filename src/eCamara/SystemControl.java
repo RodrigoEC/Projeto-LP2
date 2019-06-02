@@ -78,32 +78,15 @@ public class SystemControl {
      * Recebe como parametros uma string que representa um dni (documento nacional de identificacao)
      * e uma string dataInicio que representa a data de inicio da vida publica como deputado.
      *
-     * As validacoes do formato de data e de data futura eh delegada ao objeto Validacao validaEntradas, que utiliza o metodo validaDniCadastraDeputado,
-     * que faz a validacao do dni, se apenas possui numeros e "-", caso tenha letras ou outros caracteres, lancara excecao.
      * @throws IllegalArgumentException Erro ao cadastrar deputado: dni invalido
-     *
-     * O metodo validaDataCadastroDeputado, faz a validacao do formato da data passada como parametro, caso esteja fora do formato "ddMMyyyy",
-     * (dia, mes e ano),nesta ordem ,lancara excecao, faz tambem  a validacao de se a data nao foi passada como nula ou vazia, caso sim lancara excecao.
      * @throws IllegalArgumentException Erro ao cadastrar deputado: data invalida
      * @throws IllegalArgumentException Data de inicio da funcao como deputado não pode ser vazia ou nula
-     *
-     * Caso a data esteja no futuro, tambem lancara excecao.
      * @throws IllegalArgumentException Erro ao cadastrar deputado: data futura"
-     *
-     * O metodo validaString verifica se os parametros dni e dataInicio sejam nulos ou vazios, uma excecao sera lancada.
      * @throws IllegalArgumentException Erro ao cadastrar deputado: data nao pode ser vazio ou nulo
      * @throws IllegalArgumentException Erro ao cadastrar pessoa: dni nao pode ser vazio ou nulo
-     *
-     * Caso o dni da pessoa que sera cadastrada como deputado nao estiver no Map mapPessoas ou seja nao tenha sido cadastrada como pessoa, uma excecao sera lancada.
      * @throws IllegalArgumentException Erro ao cadastrar deputado:pessoa nao encontrada.
-     *
-     * Caso a pessoa que seria cadastrada, ja seja deputado, uma excecao sera lancada.
      * @throws IllegalArgumentException Erro ao cadastrar deputado: pessoa ja e deputado.
-     *
-     * Caso uma pessoa que seria cadastrada como deputado, nao possua partido, partido nulo ou vazio, uma excecao sera lancada.
      * @throws IllegalArgumentException Erro ao cadastrar deputado: pessoa sem partido
-     *
-     * Se nenhuma das excecoes tenham sido lancadas, a pessoa sera cadastrada como deputado.
      *
      * @param dni String que representa o documento nacional de identificacao (dni) de uma pessoa.
      * @param dataInicio String que representa a data de inicio de uma pessoa na vida publica como deputado.
@@ -120,7 +103,7 @@ public class SystemControl {
         if ((mapPessoas.get(dni).getPartido()) == null) {
             throw new IllegalArgumentException("Erro ao cadastrar deputado: pessoa sem partido");
 
-        }else if (mapPessoas.get(dni).getFuncao() instanceof Deputado) {
+        }if (mapPessoas.get(dni).getFuncao() instanceof Deputado) {
             throw new IllegalArgumentException("Erro ao cadastrar deputado: pessoa ja e deputado");
         }
         this.mapPessoas.get(dni).cadastraDeputado(dataInicio);

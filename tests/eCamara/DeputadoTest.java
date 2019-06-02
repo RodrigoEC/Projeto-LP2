@@ -57,42 +57,17 @@ class DeputadoTest {
 
     @Test
     void equalsTest4() {
-        assertFalse(this.deputado3.equals(null));
-    }
-
-    @Test
-    void equalsTest5() {
-        assertFalse(this.deputado.equals(null));
-    }
-
-    @Test
-    void equalsTest6() {
-        assertFalse(this.deputado2.equals(null));
-    }
-
-    @Test
-    void equalsTest7() {
         assertFalse(this.deputado3.equals(this.deputado));
     }
 
     @Test
-    void equalsTest8() {
+    void equalsTest5() {
+        assertFalse(this.deputado2.equals(this.deputado3));
+    }
+
+    @Test
+    void equalsTest6() {
         assertFalse(this.deputado2.equals(this.deputado));
-    }
-
-    @Test
-    void equalsTest9() {
-        assertFalse(this.deputado3.equals(""));
-    }
-
-    @Test
-    void equalsTest10() {
-        assertFalse(this.deputado.equals(""));
-    }
-
-    @Test
-    void equalsTest11() {
-        assertFalse(this.deputado2.equals(""));
     }
 
     @Test
