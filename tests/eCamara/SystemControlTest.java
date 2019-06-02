@@ -202,28 +202,31 @@ class SystemControlTest {
     }
 
     @Test
-    void cadastraDeputadoTest1(){
+    void cadastraDeputadoFuncaoNula(){
         this.systemControl.cadastrarPessoa("Joao", "169-2", "PB", "ganhar", "PRB");
         this.systemControl.cadastraDeputado("169-2", "21032019");
         assertFalse(this.systemControl.getMapPessoas().get("169-2").getFuncao() == null);
     }
 
     @Test
-    void cadastraDeputadoTest2(){
+    void cadastraDeputadoJaDeputado(){
         this.systemControl.cadastrarPessoa("Joao", "169-2", "PB", "ganhar", "PRB");
         this.systemControl.cadastraDeputado("169-2", "21032019");
-        assertFalse(this.systemControl.getMapPessoas().get("169-2").getFuncao() == deputado);
+        try {
+            this.systemControl.cadastraDeputado("169-2", "21032019");
+        }catch (IllegalArgumentException iae){
+        }
     }
 
     @Test
-    void cadastraDeputadoTest3(){
+    void cadastraDeputadoFuncaoVazia(){
         this.systemControl.cadastrarPessoa("Mariana", "168-2", "PB", "ganhar", "PRB");
         this.systemControl.cadastraDeputado("168-2", "13012000");
         assertFalse(this.systemControl.getMapPessoas().get("168-2").getFuncao().equals(""));
     }
 
     @Test
-    void cadastraDeputadoTest4(){
+    void cadastraDeputadoPessoaNaoCadastrada(){
         this.systemControl.cadastrarPessoa("Maria", "1693-2", "PB", "ganhar", "PRB");
         try {
             this.systemControl.cadastraDeputado("12-2", "13012000");
@@ -231,7 +234,7 @@ class SystemControlTest {
         }
     }
     @Test
-    void cadastraDeputadoTest5(){
+    void cadastraDeputadoDataFormatoInvalido(){
         this.systemControl.cadastrarPessoa("Juliana", "255-3", "PE", "mudar", "PCdoB");
         try {
             this.systemControl.cadastraDeputado("255-3", "13/01/2000");
@@ -240,7 +243,7 @@ class SystemControlTest {
     }
 
     @Test
-    void cadastraDeputadoTest6(){
+    void cadastraDeputadoDniVazio(){
         this.systemControl.cadastrarPessoa("Bruna", "899-4", "PB", "transformar","PSDB");
         try{
             this.systemControl.cadastraDeputado("", "13012010");
@@ -249,7 +252,7 @@ class SystemControlTest {
     }
 
     @Test
-    void cadastraDeputadoTest7(){
+    void cadastraDeputadoDataInicioVazia(){
         this.systemControl.cadastrarPessoa("Noemia", "123-4", "PB", "transformar","PSDB");
         try{
             this.systemControl.cadastraDeputado("123-4", "");
@@ -258,7 +261,25 @@ class SystemControlTest {
     }
 
     @Test
-    void cadastraDeputadoTest8(){
+    void cadastraDeputadoDniNulo(){
+        this.systemControl.cadastrarPessoa("Bruna", "899-4", "PB", "transformar","PSDB");
+        try{
+            this.systemControl.cadastraDeputado(null, "13012010");
+        }catch (NullPointerException npe){
+        }
+    }
+
+    @Test
+    void cadastraDeputadoDataInicioNula(){
+        this.systemControl.cadastrarPessoa("Noemia", "123-4", "PB", "transformar","PSDB");
+        try{
+            this.systemControl.cadastraDeputado("123-4", null);
+        }catch (NullPointerException npe){
+        }
+    }
+
+    @Test
+    void cadastraDeputadoParametrosVazios(){
         this.systemControl.cadastrarPessoa("Laura", "563-4", "PB", "debater","PSDB");
         try{
             this.systemControl.cadastraDeputado("", "");
@@ -267,7 +288,7 @@ class SystemControlTest {
     }
 
     @Test
-    void cadastraDeputadoTest9(){
+    void cadastraDeputadoDataFutura(){
         this.systemControl.cadastrarPessoa("Lais", "103-4", "PB", "discutir solucoes","PSDB");
         try{
             this.systemControl.cadastraDeputado("103-4", "14062030");
@@ -276,17 +297,8 @@ class SystemControlTest {
     }
 
     @Test
-    void cadastraDeputadoTest10(){
-        this.systemControl.cadastrarPessoa("Ellen", "142-8", "PB", "renovar","PSDB");
-        try{
-            this.systemControl.cadastraDeputado("103-4", "17082011");
-        }catch (IllegalArgumentException iae){
-        }
-    }
-
-    @Test
-    void cadastraDeputadoTest11(){
-        this.systemControl.cadastrarPessoa("Ellen", "142-8", "PB", "renovar","PSDB");
+    void cadastraDeputadoDniInvalido(){
+        this.systemControl.cadastrarPessoa("Ellen", "103-4", "PB", "renovar","PSDB");
         try{
             this.systemControl.cadastraDeputado("103Aa-4", "30062018");
         }catch (IllegalArgumentException iae){
@@ -294,19 +306,28 @@ class SystemControlTest {
     }
 
     @Test
-    void cadastraDeputadoTest12(){
+    void cadastraDeputadoPartidoVazio(){
         this.systemControl.cadastrarPessoa("Ellen", "142-8", "PB", "renovar","");
         try{
-            this.systemControl.cadastraDeputado("103-4", "22112014");
+            this.systemControl.cadastraDeputado("142-8", "22112014");
         }catch (IllegalArgumentException iae){
         }
     }
 
     @Test
-    void cadastraDeputadoTest13(){
+    void cadastraDeputadoPartidoNulo(){
+        this.systemControl.cadastrarPessoa("Ellen", "142-8", "PB", "renovar",null);
+        try{
+            this.systemControl.cadastraDeputado("142-8", "22112014");
+        }catch (IllegalArgumentException iae){
+        }
+    }
+
+    @Test
+    void cadastraDeputadoDataForaFormato(){
         this.systemControl.cadastrarPessoa("Ellen", "142-8", "PB", "renovar","PSDB");
         try{
-            this.systemControl.cadastraDeputado("103-4", "1052019");
+            this.systemControl.cadastraDeputado("142-8", "1052019");
         }catch (IllegalArgumentException iae){
         }
     }
