@@ -124,6 +124,7 @@ public class Validacao {
      *
      * @param dataInicio data que sera validada.
      */
+
     public void validaDataCadastroDeputado(String dataInicio){
         validaString(dataInicio, "Erro ao cadastrar deputado: data nao pode ser vazio ou nulo");
         validaFormatoData(dataInicio, "Erro ao cadastrar deputado: data invalida");
