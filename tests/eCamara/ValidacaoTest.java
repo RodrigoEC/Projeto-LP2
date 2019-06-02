@@ -6,10 +6,6 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class ValidacaoTest {
-
-    // Como os outros metodos apenas delegam a responsabilidade aos 5 metodos auxiliares e nao fazem mais nada faz sentido
-    // testar apenas esses 5 metodos.
-
     private Validacao validador;
 
     @BeforeEach
