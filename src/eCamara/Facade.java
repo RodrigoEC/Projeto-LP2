@@ -30,16 +30,11 @@ public class Facade {
         this.systemControl.cadastraDeputado(dni, dataDeInicio);
     }
 
-    /**
-     * Metodo responsavel por realizar a exibicao de uma Pessoa, com funcao ou nao.
-     *
-     * @param dni String com dni
-     *
-     * @return Representacao textual de Pessoa.
-     */
+
     public String exibirPessoa(String dni) {
         return this.systemControl.exibirPessoa(dni);
     }
+
 
     public void cadastrarPartido(String partido) {
         this.systemControl.cadastraPartido(partido);
