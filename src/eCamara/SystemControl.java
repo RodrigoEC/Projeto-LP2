@@ -3,7 +3,8 @@ package eCamara;
 import java.util.*;
 
 /**
- * Objeto que representa o Controller do sistema, tem como atributos o objeto de Validacao, um Map de Pessoa e um Set de Partido (String).
+ * Objeto que representa o Controller do sistema, tem como atributos o objeto de Validacao, um Map de Pessoa e um Set de
+ * Partido (String).
  */
 
 public class SystemControl {
@@ -153,8 +154,13 @@ public class SystemControl {
     }
 
     /**
-     * Metodo responsavel por cadastrar um partidos no Hashset de partidos, o partido eh uma string.
+     * Metodo responsavel por cadastrar um partido em um hashset de string, as strings representam os partidos que foram
+     * cadastrador.
+     *
      * @param partido string que representa o partido
+     *
+     * @throws IllegalArgumentException "Erro ao cadastrar partido: partido nao pode ser vazio ou nulo".
+     * @throws NullPointerException "Erro ao cadastrar partido: partido nao pode ser vazio ou nulo".
      */
     public void cadastraPartido(String partido) {
         validaEntradas.validaCadastraPartido(partido);
@@ -163,7 +169,8 @@ public class SystemControl {
     }
 
     /**
-     * Metodo responsavel por exibir todos os partidos que ja foram cadastrados no sistema.
+     * Metodo responsavel por exibir todos os partidos que ja foram cadastrados no sistema. A string que sera retornada
+     * pelo metodo possui todos os partidos organizados em ordem alfabetica e divididos por virgulas.
      *
      * @return uma string que representa todos os partidos ja cadastrados.
      */
@@ -186,10 +193,21 @@ public class SystemControl {
         return partidos;
     }
 
+    /**
+     * Metodo responsavel por deixar disponivel o atributo partidos, um set de string que representam partidos, os quais
+     * serao usado nos testes do SystemControl.
+     *
+     * @return O set de string que representam os partidos.
+     */
     public Set<String> getPartidos() {
         return partidos;
     }
 
+    /**
+     * Metodo responsavel por deixar disponivel o mapa de objetos do tipo Pessoa.
+     *
+     * @return o mapa de objetos do tipo Pessoa.
+     */
     public Map<String, Pessoa> getMapPessoas(){
         return this.mapPessoas;
     }
