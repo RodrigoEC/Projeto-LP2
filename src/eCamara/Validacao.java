@@ -85,7 +85,6 @@ public class Validacao {
         } catch (ParseException pe) {
             throw new IllegalArgumentException(mensagem);
         }
-
     }
 
     /**
@@ -103,9 +102,7 @@ public class Validacao {
         } catch (ParseException pe) {
             throw new IllegalArgumentException(mensagem);
         }
-
     }
-
 
     /**
      * Metodo responsavel por validar o dni que eh passado como parametro no metodo cadastraDeputado, se o dni for nulo,
@@ -117,7 +114,6 @@ public class Validacao {
     public void validaDniCadastraDeputado(String dni){
         validaString(dni, "Erro ao cadastrar pessoa: dni nao pode ser vazio ou nulo");
         validaDni(dni,"Erro ao cadastrar deputado: dni invalido");
-
     }
 
     /**
@@ -132,7 +128,6 @@ public class Validacao {
         validaString(dataInicio, "Erro ao cadastrar deputado: data nao pode ser vazio ou nulo");
         validaFormatoData(dataInicio, "Erro ao cadastrar deputado: data invalida");
         validaDataFutura(dataInicio, "Erro ao cadastrar deputado: data futura");
-
     }
 
     /**
@@ -166,5 +161,4 @@ public class Validacao {
         validaString(dni, "Erro ao exibir pessoa: dni nao pode ser vazio ou nulo");
         validaDni(dni, "Erro ao exibir pessoa: dni invalido");
     }
-
 }

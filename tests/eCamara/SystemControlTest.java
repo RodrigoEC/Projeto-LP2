@@ -200,12 +200,14 @@ class SystemControlTest {
         this.systemControl.cadastraDeputado("159-2", "13012018");
         assertTrue(this.systemControl.getMapPessoas().get("159-2").getFuncao() != null);
     }
+
     @Test
     void cadastraDeputadoTest1(){
         this.systemControl.cadastrarPessoa("Joao", "169-2", "PB", "ganhar", "PRB");
         this.systemControl.cadastraDeputado("169-2", "21032019");
         assertFalse(this.systemControl.getMapPessoas().get("169-2").getFuncao() == null);
     }
+
     @Test
     void cadastraDeputadoTest2(){
         this.systemControl.cadastrarPessoa("Joao", "169-2", "PB", "ganhar", "PRB");
@@ -226,7 +228,6 @@ class SystemControlTest {
         try {
             this.systemControl.cadastraDeputado("12-2", "13012000");
         }catch (IllegalArgumentException iae){
-
         }
     }
     @Test
@@ -309,7 +310,6 @@ class SystemControlTest {
         }catch (IllegalArgumentException iae){
         }
     }
-
 
     @Test
     void cadastraPartidoPadrao() {

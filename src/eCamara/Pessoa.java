@@ -58,7 +58,15 @@ public class Pessoa {
         this.partido = partido;
     }
 
+    /**
+     * Metodo responsavel por fazer atribuicao da funcao de deputado a uma determinada pessoa.
+     * Lanca uma excecao caso a data de inicio na vida publica como deputado seja invalida, a data sera invalida se for nula, ou vazia.
+     * @param dataInicio String que contem a data de inicio na vida publica de deputado.
+     */
+
     public void cadastraDeputado(String dataInicio){
+        this.validaEntrada = new Validacao();
+        this.validaEntrada.validaDeputado(dataInicio);
         this.funcao = new Deputado(dataInicio);
     }
 

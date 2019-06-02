@@ -24,7 +24,7 @@ class DeputadoTest {
     }
 
     @Test
-    void DeputadoTestExcecoes() {
+    void DeputadoTest2() {
         try {
             Deputado deputado2 = new Deputado("");
             fail("Era esperado uma excecao");
@@ -32,14 +32,14 @@ class DeputadoTest {
         }
     }
     @Test
-    void DeputadoTestExcecoes2(){
+    void DeputadoTest3(){
         try {
             Deputado deputado3 = new Deputado(null);
             fail("Era esperado uma excecao");
         }catch (NullPointerException npe){
         }
-
     }
+
     @Test
     void equalsTest() {
         assertTrue(this.deputado.equals(this.deputado));

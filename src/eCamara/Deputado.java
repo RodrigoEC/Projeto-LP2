@@ -2,12 +2,20 @@ package eCamara;
 
 import java.util.Objects;
 
+/**
+ *
+ */
+
 public class Deputado implements Funcao{
 
     private String dataInicio;
     private Integer qtdLeis;
     private Validacao validaEntrada;
 
+    /**
+     *
+     * @param dataInicio
+     */
     public Deputado(String dataInicio) {
         this.validaEntrada = new Validacao();
         this.validaEntrada.validaDeputado(dataInicio);
@@ -15,7 +23,11 @@ public class Deputado implements Funcao{
         this.qtdLeis = 0;
     }
 
-
+    /**
+     *
+     * @param o
+     * @return
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -25,6 +37,10 @@ public class Deputado implements Funcao{
                 Objects.equals(qtdLeis, deputado.qtdLeis);
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public int hashCode() {
         return Objects.hash(dataInicio, qtdLeis);
@@ -37,6 +53,11 @@ public class Deputado implements Funcao{
 
         return " - " + dataFormatada + " - " + this.qtdLeis + " Leis";
     }
+
+    /**
+     *
+     * @return
+     */
     public String getDataInicio() {
         return dataInicio;
     }
