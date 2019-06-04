@@ -8,8 +8,19 @@ import java.util.Objects;
 
 public class Deputado implements Funcao{
 
+    /**
+     * Data em que a pessoa virou deputado.
+     */
     private String dataInicio;
+
+    /**
+     * quantidade de leis que foram criadas pelo deputado.
+     */
     private Integer qtdLeis;
+
+    /**
+     * classe responsavel por validar as entradas dos metodos da classe Deputado
+     */
     private Validacao validaEntrada;
 
     /**
