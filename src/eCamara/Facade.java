@@ -44,6 +44,38 @@ public class Facade {
         return this.systemControl.exibirBase();
     }
 
+    public void cadastrarComissao(String tema, String politicos) {
+        this.systemControl.cadastrarComissao(tema, politicos);
+    }
+
+    public String cadastrarPL(String dni, int ano, String ementa, String interesses, String url, boolean conclusivo) {
+        return this.systemControl.cadastrarPL(dni, ano, ementa, interesses, url, conclusivo);
+    }
+
+    public String cadastrarPLP(String dni, int ano, String ementa, String interesses, String url, String artigos) {
+        return this.systemControl.cadastrarPLP(dni, ano, ementa, interesses, url, artigos);
+    }
+
+    public String cadastrarPEC(String dni, int ano, String ementa, String interesses, String url, String artigos) {
+        return this.systemControl.cadastrarPEC(dni, ano, ementa, interesses, url, artigos);
+    }
+
+    public String exibirProjeto(String codigo) {
+        return this.systemControl.exibirProjeto(codigo);
+    }
+
+    public boolean votarComissao(String codigo, boolean governista, String comissao, String proximoLocal) {
+        return this.systemControl.votarComissao(codigo, governista, comissao, proximoLocal);
+    }
+
+    public boolean votarPlenario(String codigo, boolean governista, String presentes) {
+        return this.systemControl.votarPlenario(codigo, governista, presentes);
+    }
+
+    public String exibirTramitacao(String codigo) {
+        return this.systemControl.exibirTramitacao(codigo);
+    }
+
     public void carregarSistema(){
 
     }

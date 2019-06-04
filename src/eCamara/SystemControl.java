@@ -12,6 +12,8 @@ public class SystemControl {
     private Map<String, Pessoa> mapPessoas;
     /** Set de Partidos (String) */
     private Set<String> partidos;
+
+
     /** Objeto de Validacao */
     private Validacao validaEntradas;
 
@@ -193,5 +195,29 @@ public class SystemControl {
      */
     public Map<String, Pessoa> getMapPessoas(){
         return this.mapPessoas;
+    }
+
+    public void cadastrarComissao(String tema, String politicos) {
+    }
+
+    public String cadastrarPL(String dni, int ano, String ementa, String interesses, String url, boolean conclusivo) {
+    }
+
+    public String cadastrarPLP(String dni, int ano, String ementa, String interesses, String url, String artigos) {
+    }
+
+    public String cadastrarPEC(String dni, int ano, String ementa, String interesses, String url, String artigos) {
+    }
+
+    public String exibirProjeto(String codigo) {
+    }
+
+    public boolean votarComissao(String codigo, boolean governista, String comissao, String proximoLocal) {
+    }
+
+    public boolean votarPlenario(String codigo, boolean governista, String presentes) {
+    }
+
+    public String exibirTramitacao(String codigo) {
     }
 }

@@ -16,7 +16,7 @@ public class Pessoa {
     /** String com o partido. */
     private String partido;
     /** String com os interesses. */
-    private String interesses;
+    private String interesses; // precisa virar um ArrayList (US7)
     /** Funcao do tipo Funcao. */
     private Funcao funcao;
     private Validacao validaEntrada;
