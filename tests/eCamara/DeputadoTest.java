@@ -9,12 +9,14 @@ class DeputadoTest {
     private Deputado deputado;
     private Deputado deputado2;
     private Deputado deputado3;
+    private Deputado deputado4;
 
     @BeforeEach
     void setUp() {
         this.deputado = new Deputado("13012000");
         this.deputado2 = new Deputado("17122018");
         this.deputado3 = new Deputado("29022017");
+        this.deputado4 = new Deputado("13012000");
     }
 
     @Test
@@ -40,6 +42,12 @@ class DeputadoTest {
         }
     }
 
+
+    @Test
+    void hashCodeTest() {
+        assertEquals(this.deputado.hashCode(), this.deputado4.hashCode());
+    }
+
     @Test
     void equalsTest() {
         assertTrue(this.deputado.equals(this.deputado));
@@ -49,6 +57,7 @@ class DeputadoTest {
     void equalsTest2() {
         assertTrue(this.deputado2.equals(this.deputado2));
     }
+
 
     @Test
     void equalsTest3() {
@@ -67,8 +76,11 @@ class DeputadoTest {
 
     @Test
     void equalsTest6() {
-        assertFalse(this.deputado2.equals(this.deputado));
+        assertTrue(this.deputado.equals(this.deputado4));
     }
+
+
+
 
     @Test
     void toStringTest(){
