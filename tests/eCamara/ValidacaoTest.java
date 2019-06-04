@@ -98,7 +98,7 @@ class ValidacaoTest {
     }
 
     @Test
-    void testeValidoDataCadastroDeputado() {
+    void testeValidaDataCadastroDeputadoDataInvalida() {
         try {
             validador.validaDataCadastroDeputado("12132019");
             fail("era pra dar ruim");
@@ -112,22 +112,14 @@ class ValidacaoTest {
         }
 
         try {
-            validador.validaDataCadastroDeputado("12123019");
-            fail("era pra dar ruim");
-        } catch (IllegalArgumentException iae) {
-        }
-        try {
-            validador.validaDataCadastroDeputado("12123019");
-            fail("era pra dar ruim");
-        } catch (IllegalArgumentException iae) {
-        }
-
-        try {
             validador.validaDataCadastroDeputado("29022019");
             fail("era pra dar ruim");
         } catch (IllegalArgumentException iae) {
         }
+    }
 
+    @Test
+    void testeValidaDataCadastroDeputadoFormatoInvalido() {
         try {
             validador.validaDataCadastroDeputado("123019");
             fail("era pra dar ruim");
@@ -153,10 +145,37 @@ class ValidacaoTest {
         }
 
         try {
+            validador.validaDataCadastroDeputado("200");
+            fail("era pra dar ruim");
+        } catch (IllegalArgumentException iae) {
+        }
+
+        try {
+            validador.validaDataCadastroDeputado("diadiamesmesanoanoanoano");
+            fail("era pra dar ruim");
+        } catch (IllegalArgumentException iae) {
+        }
+    }
+
+
+    @Test
+    void testeValidoDataCadastroDeputadoDataFutura() {
+
+        try {
+            validador.validaDataCadastroDeputado("12123019");
+            fail("era pra dar ruim");
+        } catch (IllegalArgumentException iae) {
+        }
+
+
+        try {
             validador.validaDataCadastroDeputado("21052020");
             fail("era pra dar ruim");
         } catch (IllegalArgumentException iae) {
         }
+
+
+
     }
 
     @Test
