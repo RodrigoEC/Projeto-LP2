@@ -133,7 +133,7 @@ public class Pessoa {
                 return this.nome + " - " + this.dni + " (" + this.estado + ")" + " - Interesses: " + this.interesses;
             }
         } else{
-            if (this.interesses.trim().equals("")){
+            if ("".trim().equals(this.interesses)){
                 return this.nome + " - " + this.dni + " (" + this.estado + ")" + " - " + this.partido;
             }
         }
@@ -181,4 +181,9 @@ public class Pessoa {
         return this.interesses;
     }
 
+    public boolean temFuncao() {
+        if (this.funcao == null) {
+            return true;
+        } return false;
+    }
 }

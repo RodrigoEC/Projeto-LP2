@@ -94,25 +94,25 @@ public class Validacao {
 
     /**
      * Metodo que valida o cadastro de uma Pessoa, delega as verificacoes para os metodos validaString e validaDni.
-     * Recebe Strings com o dni, nome, e estado.
+     * Recebe Strings com o dni, tema, e estado.
      *
      * @param dni String com o dni.
-     * @param nome String com nome.
+     * @param tema String com tema.
      * @param estado String com estado.
      *
-     * @throws IllegalArgumentException "Erro ao cadastrar pessoa: nome nao pode ser vazio ou nulo".
+     * @throws IllegalArgumentException "Erro ao cadastrar pessoa: tema nao pode ser vazio ou nulo".
      * @throws IllegalArgumentException "Erro ao cadastrar pessoa: dni nao pode ser vazio ou nulo".
      * @throws IllegalArgumentException "Erro ao cadastrar pessoa: estado nao pode ser vazio ou nulo".
      *
-     * @throws NullPointerException "Erro ao cadastrar pessoa: nome nao pode ser vazio ou nulo".
+     * @throws NullPointerException "Erro ao cadastrar pessoa: tema nao pode ser vazio ou nulo".
      * @throws NullPointerException "Erro ao cadastrar pessoa: dni nao pode ser vazio ou nulo".
      * @throws NullPointerException "Erro ao cadastrar pessoa: estado nao pode ser vazio ou nulo".
      *
      * @throws IllegalArgumentException "Erro ao cadastrar pessoa: dni invalido".
      */
 
-    public void validarCadastroPessoa(String dni, String nome, String estado) {
-        validaString(nome, "Erro ao cadastrar pessoa: nome nao pode ser vazio ou nulo");
+    public void validarCadastroPessoa(String dni, String tema, String estado) {
+        validaString(tema, "Erro ao cadastrar pessoa: tema nao pode ser vazio ou nulo");
         validaString(dni, "Erro ao cadastrar pessoa: dni nao pode ser vazio ou nulo");
         validaString(estado, "Erro ao cadastrar pessoa: estado nao pode ser vazio ou nulo");
         validaDni(dni, "Erro ao cadastrar pessoa: dni invalido");
@@ -197,5 +197,48 @@ public class Validacao {
     public void validaExibirPessoa(String dni) {
         validaString(dni, "Erro ao exibir pessoa: dni nao pode ser vazio ou nulo");
         validaDni(dni, "Erro ao exibir pessoa: dni invalido");
+    }
+
+    public void validaCadastrarComissao(String tema, String politicos){
+        this.validaString(tema, "MENSAGEM A SER PENETRADA");
+        this.validaString(politicos, "MENSAGEM A SER PENETRADA");
+        String[] array = politicos.trim().split(",");
+
+        for (String dni: array){
+            this.validaDni(dni, "MENSAGEM A SER PENETRADA");
+        }
+    }
+
+    public void validaCadastrarPL(String dni, int ano, String ementa, String interesses, String url){
+        this.validaString(dni, "MENSAGEM A SER PENETRADA");
+        this.validaString(ementa, "MENSAGEM A SER PENETRADA");
+        this.validaString(interesses, "MENSAGEM A SER PENETRADA");
+        this.validaString(url, "MENSAGEM A SER PENETRADA");
+        this.validaDni(dni, "MENSAGEM A SER PENETRADA");
+
+        //MUDAR O NEGOCIO DO ANO 2019. TORNAR AUTOMATICO A PARTIR DA BIBLIOTECA JAVA.TIME
+        if (ano > 2019 || ano < 1988){
+            throw new IllegalArgumentException("MENSAGEM A SER PENETRADA");
+        }
+    }
+
+
+    public void validaCadastrarPLP(String dni, int ano, String ementa, String interesses, String url, String artigos) {
+        this.validaString(dni, "MENSAGEM A SER aPENETRADA");
+        this.validaString(ementa, "MENSAGEM A SEdR PENETRADA");
+        this.validaString(interesses, "MENSAGEM Asdg SER PENETRADA");
+        this.validaString(url, "MENSAGEM A SER PENETfdRADA");
+        this.validaString(artigos, "MENSAGEM A SER PENfvETRADA");
+        this.validaDni(dni, "MENSAGEM A SER PENETRADfgA");
+
+        //MUDAR O NEGOCIO DO ANO 2019. TORNAR AUTOMATICO A PARTIR DA BIBLIOTECA JAVA.TIME
+        if (ano > 2019 || ano < 1988) {
+            throw new IllegalArgumentException("MENSAGEM A SER PsfENETRADA");
+        }
+    }
+
+    public void validaCadastrarPEC(String dni, int ano, String ementa, String interesses, String url, String artigos){
+
+
     }
 }

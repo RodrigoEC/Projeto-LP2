@@ -13,6 +13,8 @@ public class SystemControl {
     /** Set de Partidos (String) */
     private Set<String> partidos;
 
+    private Map<String, Set<String>> comissoes;
+
 
     /** Objeto de Validacao */
     private Validacao validaEntradas;
@@ -102,7 +104,7 @@ public class SystemControl {
         }
         this.validaEntradas.validaDataCadastroDeputado(dataInicio);
 
-        if ((mapPessoas.get(dni).getPartido()) == null) {
+        if (mapPessoas.get(dni).temFuncao()) {
             throw new IllegalArgumentException("Erro ao cadastrar deputado: pessoa sem partido");
 
         }if (mapPessoas.get(dni).getFuncao() instanceof Deputado) {
@@ -131,7 +133,7 @@ public class SystemControl {
             throw new IllegalArgumentException("Erro ao exibir pessoa: pessoa nao encontrada");
         }
 
-        if(this.mapPessoas.get(dni).getFuncao() != null){
+        if(!this.mapPessoas.get(dni).temFuncao()){
             return this.mapPessoas.get(dni).toStringPelaFuncao();
         }
 
@@ -198,17 +200,43 @@ public class SystemControl {
     }
 
     public void cadastrarComissao(String tema, String politicos) {
+        this.validaEntradas.validaCadastrarComissao(tema, politicos);
+
+        if (this.comissoes.containsKey(tema)){
+            throw new IllegalArgumentException("MENSAGEM A SER PENETRADA");
+        }
+
+        Set<String> politicosSet = new HashSet<>();
+
+        for (String dni: politicos.trim().split(",")){
+           if(!this.mapPessoas.containsKey(dni)){
+               throw new IllegalArgumentException("MENSAGEM A SER PENETRADA");
+           }
+           if(this.mapPessoas.get(dni).temFuncao()){
+                throw new NullPointerException("MENSAGEM A SER PENETRADA");
+           }
+           politicosSet.add(dni);
+        }
+
+        this.comissoes.put(tema, politicosSet);
     }
 
-    public String cadastrarPL(String dni, int ano, String ementa, String interesses, String url, boolean conclusivo) {
+   public String cadastrarPL(String dni, int ano, String ementa, String interesses, String url, boolean conclusivo) {
+        this.validaEntradas.validaCadastrarPL(dni, ano, ementa, interesses, url);
+
+        return "";
     }
 
     public String cadastrarPLP(String dni, int ano, String ementa, String interesses, String url, String artigos) {
+        this.validaEntradas.validaCadastrarPLP(dni, ano, ementa, interesses, url, artigos);
+        return "";
     }
 
     public String cadastrarPEC(String dni, int ano, String ementa, String interesses, String url, String artigos) {
+        return null;
     }
 
+    /*
     public String exibirProjeto(String codigo) {
     }
 
@@ -219,5 +247,5 @@ public class SystemControl {
     }
 
     public String exibirTramitacao(String codigo) {
-    }
+    }*/
 }

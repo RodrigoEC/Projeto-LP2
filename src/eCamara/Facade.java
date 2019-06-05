@@ -44,6 +44,7 @@ public class Facade {
         return this.systemControl.exibirBase();
     }
 
+    //
     public void cadastrarComissao(String tema, String politicos) {
         this.systemControl.cadastrarComissao(tema, politicos);
     }
