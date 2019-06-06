@@ -182,7 +182,7 @@ public class Pessoa {
     }
 
     public boolean temFuncao() {
-        if (this.funcao == null) {
+        if (this.funcao != null) {
             return true;
         } return false;
     }

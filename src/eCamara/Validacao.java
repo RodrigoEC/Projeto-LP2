@@ -225,11 +225,11 @@ public class Validacao {
 
     public void validaCadastrarPLP(String dni, int ano, String ementa, String interesses, String url, String artigos) {
         this.validaString(dni, "MENSAGEM A SER aPENETRADA");
-        this.validaString(ementa, "MENSAGEM A SEdR PENETRADA");
-        this.validaString(interesses, "MENSAGEM Asdg SER PENETRADA");
+        this.validaString(ementa, "MENSAGEM A SEdR PENErTRADA");
+        this.validaString(interesses, "MENSAGEM Aesdg SER PENETRADA");
         this.validaString(url, "MENSAGEM A SER PENETfdRADA");
-        this.validaString(artigos, "MENSAGEM A SER PENfvETRADA");
-        this.validaDni(dni, "MENSAGEM A SER PENETRADfgA");
+        this.validaString(artigos, "MENSAGEM A SER PENfsvETRADA");
+        this.validaDni(dni, "MENSAGEM A SER PENdETrRADfgA");
 
         //MUDAR O NEGOCIO DO ANO 2019. TORNAR AUTOMATICO A PARTIR DA BIBLIOTECA JAVA.TIME
         if (ano > 2019 || ano < 1988) {
@@ -238,7 +238,17 @@ public class Validacao {
     }
 
     public void validaCadastrarPEC(String dni, int ano, String ementa, String interesses, String url, String artigos){
+        this.validaString(dni, "MENSAGEM A SER aPENEeTRADA");
+        this.validaString(ementa, "MENSAGEM A SEdR PENETeRADA");
+        this.validaString(interesses, "MENSAGEM Asdg SER PsdENETRADA");
+        this.validaString(url, "MENSAGEM A SER PENETfdRADA");
+        this.validaString(artigos, "MENSAGEM A SERe PENfvEeTRADA");
+        this.validaDni(dni, "MENSAGEM A SER PENeETRADfgA");
 
+        //MUDAR O NEGOCIO DO ANO 2019. TORNAR AUTOMATICO A PARTIR DA BIBLIOTECA JAVA.TIME
+        if (ano > 2019 || ano < 1988) {
+            throw new IllegalArgumentException("MENSAGEM eA SER ePsfENETRADA");
+        }
 
     }
 }

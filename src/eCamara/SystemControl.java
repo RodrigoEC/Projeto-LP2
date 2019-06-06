@@ -1,5 +1,10 @@
 package eCamara;
 
+import eCamara.lei.PEC;
+import eCamara.lei.PL;
+import eCamara.lei.PLP;
+import eCamara.lei.ProjetoDeLei;
+
 import java.util.*;
 
 /**
@@ -14,6 +19,8 @@ public class SystemControl {
     private Set<String> partidos;
 
     private Map<String, Set<String>> comissoes;
+
+    private Map<String, ProjetoDeLei> leis;
 
 
     /** Objeto de Validacao */
@@ -133,7 +140,7 @@ public class SystemControl {
             throw new IllegalArgumentException("Erro ao exibir pessoa: pessoa nao encontrada");
         }
 
-        if(!this.mapPessoas.get(dni).temFuncao()){
+        if(this.mapPessoas.get(dni).temFuncao()){
             return this.mapPessoas.get(dni).toStringPelaFuncao();
         }
 
@@ -223,17 +230,65 @@ public class SystemControl {
 
    public String cadastrarPL(String dni, int ano, String ementa, String interesses, String url, boolean conclusivo) {
         this.validaEntradas.validaCadastrarPL(dni, ano, ementa, interesses, url);
-
-        return "";
+        if (! this.mapPessoas.containsKey(dni)){
+            throw new NullPointerException("Mensagem");
+        }
+        if (this.mapPessoas.get(dni).temFuncao()) {
+            throw new IllegalArgumentException("Pessoa nao eh deputado");
+        } else {
+            int contador = 1;
+            String key = "PL " + contador + "/" + ano;
+            for (String e :  this.leis.keySet()){
+                if (e.equals(key)){
+                    contador += 1;
+                    key  = "PL " + contador + "/" + ano;
+                }
+            }
+            this.leis.put(key, new PL(dni, ano, ementa, interesses, url, conclusivo));
+            return key;
+        }
     }
 
     public String cadastrarPLP(String dni, int ano, String ementa, String interesses, String url, String artigos) {
         this.validaEntradas.validaCadastrarPLP(dni, ano, ementa, interesses, url, artigos);
-        return "";
+        if (! this.mapPessoas.containsKey(dni)){
+            throw new NullPointerException("Mensagem");
+        }
+        if (this.mapPessoas.get(dni).temFuncao()) {
+            throw new IllegalArgumentException("Pessoa nao eh deputadoo");
+        } else {
+            int contador = 1;
+            String key = "PLP " + contador + "/" + ano;
+            for (String e :  this.leis.keySet()){
+                if (e.equals(key)){
+                    contador += 1;
+                    key  = "PLP " + contador + "/" + ano;
+                }
+            }
+            this.leis.put(key, new PLP(dni, ano, ementa, interesses, url, artigos));
+            return key;
+        }
     }
 
     public String cadastrarPEC(String dni, int ano, String ementa, String interesses, String url, String artigos) {
-        return null;
+        this.validaEntradas.validaCadastrarPLP(dni, ano, ementa, interesses, url, artigos);
+        if (! this.mapPessoas.containsKey(dni)){
+            throw new NullPointerException("Mensagem");
+        }
+        if (this.mapPessoas.get(dni).temFuncao()) {
+            throw new IllegalArgumentException("Pessoa nao eh deputadoo");
+        } else {
+            int contador = 1;
+            String key = "PEC " + contador + "/" + ano;
+            for (String e :  this.leis.keySet()){
+                if (e.equals(key)){
+                    contador += 1;
+                    key  = "PEC " + contador + "/" + ano;
+                }
+            }
+            this.leis.put(key, new PEC(dni, ano, ementa, interesses, url, artigos));
+            return key;
+        }
     }
 
     /*
