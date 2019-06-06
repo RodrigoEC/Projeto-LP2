@@ -249,6 +249,9 @@ public class Validacao {
         if (ano > 2019 || ano < 1988) {
             throw new IllegalArgumentException("MENSAGEM eA SER ePsfENETRADA");
         }
+    }
 
+    public void validaExibeLei(String codigo){
+        this.validaString(codigo, "Ainda nao tem");
     }
 }

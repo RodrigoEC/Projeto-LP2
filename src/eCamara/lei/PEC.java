@@ -9,7 +9,7 @@ public class PEC extends ProjetoDeLeiAbstract {
         this.artigos = artigos;
     }
 
-    public String toString(){
-        return "";
+    public String toString(String codigo){
+        return "Projeto de Emenda Constitucional - " + codigo + " - " + super.dniAutor + " - " + super.ementa + " - " + this.artigos + " - " + super.situacao;
     }
 }

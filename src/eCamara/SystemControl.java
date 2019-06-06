@@ -291,11 +291,16 @@ public class SystemControl {
         }
     }
 
-    /*
+
     public String exibirProjeto(String codigo) {
+        this.validaEntradas.validaExibeLei(codigo);
+        if (! this.leis.containsKey(codigo)){
+            throw new NullPointerException("Nao contem esse codigo");
+        }
+        return this.leis.get(codigo).toString(codigo);
     }
 
-    public boolean votarComissao(String codigo, boolean governista, String comissao, String proximoLocal) {
+    /*public boolean votarComissao(String codigo, boolean governista, String comissao, String proximoLocal) {
     }
 
     public boolean votarPlenario(String codigo, boolean governista, String presentes) {

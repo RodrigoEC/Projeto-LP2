@@ -5,11 +5,12 @@ import eCamara.lei.ProjetoDeLei;
 
 public abstract class ProjetoDeLeiAbstract implements ProjetoDeLei {
 
-    private String dniAutor;
+    protected String dniAutor;
     private int ano;
-    private String ementa;
+    protected String ementa;
     private String interesses;
     private String url;
+    protected String situacao;
     private Validacao validaEntrada;
 
     public ProjetoDeLeiAbstract(String dni, int ano, String ementa, String interesses, String url){
@@ -20,6 +21,7 @@ public abstract class ProjetoDeLeiAbstract implements ProjetoDeLei {
         this.ementa = ementa;
         this.interesses = interesses;
         this.url = url;
+        this.situacao = "EM VOTACAO (CCJC)";
     }
 
 }

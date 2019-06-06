@@ -8,7 +8,7 @@ public class PLP extends ProjetoDeLeiAbstract {
         this.artigos = artigos;
     }
 
-    public String toString(){
-        return "";
+    public String toString(String codigo){
+        return "Projeto de Lei Complementar - " + codigo + " - " + super.dniAutor + " - " + super.ementa + " - " + this.artigos + " - " + super.situacao;
     }
 }
