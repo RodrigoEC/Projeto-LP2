@@ -213,7 +213,9 @@ public class SystemControl {
             throw new IllegalArgumentException("MENSAGEM A SER PENETRADA");
         }
 
-        Set<String> politicosSet = new HashSet<>();
+        String[] listaDnis = politicos.trim().split(",");
+
+        Set<String> politicosSet = new HashSet<String>(Arrays.asList(listaDnis));
 
         for (String dni: politicos.trim().split(",")){
            if(!this.mapPessoas.containsKey(dni)){
@@ -222,7 +224,6 @@ public class SystemControl {
            if(this.mapPessoas.get(dni).temFuncao()){
                 throw new NullPointerException("MENSAGEM A SER PENETRADA");
            }
-           politicosSet.add(dni);
         }
 
         this.comissoes.put(tema, politicosSet);
