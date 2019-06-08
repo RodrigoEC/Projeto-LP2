@@ -111,7 +111,7 @@ public class SystemControl {
         }
         this.validaEntradas.validaDataCadastroDeputado(dataInicio);
 
-        if (mapPessoas.get(dni).temFuncao()) {
+        if (!mapPessoas.get(dni).temPartido()) {
             throw new IllegalArgumentException("Erro ao cadastrar deputado: pessoa sem partido");
 
         }if (mapPessoas.get(dni).getFuncao() instanceof Deputado) {
@@ -140,11 +140,7 @@ public class SystemControl {
             throw new IllegalArgumentException("Erro ao exibir pessoa: pessoa nao encontrada");
         }
 
-        if(this.mapPessoas.get(dni).temFuncao()){
-            return this.mapPessoas.get(dni).toStringPelaFuncao();
-        }
-
-        return this.mapPessoas.get(dni).toString();
+        return this.mapPessoas.get(dni).toStringPelaFuncao();
     }
 
     /**
@@ -298,7 +294,6 @@ public class SystemControl {
         return key;
 
     }
-
 
     public String exibirProjeto(String codigo) {
         this.validaEntradas.validaExibeLei(codigo);

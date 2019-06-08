@@ -39,6 +39,7 @@ public class Pessoa {
         this.nome =  nome;
         this.estado = estado;
         this.interesses = interesses;
+        this.funcao = new SemFuncao();
     }
 
     /**
@@ -65,7 +66,6 @@ public class Pessoa {
      */
 
     public void cadastraDeputado(String dataInicio){
-        this.validaEntrada = new Validacao();
         this.validaEntrada.validaDeputado(dataInicio);
         this.funcao = new Deputado(dataInicio);
     }
@@ -113,7 +113,7 @@ public class Pessoa {
      * @return Representacao textual de Pessoa com funcao.
      */
     public String toStringPelaFuncao(){
-        return "POL: " + this.toString() + this.funcao.toString();
+        return this.funcao.toString(this.toString());
     }
 
     /**
@@ -182,8 +182,15 @@ public class Pessoa {
     }
 
     public boolean temFuncao() {
-        if (this.funcao != null) {
+        if (this.funcao instanceof SemFuncao) {
             return true;
         } return false;
+    }
+
+    public boolean temPartido(){
+        if (this.partido != null){
+            return true;
+        }
+        return false;
     }
 }

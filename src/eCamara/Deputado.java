@@ -70,11 +70,11 @@ public class Deputado implements Funcao{
      * @return representacao textual de Deputado.
      */
     @Override
-    public String toString(){
+    public String toString(String toString){
         char[] data = this.dataInicio.toCharArray();
         String dataFormatada = "" + data[0] + data[1] + "/"+ data[2] + data[3]+ "/" + data[4] + data[5] + data[6] + data[7];
 
-        return " - " + dataFormatada + " - " + this.qtdLeis + " Leis";
+        return "POL: " + toString + " - " + dataFormatada + " - " + this.qtdLeis + " Leis";
     }
 
     /**

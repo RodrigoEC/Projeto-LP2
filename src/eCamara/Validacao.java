@@ -111,8 +111,8 @@ public class Validacao {
      * @throws IllegalArgumentException "Erro ao cadastrar pessoa: dni invalido".
      */
 
-    public void validarCadastroPessoa(String dni, String tema, String estado) {
-        validaString(tema, "Erro ao cadastrar pessoa: tema nao pode ser vazio ou nulo");
+    public void validarCadastroPessoa(String dni, String nome, String estado) {
+        validaString(nome, "Erro ao cadastrar pessoa: nome nao pode ser vazio ou nulo");
         validaString(dni, "Erro ao cadastrar pessoa: dni nao pode ser vazio ou nulo");
         validaString(estado, "Erro ao cadastrar pessoa: estado nao pode ser vazio ou nulo");
         validaDni(dni, "Erro ao cadastrar pessoa: dni invalido");
