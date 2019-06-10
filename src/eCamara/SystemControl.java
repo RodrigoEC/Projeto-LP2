@@ -202,6 +202,13 @@ public class SystemControl {
         return this.mapPessoas;
     }
 
+    /**
+     * Metodo responsavel por cadastrar uma nova comissao, o metodo recevbe o tema da comissao e uma string com todos os
+     * dnis dos deputados participantes da comissao separados por virgula.
+     *
+     * @param tema o tema do projeto.
+     * @param politicos string contendo os dnis do deputados participantes da comissao separados por virgula.
+     */
     public void cadastrarComissao(String tema, String politicos) {
         this.validaEntradas.validaCadastrarComissao(tema, politicos);
 
@@ -225,6 +232,19 @@ public class SystemControl {
         this.comissoes.put(tema, politicosSet);
     }
 
+    /**
+     * Metodo responsavel por cadastrar um projeto de lei no sistema, o metodo recebe o dni do deputado que criou o projeto
+     * de lei, o que o projeto propoe(ementa), os interesses relacionados ao projeto, a url do site em que o projeto esta
+     * hospedado, e um boolean que indica se o projeto eh ou nao conclusivo.
+     *
+     * @param dni dni do autor do projeto.
+     * @param ano ano em que o projeto foi criado.
+     * @param ementa ementa do projeto.
+     * @param interesses interesses relacionados ao projeto de lei.
+     * @param url url do site em que o projeto esta hospedado.
+     * @param conclusivo boolean que mostra se o projeto eh conclusivo ou nao.
+     * @return A key do projeto no mapa de projetos.
+     */
    public String cadastrarPL(String dni, int ano, String ementa, String interesses, String url, boolean conclusivo) {
         this.validaEntradas.validaCadastrarPL(dni, ano, ementa, interesses, url);
 
@@ -249,6 +269,19 @@ public class SystemControl {
 
     }
 
+    /**
+     * Metodo responsavel por cadastrar um projeto de lei complementar no sistema, o metodo recebe o dni do deputado que criou o projeto
+     * de lei, o que o projeto propoe(ementa), os interesses relacionados ao projeto, a url do site em que o projeto esta
+     * hospedado, e uma string com os artigos da constituicao que estao relacionados ao projeto..
+     *
+     * @param dni dni do autor do projeto.
+     * @param ano ano em que o projeto foi criado.
+     * @param ementa ementa do projeto.
+     * @param interesses interesses relacionados ao projeto de lei.
+     * @param url url do site em que o projeto esta hospedado.
+     * @param artigos string que representa os artigos da constituicao relacionados a plp.
+     * @return A key do projeto no mapa de projetos.
+     */
     public String cadastrarPLP(String dni, int ano, String ementa, String interesses, String url, String artigos) {
         this.validaEntradas.validaCadastrarPLP(dni, ano, ementa, interesses, url, artigos);
 
@@ -272,11 +305,24 @@ public class SystemControl {
 
     }
 
+    /**
+     * Metodo responsavel por cadastrar um projeto de ementa constitucional no sistema, o metodo recebe o dni do deputado que criou o projeto
+     * de lei, o que o projeto propoe(ementa), os interesses relacionados ao projeto, a url do site em que o projeto esta
+     * hospedado, e uma string com os artigos da constituicao que estao relacionados ao projeto..
+     *
+     * @param dni dni do autor do projeto.
+     * @param ano ano em que o projeto foi criado.
+     * @param ementa ementa do projeto.
+     * @param interesses interesses relacionados ao projeto de lei.
+     * @param url url do site em que o projeto esta hospedado.
+     * @param artigos string que representa os artigos da constituicao relacionados a plp.
+     * @return A key do projeto no mapa de projetos.
+     */
     public String cadastrarPEC(String dni, int ano, String ementa, String interesses, String url, String artigos) {
         this.validaEntradas.validaCadastrarPLP(dni, ano, ementa, interesses, url, artigos);
 
         if (! this.mapPessoas.containsKey(dni)){
-            throw new NullPointerException("Mensagem");
+            throw new NullPointerException("Mensage");
         }
         if (this.mapPessoas.get(dni).temFuncao()) {
             throw new IllegalArgumentException("Pessoa nao eh deputadoo");
@@ -295,6 +341,13 @@ public class SystemControl {
 
     }
 
+    /**
+     * Metodo responsavel por criar e retornar uma representacao textual do projeto que tem o codigo que eh passado como
+     * parametro.
+     *
+     * @param codigo codigo do projeto no mapa.
+     * @return uma string que representa os dados relevantes do projeto.
+     */
     public String exibirProjeto(String codigo) {
         this.validaEntradas.validaExibeLei(codigo);
 
