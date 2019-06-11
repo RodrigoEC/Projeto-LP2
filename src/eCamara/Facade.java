@@ -61,6 +61,10 @@ public class Facade {
         return this.systemControl.cadastrarPEC(dni, ano, ementa, interesses, url, artigos);
     }
 
+    public String exibirProjeto(String codigo){
+        return  this.systemControl.exibirProjeto(codigo);
+    }
+
     /*public String exibirProjeto(String codigo) {
         return this.systemControl.exibirProjeto(codigo);
     }

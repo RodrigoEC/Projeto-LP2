@@ -244,11 +244,11 @@ public class Validacao {
 
      */
     public void validaCadastrarPL(String dni, int ano, String ementa, String interesses, String url){
-        this.validaString(dni, "MENSAGEM A SER PENETRADA");
-        this.validaString(ementa, "MENSAGEM A SER PENETRADA");
-        this.validaString(interesses, "MENSAGEM A SER PENETRADA");
-        this.validaString(url, "MENSAGEM A SER PENETRADA");
-        this.validaDni(dni, "MENSAGEM A SER PENETRADA");
+        this.validaString(dni, "Erro ao cadastrar projeto: autor nao pode ser vazio ou nulo");
+        this.validaString(ementa, "Erro ao cadastrar projeto: ementa nao pode ser vazia ou nula");
+        this.validaString(interesses, "Erro ao cadastrar projeto: interesse nao pode ser vazio ou nulo");
+        this.validaString(url, "Erro ao cadastrar projeto: url nao pode ser vazio ou nulo");
+        this.validaDni(dni, "Erro ao cadastrar projeto: dni invalido");
 
         //MUDAR O NEGOCIO DO ANO 2019. TORNAR AUTOMATICO A PARTIR DA BIBLIOTECA JAVA.TIME
         if (ano > 2019 || ano < 1988){
@@ -288,12 +288,12 @@ public class Validacao {
 
      */
     public void validaCadastrarPLP(String dni, int ano, String ementa, String interesses, String url, String artigos) {
-        this.validaString(dni, "MENSAGEM A SER aPENETRADA");
-        this.validaString(ementa, "MENSAGEM A SEdR PENErTRADA");
-        this.validaString(interesses, "MENSAGEM Aesdg SER PENETRADA");
-        this.validaString(url, "MENSAGEM A SER PENETfdRADA");
-        this.validaString(artigos, "MENSAGEM A SER PENfsvETRADA");
-        this.validaDni(dni, "MENSAGEM A SER PENdETrRADfgA");
+        this.validaString(dni, "Erro ao cadastrar projeto: autor nao pode ser vazio ou nulo");
+        this.validaString(ementa, "Erro ao cadastrar projeto: ementa nao pode ser vazia ou nula");
+        this.validaString(interesses, "Erro ao cadastrar projeto: interesse nao pode ser vazio ou nulo");
+        this.validaString(url, "Erro ao cadastrar projeto: url nao pode ser vazio ou nulo");
+        this.validaString(artigos, "Erro ao cadastrar projeto: artigo nao pode ser vazio ou nulo");
+        this.validaDni(dni, "Erro ao cadastrar projeto: dni invalido");
 
         //MUDAR O NEGOCIO DO ANO 2019. TORNAR AUTOMATICO A PARTIR DA BIBLIOTECA JAVA.TIME
         if (ano > 2019 || ano < 1988) {
@@ -332,12 +332,12 @@ public class Validacao {
 
      */
     public void validaCadastrarPEC(String dni, int ano, String ementa, String interesses, String url, String artigos){
-        this.validaString(dni, "MENSAGEM A SER aPENEeTRADA");
-        this.validaString(ementa, "MENSAGEM A SEdR PENETeRADA");
-        this.validaString(interesses, "MENSAGEM Asdg SER PsdENETRADA");
-        this.validaString(url, "MENSAGEM A SER PENETfdRADA");
-        this.validaString(artigos, "MENSAGEM A SERe PENfvEeTRADA");
-        this.validaDni(dni, "MENSAGEM A SER PENeETRADfgA");
+        this.validaString(dni, "Erro ao cadastrar projeto: autor nao pode ser vazio ou nulo");
+        this.validaString(ementa, "Erro ao cadastrar projeto: ementa nao pode ser vazia ou nula");
+        this.validaString(interesses, "Erro ao cadastrar projeto: interesse nao pode ser vazio ou nulo");
+        this.validaString(url, "Erro ao cadastrar projeto: url nao pode ser vazio ou nulo");
+        this.validaString(artigos, "Erro ao cadastrar projeto: artigo nao pode ser vazio ou nulo");
+        this.validaDni(dni, "Erro ao cadastrar projeto: dni invalido");
 
         //MUDAR O NEGOCIO DO ANO 2019. TORNAR AUTOMATICO A PARTIR DA BIBLIOTECA JAVA.TIME
         if (ano > 2019 || ano < 1988) {

@@ -255,7 +255,7 @@ public class SystemControl {
         if (! this.mapPessoas.containsKey(dni)){
             throw new NullPointerException("Mensagem");
         }
-        if (this.mapPessoas.get(dni).temFuncao()) {
+        if (! this.mapPessoas.get(dni).temFuncao()) {
             throw new IllegalArgumentException("Pessoa nao eh deputado");
         }
 
@@ -292,7 +292,7 @@ public class SystemControl {
         if (! this.mapPessoas.containsKey(dni)){
             throw new NullPointerException("Mensagem");
         }
-        if (this.mapPessoas.get(dni).temFuncao()) {
+        if (! this.mapPessoas.get(dni).temFuncao()) {
             throw new IllegalArgumentException("Pessoa nao eh deputadoo");
         }
 
@@ -328,7 +328,7 @@ public class SystemControl {
         if (! this.mapPessoas.containsKey(dni)){
             throw new NullPointerException("Mensage");
         }
-        if (this.mapPessoas.get(dni).temFuncao()) {
+        if (! this.mapPessoas.get(dni).temFuncao()) {
             throw new IllegalArgumentException("Pessoa nao eh deputadoo");
         }
 

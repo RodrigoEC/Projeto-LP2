@@ -30,8 +30,8 @@ public class PL extends ProjetoDeLeiAbstract {
      */
     public String toString(String codigo){
         if (conclusivo){
-            return "Projeto de Lei - " + codigo + super.dniAutor + " - " + super.ementa + " - Conclusiva - " + super.situacao;
+            return "Projeto de Lei - " + codigo + " - " + super.dniAutor + " - " + super.ementa + " - Conclusiva - " + super.situacao;
         }
-        return "Projeto de Lei - " + codigo + " - " + super.dniAutor + " - " + super.ementa + " - Nao conclusiva - " + super.situacao;
+        return "Projeto de Lei - " + codigo + " - " + super.dniAutor + " - " + super.ementa + " - " + super.situacao;
     }
 }

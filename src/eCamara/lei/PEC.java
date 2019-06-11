@@ -29,6 +29,6 @@ public class PEC extends ProjetoDeLeiAbstract {
      * @return string que representa o objeto.
      */
     public String toString(String codigo){
-        return "Projeto de Emenda Constitucional - " + codigo + " - " + super.dniAutor + " - " + super.ementa + " - " + this.artigos + " - " + super.situacao;
+        return "Projeto de Emenda Constitucional - " + codigo + " - " + super.dniAutor + " - " + super.ementa + " - " + (this.artigos.replace(",", ", ")) + " - " + super.situacao;
     }
 }
