@@ -198,6 +198,7 @@ public class Validacao {
         validaDni(dni, "Erro ao exibir pessoa: dni invalido");
     }
 
+
     public void validaCadastrarComissao(String tema, String politicos){
         this.validaString(tema, "MENSAGEM A SER PENETRADA");
         this.validaString(politicos, "MENSAGEM A SER PENETRADA");

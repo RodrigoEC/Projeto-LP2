@@ -246,4 +246,498 @@ class ValidacaoTest {
         } catch (IllegalArgumentException iae) {
         }
     }
+
+    @Test
+    void testeValidaCadastrarComissaoTemaInvalido() {
+        try {
+            validador.validaCadastrarComissao(" ", "123456789-0");
+            fail("era pra dar ruim");
+        } catch (IllegalArgumentException nope) {
+        }
+
+        try {
+            validador.validaCadastrarComissao("", "123456789-0");
+            fail("era pra dar ruim");
+        } catch (IllegalArgumentException nope) {
+        }
+
+        try {
+            validador.validaCadastrarComissao(null, "123456789-0");
+            fail("era pra dar ruim");
+        } catch (NullPointerException nope) {
+        }
+    }
+
+    @Test
+    void testeValidaCadastrarComissaoPoliticosInvalidos() {
+        try {
+            validador.validaCadastrarComissao("vacas", "");
+            fail("era pra dar ruim");
+        } catch (IllegalArgumentException nope) {
+        }
+
+        try {
+            validador.validaCadastrarComissao("vacas", "123456789-0, 14785236a-2");
+            fail("era pra dar ruim");
+        } catch (IllegalArgumentException nope) {
+        }
+        try {
+            validador.validaCadastrarComissao("vacas", "12345678c-0");
+            fail("era pra dar ruim");
+        } catch (IllegalArgumentException nope) {
+        }
+        try {
+            validador.validaCadastrarComissao("vacas", "124587963-a");
+            fail("era pra dar ruim");
+        } catch (IllegalArgumentException nope) {
+        }
+
+        try {
+            validador.validaCadastrarComissao("vacas", "159632478-0, 1587423969-c");
+            fail("era pra dar ruim");
+        } catch (IllegalArgumentException nope) {
+        }
+
+        try {
+            validador.validaCadastrarComissao("vacas", null);
+            fail("era pra dar ruim");
+        } catch (NullPointerException nope) {
+        }
+    }
+
+    @Test
+    void testeValidaDniCadastrarPL() {
+        try {
+            validador.validaCadastrarPL("123456789-c", 2018, "...", "vacas", "sei la meu rapaz");
+            fail("era pra dar ruim");
+        } catch (IllegalArgumentException nope) {
+        }
+
+        try {
+            validador.validaCadastrarPL("12345678a-5", 2018, "...", "vacas", "sei la meu rapaz");
+            fail("era pra dar ruim");
+        } catch (IllegalArgumentException nope) {
+        }
+
+        try {
+            validador.validaCadastrarPL("", 2018, "...", "vacas", "sei la meu rapaz");
+            fail("era pra dar ruim");
+        } catch (IllegalArgumentException nope) {
+        }
+
+        try {
+            validador.validaCadastrarPL(" ", 2018, "...", "vacas", "sei la meu rapaz");
+            fail("era pra dar ruim");
+        } catch (IllegalArgumentException nope) {
+        }
+
+        try {
+            validador.validaCadastrarPL(null, 2018, "...", "vacas", "sei la meu rapaz");
+            fail("era pra dar ruim");
+        } catch (NullPointerException nope) {
+        }
+    }
+
+    @Test
+    void testeValidaAnoCadastrarPL() {
+        try {
+            validador.validaCadastrarPL("123456789-5", -2018, "...", "vacas", "sei la meu rapaz");
+            fail("era pra dar ruim");
+        } catch (IllegalArgumentException nope) {
+        }
+
+        try {
+            validador.validaCadastrarPL("123456789-5", 2020, "...", "vacas", "sei la meu rapaz");
+            fail("era pra dar ruim");
+        } catch (IllegalArgumentException nope) {
+        }
+
+        try {
+            validador.validaCadastrarPL("123456789-5", 2025, "...", "vacas", "sei la meu rapaz");
+            fail("era pra dar ruim");
+        } catch (IllegalArgumentException nope) {
+        }
+
+        try {
+            validador.validaCadastrarPL("123456789-5", 0, "...", "vacas", "sei la meu rapaz");
+            fail("era pra dar ruim");
+        } catch (IllegalArgumentException nope) {
+        }
+    }
+
+    @Test
+    void testeValidaEmentaCadastrarPL() {
+        try {
+            validador.validaCadastrarPL("123456789-5", 2018, "", "vacas", "sei la meu rapaz");
+            fail("era pra dar ruim");
+        } catch (IllegalArgumentException nope) {
+        }
+
+        try {
+            validador.validaCadastrarPL("123456789-5", 2018, " ", "vacas", "sei la meu rapaz");
+            fail("era pra dar ruim");
+        } catch (IllegalArgumentException nope) {
+        }
+
+        try {
+            validador.validaCadastrarPL("123456789-5", 2018, null, "vacas", "sei la meu rapaz");
+            fail("era pra dar ruim");
+        } catch (NullPointerException nope) {
+        }
+    }
+
+    @Test
+    void testeValidaInteressesCadastrarPL() {
+        try {
+            validador.validaCadastrarPL("123456789-5", 2018, "...", "", "sei la meu rapaz");
+            fail("era pra dar ruim");
+        } catch (IllegalArgumentException nope) {
+        }
+
+        try {
+            validador.validaCadastrarPL("123456789-5", 2018, "...", "   ", "sei la meu rapaz");
+            fail("era pra dar ruim");
+        } catch (IllegalArgumentException nope) {
+        }
+
+        try {
+            validador.validaCadastrarPL("123456789-5", 2018, "...", null, "sei la meu rapaz");
+            fail("era pra dar ruim");
+        } catch (NullPointerException nope) {
+        }
+    }
+
+    @Test
+    void testeValidaUrlCadatrarPL() {
+        try {
+            validador.validaCadastrarPL("123456789-5", 2018, "...", "vacas", "");
+            fail("era pra dar ruim");
+        } catch (IllegalArgumentException nope) {
+        }
+
+        try {
+            validador.validaCadastrarPL("123456789-5", 2018, "...", "vacas", "  ");
+            fail("era pra dar ruim");
+        } catch (IllegalArgumentException nope) {
+        }
+
+        try {
+            validador.validaCadastrarPL("123456789-5", 2018, "...", "vacas", null);
+            fail("era pra dar ruim");
+        } catch (NullPointerException nope) {
+        }
+    }
+
+    @Test
+    void testeValidaDniCadastrarPLP() {
+        try {
+            validador.validaCadastrarPLP("123456789-c", 2018, "...", "vacas", "sei la meu rapaz", "1");
+            fail("era pra dar ruim");
+        } catch (IllegalArgumentException nope) {
+        }
+
+        try {
+            validador.validaCadastrarPLP("12345678a-5", 2018, "...", "vacas", "sei la meu rapaz", "1");
+            fail("era pra dar ruim");
+        } catch (IllegalArgumentException nope) {
+        }
+
+        try {
+            validador.validaCadastrarPLP("", 2018, "...", "vacas", "sei la meu rapaz", "1");
+            fail("era pra dar ruim");
+        } catch (IllegalArgumentException nope) {
+        }
+
+        try {
+            validador.validaCadastrarPLP(" ", 2018, "...", "vacas", "sei la meu rapaz", "1");
+            fail("era pra dar ruim");
+        } catch (IllegalArgumentException nope) {
+        }
+
+        try {
+            validador.validaCadastrarPLP(null, 2018, "...", "vacas", "sei la meu rapaz", "1");
+            fail("era pra dar ruim");
+        } catch (NullPointerException nope) {
+        }
+
+    }
+
+    @Test
+    void testeValidaAnoCadastrarPLP() {
+        try {
+            validador.validaCadastrarPLP("123456789-5", -2018, "...", "vacas", "sei la meu rapaz", "1");
+            fail("era pra dar ruim");
+        } catch (IllegalArgumentException nope) {
+        }
+
+        try {
+            validador.validaCadastrarPLP("123456789-5", 2020, "...", "vacas", "sei la meu rapaz", "1");
+            fail("era pra dar ruim");
+        } catch (IllegalArgumentException nope) {
+        }
+
+        try {
+            validador.validaCadastrarPLP("123456789-5", 2025, "...", "vacas", "sei la meu rapaz", "1");
+            fail("era pra dar ruim");
+        } catch (IllegalArgumentException nope) {
+        }
+
+        try {
+            validador.validaCadastrarPLP("123456789-5", 0, "...", "vacas", "sei la meu rapaz", "1");
+            fail("era pra dar ruim");
+        } catch (IllegalArgumentException nope) {
+        }
+    }
+
+    @Test
+    void testeValidaEmentaCadastrarPLP() {
+        try {
+            validador.validaCadastrarPLP("123456789-5", 2018, "", "vacas", "sei la meu rapaz", "1");
+            fail("era pra dar ruim");
+        } catch (IllegalArgumentException nope) {
+        }
+
+        try {
+            validador.validaCadastrarPLP("123456789-5", 2018, " ", "vacas", "sei la meu rapaz", "1");
+            fail("era pra dar ruim");
+        } catch (IllegalArgumentException nope) {
+        }
+
+        try {
+            validador.validaCadastrarPLP("123456789-5", 2018, null, "vacas", "sei la meu rapaz", "1");
+            fail("era pra dar ruim");
+        } catch (NullPointerException nope) {
+        }
+    }
+
+    @Test
+    void testeValidaInteressesCadastrarPLP() {
+        try {
+            validador.validaCadastrarPLP("123456789-5", 2018, "...", "", "sei la meu rapaz", "1");
+            fail("era pra dar ruim");
+        } catch (IllegalArgumentException nope) {
+        }
+
+        try {
+            validador.validaCadastrarPLP("123456789-5", 2018, "...", "   ", "sei la meu rapaz", "1");
+            fail("era pra dar ruim");
+        } catch (IllegalArgumentException nope) {
+        }
+
+        try {
+            validador.validaCadastrarPLP("123456789-5", 2018, "...", null, "sei la meu rapaz", "1");
+            fail("era pra dar ruim");
+        } catch (NullPointerException nope) {
+        }
+    }
+
+    @Test
+    void testeValidaUrlCadastrarPLP() {
+        try {
+            validador.validaCadastrarPLP("123456789-5", 2018, "...", "vacas", "", "1");
+            fail("era pra dar ruim");
+        } catch (IllegalArgumentException nope) {
+        }
+
+        try {
+            validador.validaCadastrarPLP("123456789-5", 2018, "...", "vacas", "  ", "1");
+            fail("era pra dar ruim");
+        } catch (IllegalArgumentException nope) {
+        }
+
+        try {
+            validador.validaCadastrarPLP("123456789-5", 2018, "...", "vacas", null, "1");
+            fail("era pra dar ruim");
+        } catch (NullPointerException nope) {
+        }
+    }
+
+    @Test
+    void testeValidaArtigosCadastrarPLP() {
+        try {
+            validador.validaCadastrarPLP("123456789-5", 2018, "...", "vacas", "http/lalal", "");
+            fail("era pra dar ruim");
+        } catch (IllegalArgumentException nope) {
+        }
+
+        try {
+            validador.validaCadastrarPLP("123456789-5", 2018, "...", "vacas", "http/lalal", " ");
+            fail("era pra dar ruim");
+        } catch (IllegalArgumentException nope) {
+        }
+
+        try {
+            validador.validaCadastrarPLP("123456789-5", 2018, "...", "vacas", "http/lalal", null);
+            fail("era pra dar ruim");
+        } catch (NullPointerException nope) {
+        }
+
+    }
+
+    @Test
+    void testeValidaDniCadastrarPEC() {
+        try {
+            validador.validaCadastrarPEC("123456789-c", 2018, "...", "vacas", "sei la meu rapaz", "1");
+            fail("era pra dar ruim");
+        } catch (IllegalArgumentException nope) {
+        }
+
+        try {
+            validador.validaCadastrarPEC("12345678a-5", 2018, "...", "vacas", "sei la meu rapaz", "1");
+            fail("era pra dar ruim");
+        } catch (IllegalArgumentException nope) {
+        }
+
+        try {
+            validador.validaCadastrarPEC("", 2018, "...", "vacas", "sei la meu rapaz", "1");
+            fail("era pra dar ruim");
+        } catch (IllegalArgumentException nope) {
+        }
+
+        try {
+            validador.validaCadastrarPEC(" ", 2018, "...", "vacas", "sei la meu rapaz", "1");
+            fail("era pra dar ruim");
+        } catch (IllegalArgumentException nope) {
+        }
+
+        try {
+            validador.validaCadastrarPEC(null, 2018, "...", "vacas", "sei la meu rapaz", "1");
+            fail("era pra dar ruim");
+        } catch (NullPointerException nope) {
+        }
+
+    }
+
+    @Test
+    void testeValidaAnoCadastrarPEC() {
+        try {
+            validador.validaCadastrarPEC("123456789-5", -2018, "...", "vacas", "sei la meu rapaz", "1");
+            fail("era pra dar ruim");
+        } catch (IllegalArgumentException nope) {
+        }
+
+        try {
+            validador.validaCadastrarPEC("123456789-5", 2020, "...", "vacas", "sei la meu rapaz", "1");
+            fail("era pra dar ruim");
+        } catch (IllegalArgumentException nope) {
+        }
+
+        try {
+            validador.validaCadastrarPEC("123456789-5", 2025, "...", "vacas", "sei la meu rapaz", "1");
+            fail("era pra dar ruim");
+        } catch (IllegalArgumentException nope) {
+        }
+
+        try {
+            validador.validaCadastrarPEC("123456789-5", 0, "...", "vacas", "sei la meu rapaz", "1");
+            fail("era pra dar ruim");
+        } catch (IllegalArgumentException nope) {
+        }
+    }
+
+    @Test
+    void testeValidaEmentaCadastrarPEC() {
+        try {
+            validador.validaCadastrarPEC("123456789-5", 2018, "", "vacas", "sei la meu rapaz", "1");
+            fail("era pra dar ruim");
+        } catch (IllegalArgumentException nope) {
+        }
+
+        try {
+            validador.validaCadastrarPEC("123456789-5", 2018, " ", "vacas", "sei la meu rapaz", "1");
+            fail("era pra dar ruim");
+        } catch (IllegalArgumentException nope) {
+        }
+
+        try {
+            validador.validaCadastrarPEC("123456789-5", 2018, null, "vacas", "sei la meu rapaz", "1");
+            fail("era pra dar ruim");
+        } catch (NullPointerException nope) {
+        }
+    }
+
+    @Test
+    void testeValidaInteressesCadastrarPEC() {
+        try {
+            validador.validaCadastrarPEC("123456789-5", 2018, "...", "", "sei la meu rapaz", "1");
+            fail("era pra dar ruim");
+        } catch (IllegalArgumentException nope) {
+        }
+
+        try {
+            validador.validaCadastrarPEC("123456789-5", 2018, "...", "   ", "sei la meu rapaz", "1");
+            fail("era pra dar ruim");
+        } catch (IllegalArgumentException nope) {
+        }
+
+        try {
+            validador.validaCadastrarPEC("123456789-5", 2018, "...", null, "sei la meu rapaz", "1");
+            fail("era pra dar ruim");
+        } catch (NullPointerException nope) {
+        }
+    }
+
+    @Test
+    void testeValidaUrlCadastrarPEC() {
+        try {
+            validador.validaCadastrarPEC("123456789-5", 2018, "...", "vacas", "", "1");
+            fail("era pra dar ruim");
+        } catch (IllegalArgumentException nope) {
+        }
+
+        try {
+            validador.validaCadastrarPEC("123456789-5", 2018, "...", "vacas", "  ", "1");
+            fail("era pra dar ruim");
+        } catch (IllegalArgumentException nope) {
+        }
+
+        try {
+            validador.validaCadastrarPEC("123456789-5", 2018, "...", "vacas", null, "1");
+            fail("era pra dar ruim");
+        } catch (NullPointerException nope) {
+        }
+    }
+
+    @Test
+    void testeValidaArtigosCadastrarPEC() {
+        try {
+            validador.validaCadastrarPEC("123456789-5", 2018, "...", "vacas", "http/lalal", "");
+            fail("era pra dar ruim");
+        } catch (IllegalArgumentException nope) {
+        }
+
+        try {
+            validador.validaCadastrarPEC("123456789-5", 2018, "...", "vacas", "http/lalal", " ");
+            fail("era pra dar ruim");
+        } catch (IllegalArgumentException nope) {
+        }
+
+        try {
+            validador.validaCadastrarPEC("123456789-5", 2018, "...", "vacas", "http/lalal", null);
+            fail("era pra dar ruim");
+        } catch (NullPointerException nope) {
+        }
+
+    }
+
+    @Test
+    void testeValidaEntradasExibeLei() {
+        try {
+            validador.validaExibeLei("");
+            fail("erapra dar ruim");
+        } catch (IllegalArgumentException nope) {
+        }
+
+        try {
+            validador.validaExibeLei("  ");
+            fail("erapra dar ruim");
+        } catch (IllegalArgumentException nope) {
+        }
+
+        try {
+            validador.validaExibeLei(null);
+            fail("erapra dar ruim");
+        } catch (NullPointerException nope) {
+        }
+    }
 }

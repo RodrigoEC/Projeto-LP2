@@ -319,7 +319,7 @@ public class SystemControl {
      * @return A key do projeto no mapa de projetos.
      */
     public String cadastrarPEC(String dni, int ano, String ementa, String interesses, String url, String artigos) {
-        this.validaEntradas.validaCadastrarPLP(dni, ano, ementa, interesses, url, artigos);
+        this.validaEntradas.validaCadastrarPEC(dni, ano, ementa, interesses, url, artigos);
 
         if (! this.mapPessoas.containsKey(dni)){
             throw new NullPointerException("Mensage");
