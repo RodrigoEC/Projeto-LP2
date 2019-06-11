@@ -195,8 +195,8 @@ public class Pessoa {
      */
     public boolean temFuncao() {
         if (this.funcao instanceof SemFuncao) {
-            return true;
-        } return false;
+            return false;
+        } return true;
     }
 
     /**

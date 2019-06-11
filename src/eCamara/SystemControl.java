@@ -33,6 +33,8 @@ public class SystemControl {
         this.mapPessoas =  new HashMap<>();
         this.partidos = new HashSet<>();
         this.validaEntradas = new Validacao();
+        this.comissoes =  new HashMap<>();
+        this.leis = new HashMap<>();
     }
 
     /**
@@ -213,19 +215,21 @@ public class SystemControl {
         this.validaEntradas.validaCadastrarComissao(tema, politicos);
 
         if (this.comissoes.containsKey(tema)){
-            throw new IllegalArgumentException("MENSAGEM A SER PENETRADA");
+            throw new IllegalArgumentException("Erro ao cadastrar comissao: tema existente");
         }
+
+        this.validaEntradas.validaCadastroComissaoDnis(politicos);
 
         String[] listaDnis = politicos.trim().split(",");
 
         Set<String> politicosSet = new HashSet<String>(Arrays.asList(listaDnis));
 
-        for (String dni: politicos.trim().split(",")){
+        for (String dni: listaDnis){
            if(!this.mapPessoas.containsKey(dni)){
-               throw new IllegalArgumentException("MENSAGEM A SER PENETRADA");
+               throw new IllegalArgumentException("Erro ao cadastrar comissao: pessoa inexistente");
            }
-           if(this.mapPessoas.get(dni).temFuncao()){
-                throw new NullPointerException("MENSAGEM A SER PENETRADA");
+           if(! this.mapPessoas.get(dni).temFuncao()){
+                throw new NullPointerException("Erro ao cadastrar comissao: pessoa nao eh deputado");
            }
         }
 

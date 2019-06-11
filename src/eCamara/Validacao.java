@@ -200,12 +200,16 @@ public class Validacao {
 
 
     public void validaCadastrarComissao(String tema, String politicos){
-        this.validaString(tema, "MENSAGEM A SER PENETRADA");
-        this.validaString(politicos, "MENSAGEM A SER PENETRADA");
+        this.validaString(tema, "Erro ao cadastrar comissao: tema nao pode ser vazio ou nulo");
+        this.validaString(politicos, "Erro ao cadastrar comissao: lista de politicos nao pode ser vazio ou nulo");
+
+    }
+
+    public void validaCadastroComissaoDnis(String politicos){
         String[] array = politicos.trim().split(",");
 
         for (String dni: array){
-            this.validaDni(dni, "MENSAGEM A SER PENETRADA");
+            this.validaDni(dni, "Erro ao cadastrar comissao: dni invalido");
         }
     }
 
