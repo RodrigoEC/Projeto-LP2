@@ -277,23 +277,23 @@ class ValidacaoTest {
         }
 
         try {
-            validador.validaCadastrarComissao("vacas", "123456789-0, 14785236a-2");
+            validador.validaCadastroComissaoDnis("123456789-0, 14785236a-2");
             fail("era pra dar ruim");
         } catch (IllegalArgumentException nope) {
         }
         try {
-            validador.validaCadastrarComissao("vacas", "12345678c-0");
+            validador.validaCadastroComissaoDnis("12345678c-0");
             fail("era pra dar ruim");
         } catch (IllegalArgumentException nope) {
         }
         try {
-            validador.validaCadastrarComissao("vacas", "124587963-a");
+            validador.validaCadastroComissaoDnis("124587963-a");
             fail("era pra dar ruim");
         } catch (IllegalArgumentException nope) {
         }
 
         try {
-            validador.validaCadastrarComissao("vacas", "159632478-0, 1587423969-c");
+            validador.validaCadastroComissaoDnis( "159632478-0, 1587423969-c");
             fail("era pra dar ruim");
         } catch (IllegalArgumentException nope) {
         }
