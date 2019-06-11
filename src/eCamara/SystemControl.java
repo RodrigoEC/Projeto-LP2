@@ -253,10 +253,10 @@ public class SystemControl {
         this.validaEntradas.validaCadastrarPL(dni, ano, ementa, interesses, url);
 
         if (! this.mapPessoas.containsKey(dni)){
-            throw new NullPointerException("Mensagem");
+            throw new NullPointerException("Erro ao cadastrar projeto: pessoa inexistente");
         }
         if (! this.mapPessoas.get(dni).temFuncao()) {
-            throw new IllegalArgumentException("Pessoa nao eh deputado");
+            throw new IllegalArgumentException("Erro ao cadastrar projeto: pessoa nao eh deputado");
         }
 
         int contador = 1;
@@ -290,10 +290,10 @@ public class SystemControl {
         this.validaEntradas.validaCadastrarPLP(dni, ano, ementa, interesses, url, artigos);
 
         if (! this.mapPessoas.containsKey(dni)){
-            throw new NullPointerException("Mensagem");
+            throw new NullPointerException("Erro ao cadastrar projeto: pessoa inexistente");
         }
         if (! this.mapPessoas.get(dni).temFuncao()) {
-            throw new IllegalArgumentException("Pessoa nao eh deputadoo");
+            throw new IllegalArgumentException("Erro ao cadastrar projeto: pessoa nao eh deputado");
         }
 
         int contador = 1;
@@ -326,10 +326,10 @@ public class SystemControl {
         this.validaEntradas.validaCadastrarPEC(dni, ano, ementa, interesses, url, artigos);
 
         if (! this.mapPessoas.containsKey(dni)){
-            throw new NullPointerException("Mensage");
+            throw new NullPointerException("Erro ao cadastrar projeto: pessoa inexistente");
         }
         if (! this.mapPessoas.get(dni).temFuncao()) {
-            throw new IllegalArgumentException("Pessoa nao eh deputadoo");
+            throw new IllegalArgumentException("Erro ao cadastrar projeto: pessoa nao eh deputado");
         }
 
         int contador = 1;
