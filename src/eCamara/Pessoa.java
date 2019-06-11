@@ -92,16 +92,25 @@ public class Pessoa {
      *
      * @return Inteiro calculado a partir do dni.
      */
-
     @Override
     public int hashCode() {
         return Objects.hash(dni);
     }
 
+    /**
+     * Metodo responsavel por deixar disponivel o partido em que a pessoa esta filiada.
+     *
+     * @return uma string que representa o partido.
+     */
     public String getPartido() {
         return partido;
     }
 
+    /**
+     * Metodo responsavel por deixar disponivel a funcao da pessoa na politica.
+     *
+     * @return o atributo funcao, um objeto do tipo Funcao
+     */
     public Funcao getFuncao() {
         return funcao;
     }
@@ -146,7 +155,6 @@ public class Pessoa {
      *
      * @return String com o dni.
      */
-
     public String getDni() {
         return this.dni;
     }
@@ -156,7 +164,6 @@ public class Pessoa {
      *
      * @return String com o nome.
      */
-
     public String getNome() {
         return this.nome;
     }
@@ -166,7 +173,6 @@ public class Pessoa {
      *
      * @return String com o estado.
      */
-
     public String getEstado() {
         return this.estado;
     }
@@ -176,17 +182,29 @@ public class Pessoa {
      *
      * @return String com o(s) interesse(s).
      */
-
     public String getInteresses() {
         return this.interesses;
     }
 
+    /**
+     * Metodo que mostra se a pessoa tem uma funcao na politica, se o atributo funcao da pessoa for do tipo SemFuncao
+     * o metodo retorna true, indicando que a pessoa nao tem funcao na politica, se o atributo for de qualquer outro tipo
+     * o metodo retornar false, indicando que a pessoa tem alguma funcao na politica.
+     *
+     * @return um boolean que indica se a pessoa tem ou nao uma funcao na politica.
+     */
     public boolean temFuncao() {
         if (this.funcao instanceof SemFuncao) {
             return true;
         } return false;
     }
 
+    /**
+     * Metodo responsavel por determinar se uma pessoa tem um partido ou nao, se ela nao tiver partido, ou seja, o partido
+     * for null o metodo retorna true, se ele tiver partido o metodo retorna false.
+     *
+     * @return um boolean que representa se a pessoa tem ou nao um partido.
+     */
     public boolean temPartido(){
         if (this.partido != null){
             return true;

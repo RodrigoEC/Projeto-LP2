@@ -97,7 +97,6 @@ public class Validacao {
      * Recebe Strings com o dni, tema, e estado.
      *
      * @param dni String com o dni.
-     * @param tema String com tema.
      * @param estado String com estado.
      *
      * @throws IllegalArgumentException "Erro ao cadastrar pessoa: tema nao pode ser vazio ou nulo".
@@ -209,6 +208,36 @@ public class Validacao {
         }
     }
 
+    /**
+     * Metodo responsavel por validar as entradas do metodo cadastrarPL, lancando a excecao apropriada se as entradas
+     * forem invalidas. Caso o dni seja vazio, ou apresente letras uma excecao sera lancada, caso o ano represente
+     * um ano do futuro uma excecao tambem sera lancada, assim como se tanto a ementa, como os interesses, como a url sejam
+     * vazios ou nulos uma excecao sera lancada.
+     *
+     * @param dni dni do autor do PL.
+     * @param ano ano em que o PL foi criada.
+     * @param ementa ementa do PL.
+     * @param interesses interesses relacionados o PL.
+     * @param url url do site em que o PL esta hospedada.
+     *
+     * @throws NullPointerException mensagem
+     * @throws IllegalArgumentException mensagem
+     *
+     * @throws NullPointerException mensagem
+     * @throws IllegalArgumentException mensagem
+
+     * @throws NullPointerException mensagem
+     * @throws IllegalArgumentException mensagem
+
+
+     * @throws NullPointerException mensagem
+     * @throws IllegalArgumentException mensagem
+
+     * @throws IllegalArgumentException mensagem
+     *
+     * @throws IllegalArgumentException mensagem
+
+     */
     public void validaCadastrarPL(String dni, int ano, String ementa, String interesses, String url){
         this.validaString(dni, "MENSAGEM A SER PENETRADA");
         this.validaString(ementa, "MENSAGEM A SER PENETRADA");
@@ -223,6 +252,36 @@ public class Validacao {
     }
 
 
+    /**
+     * Metodo responsavel por validar as entradas do metodo cadastrarPLP, lancando a excecao apropriada se as entradas
+     * forem invalidas. Caso o dni seja vazio, ou apresente letras uma excecao sera lancada, caso o ano represente
+     * um ano do futuro uma excecao tambem sera lancada, assim como se tanto a ementa, como os interesses, como os artigos
+     * da constituicao serem vazios ou nulos uma excecao sera lancada.
+     *
+     * @param dni dni do autor do PLP.
+     * @param ano ano em que o PLP foi criada.
+     * @param ementa ementa do PLP.
+     * @param interesses interesses relacionados o PLP.
+     * @param artigos artigos da constituicao que o PLP se relacionam.
+     *
+     * @throws NullPointerException mensagem
+     * @throws IllegalArgumentException mensagem
+     *
+     * @throws NullPointerException mensagem
+     * @throws IllegalArgumentException mensagem
+
+     * @throws NullPointerException mensagem
+     * @throws IllegalArgumentException mensagem
+
+
+     * @throws NullPointerException mensagem
+     * @throws IllegalArgumentException mensagem
+
+     * @throws IllegalArgumentException mensagem
+     *
+     * @throws IllegalArgumentException mensagem
+
+     */
     public void validaCadastrarPLP(String dni, int ano, String ementa, String interesses, String url, String artigos) {
         this.validaString(dni, "MENSAGEM A SER aPENETRADA");
         this.validaString(ementa, "MENSAGEM A SEdR PENErTRADA");
@@ -237,6 +296,36 @@ public class Validacao {
         }
     }
 
+    /**
+     * Metodo responsavel por validar as entradas do metodo cadastrarPEC, lancando a excecao apropriada se as entradas
+     * forem invalidas. Caso o dni seja vazio, ou apresente letras uma excecao sera lancada, caso o ano represente
+     * um ano do futuro uma excecao tambem sera lancada, assim como se tanto a ementa, como os interesses, como os artigos
+     * da constituicao serem vazios ou nulos uma excecao sera lancada.
+     *
+     * @param dni dni do autor do PEC
+     * @param ano ano em que o PEC foi criada.
+     * @param ementa ementa do PEC.
+     * @param interesses interesses relacionados o PEC.
+     * @param artigos artigos da constituicao que o PEC se relacionam.
+     *
+     * @throws NullPointerException mensagem
+     * @throws IllegalArgumentException mensagem
+     *
+     * @throws NullPointerException mensagem
+     * @throws IllegalArgumentException mensagem
+
+     * @throws NullPointerException mensagem
+     * @throws IllegalArgumentException mensagem
+
+
+     * @throws NullPointerException mensagem
+     * @throws IllegalArgumentException mensagem
+
+     * @throws IllegalArgumentException mensagem
+     *
+     * @throws IllegalArgumentException mensagem
+
+     */
     public void validaCadastrarPEC(String dni, int ano, String ementa, String interesses, String url, String artigos){
         this.validaString(dni, "MENSAGEM A SER aPENEeTRADA");
         this.validaString(ementa, "MENSAGEM A SEdR PENETeRADA");
@@ -251,6 +340,12 @@ public class Validacao {
         }
     }
 
+    /**
+     * metodo responsavel por validar o codigo do projeto passado como parametro no metodo exibeLei, lancando uma excecao
+     * caso o codigo for nulo ou vazio.
+     *
+     * @param codigo codigo do projeto que sera exibido.
+     */
     public void validaExibeLei(String codigo){
         this.validaString(codigo, "Ainda nao tem");
     }
