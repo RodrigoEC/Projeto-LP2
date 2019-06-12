@@ -2,10 +2,7 @@ package eCamara;
 
 import eCamara.individuo.Deputado;
 import eCamara.individuo.Pessoa;
-import eCamara.legislativo.PEC;
-import eCamara.legislativo.PL;
-import eCamara.legislativo.PLP;
-import eCamara.legislativo.ProjetoDeLei;
+import eCamara.legislativo.*;
 
 import java.util.*;
 
@@ -20,7 +17,7 @@ public class SystemControl {
     /** Set de Partidos (String) */
     private Set<String> partidos;
 
-    private Map<String, Set<String>> comissoes;
+    private Map<String, Comissao> comissoes;
 
     private Map<String, ProjetoDeLei> leis;
 
@@ -224,7 +221,7 @@ public class SystemControl {
 
         String[] listaDnis = politicos.trim().split(",");
 
-        Set<String> politicosSet = new HashSet<String>(Arrays.asList(listaDnis));
+        Map<String, Pessoa> politicosMap = new HashMap<>();
 
         for (String dni: listaDnis){
            if(!this.mapPessoas.containsKey(dni)){
@@ -233,9 +230,10 @@ public class SystemControl {
            if(! this.mapPessoas.get(dni).temFuncao()){
                 throw new NullPointerException("Erro ao cadastrar comissao: pessoa nao eh deputado");
            }
+           politicosMap.put(dni, this.mapPessoas.get(dni));
         }
 
-        this.comissoes.put(tema, politicosSet);
+        this.comissoes.put(tema, new Comissao(tema, politicosMap));
     }
 
     /**
