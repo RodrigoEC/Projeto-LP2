@@ -41,7 +41,7 @@ public class Pessoa {
         this.nome =  nome;
         this.estado = estado;
         this.interesses = interesses;
-        this.funcao = new SemFuncao();
+        this.funcao = new Civil();
     }
 
     /**
@@ -189,14 +189,14 @@ public class Pessoa {
     }
 
     /**
-     * Metodo que mostra se a pessoa tem uma funcao na politica, se o atributo funcao da pessoa for do tipo SemFuncao
+     * Metodo que mostra se a pessoa tem uma funcao na politica, se o atributo funcao da pessoa for do tipo Civil
      * o metodo retorna true, indicando que a pessoa nao tem funcao na politica, se o atributo for de qualquer outro tipo
      * o metodo retornar false, indicando que a pessoa tem alguma funcao na politica.
      *
      * @return um boolean que indica se a pessoa tem ou nao uma funcao na politica.
      */
     public boolean ehDeputado() {
-        if (this.funcao instanceof SemFuncao) {
+        if (this.funcao instanceof Civil) {
             return false;
         } return true;
     }

@@ -79,11 +79,4 @@ public abstract class ProjetoDeLeiAbstract implements ProjetoDeLei {
         return url;
     }
 
-    public String getSituacao() {
-        return situacao;
-    }
-
-    public Validacao getValidaEntrada() {
-        return validaEntrada;
-    }
 }

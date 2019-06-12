@@ -21,28 +21,26 @@ class DeputadoTest {
     }
 
     @Test
-    void DeputadoTest() {
+    void construtorTest() {
         assertEquals("13012000", this.deputado.getDataInicio());
 
     }
 
     @Test
-    void DeputadoTest2() {
+    void construtorTestCondicoesInvalidas() {
         try {
             Deputado deputado2 = new Deputado("");
             fail("Era esperado uma excecao");
         } catch (IllegalArgumentException iae) {
         }
-    }
-    @Test
-    void DeputadoTest3(){
+
         try {
             Deputado deputado3 = new Deputado(null);
             fail("Era esperado uma excecao");
         }catch (NullPointerException npe){
         }
-    }
 
+    }
 
     @Test
     void hashCodeTest() {
@@ -52,40 +50,13 @@ class DeputadoTest {
     @Test
     void equalsTest() {
         assertTrue(this.deputado.equals(this.deputado));
-    }
-
-    @Test
-    void equalsTest2() {
-        assertTrue(this.deputado2.equals(this.deputado2));
-    }
-
-
-    @Test
-    void equalsTest3() {
-        assertTrue(this.deputado3.equals(this.deputado3));
-    }
-
-    @Test
-    void equalsTest4() {
+        assertTrue(this.deputado.equals(this.deputado4));
         assertFalse(this.deputado3.equals(this.deputado));
     }
 
     @Test
-    void equalsTest5() {
-        assertFalse(this.deputado2.equals(this.deputado3));
-    }
-
-    @Test
-    void equalsTest6() {
-        assertTrue(this.deputado.equals(this.deputado4));
-    }
-
-
-
-
-    @Test
     void toStringTest(){
-        assertEquals(" - 13/01/2000 - 0 Leis", this.deputado.toString());
+        assertEquals("POL:  - 13/01/2000 - 0 Leis", this.deputado.toString(""));
     }
 }
 
