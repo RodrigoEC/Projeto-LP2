@@ -21,6 +21,15 @@ public class PLP extends ProjetoDeLeiAbstract {
     }
 
     /**
+     * Retorna os artigos do Projeto de Lei Parlamentar.
+     *
+     * @return os artigos do Projeto de Lei Parlamentar.
+     */
+    public String getArtigos() {
+        return artigos;
+    }
+
+    /**
      * Metodo responsavel por criar uma representacao textual do objeto atraves do dni do autor, da ementa, da conclusao
      * do projeto de legislativo complementar e da situacao em que ele se encontra.
      *

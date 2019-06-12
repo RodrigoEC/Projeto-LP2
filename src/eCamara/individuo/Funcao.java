@@ -1,5 +1,8 @@
 package eCamara.individuo;
 
+/**
+ * Interface para generalizar as classes Deputado e Civil, que sao funcoes de uma Pessoa.
+ */
 public interface Funcao {
 
     /**

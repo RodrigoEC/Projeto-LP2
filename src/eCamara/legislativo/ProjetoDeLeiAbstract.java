@@ -59,12 +59,4 @@ public abstract class ProjetoDeLeiAbstract implements ProjetoDeLei {
         this.situacao = "EM VOTACAO (CCJC)";
     }
 
-    @Override
-    public String getInteresses() {
-        return interesses;
-    }
-
-    public void setSituacao(String situacao) {
-        this.situacao = situacao;
-    }
 }

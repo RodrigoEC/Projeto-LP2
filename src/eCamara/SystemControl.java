@@ -208,11 +208,18 @@ public class SystemControl {
     }
 
     /**
-     * Metodo responsavel por cadastrar uma nova comissao, o metodo recevbe o tema da comissao e uma string com todos os
-     * dnis dos deputados participantes da comissao separados por virgula.
+     * Metodo responsavel por cadastrar uma nova comissao, o metodo recebe o tema da comissao e uma string com todos os
+     * dnis dos deputados participantes da comissao separados por virgula. Verifica se as strings sao validas, se nao for sera lancado excecao. Se forem
+     * validas, sera verifiicado se aquele tema ja foi cadastrado se foi sera lancado excecaom se nao for
+     * sera verificado se os deputados que fazem parte da comissao existem e se sao de fato debutados, caso nao exista ou nao seja deputado sera
+     * lancado excecao. Se tudo for valido a Comissao sera cadastrada. Faz uso dos metodos validaCadastrarComissao e validaCadastroComissaoDnis da classe de Validacao.
      *
      * @param tema o tema do projeto.
      * @param politicos string contendo os dnis do deputados participantes da comissao separados por virgula.
+     *
+     * @throws IllegalArgumentException Erro ao cadastrar comissao: tema existente
+     * @throws IllegalArgumentException Erro ao cadastrar comissao: pessoa inexistente
+     * @throws  NullPointerException Erro ao cadastrar comissao: pessoa nao eh deputado
      */
     public void cadastrarComissao(String tema, String politicos) {
         this.validaEntradas.validaCadastrarComissao(tema, politicos);

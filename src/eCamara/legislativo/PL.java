@@ -22,6 +22,15 @@ public class PL extends ProjetoDeLeiAbstract {
     }
 
     /**
+     * Retorna true se o projeto de lei for conclusivo e false se não for conclusivo.
+     *
+     * @return true se o projeto de lei for conclusivo e false se não for conclusivo.
+     */
+    public boolean isConclusivo() {
+        return conclusivo;
+    }
+
+    /**
      * Metodo responsavel por criar uma representacao textual do objeto atraves do dni do autor, da ementa, da conclusao
      * do projeto e da situacao em que ele se encontra.
      *

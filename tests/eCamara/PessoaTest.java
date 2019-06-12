@@ -95,6 +95,7 @@ class PessoaTest {
 
     @Test
     void pessoaVirandoDeputado(){
+        assertFalse(this.p.ehDeputado());
         this.p.cadastraDeputado("20012016");
         assertTrue(this.p.ehDeputado());
     }
