@@ -2,8 +2,11 @@ package eCamara.legislativo;
 
 import eCamara.Validacao;
 
+import java.util.ArrayList;
+
 public abstract class ProjetoDeLeiAbstract implements ProjetoDeLei {
 
+    private ArrayList<Object> nomesComissoes;
     /**
      * Dni do autor do projeto.
      */
@@ -57,6 +60,12 @@ public abstract class ProjetoDeLeiAbstract implements ProjetoDeLei {
         this.interesses = interesses;
         this.url = url;
         this.situacao = "EM VOTACAO (CCJC)";
+        this.nomesComissoes = new ArrayList<>();
     }
 
+
+    @Override
+    public void addNomeComissao(String nome) {
+        this.nomesComissoes.add(nome);
+    }
 }

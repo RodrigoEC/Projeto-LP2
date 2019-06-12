@@ -12,4 +12,5 @@ public interface ProjetoDeLei {
 
     String getInteresses();
     void setSituacao(String string);
+    void addNomeComissao(String nome);
 }

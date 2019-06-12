@@ -156,9 +156,6 @@ public class SystemControl {
     public void cadastraPartido(String partido) {
         validaEntradas.validaCadastraPartido(partido);
 
-         for (Pessoa pessoa : this.mapPessoas.values()) {
-             if ()
-         }
 
         this.partidos.add(partido);
     }
@@ -380,16 +377,16 @@ public class SystemControl {
     }
 
 
-    public boolean votarComissao(String codigo, String statusGovernista, String comissao, String proximoLocal) {
+    public boolean votarComissao(String codigoDaLei, String statusGovernista, String comissao, String proximoLocal) {
         int votosAFavor = 0;
-        if (!this.leis.containsKey(codigo)) {
+        if (!this.leis.containsKey(codigoDaLei)) {
             throw new NullPointerException("g..o..o..g..l..e");
         }
 
         if (!this.comissoes.containsKey(comissao)) {
             throw new NullPointerException("guluGulu");
         }
-
+        this.leis.get(codigoDaLei).addNomeComissao(comissao);
 
         for (Pessoa politicoDaComissao : this.comissoes.get(comissao).getMapDeputados().values()) {
             if (ehDaBase(politicoDaComissao) && "governista".equals(statusGovernista)) {
@@ -399,7 +396,7 @@ public class SystemControl {
                 votosAFavor++;
 
             } else {
-                String[] arrayInteressesLei = this.leis.get(codigo).getInteresses().split(",");
+                String[] arrayInteressesLei = this.leis.get(codigoDaLei).getInteresses().split(",");
                 List<String> listaInteressesLei = Arrays.asList(arrayInteressesLei);
 
                 for(String interessePolitico : politicoDaComissao.getInteresses().split(",")) {
@@ -410,8 +407,11 @@ public class SystemControl {
             }
         }
 
+
+
+
         if (votosAFavor > this.comissoes.get(comissao).getMapDeputados().size()/2 + 1) {
-            this.leis.get(codigo).setSituacao(String.format("EM VOTACAO(%s)", proximoLocal));
+            this.leis.get(codigoDaLei).setSituacao(String.format("EM VOTACAO(%s)", proximoLocal));
 
             return true;
 
