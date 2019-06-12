@@ -22,7 +22,7 @@ class PessoaTest {
     }
 
     @Test
-    void pessoaTest() {
+    void construirPessoaValida() {
         assertEquals("Joao", this.p2.getNome());
         assertEquals("PB", this.p2.getEstado());
         assertEquals("0034240-234", this.p2.getDni());
@@ -31,7 +31,7 @@ class PessoaTest {
     }
 
     @Test
-    void pessoaTest2() {
+    void construirPessoaNomeVazio() {
         try {
             Pessoa p = new Pessoa(" ","0053-3", "GG", "");
             fail("Era esperado excecao");
@@ -40,7 +40,7 @@ class PessoaTest {
     }
 
     @Test
-    void pessoaTest3() {
+    void construirPessoaNomeNullo() {
         try {
             Pessoa p = new Pessoa(null,"0053-3", "GG", "");
             fail("Era esperado excecao");
@@ -49,7 +49,7 @@ class PessoaTest {
     }
 
     @Test
-    void pessoaTest4() {
+    void construirPessoaDniVazio() {
         try {
             Pessoa p = new Pessoa("Jose"," ", "GG", "");
             fail("Era esperado excecao");
@@ -58,7 +58,7 @@ class PessoaTest {
     }
 
     @Test
-    void pessoaTest5() {
+    void construirPessoaDniNullo() {
         try {
             Pessoa p = new Pessoa("Jose", null, "GG", "");
             fail("Era esperado excecao");
@@ -67,7 +67,7 @@ class PessoaTest {
     }
 
     @Test
-    void pessoaTest6() {
+    void construirPessoaDniComCaracteresDiferenteDeNumerosOuTracinho() {
         try {
             Pessoa p = new Pessoa("Jose", "hshags-234", "GG", "");
             fail("Era esperado excecao");
@@ -76,7 +76,7 @@ class PessoaTest {
     }
 
     @Test
-    void pessoaTest7() {
+    void construirPessoaEstadoVazio() {
         try {
             Pessoa p = new Pessoa("Jose","4456-4", " ", "");
             fail("Era esperado excecao");
@@ -85,7 +85,7 @@ class PessoaTest {
     }
 
     @Test
-    void pessoaTest8() {
+    void construirPessoaEstadoNullo() {
         try {
             Pessoa p = new Pessoa("Jose", "563-3", null, "");
             fail("Era esperado excecao");
@@ -94,13 +94,13 @@ class PessoaTest {
     }
 
     @Test
-    void deputadoTest1(){
+    void pessoaVirandoDeputado(){
         this.p.cadastraDeputado("20012016");
-        assertTrue( this.p.getFuncao() != null);
+        assertTrue(this.p.ehDeputado());
     }
 
     @Test
-    void deputadoTest2() {
+    void pessoaVirandoDeputadoDataVazia() {
         try {
             this.p.cadastraDeputado("");
             fail("Era esperado uma execao");
@@ -110,32 +110,32 @@ class PessoaTest {
     }
 
     @Test
-    void equalsTest() {
+    void testEqualsMesmaPessoa() {
         assertTrue(this.p.equals(this.p));
     }
 
     @Test
-    void equalsTest2() {
+    void equalsTestPessoasIguais() {
         assertTrue(this.p.equals(this.p3));
     }
 
     @Test
-    void equalsTest3() {
+    void equalsTestNull() {
         assertFalse(this.p.equals(null));
     }
 
     @Test
-    void equalsTest4() {
+    void equalsTestPessoasDiferentes() {
         assertFalse(this.p.equals(this.p2));
     }
 
     @Test
-    void equalsTest5() {
+    void equalsTestTiposDiferentes() {
         assertFalse(this.p.equals("Pessoa"));
     }
 
     @Test
-    void hashCodeTest() {
+    void hashCodeTestPessoasIgauais() {
         assertEquals(this.p.hashCode(), this.p3.hashCode());
     }
 

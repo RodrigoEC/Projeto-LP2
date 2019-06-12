@@ -11,11 +11,11 @@ public class Facade {
     }
 
     public static void main(String[] args) {
-        args = new String[] {"eCamara.Facade", "Projeto-LP2/acceptance_test/use_case_1.txt",
-                                               "Projeto-LP2/acceptance_test/use_case_2.txt",
-                                               "Projeto-LP2/acceptance_test/use_case_3.txt",
-                                               "Projeto-LP2/acceptance_test/use_case_4.txt",
-                                               "Projeto-LP2/acceptance_test/use_case_5.txt", "acceptance_test/use_case_6.txt"};
+        args = new String[] {"eCamara.Facade", "acceptance_test/use_case_1.txt",
+                                               "acceptance_test/use_case_2.txt",
+                                               "acceptance_test/use_case_3.txt",
+                                               "acceptance_test/use_case_4.txt",
+                                               "acceptance_test/use_case_5.txt", "acceptance_test/use_case_6.txt"};
         EasyAccept.main(args);
     }
 

@@ -195,7 +195,7 @@ public class Pessoa {
      *
      * @return um boolean que indica se a pessoa tem ou nao uma funcao na politica.
      */
-    public boolean temFuncao() {
+    public boolean ehDeputado() {
         if (this.funcao instanceof SemFuncao) {
             return false;
         } return true;
