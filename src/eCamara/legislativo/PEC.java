@@ -21,6 +21,10 @@ public class PEC extends ProjetoDeLeiAbstract {
         this.artigos = artigos;
     }
 
+    public String getArtigos() {
+        return artigos;
+    }
+
     /**
      * Metodo responsavel por criar uma representacao textual do objeto atraves do dni do autor, da ementa, da conclusao
      * do projeto de legislativo complementar e da situacao em que ele se encontra.
@@ -28,6 +32,7 @@ public class PEC extends ProjetoDeLeiAbstract {
      * @param codigo codigo do projeto.
      * @return string que representa o objeto.
      */
+    @Override
     public String toString(String codigo){
         return "Projeto de Emenda Constitucional - " + codigo + " - " + super.dniAutor + " - " + super.ementa + " - " + (this.artigos.replace(",", ", ")) + " - " + super.situacao;
     }

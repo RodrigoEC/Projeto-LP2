@@ -21,6 +21,10 @@ public class PL extends ProjetoDeLeiAbstract {
         this.conclusivo = conclusivo;
     }
 
+    public boolean isConclusivo() {
+        return conclusivo;
+    }
+
     /**
      * Metodo responsavel por criar uma representacao textual do objeto atraves do dni do autor, da ementa, da conclusao
      * do projeto e da situacao em que ele se encontra.
