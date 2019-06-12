@@ -5,16 +5,39 @@ import eCamara.individuo.Pessoa;
 import java.util.Map;
 import java.util.Objects;
 
+
+/**
+ * Objeto que representa uma Comissao de votacao, tem como atributos uma string com o tema e o map com os politicos que fazem parte dela.
+ */
+
 public class Comissao {
 
+    /**
+     * Tema da comissao.
+     */
     private String tema;
+    /**
+     * Politicos que fazem parte da comissao.
+     */
     private Map<String, Pessoa> mapDeputados;
 
+    /**
+     * Constroi a Comissao, recebe uma string com o tema e mapa de politicos.
+     * @param tema String com o tema.
+     * @param mapDeputados Map com os politicos.
+     */
     public  Comissao(String tema, Map<String, Pessoa> mapDeputados){
         this.mapDeputados = mapDeputados;
         this.tema =  tema;
     }
 
+    /**
+     * Metodo que verifica se duas Comissoes sao iguais, duas comissoes sao iguais se tiverem o mesmo tema e forem do mesmo tipo.
+     * Retorna true se forem iguais e false se nao forem.
+     *
+     * @param o Objeto a ser comparado.
+     * @return boolean True se forem iguais e False se forem diferentes.
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -23,6 +46,11 @@ public class Comissao {
         return Objects.equals(tema, comissao.tema);
     }
 
+    /**
+     * Metodo que calcula o hashcode de Comissao, o hashcode eh calculado a partir do atribto tema.
+     *
+     * @return Inteiro referente ao calculo do hashcode.
+     */
     @Override
     public int hashCode() {
         return Objects.hash(tema);

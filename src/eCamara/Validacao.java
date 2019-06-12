@@ -200,7 +200,7 @@ public class Validacao {
 
     /**
      * Metodo que valida o cadastro de Comissao, recebe como parametro o tema uma string com os dnis dos politicos da Comissao, se um dos dois
-     * atributos for vazio ou nullo, sera lancado excecao. Faz uso da funcao auxiliar validaString.
+     * atributos for vazio ou nullo, sera lancado excecao. Faz uso do metodo auxiliar validaString.
      *
      * @param tema Sring com o tema a ser avaliado
      * @param politicos String com os dnis dos politicos a ser avaliado.
@@ -218,7 +218,7 @@ public class Validacao {
 
     /**
      * Metodo que valida os dnis para o cadastro de Comissao, se os dnis forem compostos por algo alem de numeros ou "-",
-     * sera lancada excecao. Faz uso da funcao auxiliar validaDni.
+     * sera lancada excecao. Faz uso do metodo auxiliar validaDni.
      *
      * @param politicos Strins com os dnis dos politicos a ser avaliada.
      */
