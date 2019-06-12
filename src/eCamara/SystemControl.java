@@ -1,9 +1,11 @@
 package eCamara;
 
-import eCamara.lei.PEC;
-import eCamara.lei.PL;
-import eCamara.lei.PLP;
-import eCamara.lei.ProjetoDeLei;
+import eCamara.individuo.Deputado;
+import eCamara.individuo.Pessoa;
+import eCamara.legislativo.PEC;
+import eCamara.legislativo.PL;
+import eCamara.legislativo.PLP;
+import eCamara.legislativo.ProjetoDeLei;
 
 import java.util.*;
 
@@ -237,14 +239,14 @@ public class SystemControl {
     }
 
     /**
-     * Metodo responsavel por cadastrar um projeto de lei no sistema, o metodo recebe o dni do deputado que criou o projeto
-     * de lei, o que o projeto propoe(ementa), os interesses relacionados ao projeto, a url do site em que o projeto esta
+     * Metodo responsavel por cadastrar um projeto de legislativo no sistema, o metodo recebe o dni do deputado que criou o projeto
+     * de legislativo, o que o projeto propoe(ementa), os interesses relacionados ao projeto, a url do site em que o projeto esta
      * hospedado, e um boolean que indica se o projeto eh ou nao conclusivo.
      *
      * @param dni dni do autor do projeto.
      * @param ano ano em que o projeto foi criado.
      * @param ementa ementa do projeto.
-     * @param interesses interesses relacionados ao projeto de lei.
+     * @param interesses interesses relacionados ao projeto de legislativo.
      * @param url url do site em que o projeto esta hospedado.
      * @param conclusivo boolean que mostra se o projeto eh conclusivo ou nao.
      * @return A key do projeto no mapa de projetos.
@@ -274,14 +276,14 @@ public class SystemControl {
     }
 
     /**
-     * Metodo responsavel por cadastrar um projeto de lei complementar no sistema, o metodo recebe o dni do deputado que criou o projeto
-     * de lei, o que o projeto propoe(ementa), os interesses relacionados ao projeto, a url do site em que o projeto esta
+     * Metodo responsavel por cadastrar um projeto de legislativo complementar no sistema, o metodo recebe o dni do deputado que criou o projeto
+     * de legislativo, o que o projeto propoe(ementa), os interesses relacionados ao projeto, a url do site em que o projeto esta
      * hospedado, e uma string com os artigos da constituicao que estao relacionados ao projeto..
      *
      * @param dni dni do autor do projeto.
      * @param ano ano em que o projeto foi criado.
      * @param ementa ementa do projeto.
-     * @param interesses interesses relacionados ao projeto de lei.
+     * @param interesses interesses relacionados ao projeto de legislativo.
      * @param url url do site em que o projeto esta hospedado.
      * @param artigos string que representa os artigos da constituicao relacionados a plp.
      * @return A key do projeto no mapa de projetos.
@@ -311,13 +313,13 @@ public class SystemControl {
 
     /**
      * Metodo responsavel por cadastrar um projeto de ementa constitucional no sistema, o metodo recebe o dni do deputado que criou o projeto
-     * de lei, o que o projeto propoe(ementa), os interesses relacionados ao projeto, a url do site em que o projeto esta
+     * de legislativo, o que o projeto propoe(ementa), os interesses relacionados ao projeto, a url do site em que o projeto esta
      * hospedado, e uma string com os artigos da constituicao que estao relacionados ao projeto..
      *
      * @param dni dni do autor do projeto.
      * @param ano ano em que o projeto foi criado.
      * @param ementa ementa do projeto.
-     * @param interesses interesses relacionados ao projeto de lei.
+     * @param interesses interesses relacionados ao projeto de legislativo.
      * @param url url do site em que o projeto esta hospedado.
      * @param artigos string que representa os artigos da constituicao relacionados a plp.
      * @return A key do projeto no mapa de projetos.

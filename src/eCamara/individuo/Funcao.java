@@ -1,4 +1,4 @@
-package eCamara;
+package eCamara.individuo;
 
 public interface Funcao {
 

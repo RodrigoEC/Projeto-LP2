@@ -1,7 +1,6 @@
-package eCamara.lei;
+package eCamara.legislativo;
 
 import eCamara.Validacao;
-import eCamara.lei.ProjetoDeLei;
 
 public abstract class ProjetoDeLeiAbstract implements ProjetoDeLei {
 

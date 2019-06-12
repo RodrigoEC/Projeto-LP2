@@ -1,4 +1,6 @@
-package eCamara;
+package eCamara.individuo;
+
+import eCamara.Validacao;
 
 import java.util.Objects;
 

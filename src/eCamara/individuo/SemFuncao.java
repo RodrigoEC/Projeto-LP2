@@ -1,4 +1,6 @@
-package eCamara;
+package eCamara.individuo;
+
+import eCamara.individuo.Funcao;
 
 public class SemFuncao implements Funcao {
     /**

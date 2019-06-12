@@ -1,11 +1,11 @@
-package eCamara.lei;
+package eCamara.legislativo;
 
 public class PL extends ProjetoDeLeiAbstract {
 
     private boolean conclusivo;
 
     /**
-     * Construtor responsavel por construir um objeto do tipo PL(projeto de lei) a partir do dni do deputado que o criou,
+     * Construtor responsavel por construir um objeto do tipo PL(projeto de legislativo) a partir do dni do deputado que o criou,
      * do ano em que ele foi criado, da ementa, dos interesses relacionados ao projeto, da url do site em que o projeto
      * esta hospedado e um boolean indicando se o projeto eh conclusivo ou nao.
      *
@@ -14,7 +14,7 @@ public class PL extends ProjetoDeLeiAbstract {
      * @param ementa ementa do projeto.
      * @param interesses interesses relacionados ao projeto.
      * @param url url do site em que o projeto esta hospedado.
-     * @param conclusivo boolean que representa se o projeto de lei eh conclusivo ou nao.
+     * @param conclusivo boolean que representa se o projeto de legislativo eh conclusivo ou nao.
      */
     public PL(String dni, int ano, String ementa, String interesses, String url, boolean conclusivo){
         super(dni, ano, ementa, interesses, url);

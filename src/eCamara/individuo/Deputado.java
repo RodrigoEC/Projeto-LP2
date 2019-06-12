@@ -1,4 +1,6 @@
-package eCamara;
+package eCamara.individuo;
+
+import eCamara.Validacao;
 
 import java.util.Objects;
 
@@ -6,7 +8,7 @@ import java.util.Objects;
  * Classe que representa um deputado, possui os atributos String dataInicio, Integer qtdLeis e o objeto de validacao de entradas.
  */
 
-public class Deputado implements Funcao{
+public class Deputado implements Funcao {
 
     /**
      * Data em que a pessoa virou deputado.

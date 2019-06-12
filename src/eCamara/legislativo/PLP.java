@@ -1,10 +1,10 @@
-package eCamara.lei;
+package eCamara.legislativo;
 
 public class PLP extends ProjetoDeLeiAbstract {
     private String artigos;
 
     /**
-     * Construtor responsavel por construir um objeto do tipo PLP(projeto de lei Complementar) a partir do dni do deputado
+     * Construtor responsavel por construir um objeto do tipo PLP(projeto de legislativo Complementar) a partir do dni do deputado
      * que o criou, do ano em que ele foi criado, da ementa, dos interesses relacionados ao projeto, da url do site em que o projeto
      * esta hospedado e um boolean indicando se o projeto eh conclusivo ou nao.
      *
@@ -22,7 +22,7 @@ public class PLP extends ProjetoDeLeiAbstract {
 
     /**
      * Metodo responsavel por criar uma representacao textual do objeto atraves do dni do autor, da ementa, da conclusao
-     * do projeto de lei complementar e da situacao em que ele se encontra.
+     * do projeto de legislativo complementar e da situacao em que ele se encontra.
      *
      * @param codigo codigo do projeto.
      * @return string que representa o objeto.

@@ -1,4 +1,4 @@
-package eCamara.lei;
+package eCamara.legislativo;
 
 public class PEC extends ProjetoDeLeiAbstract {
 
@@ -23,7 +23,7 @@ public class PEC extends ProjetoDeLeiAbstract {
 
     /**
      * Metodo responsavel por criar uma representacao textual do objeto atraves do dni do autor, da ementa, da conclusao
-     * do projeto de lei complementar e da situacao em que ele se encontra.
+     * do projeto de legislativo complementar e da situacao em que ele se encontra.
      *
      * @param codigo codigo do projeto.
      * @return string que representa o objeto.
