@@ -227,7 +227,7 @@ public class SystemControl {
            if(!this.mapPessoas.containsKey(dni)){
                throw new IllegalArgumentException("Erro ao cadastrar comissao: pessoa inexistente");
            }
-           if(! this.mapPessoas.get(dni).temFuncao()){
+           if(! this.mapPessoas.get(dni).ehDeputado()){
                 throw new NullPointerException("Erro ao cadastrar comissao: pessoa nao eh deputado");
            }
            politicosMap.put(dni, this.mapPessoas.get(dni));
@@ -255,7 +255,7 @@ public class SystemControl {
         if (! this.mapPessoas.containsKey(dni)){
             throw new NullPointerException("Erro ao cadastrar projeto: pessoa inexistente");
         }
-        if (! this.mapPessoas.get(dni).temFuncao()) {
+        if (! this.mapPessoas.get(dni).ehDeputado()) {
             throw new IllegalArgumentException("Erro ao cadastrar projeto: pessoa nao eh deputado");
         }
 
@@ -292,7 +292,7 @@ public class SystemControl {
         if (! this.mapPessoas.containsKey(dni)){
             throw new NullPointerException("Erro ao cadastrar projeto: pessoa inexistente");
         }
-        if (! this.mapPessoas.get(dni).temFuncao()) {
+        if (! this.mapPessoas.get(dni).ehDeputado()) {
             throw new IllegalArgumentException("Erro ao cadastrar projeto: pessoa nao eh deputado");
         }
 
@@ -328,7 +328,7 @@ public class SystemControl {
         if (! this.mapPessoas.containsKey(dni)){
             throw new NullPointerException("Erro ao cadastrar projeto: pessoa inexistente");
         }
-        if (! this.mapPessoas.get(dni).temFuncao()) {
+        if (! this.mapPessoas.get(dni).ehDeputado()) {
             throw new IllegalArgumentException("Erro ao cadastrar projeto: pessoa nao eh deputado");
         }
 
