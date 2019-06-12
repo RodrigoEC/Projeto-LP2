@@ -20,6 +20,11 @@ public class PLP extends ProjetoDeLeiAbstract {
         this.artigos = artigos;
     }
 
+    /**
+     * Retorna os artigos do Projeto de Lei Parlamentar.
+     *
+     * @return os artigos do Projeto de Lei Parlamentar.
+     */
     public String getArtigos() {
         return artigos;
     }

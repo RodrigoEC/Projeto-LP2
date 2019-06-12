@@ -59,22 +59,47 @@ public abstract class ProjetoDeLeiAbstract implements ProjetoDeLei {
         this.situacao = "EM VOTACAO (CCJC)";
     }
 
+    /**
+     * Retorna o dni do autor do projeto.
+     *
+     * @return o dni do autor do projeto.
+     */
     public String getDniAutor() {
         return dniAutor;
     }
 
+    /**
+     * Retorna o ano da criacao do projeto.
+     *
+     * @return o ano da criacao do projeto.
+     */
     public int getAno() {
         return ano;
     }
 
+    /**
+     * Retorna a ementa do projeto.
+     *
+     * @return a ementa do projeto.
+     */
     public String getEmenta() {
         return ementa;
     }
 
+    /**
+     * Retorna os interesses do projeto.
+     *
+     * @return os interesses do projeto.
+     */
     public String getInteresses() {
         return interesses;
     }
 
+    /**
+     * Retorna a url da pagina do projeto na internet.
+     *
+     * @return a url da pagina do projeto na internet.
+     */
     public String getUrl() {
         return url;
     }

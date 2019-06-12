@@ -1,7 +1,5 @@
 package eCamara.individuo;
 
-import eCamara.individuo.Funcao;
-
 public class Civil implements Funcao {
     /**
      * metodo que recebe uma string que eh a representacao textual da pessoa e retorna essa representacao da mesma forma,

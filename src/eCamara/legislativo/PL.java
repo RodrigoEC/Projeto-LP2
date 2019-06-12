@@ -21,6 +21,11 @@ public class PL extends ProjetoDeLeiAbstract {
         this.conclusivo = conclusivo;
     }
 
+    /**
+     * Retorna true se o projeto de lei for conclusivo e false se não for conclusivo.
+     *
+     * @return true se o projeto de lei for conclusivo e false se não for conclusivo.
+     */
     public boolean isConclusivo() {
         return conclusivo;
     }

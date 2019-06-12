@@ -21,6 +21,11 @@ public class PEC extends ProjetoDeLeiAbstract {
         this.artigos = artigos;
     }
 
+    /**
+     * Retorna os artigos do Projeto de Emenda Constitucional.
+     *
+     * @return os artigos do projeto.
+     */
     public String getArtigos() {
         return artigos;
     }

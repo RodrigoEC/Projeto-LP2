@@ -59,4 +59,3 @@ class DeputadoTest {
         assertEquals("POL:  - 13/01/2000 - 0 Leis", this.deputado.toString(""));
     }
 }
-
