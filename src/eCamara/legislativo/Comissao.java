@@ -27,4 +27,8 @@ public class Comissao {
     public int hashCode() {
         return Objects.hash(tema);
     }
+
+    public Map<String, Pessoa> getMapDeputados() {
+        return mapDeputados;
+    }
 }

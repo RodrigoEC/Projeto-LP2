@@ -156,6 +156,10 @@ public class SystemControl {
     public void cadastraPartido(String partido) {
         validaEntradas.validaCadastraPartido(partido);
 
+         for (Pessoa pessoa : this.mapPessoas.values()) {
+             if ()
+         }
+
         this.partidos.add(partido);
     }
 
@@ -362,10 +366,56 @@ public class SystemControl {
         return this.leis.get(codigo).toString(codigo);
     }
 
-    /*public boolean votarComissao(String codigo, boolean governista, String comissao, String proximoLocal) {
+    private boolean ehDaBase(Pessoa pessoa) {
+        if (this.partidos.contains(pessoa.getPartido())) {
+            return true;
+        } return false;
     }
 
-    public boolean votarPlenario(String codigo, boolean governista, String presentes) {
+
+    public boolean votarComissao(String codigo, String statusGovernista, String comissao, String proximoLocal) {
+        int votosAFavor = 0;
+        if (!this.leis.containsKey(codigo)) {
+            throw new NullPointerException("g..o..o..g..l..e");
+        }
+
+        if (!this.comissoes.containsKey(comissao)) {
+            throw new NullPointerException("guluGulu");
+        }
+
+
+        for (Pessoa politicoDaComissao : this.comissoes.get(comissao).getMapDeputados().values()) {
+            if (ehDaBase(politicoDaComissao) && "governista".equals(statusGovernista)) {
+                votosAFavor++;
+
+            } else if (!ehDaBase(politicoDaComissao) && "oposicao".equals(statusGovernista)) {
+                votosAFavor++;
+
+            } else {
+                String[] arrayInteressesLei = this.leis.get(codigo).getInteresses().split(",");
+                List<String> listaInteressesLei = Arrays.asList(arrayInteressesLei);
+
+                for(String interessePolitico : politicoDaComissao.getInteresses().split(",")) {
+                    if(listaInteressesLei.contains(interessePolitico)) {
+                        votosAFavor++;
+                    }
+                }
+            }
+        }
+
+        if (votosAFavor > this.comissoes.get(comissao).getMapDeputados().size()/2 + 1) {
+            this.leis.get(codigo).setSituacao(String.format("EM VOTACAO(%s)", proximoLocal));
+
+            return true;
+
+        }
+
+        return false;
+
+
+    }
+
+    /*public boolean votarPlenario(String codigo, boolean governista, String presentes) {
     }
 
     public String exibirTramitacao(String codigo) {

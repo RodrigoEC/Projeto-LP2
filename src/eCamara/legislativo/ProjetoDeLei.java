@@ -10,4 +10,6 @@ public interface ProjetoDeLei {
      */
     String toString(String codigo);
 
+    String getInteresses();
+    void setSituacao(String string);
 }
