@@ -1,0 +1,35 @@
+Link do relatorio no Docs do Google:
+https://docs.google.com/document/d/1ovTD-c8GjVwDTdVFWpObIar83fOmQgvp6a2auCszOAE/edit?usp=sharing
+
+Esse foi o que eu fiz ate agora, fiz os das us que eu fiquei mais diretamente. Deem sugestoes sobre mudanças e
+LOGUEM NO GOOGLE para acessar o docs, pra a gente saber quem é quem.
+
+Relatório de Projeto LP2 2019.1
+
+E-Camara Organizada(E-CO)
+
+Alunos:
+Daniel Gomes de Lima - 118210357.
+
+Design geral:
+
+***Exemplo que disponibilizaram para a gente, nao fiz ainda pq a gente não terminou e acho melhor esperar pra fazer isso quando terminar***: O design geral do nosso projeto foi escolhido para possibilitar uma melhor integração entre as diferentes partes do sistema, criando camadas de abstração que diminuem o acoplamento, através do uso de um controller geral, que delega atividades para cada camadas menores. As camadas menores também possuem um gerenciador próprio, para aumentar o nível de abstração do sistema.
+Para a criação de novos objetos, adotamos o uso de factories. O uso de enumerators foi
+pensando para o uso em situações onde o atributo seria imutável, facilitando a catalogação no sistema.
+Quando uma entidade precisou de comportamento dinâmico, escolhemos o padrão strategy . Com relação a exceptions , fizemos uma hierarquia que leva em consideração o tipo de erro.
+Logo, temos exceptions para atributos inválidos, tanto de criação como de atualização de dados, para erros de sessão e de permissão. Todas estão encapsuladas em packages menores, e herdam de uma mais geral do projeto: ProjetoEX .
+As próximas seções detalham a implementação em cada caso.
+
+Caso 1:
+
+O caso 1 pede que seja possível o cadastro de pessoas no sistema, seja pra consulta ou para depois virar Político. Para isso usamos o padrão strategy, criando uma entidade Pessoa que tem composição com uma Interface representando a sua função na política, para esse primeiro caso de uso foi criado apenas duas funções, a função Deputado e a função Civil. O uso do strategy permite que um Civil facilmente se torne Deputado e, de mesmo modo, um Deputado deixe (simulando a finalização do mandato) de ser Deputado e passe a ser um Civil. O uso do strategy também permite a expansibilidade do sistema, permitindo ainda mais funções para uma Pessoa, e também um Deputado e Civil serão sempre do tipo Pessoa, com isso facilita o reaproveitamento de código, pois Deputado e Civil  terão os atributos de Pessoa.
+Para gerenciar as Pessoas, foi criada uma classe chamada PessoaController . Nesta classe, há uma coleção que armazena todos as Pessoas. Essa coleção é um mapa, onde a chave é o dni, que foi passado como parâmetro no cadastro de Pessoa, único para cada Pessoa.
+
+Caso 5:
+
+O caso 5 pede que seja possível o cadastro de Comissões no sistema, para simular a câmara de deputados que se organizam em comissões temáticas com um número limitado de deputados. Foi criada uma entidade que representará uma comissão com alguns Deputados, foi usado uma coleção para armazenar os Deputados, esta coleção é um mapa de Pessoas com função Deputado (value) e que tem o dni de cada um como chave para o mapa. A Comissão terá também um tema que é seu identificador único. O gerenciamento de Comissões fica com a classe SystemControl, quem tem uma coleção do tipo mapa que armazenará as Comissões (value) e terá como chave o tema da Comissão, único para cada Comissão.
+
+
+Caso 6:
+
+O caso 6 pede que seja possível cadastrar e exibir uma proposta legislativa no sistema. Foi usado herança e interface, pois podem ser cadastradas 3 tipos de proposta legislativa Projeto de Lei (PL), Projeto de Emenda Constitucional (PEC e Projeto de Lei Complementar (PLP). Para representar esses diferentes tipos, criamos uma classe abstrata chamada ProjetoDeLeiAbstrata, que é pai desses diferentes tipo e contém todos os comportamentos (atributos e métodos) em comum entre esses tipos, porém cada um dos tipos definirá seu próprio toString, pois a representação diferem entre os tipos. Além disso, para abstrair ainda mais e ter um maior reuso de tipo, foi criado uma Interface chamada ProjetoDeLei. Para gerenciar as leis, foi criada uma classe chamada LeisController. Nesta classe, há uma coleção que armazena todos as Leis, através da abstração com a Interface. Essa coleção é um mapa, onde a chave é um código de identificação gerado no cadastro de algum Projeto de Lei, o código é gerado a partir do ano em que a lei foi criada e de quantas leis foram cadastradas antes dela, contudo essa contagem será feita para cada tipo de lei, ou seja, o código é sequencial por tipo e por ano. A primeira PL de 2019 têm o código PL 1/2019, a segunda PL de 2019 será PL 2/2019 e assim sucessivamente para cada tipo, o código é único para cada Projeto de Lei.
