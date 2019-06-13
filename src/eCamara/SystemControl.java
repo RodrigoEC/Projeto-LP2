@@ -1,6 +1,5 @@
 package eCamara;
 
-import eCamara.individuo.Deputado;
 import eCamara.individuo.Pessoa;
 import eCamara.legislativo.*;
 
@@ -12,7 +11,7 @@ import java.util.*;
  */
 
 public class SystemControl {
-    private DeputadoController controllerDeputados;
+    private PessoaController controllerDeputados;
     private LeisController controllerLeis;
     private Votacao votacao;
     /**
@@ -32,13 +31,13 @@ public class SystemControl {
     public SystemControl() {
         this.votacao = new Votacao();
         this.controllerLeis = new LeisController();
-        this.controllerDeputados = new DeputadoController();
+        this.controllerDeputados = new PessoaController();
         this.partidos = new HashSet<>();
         this.validaEntradas = new Validacao();
         this.comissoes = new HashMap<>();
     }
 
-    public DeputadoController getControllerDeputados() {
+    public PessoaController getControllerDeputados() {
         return controllerDeputados;
     }
 
