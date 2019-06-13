@@ -299,9 +299,23 @@ public class SystemControl {
         this.controllerLeis.temLei(codigoDaLei, "nao tem ainda :3");
         String comissaoVotante = this.controllerLeis.getLei(codigoDaLei).getVotante();
 
+
+        if ("plenario".equals(comissaoVotante)) {
+            throw new NullPointerException("Erro ao votar proposta: proposta encaminhada ao plenario");
+        }
+
         ProjetoDeLei lei = this.controllerLeis.getLeis().get(codigoDaLei);
-        return this.votacao.votarComissao(lei, statusGovernista, proximoLocal, this.comissoes.get(comissaoVotante),
-                this.partidos, comissaoVotante);
+        if ("APROVADA".equals(lei.getSituacao()) || "ARQUIVADA".equals(lei.getSituacao())) {
+            throw new IllegalArgumentException("Erro ao votar proposta: tramitacao encerrada");
+        }
+
+        boolean resultadoVotacao = this.votacao.votarComissao(this.controllerLeis.getLeis().get(codigoDaLei), statusGovernista, proximoLocal, this.comissoes.get(comissaoVotante), this.partidos);
+
+        if ("APROVADA".equals(lei.getSituacao())) {
+            this.controllerDeputados.getPolitico(lei.getDniAutor()).addLei();
+        }
+
+        return resultadoVotacao;
     }
 
 

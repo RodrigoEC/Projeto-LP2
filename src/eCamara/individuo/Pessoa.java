@@ -189,6 +189,10 @@ public class Pessoa {
         return this.interesses;
     }
 
+    public void addLei() {
+        this.funcao.addLei();
+    }
+
     /**
      * Metodo que mostra se a pessoa tem uma funcao na politica, se o atributo funcao da pessoa for do tipo Civil
      * o metodo retorna true, indicando que a pessoa nao tem funcao na politica, se o atributo for de qualquer outro tipo

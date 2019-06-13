@@ -39,6 +39,28 @@ public class PL extends ProjetoDeLeiAbstract {
         this.votacaoRealizadas++;
     }
 
+    @Override
+    public void setTramitacao(boolean aprovadoOuNao) {
+        if (aprovadoOuNao && !"ARQUIVADA".equals(this.situacao) && !"APROVADA".equals(this.situacao)) {
+            this.tramitacao += String.format("APROVADO (%s), ",this.votante);
+        } else if (!aprovadoOuNao && !"ARQUIVADA".equals(this.situacao) && !"APROVADA".equals(this.situacao)) {
+            this.tramitacao += String.format("REJEITADO (%s), ", this.votante);
+        }
+    }
+    @Override
+    public void setSituacao(boolean estadoAprovacao, String proxLocal) {
+        if (!estadoAprovacao && conclusivo) {
+            this.tramitacao += String.format("APROVADO (%s), ",this.votante);
+            this.situacao = "ARQUIVADA";
+        } else if (this.votacaoRealizadas == 2 && estadoAprovacao && conclusivo) {
+
+            this.tramitacao += String.format("REJEITADO (%s), ", this.votante);
+            this.situacao = "APROVADO";
+        } else {
+            this.situacao = String.format("EM VOTACAO (%s)", proxLocal);
+        }
+    }
+
     /**
      * Metodo responsavel por criar uma representacao textual do objeto atraves do dni do autor, da ementa, da conclusao
      * do projeto e da situacao em que ele se encontra.

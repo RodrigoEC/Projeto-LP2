@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 public abstract class ProjetoDeLeiAbstract implements ProjetoDeLei {
 
-    private String votante;
+    protected String votante;
     /**
      * Dni do autor do projeto.
      */
@@ -43,7 +43,7 @@ public abstract class ProjetoDeLeiAbstract implements ProjetoDeLei {
      */
     private Validacao validaEntrada;
 
-    private String tramitacao;
+    protected String tramitacao;
 
     /**
      * Construtor responsavel por inicializar os atributosque do objeto ProjetoDeLeiAbstract.
@@ -95,6 +95,7 @@ public abstract class ProjetoDeLeiAbstract implements ProjetoDeLei {
     public String getVotante() {
         return votante;
     }
+
     public void setVotante(String votante) {
         this.votante = votante;
     }
@@ -117,8 +118,9 @@ public abstract class ProjetoDeLeiAbstract implements ProjetoDeLei {
     }
 
     @Override
-    public void setSituacao(String situacao) {
-        this.situacao = situacao;
+    public void setSituacao(boolean estadoAprovacao, String proxLocal) {
+        this.situacao = String.format("EM VOTACAO (%s)", proxLocal);
+
     }
 
     public void addVotacaoRealizada() {

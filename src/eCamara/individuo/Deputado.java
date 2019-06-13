@@ -79,6 +79,11 @@ public class Deputado implements Funcao {
         return "POL: " + toString + " - " + dataFormatada + " - " + this.qtdLeis + " Leis";
     }
 
+    @Override
+    public void addLei() {
+        this.qtdLeis++;
+    }
+
     /**
      * Recupera a dataInicio na vida publica de um deputado.
      * @return dataInicio da vida publica de um deputado.

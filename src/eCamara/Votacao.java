@@ -13,26 +13,21 @@ public class Votacao {
 
 
 
-    public boolean votarComissao(ProjetoDeLei lei, String statusGovernista, String proximoLocal, Comissao comissao, Set<String> partidos, String comissaoVotante) {
+    public boolean votarComissao(ProjetoDeLei lei, String statusGovernista, String proximoLocal, Comissao comissao, Set<String> partidos) {
         int votosAFavor = contaVotosAFavor(lei, comissao.getMapDeputados() ,statusGovernista, partidos);
 
         lei.addVotacaoRealizada();
-
-        if ("plenario".equals(comissaoVotante)) {
-            throw new NullPointerException("Erro ao votar proposta: proposta encaminhada ao plenario");
-        }
+        lei.setVotante(proximoLocal);
 
         if(votosAFavor >= comissao.tamanhoComissao()/2 + 1) {
-
             lei.setTramitacao(true);
-            lei.setVotante(proximoLocal);
-            lei.setSituacao(String.format("EM VOTACAO (%s)", proximoLocal));
+            lei.setSituacao(true, proximoLocal);
+
             return true;
         }
 
         lei.setTramitacao(false);
-        lei.setVotante(proximoLocal);
-        lei.setSituacao(String.format("EM VOTACAO (%s)", proximoLocal));
+        lei.setSituacao(false, proximoLocal);
         return false;
     }
 

@@ -12,4 +12,8 @@ public class Civil implements Funcao {
     public String toString(String toString){
         return toString;
     }
+
+    @Override
+    public void addLei() {
+    }
 }

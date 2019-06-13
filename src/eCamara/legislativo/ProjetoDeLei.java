@@ -13,13 +13,16 @@ public interface ProjetoDeLei {
     String getInteresses();
 
     String getSituacao();
-    void setSituacao(String string);
 
     String getTramitacao();
 
+    String getVotante();
+
+    String getDniAutor();
+
     void setTramitacao(boolean aprovadoOuNao);
 
-    String getVotante();
+    void setSituacao(boolean estadoAprovacao, String proxLocal);
 
     void setVotante(String votante);
 

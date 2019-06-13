@@ -76,7 +76,7 @@ expectError "Erro ao votar proposta: tramitacao encerrada" votarComissao codigo=
 expect true votarComissao codigo=${plcgov} statusGovernista="GOVERNISTA" proximoLocal="CGOV"
 expect true votarComissao codigo=${plcgov} statusGovernista="GOVERNISTA" proximoLocal="plenario"
 expect "POL: M2 - 071222222-0 (PE) - PartidoGov - 29/02/2016 - 1 Leis" exibirPessoa dni="071222222-0"
-expect "Projeto de Lei - PL 3/2016 - 071222222-0 - Ementa PL conc - Conclusiva - APROVADO" exibirProjeto codigo=${plc}
+expect "Projeto de Lei - PL 3/2016 - 071222222-0 - Ementa PL conc - Conclusiva - APROVADO" exibirProjeto codigo=${plcgov}
 
 # PL Conc Livre - saude e nutricao
 expect true votarComissao codigo=${plcsaude} statusGovernista="LIVRE" proximoLocal="CGOV"

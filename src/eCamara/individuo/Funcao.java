@@ -13,6 +13,7 @@ public interface Funcao {
      */
     String toString(String toString);
 
+    void addLei();
 
 
 }
