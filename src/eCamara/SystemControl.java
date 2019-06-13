@@ -292,7 +292,18 @@ public class SystemControl {
         return false;
     }
 
+    public boolean votarComissao(String codigoDaLei, String statusGovernista, String proximoLocal) {
+        if (!this.comissoes.containsKey("CCJC")) {
+            throw new NullPointerException("Erro ao votar proposta: CCJC nao cadastrada");
+        }
 
+        if (!this.comissoes.containsKey(proximoLocal)) {
+            throw new NullPointerException("Erro ao votar proposta: Comissao nao cadastrada");
+        }
+
+        this.controllerLeis.temLei(codigoDaLei, "nao tem ainda :3");
+        return this.votacao.votarComissao(codigoDaLei, statusGovernista, proximoLocal);
+    }
 
 }
 

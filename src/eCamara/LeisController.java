@@ -102,4 +102,11 @@ public class LeisController {
 
         return this.leis.get(codigo).toString(codigo);
     }
+
+    public void temLei(String codigoDaLei, String mensagem) {
+        if(!this.leis.containsKey(codigoDaLei)) {
+            throw new NullPointerException(mensagem);
+        }
+
+    }
 }

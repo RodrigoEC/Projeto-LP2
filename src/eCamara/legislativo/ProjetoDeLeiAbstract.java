@@ -42,6 +42,8 @@ public abstract class ProjetoDeLeiAbstract implements ProjetoDeLei {
      */
     private Validacao validaEntrada;
 
+    private String tramitacao;
+
     /**
      * Construtor responsavel por inicializar os atributosque do objeto ProjetoDeLeiAbstract.
      *
@@ -61,6 +63,7 @@ public abstract class ProjetoDeLeiAbstract implements ProjetoDeLei {
         this.url = url;
         this.situacao = "EM VOTACAO (CCJC)";
         this.nomesComissoes = new ArrayList<>();
+        this.tramitacao = "";
     }
 
 
@@ -91,12 +94,17 @@ public abstract class ProjetoDeLeiAbstract implements ProjetoDeLei {
         return ementa;
     }
 
-    public String getSituacao() {
-        return situacao;
-    }
 
     public String getUrl() {
         return url;
+    }
+
+    public void setTramitacao(String tramitacao) {
+        this.tramitacao = tramitacao;
+    }
+
+    public String getTramitacao() {
+        return tramitacao;
     }
 
     @Override

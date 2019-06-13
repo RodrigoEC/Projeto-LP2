@@ -338,7 +338,7 @@ public class Validacao {
      * @param interesses interesses relacionados o PEC.
      * @param artigos artigos da constituicao que o PEC se relacionam.
      *
-     * @throws NullPointerException mensagem
+     * @throws NullPointerException "Erro ao cadastrar projeto: autor nao pode ser vazio ou nulo"
      * @throws IllegalArgumentException mensagem
      *
      * @throws NullPointerException mensagem
