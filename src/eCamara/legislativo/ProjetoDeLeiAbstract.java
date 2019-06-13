@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 public abstract class ProjetoDeLeiAbstract implements ProjetoDeLei {
 
-    private ArrayList<Object> nomesComissoes;
+    private String votante;
     /**
      * Dni do autor do projeto.
      */
@@ -17,6 +17,7 @@ public abstract class ProjetoDeLeiAbstract implements ProjetoDeLei {
      */
     private int ano;
 
+    protected int votacaoRealizadas;
     /**
      * Ementa do projeto.
      */
@@ -62,15 +63,11 @@ public abstract class ProjetoDeLeiAbstract implements ProjetoDeLei {
         this.interesses = interesses;
         this.url = url;
         this.situacao = "EM VOTACAO (CCJC)";
-        this.nomesComissoes = new ArrayList<>();
+        this.votante = "CCJC";
         this.tramitacao = "";
+        this.votacaoRealizadas = 0;
     }
 
-
-    @Override
-    public void addNomeComissao(String nome) {
-        this.nomesComissoes.add(nome);
-    }
 
 
     @Override
@@ -78,9 +75,6 @@ public abstract class ProjetoDeLeiAbstract implements ProjetoDeLei {
         return interesses;
     }
 
-    public ArrayList<Object> getNomesComissoes() {
-        return nomesComissoes;
-    }
 
     public int getAno() {
         return ano;
@@ -94,21 +88,41 @@ public abstract class ProjetoDeLeiAbstract implements ProjetoDeLei {
         return ementa;
     }
 
-
     public String getUrl() {
         return url;
     }
 
-    public void setTramitacao(String tramitacao) {
-        this.tramitacao = tramitacao;
+    public String getVotante() {
+        return votante;
+    }
+    public void setVotante(String votante) {
+        this.votante = votante;
     }
 
     public String getTramitacao() {
         return tramitacao;
     }
 
+    public void setTramitacao(boolean aprovadoOuNao) {
+        if (aprovadoOuNao) {
+            this.tramitacao += String.format("APROVADO (%s), ",this.votante);
+        } else {
+            this.tramitacao += String.format("REJEITADO (%s), ", this.votante);
+        }
+    }
+
+    @Override
+    public String getSituacao() {
+        return situacao;
+    }
+
     @Override
     public void setSituacao(String situacao) {
         this.situacao = situacao;
     }
+
+    public void addVotacaoRealizada() {
+        this.votacaoRealizadas++;
+    }
+
 }

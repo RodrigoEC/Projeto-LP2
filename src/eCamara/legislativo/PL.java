@@ -4,6 +4,7 @@ public class PL extends ProjetoDeLeiAbstract {
 
     private boolean conclusivo;
 
+
     /**
      * Construtor responsavel por construir um objeto do tipo PL(projeto de legislativo) a partir do dni do deputado que o criou,
      * do ano em que ele foi criado, da ementa, dos interesses relacionados ao projeto, da url do site em que o projeto
@@ -28,6 +29,14 @@ public class PL extends ProjetoDeLeiAbstract {
      */
     public boolean isConclusivo() {
         return conclusivo;
+    }
+
+    @Override
+    public void addVotacaoRealizada() {
+        if (this.votacaoRealizadas == 2) {
+            throw new IllegalArgumentException("Erro ao votar proposta: tramitacao encerrada");
+        }
+        this.votacaoRealizadas++;
     }
 
     /**

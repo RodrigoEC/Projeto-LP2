@@ -2,6 +2,7 @@ package eCamara.legislativo;
 
 import eCamara.individuo.Pessoa;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
@@ -19,14 +20,14 @@ public class Comissao {
     /**
      * Politicos que fazem parte da comissao.
      */
-    private Map<String, Pessoa> mapDeputados;
+    private HashMap<String, Pessoa> mapDeputados;
 
     /**
      * Constroi a Comissao, recebe uma string com o tema e mapa de politicos.
      * @param tema String com o tema.
      * @param mapDeputados Map com os politicos.
      */
-    public  Comissao(String tema, Map<String, Pessoa> mapDeputados){
+    public  Comissao(String tema, HashMap<String, Pessoa> mapDeputados){
         this.mapDeputados = mapDeputados;
         this.tema =  tema;
     }
@@ -56,7 +57,11 @@ public class Comissao {
         return Objects.hash(tema);
     }
 
-    public Map<String, Pessoa> getMapDeputados() {
+    public HashMap<String, Pessoa> getMapDeputados() {
         return mapDeputados;
+    }
+
+    public int tamanhoComissao() {
+        return this.mapDeputados.size();
     }
 }

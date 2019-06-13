@@ -13,7 +13,7 @@ import java.util.*;
 public class SystemControl {
     private PessoaController controllerDeputados;
     private LeisController controllerLeis;
-   // private Votacao votacao;
+    private Votacao votacao;
     /**
      * Set de Partidos (String)
      */
@@ -29,12 +29,16 @@ public class SystemControl {
      * Constroi o SystemControl(Controller), inicia o Map e o Set e instancia o Objeto de validacao.
      */
     public SystemControl() {
-        //this.votacao = new Votacao();
+        this.votacao = new Votacao();
         this.controllerLeis = new LeisController();
         this.controllerDeputados = new PessoaController();
         this.partidos = new HashSet<>();
         this.validaEntradas = new Validacao();
         this.comissoes = new HashMap<>();
+    }
+
+    public Map<String, Comissao> getComissoes() {
+        return comissoes;
     }
 
     public PessoaController getControllerDeputados() {
@@ -190,7 +194,7 @@ public class SystemControl {
 
         String[] listaDnis = politicos.trim().split(",");
 
-        Map<String, Pessoa> politicosMap = new HashMap<>();
+        HashMap<String, Pessoa> politicosMap = new HashMap<>();
 
         for (String dni : listaDnis) {
             this.controllerDeputados.procuraDniNoMapa(dni, "Erro ao cadastrar comissao: pessoa inexistente");
@@ -285,32 +289,27 @@ public class SystemControl {
         return this.controllerLeis.exibirProjeto(codigo);
     }
 
-    private boolean ehDaBase(Pessoa pessoa) {
-        if (this.partidos.contains(pessoa.getPartido())) {
-            return true;
-        }
-        return false;
-    }
+
 
     public boolean votarComissao(String codigoDaLei, String statusGovernista, String proximoLocal) {
         if (!this.comissoes.containsKey("CCJC")) {
             throw new NullPointerException("Erro ao votar proposta: CCJC nao cadastrada");
         }
 
-        if (!this.comissoes.containsKey(proximoLocal)) {
-            throw new NullPointerException("Erro ao votar proposta: Comissao nao cadastrada");
-        }
-
         this.controllerLeis.temLei(codigoDaLei, "nao tem ainda :3");
-        //return this.votacao.votarComissao(codigoDaLei, statusGovernista, proximoLocal);
-        return false;
+        String comissaoVotante = this.controllerLeis.getLei(codigoDaLei).getVotante();
+
+        ProjetoDeLei lei = this.controllerLeis.getLeis().get(codigoDaLei);
+        return this.votacao.votarComissao(lei, statusGovernista, proximoLocal, this.comissoes.get(comissaoVotante),
+                this.partidos, comissaoVotante);
     }
 
-}
 
     /*public boolean votarPlenario(String codigo, boolean governista, String presentes) {
     }
-
+*/
     public String exibirTramitacao(String codigo) {
-    }*/
+        return this.controllerLeis.exibirTramitacao(codigo);
+    }
+}
 

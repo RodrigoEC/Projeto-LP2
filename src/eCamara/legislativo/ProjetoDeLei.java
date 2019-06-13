@@ -11,6 +11,17 @@ public interface ProjetoDeLei {
     String toString(String codigo);
 
     String getInteresses();
+
+    String getSituacao();
     void setSituacao(String string);
-    void addNomeComissao(String nome);
+
+    String getTramitacao();
+
+    void setTramitacao(boolean aprovadoOuNao);
+
+    String getVotante();
+
+    void setVotante(String votante);
+
+    void addVotacaoRealizada();
 }

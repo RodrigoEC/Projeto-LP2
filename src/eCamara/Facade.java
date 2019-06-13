@@ -68,18 +68,18 @@ public class Facade {
         return  this.systemControl.exibirProjeto(codigo);
     }
 
-    /*
-    public boolean votarComissao(String codigo, boolean governista, String comissao, String proximoLocal) {
-        return this.systemControl.votarComissao(codigo, governista, comissao, proximoLocal);
-    }
 
+    public boolean votarComissao(String codigo, String statusGovernista, String proximoLocal) {
+        return this.systemControl.votarComissao(codigo, statusGovernista, proximoLocal);
+    }
+    /*
     public boolean votarPlenario(String codigo, boolean governista, String presentes) {
         return this.systemControl.votarPlenario(codigo, governista, presentes);
-    }
+    }*/
 
     public String exibirTramitacao(String codigo) {
         return this.systemControl.exibirTramitacao(codigo);
-    } */
+    }
 
     public void carregarSistema(){
 

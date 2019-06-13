@@ -96,7 +96,7 @@ public class LeisController {
      * @return uma string que representa os dados relevantes do projeto.
      */
     public String exibirProjeto(String codigo) {
-        if (! this.leis.containsKey(codigo)){
+        if (!this.leis.containsKey(codigo)){
             throw new NullPointerException("Nao contem esse codigo");
         }
 
@@ -107,6 +107,17 @@ public class LeisController {
         if(!this.leis.containsKey(codigoDaLei)) {
             throw new NullPointerException(mensagem);
         }
+    }
 
+    public HashMap<String, ProjetoDeLei> getLeis() {
+        return (HashMap<String, ProjetoDeLei>) leis;
+    }
+
+    public ProjetoDeLei getLei(String codigoDaLei) {
+        return this.leis.get(codigoDaLei);
+    }
+
+    public String exibirTramitacao(String codigo) {
+        return this.leis.get(codigo).getTramitacao() + this.leis.get(codigo).getSituacao();
     }
 }
