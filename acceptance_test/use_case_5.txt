@@ -19,13 +19,13 @@ cadastrarComissao tema="CCJCC" politicos="051222222-0,051444444-0"
 cadastrarComissao tema="Educacao" politicos="051444444-0"
 cadastrarComissao tema="CLP" politicos="051444444-0"
 
-# Nomes, temas ou strings de políticos vazia
+#Nomes, temas ou strings de políticos vazia
 expectError "Erro ao cadastrar comissao: tema nao pode ser vazio ou nulo" cadastrarComissao tema="" politicos="051444444-0"
 expectError "Erro ao cadastrar comissao: tema nao pode ser vazio ou nulo" cadastrarComissao tema=" " politicos="051444444-0"
 expectError "Erro ao cadastrar comissao: lista de politicos nao pode ser vazio ou nulo" cadastrarComissao tema="Mulher1" politicos=""
 expectError "Erro ao cadastrar comissao: lista de politicos nao pode ser vazio ou nulo" cadastrarComissao tema="Mulher2" politicos="    "
 
-# DNIs compostas por algo além de números e do traço ( - )
+#DNIs compostas por algo além de números e do traço ( - )
 expectError "Erro ao cadastrar comissao: dni invalido" cadastrarComissao tema="Mulher3" politicos="051222222-A,051444444-0"
 expectError "Erro ao cadastrar comissao: dni invalido" cadastrarComissao tema="Mulher4" politicos="051222222-0, 05144444-0"
 expectError "Erro ao cadastrar comissao: dni invalido" cadastrarComissao tema="Mulher5" politicos="051222222-0,051444444-Y"

@@ -13,7 +13,7 @@ import java.util.*;
 public class SystemControl {
     private PessoaController controllerDeputados;
     private LeisController controllerLeis;
-    private Votacao votacao;
+   // private Votacao votacao;
     /**
      * Set de Partidos (String)
      */
@@ -303,6 +303,7 @@ public class SystemControl {
 
         this.controllerLeis.temLei(codigoDaLei, "nao tem ainda :3");
         return this.votacao.votarComissao(codigoDaLei, statusGovernista, proximoLocal);
+        return false;
     }
 
 }
