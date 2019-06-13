@@ -370,10 +370,9 @@ class SystemControlTest {
         }
     }
 
-
     @Test
     void cadastrarComissaoPessoaInexistente() {
-        this.systemControl.cadastrarPessoa("Plipox Poplx", "051444444-0", "RO", "Educacao", "DEF");
+        this.systemControl.cadastrarPessoa("Jurema", "051444444-0", "RO", "Educacao", "DEF");
         this.systemControl.cadastraDeputado("051444444-0", "12012000");
         try {
 
@@ -386,8 +385,8 @@ class SystemControlTest {
 
     @Test
     void cadastrarComissaoPessoaTemaRepetido() {
-        this.systemControl.cadastrarPessoa("Plipox Poplx", "051444444-0", "RO", "Educacao", "DEF");
-        this.systemControl.cadastrarPessoa("Plipox Poplx", "051222222-0", "RO", "Educacao", "DEF");
+        this.systemControl.cadastrarPessoa("Paulo", "051444444-0", "RO", "Educacao", "DEF");
+        this.systemControl.cadastrarPessoa("Leticia", "051222222-0", "RO", "Saude", "DEF");
         this.systemControl.cadastraDeputado("051444444-0", "12012000");
         this.systemControl.cadastraDeputado("051222222-0", "25072010");
         this.systemControl.cadastrarComissao("CCJCC", "051222222-0,051444444-0");
@@ -401,11 +400,10 @@ class SystemControlTest {
 
     @Test
     void cadastrarComissaoDniInvalido() {
-        this.systemControl.cadastrarPessoa("Plipox Poplx", "051444444-0", "RO", "Educacao", "DEF");
-        this.systemControl.cadastrarPessoa("Plipox Poplx", "051222222-0", "RO", "Educacao", "DEF");
+        this.systemControl.cadastrarPessoa("Gabriel", "051444444-0", "RO", "Educacao", "DEF");
+        this.systemControl.cadastrarPessoa("Ana", "051222222-0", "RO", "Educacao", "DEF");
         this.systemControl.cadastraDeputado("051444444-0", "12012000");
         this.systemControl.cadastraDeputado("051222222-0", "25072010");
-        this.systemControl.cadastrarComissao("CCJCC", "051222222-0,051444444-0");
         try {
             this.systemControl.cadastrarComissao("CCJCC", "051444444AA");
             fail("Era esperada uma excecao");
@@ -416,7 +414,7 @@ class SystemControlTest {
 
     @Test
     void cadastraComissaoPessoaNaoPolitica() {
-        this.systemControl.cadastrarPessoa("Plipox Poplx", "051444444-0", "RO", "Educacao", "DEF");
+        this.systemControl.cadastrarPessoa("Claudia", "051444444-0", "RO", "Educacao", "DEF");
         this.systemControl.cadastrarPessoa("Gilberto", "051222222-0", "RO", "Educacao", "DEF");
         this.systemControl.cadastrarPessoa("Mariana", "051111111-0", "RO", "Educacao", "DEF");
         this.systemControl.cadastrarPessoa("Patricia", "051333333-0", "RO", "Educacao", "DEF");
@@ -430,7 +428,6 @@ class SystemControlTest {
 
         }
     }
-
 
     @Test
     void exibirPessoaArgumentosInvalidos(){

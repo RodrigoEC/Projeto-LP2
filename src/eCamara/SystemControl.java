@@ -29,7 +29,7 @@ public class SystemControl {
      * Constroi o SystemControl(Controller), inicia o Map e o Set e instancia o Objeto de validacao.
      */
     public SystemControl() {
-        this.votacao = new Votacao();
+        //this.votacao = new Votacao();
         this.controllerLeis = new LeisController();
         this.controllerDeputados = new PessoaController();
         this.partidos = new HashSet<>();
@@ -302,7 +302,7 @@ public class SystemControl {
         }
 
         this.controllerLeis.temLei(codigoDaLei, "nao tem ainda :3");
-        return this.votacao.votarComissao(codigoDaLei, statusGovernista, proximoLocal);
+        //return this.votacao.votarComissao(codigoDaLei, statusGovernista, proximoLocal);
         return false;
     }
 
