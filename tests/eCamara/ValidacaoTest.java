@@ -349,13 +349,13 @@ class ValidacaoTest {
         try {
             validador.validaCadastrarPL("123456789-5", 2020, "...", "vacas", "sei la meu rapaz");
             fail("era pra dar ruim");
-        } catch (IllegalArgumentException nope) {
+        } catch (NullPointerException nope) {
         }
 
         try {
             validador.validaCadastrarPL("123456789-5", 2025, "...", "vacas", "sei la meu rapaz");
             fail("era pra dar ruim");
-        } catch (IllegalArgumentException nope) {
+        } catch (NullPointerException nope) {
         }
 
         try {
@@ -473,13 +473,13 @@ class ValidacaoTest {
         try {
             validador.validaCadastrarPLP("123456789-5", 2020, "...", "vacas", "sei la meu rapaz", "1");
             fail("era pra dar ruim");
-        } catch (IllegalArgumentException nope) {
+        } catch (NullPointerException nope) {
         }
 
         try {
             validador.validaCadastrarPLP("123456789-5", 2025, "...", "vacas", "sei la meu rapaz", "1");
             fail("era pra dar ruim");
-        } catch (IllegalArgumentException nope) {
+        } catch (NullPointerException nope) {
         }
 
         try {
@@ -619,13 +619,13 @@ class ValidacaoTest {
         try {
             validador.validaCadastrarPEC("123456789-5", 2020, "...", "vacas", "sei la meu rapaz", "1");
             fail("era pra dar ruim");
-        } catch (IllegalArgumentException nope) {
+        } catch (NullPointerException nope) {
         }
 
         try {
             validador.validaCadastrarPEC("123456789-5", 2025, "...", "vacas", "sei la meu rapaz", "1");
             fail("era pra dar ruim");
-        } catch (IllegalArgumentException nope) {
+        } catch (NullPointerException nope) {
         }
 
         try {

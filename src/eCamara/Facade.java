@@ -67,10 +67,7 @@ public class Facade {
         return  this.systemControl.exibirProjeto(codigo);
     }
 
-    /*public String exibirProjeto(String codigo) {
-        return this.systemControl.exibirProjeto(codigo);
-    }
-
+    /*
     public boolean votarComissao(String codigo, boolean governista, String comissao, String proximoLocal) {
         return this.systemControl.votarComissao(codigo, governista, comissao, proximoLocal);
     }

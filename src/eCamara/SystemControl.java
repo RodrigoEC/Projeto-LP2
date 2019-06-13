@@ -12,28 +12,38 @@ import java.util.*;
  */
 
 public class SystemControl {
-    /** Map de Pessoa */
-    private Map<String, Pessoa> mapPessoas;
-    /** Set de Partidos (String) */
+    private DeputadoController controllerDeputados;
+    private LeisController controllerLeis;
+    private Votacao votacao;
+    /**
+     * Set de Partidos (String)
+     */
     private Set<String> partidos;
 
     private Map<String, Comissao> comissoes;
-
-    private Map<String, ProjetoDeLei> leis;
-
-
-    /** Objeto de Validacao */
+    /**
+     * Objeto de Validacao
+     */
     private Validacao validaEntradas;
 
     /**
      * Constroi o SystemControl(Controller), inicia o Map e o Set e instancia o Objeto de validacao.
      */
-    public SystemControl(){
-        this.mapPessoas =  new HashMap<>();
+    public SystemControl() {
+        this.votacao = new Votacao();
+        this.controllerLeis = new LeisController();
+        this.controllerDeputados = new DeputadoController();
         this.partidos = new HashSet<>();
         this.validaEntradas = new Validacao();
-        this.comissoes =  new HashMap<>();
-        this.leis = new HashMap<>();
+        this.comissoes = new HashMap<>();
+    }
+
+    public DeputadoController getControllerDeputados() {
+        return controllerDeputados;
+    }
+
+    public LeisController getControllerLeis() {
+        return controllerLeis;
     }
 
     /**
@@ -42,22 +52,15 @@ public class SystemControl {
      * Tambem verifica (antes de inserir no Map) se a Pessoa ja se encontra cadastrada pelo seu dni, se ja estiver sera
      * lancada excecao, se nao tiver sera cadastrada com sucesso.
      *
-     * @param nome String com o nome.
-     * @param dni String com o dni.
-     * @param estado String com o estado.
+     * @param nome       String com o nome.
+     * @param dni        String com o dni.
+     * @param estado     String com o estado.
      * @param interesses String com o(s) interese(s).
-     *
      * @throws IllegalArgumentException Erro ao cadastrar pessoa: dni ja cadastrado.
      */
 
     public void cadastrarPessoaSemPartido(String nome, String dni, String estado, String interesses) {
-        this.validaEntradas.validarCadastroPessoa(dni, nome, estado);
-
-        if (this.mapPessoas.containsKey(dni)){
-            throw new IllegalArgumentException("Erro ao cadastrar pessoa: dni ja cadastrado");
-        }
-
-        this.mapPessoas.put(dni, new Pessoa(nome, dni, estado, interesses));
+        this.controllerDeputados.cadastrarPessoaSemPartido(nome, dni, estado, interesses);
     }
 
     /**
@@ -66,23 +69,16 @@ public class SystemControl {
      * Tambem verifica (antes de inserir no Map) se a Pessoa ja se encontra cadastrada pelo seu dni, se ja estiver sera
      * lancada excecao, se nao tiver sera cadastrada com sucesso.
      *
-     * @param nome String com o nome.
-     * @param dni String com o dni.
-     * @param estado String com o estado.
+     * @param nome       String com o nome.
+     * @param dni        String com o dni.
+     * @param estado     String com o estado.
      * @param interesses String com o(s) interese(s).
-     * @param partido String com o partido.
-     *
+     * @param partido    String com o partido.
      * @throws IllegalArgumentException Erro ao cadastrar pessoa: dni ja cadastrado.
      */
 
     public void cadastrarPessoa(String nome, String dni, String estado, String interesses, String partido) {
-        this.validaEntradas.validarCadastroPessoa(dni, nome, estado);
-
-        if (this.mapPessoas.containsKey(dni)){
-            throw new IllegalArgumentException("Erro ao cadastrar pessoa: dni ja cadastrado");
-        }
-
-        this.mapPessoas.put(dni, new Pessoa(nome, dni, estado, interesses, partido));
+        this.controllerDeputados.cadastrarPessoa(nome, dni, estado, interesses, partido);
     }
 
     /**
@@ -90,6 +86,8 @@ public class SystemControl {
      * Recebe como parametros uma string que representa um dni (documento nacional de identificacao)
      * e uma string dataInicio que representa a data de inicio da vida publica como deputado.
      *
+     * @param dni        String que representa o documento nacional de identificacao (dni) de uma pessoa.
+     * @param dataInicio String que representa a data de inicio de uma pessoa na vida publica como deputado.
      * @throws IllegalArgumentException Erro ao cadastrar deputado: dni invalido
      * @throws IllegalArgumentException Erro ao cadastrar deputado: data invalida
      * @throws IllegalArgumentException Data de inicio da funcao como deputado não pode ser vazia ou nula
@@ -99,26 +97,10 @@ public class SystemControl {
      * @throws IllegalArgumentException Erro ao cadastrar deputado:pessoa nao encontrada.
      * @throws IllegalArgumentException Erro ao cadastrar deputado: pessoa ja e deputado.
      * @throws IllegalArgumentException Erro ao cadastrar deputado: pessoa sem partido
-     *
-     * @param dni String que representa o documento nacional de identificacao (dni) de uma pessoa.
-     * @param dataInicio String que representa a data de inicio de uma pessoa na vida publica como deputado.
      */
 
     public void cadastraDeputado(String dni, String dataInicio) {
-        this.validaEntradas.validaDniCadastraDeputado(dni);
-
-        if (!(mapPessoas.containsKey(dni))) {
-            throw new IllegalArgumentException("Erro ao cadastrar deputado: pessoa nao encontrada");
-        }
-        this.validaEntradas.validaDataCadastroDeputado(dataInicio);
-
-        if (!mapPessoas.get(dni).temPartido()) {
-            throw new IllegalArgumentException("Erro ao cadastrar deputado: pessoa sem partido");
-
-        }if (mapPessoas.get(dni).getFuncao() instanceof Deputado) {
-            throw new IllegalArgumentException("Erro ao cadastrar deputado: pessoa ja e deputado");
-        }
-        this.mapPessoas.get(dni).cadastraDeputado(dataInicio);
+        this.controllerDeputados.cadastraDeputado(dni, dataInicio);
     }
 
     /**
@@ -126,22 +108,12 @@ public class SystemControl {
      * parametro. Se a pessoa nao estiver cadastrada, uma excecao sera lancada. O dni tambem e passado como parametro
      * para o metodo validaExibirPessoa da classe Validacao.
      *
-     *
      * @param dni String com dni.
-     *
-     * @throws IllegalArgumentException Erro ao exibir pessoa: pessoa nao encontrada
-     *
      * @return Representacao textual de Pessoa.
+     * @throws IllegalArgumentException Erro ao exibir pessoa: pessoa nao encontrada
      */
     public String exibirPessoa(String dni) {
-
-        this.validaEntradas.validaExibirPessoa(dni);
-
-        if (!this.mapPessoas.containsKey(dni)){
-            throw new IllegalArgumentException("Erro ao exibir pessoa: pessoa nao encontrada");
-        }
-
-        return this.mapPessoas.get(dni).toStringPelaFuncao();
+        return this.controllerDeputados.exibirPessoa(dni);
     }
 
     /**
@@ -149,9 +121,8 @@ public class SystemControl {
      * cadastrador.
      *
      * @param partido string que representa o partido
-     *
      * @throws IllegalArgumentException "Erro ao cadastrar partido: partido nao pode ser vazio ou nulo".
-     * @throws NullPointerException "Erro ao cadastrar partido: partido nao pode ser vazio ou nulo".
+     * @throws NullPointerException     "Erro ao cadastrar partido: partido nao pode ser vazio ou nulo".
      */
     public void cadastraPartido(String partido) {
         validaEntradas.validaCadastraPartido(partido);
@@ -195,14 +166,6 @@ public class SystemControl {
         return partidos;
     }
 
-    /**
-     * Metodo responsavel por deixar disponivel o mapa de objetos do tipo Pessoa.
-     *
-     * @return o mapa de objetos do tipo Pessoa.
-     */
-    public Map<String, Pessoa> getMapPessoas(){
-        return this.mapPessoas;
-    }
 
     /**
      * Metodo responsavel por cadastrar uma nova comissao, o metodo recebe o tema da comissao e uma string com todos os
@@ -211,17 +174,16 @@ public class SystemControl {
      * sera verificado se os deputados que fazem parte da comissao existem e se sao de fato debutados, caso nao exista ou nao seja deputado sera
      * lancado excecao. Se tudo for valido a Comissao sera cadastrada. Faz uso dos metodos validaCadastrarComissao e validaCadastroComissaoDnis da classe de Validacao.
      *
-     * @param tema o tema do projeto.
+     * @param tema      o tema do projeto.
      * @param politicos string contendo os dnis do deputados participantes da comissao separados por virgula.
-     *
      * @throws IllegalArgumentException Erro ao cadastrar comissao: tema existente
      * @throws IllegalArgumentException Erro ao cadastrar comissao: pessoa inexistente
-     * @throws  NullPointerException Erro ao cadastrar comissao: pessoa nao eh deputado
+     * @throws NullPointerException     Erro ao cadastrar comissao: pessoa nao eh deputado
      */
     public void cadastrarComissao(String tema, String politicos) {
         this.validaEntradas.validaCadastrarComissao(tema, politicos);
 
-        if (this.comissoes.containsKey(tema)){
+        if (this.comissoes.containsKey(tema)) {
             throw new IllegalArgumentException("Erro ao cadastrar comissao: tema existente");
         }
 
@@ -231,14 +193,11 @@ public class SystemControl {
 
         Map<String, Pessoa> politicosMap = new HashMap<>();
 
-        for (String dni: listaDnis){
-           if(!this.mapPessoas.containsKey(dni)){
-               throw new IllegalArgumentException("Erro ao cadastrar comissao: pessoa inexistente");
-           }
-           if(! this.mapPessoas.get(dni).ehDeputado()){
-                throw new NullPointerException("Erro ao cadastrar comissao: pessoa nao eh deputado");
-           }
-           politicosMap.put(dni, this.mapPessoas.get(dni));
+        for (String dni : listaDnis) {
+            this.controllerDeputados.procuraDniNoMapa(dni, "Erro ao cadastrar comissao: pessoa inexistente");
+            this.controllerDeputados.ehDeputado(dni, "Erro ao cadastrar comissao: pessoa nao eh deputado");
+
+            politicosMap.put(dni, this.controllerDeputados.getPolitico(dni));
         }
 
         this.comissoes.put(tema, new Comissao(tema, politicosMap));
@@ -249,35 +208,21 @@ public class SystemControl {
      * de legislativo, o que o projeto propoe(ementa), os interesses relacionados ao projeto, a url do site em que o projeto esta
      * hospedado, e um boolean que indica se o projeto eh ou nao conclusivo.
      *
-     * @param dni dni do autor do projeto.
-     * @param ano ano em que o projeto foi criado.
-     * @param ementa ementa do projeto.
+     * @param dni        dni do autor do projeto.
+     * @param ano        ano em que o projeto foi criado.
+     * @param ementa     ementa do projeto.
      * @param interesses interesses relacionados ao projeto de legislativo.
-     * @param url url do site em que o projeto esta hospedado.
+     * @param url        url do site em que o projeto esta hospedado.
      * @param conclusivo boolean que mostra se o projeto eh conclusivo ou nao.
      * @return A key do projeto no mapa de projetos.
      */
-   public String cadastrarPL(String dni, int ano, String ementa, String interesses, String url, boolean conclusivo) {
+    public String cadastrarPL(String dni, int ano, String ementa, String interesses, String url, boolean conclusivo) {
         this.validaEntradas.validaCadastrarPL(dni, ano, ementa, interesses, url);
 
-        if (! this.mapPessoas.containsKey(dni)){
-            throw new NullPointerException("Erro ao cadastrar projeto: pessoa inexistente");
-        }
-        if (! this.mapPessoas.get(dni).ehDeputado()) {
-            throw new IllegalArgumentException("Erro ao cadastrar projeto: pessoa nao eh deputado");
-        }
+        this.controllerDeputados.procuraDniNoMapa(dni, "Erro ao cadastrar projeto: pessoa inexistente");
+        this.controllerDeputados.ehDeputado(dni, "Erro ao cadastrar projeto: pessoa nao eh deputado");
 
-        int contador = 1;
-        String key = "PL " + contador + "/" + ano;
-        for (String e :  this.leis.keySet()){
-            if (e.equals(key)){
-                contador += 1;
-                key  = "PL " + contador + "/" + ano;
-            }
-        }
-
-        this.leis.put(key, new PL(dni, ano, ementa, interesses, url, conclusivo));
-        return key;
+        return this.controllerLeis.cadastrarPL(dni, ano, ementa, interesses, url, conclusivo);
 
     }
 
@@ -286,35 +231,21 @@ public class SystemControl {
      * de legislativo, o que o projeto propoe(ementa), os interesses relacionados ao projeto, a url do site em que o projeto esta
      * hospedado, e uma string com os artigos da constituicao que estao relacionados ao projeto..
      *
-     * @param dni dni do autor do projeto.
-     * @param ano ano em que o projeto foi criado.
-     * @param ementa ementa do projeto.
+     * @param dni        dni do autor do projeto.
+     * @param ano        ano em que o projeto foi criado.
+     * @param ementa     ementa do projeto.
      * @param interesses interesses relacionados ao projeto de legislativo.
-     * @param url url do site em que o projeto esta hospedado.
-     * @param artigos string que representa os artigos da constituicao relacionados a plp.
+     * @param url        url do site em que o projeto esta hospedado.
+     * @param artigos    string que representa os artigos da constituicao relacionados a plp.
      * @return A key do projeto no mapa de projetos.
      */
     public String cadastrarPLP(String dni, int ano, String ementa, String interesses, String url, String artigos) {
         this.validaEntradas.validaCadastrarPLP(dni, ano, ementa, interesses, url, artigos);
 
-        if (! this.mapPessoas.containsKey(dni)){
-            throw new NullPointerException("Erro ao cadastrar projeto: pessoa inexistente");
-        }
-        if (! this.mapPessoas.get(dni).ehDeputado()) {
-            throw new IllegalArgumentException("Erro ao cadastrar projeto: pessoa nao eh deputado");
-        }
+        this.controllerDeputados.procuraDniNoMapa(dni, "Erro ao cadastrar projeto: pessoa inexistente");
+        this.controllerDeputados.ehDeputado(dni, "Erro ao cadastrar projeto: pessoa nao eh deputado");
 
-        int contador = 1;
-        String key = "PLP " + contador + "/" + ano;
-        for (String e :  this.leis.keySet()){
-            if (e.equals(key)){
-                contador += 1;
-                key  = "PLP " + contador + "/" + ano;
-            }
-        }
-        this.leis.put(key, new PLP(dni, ano, ementa, interesses, url, artigos));
-        return key;
-
+        return this.controllerLeis.cadastrarPLP(dni, ano, ementa, interesses, url, artigos);
     }
 
     /**
@@ -322,34 +253,23 @@ public class SystemControl {
      * de legislativo, o que o projeto propoe(ementa), os interesses relacionados ao projeto, a url do site em que o projeto esta
      * hospedado, e uma string com os artigos da constituicao que estao relacionados ao projeto..
      *
-     * @param dni dni do autor do projeto.
-     * @param ano ano em que o projeto foi criado.
-     * @param ementa ementa do projeto.
+     * @param dni        dni do autor do projeto.
+     * @param ano        ano em que o projeto foi criado.
+     * @param ementa     ementa do projeto.
      * @param interesses interesses relacionados ao projeto de legislativo.
-     * @param url url do site em que o projeto esta hospedado.
-     * @param artigos string que representa os artigos da constituicao relacionados a plp.
+     * @param url        url do site em que o projeto esta hospedado.
+     * @param artigos    string que representa os artigos da constituicao relacionados a plp.
      * @return A key do projeto no mapa de projetos.
      */
     public String cadastrarPEC(String dni, int ano, String ementa, String interesses, String url, String artigos) {
         this.validaEntradas.validaCadastrarPEC(dni, ano, ementa, interesses, url, artigos);
 
-        if (! this.mapPessoas.containsKey(dni)){
-            throw new NullPointerException("Erro ao cadastrar projeto: pessoa inexistente");
-        }
-        if (! this.mapPessoas.get(dni).ehDeputado()) {
-            throw new IllegalArgumentException("Erro ao cadastrar projeto: pessoa nao eh deputado");
-        }
 
-        int contador = 1;
-        String key = "PEC " + contador + "/" + ano;
-        for (String e :  this.leis.keySet()){
-            if (e.equals(key)){
-                contador += 1;
-                key  = "PEC " + contador + "/" + ano;
-            }
-        }
-        this.leis.put(key, new PEC(dni, ano, ementa, interesses, url, artigos));
-        return key;
+        this.controllerDeputados.procuraDniNoMapa(dni, "Erro ao cadastrar projeto: pessoa inexistente");
+        this.controllerDeputados.ehDeputado(dni, "Erro ao cadastrar projeto: pessoa nao eh deputado");
+
+        return this.controllerLeis.cadastrarPEC(dni, ano, ementa, interesses, url, artigos);
+
 
     }
 
@@ -363,68 +283,23 @@ public class SystemControl {
     public String exibirProjeto(String codigo) {
         this.validaEntradas.validaExibeLei(codigo);
 
-        if (! this.leis.containsKey(codigo)){
-            throw new NullPointerException("Nao contem esse codigo");
-        }
-
-        return this.leis.get(codigo).toString(codigo);
+        return this.controllerLeis.exibirProjeto(codigo);
     }
 
     private boolean ehDaBase(Pessoa pessoa) {
         if (this.partidos.contains(pessoa.getPartido())) {
             return true;
-        } return false;
-    }
-
-
-    public boolean votarComissao(String codigoDaLei, String statusGovernista, String comissao, String proximoLocal) {
-        int votosAFavor = 0;
-        if (!this.leis.containsKey(codigoDaLei)) {
-            throw new NullPointerException("g..o..o..g..l..e");
         }
-
-        if (!this.comissoes.containsKey(comissao)) {
-            throw new NullPointerException("guluGulu");
-        }
-        this.leis.get(codigoDaLei).addNomeComissao(comissao);
-
-        for (Pessoa politicoDaComissao : this.comissoes.get(comissao).getMapDeputados().values()) {
-            if (ehDaBase(politicoDaComissao) && "governista".equals(statusGovernista)) {
-                votosAFavor++;
-
-            } else if (!ehDaBase(politicoDaComissao) && "oposicao".equals(statusGovernista)) {
-                votosAFavor++;
-
-            } else {
-                String[] arrayInteressesLei = this.leis.get(codigoDaLei).getInteresses().split(",");
-                List<String> listaInteressesLei = Arrays.asList(arrayInteressesLei);
-
-                for(String interessePolitico : politicoDaComissao.getInteresses().split(",")) {
-                    if(listaInteressesLei.contains(interessePolitico)) {
-                        votosAFavor++;
-                    }
-                }
-            }
-        }
-
-
-
-
-        if (votosAFavor > this.comissoes.get(comissao).getMapDeputados().size()/2 + 1) {
-            this.leis.get(codigoDaLei).setSituacao(String.format("EM VOTACAO(%s)", proximoLocal));
-
-            return true;
-
-        }
-
         return false;
-
-
     }
+
+
+
+}
 
     /*public boolean votarPlenario(String codigo, boolean governista, String presentes) {
     }
 
     public String exibirTramitacao(String codigo) {
     }*/
-}
+

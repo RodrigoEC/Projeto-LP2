@@ -268,8 +268,12 @@ public class Validacao {
         this.validaDni(dni, "Erro ao cadastrar projeto: dni invalido");
 
         //MUDAR O NEGOCIO DO ANO 2019. TORNAR AUTOMATICO A PARTIR DA BIBLIOTECA JAVA.TIME
-        if (ano > 2019 || ano < 1988){
-            throw new IllegalArgumentException("MENSAGEM A SER PENETRADA");
+        if (ano < 1988) {
+            throw new IllegalArgumentException("Erro ao cadastrar projeto: ano anterior a 1988");
+        }
+
+        if (ano > 2019) {
+            throw new NullPointerException("Erro ao cadastrar projeto: ano posterior ao ano atual");
         }
     }
 
@@ -313,8 +317,12 @@ public class Validacao {
         this.validaDni(dni, "Erro ao cadastrar projeto: dni invalido");
 
         //MUDAR O NEGOCIO DO ANO 2019. TORNAR AUTOMATICO A PARTIR DA BIBLIOTECA JAVA.TIME
-        if (ano > 2019 || ano < 1988) {
-            throw new IllegalArgumentException("MENSAGEM A SER PsfENETRADA");
+        if (ano < 1988) {
+            throw new IllegalArgumentException("Erro ao cadastrar projeto: ano anterior a 1988");
+        }
+
+        if (ano > 2019) {
+            throw new NullPointerException("Erro ao cadastrar projeto: ano posterior ao ano atual");
         }
     }
 
@@ -357,8 +365,12 @@ public class Validacao {
         this.validaDni(dni, "Erro ao cadastrar projeto: dni invalido");
 
         //MUDAR O NEGOCIO DO ANO 2019. TORNAR AUTOMATICO A PARTIR DA BIBLIOTECA JAVA.TIME
-        if (ano > 2019 || ano < 1988) {
-            throw new IllegalArgumentException("MENSAGEM eA SER ePsfENETRADA");
+        if (ano > 2019) {
+            throw new NullPointerException("Erro ao cadastrar projeto: ano posterior ao ano atual");
+        }
+
+        if (ano < 1988) {
+            throw new IllegalArgumentException("Erro ao cadastrar projeto: ano anterior a 1988");
         }
     }
 

@@ -68,4 +68,39 @@ public abstract class ProjetoDeLeiAbstract implements ProjetoDeLei {
     public void addNomeComissao(String nome) {
         this.nomesComissoes.add(nome);
     }
+
+
+    @Override
+    public String getInteresses() {
+        return interesses;
+    }
+
+    public ArrayList<Object> getNomesComissoes() {
+        return nomesComissoes;
+    }
+
+    public int getAno() {
+        return ano;
+    }
+
+    public String getDniAutor() {
+        return dniAutor;
+    }
+
+    public String getEmenta() {
+        return ementa;
+    }
+
+    public String getSituacao() {
+        return situacao;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    @Override
+    public void setSituacao(String situacao) {
+        this.situacao = situacao;
+    }
 }
