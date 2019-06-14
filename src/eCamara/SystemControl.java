@@ -302,7 +302,7 @@ public class SystemControl {
         String comissaoVotante = this.controllerLeis.getLei(codigoDaLei).getVotante();
 
         ProjetoDeLei lei = this.controllerLeis.getLeis().get(codigoDaLei);
-        if ("APROVADO".equals(lei.getSituacao()) || "ARQUIVADA".equals(lei.getSituacao())) {
+        if ("APROVADO".equals(lei.getSituacao()) || "ARQUIVADO".equals(lei.getSituacao())) {
             throw new IllegalArgumentException("Erro ao votar proposta: tramitacao encerrada");
         }
 
