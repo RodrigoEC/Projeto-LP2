@@ -11,7 +11,7 @@ import java.util.*;
  */
 
 public class SystemControl {
-    private PessoaController controllerDeputados;
+    private PessoaController controllerPessoas;
     private LeisController controllerLeis;
     private Votacao votacao;
     /**
@@ -31,7 +31,7 @@ public class SystemControl {
     public SystemControl() {
         this.votacao = new Votacao();
         this.controllerLeis = new LeisController();
-        this.controllerDeputados = new PessoaController();
+        this.controllerPessoas = new PessoaController();
         this.partidos = new HashSet<>();
         this.validaEntradas = new Validacao();
         this.comissoes = new HashMap<>();
@@ -42,7 +42,7 @@ public class SystemControl {
     }
 
     public PessoaController getControllerDeputados() {
-        return controllerDeputados;
+        return controllerPessoas;
     }
 
     public LeisController getControllerLeis() {
@@ -63,7 +63,7 @@ public class SystemControl {
      */
 
     public void cadastrarPessoaSemPartido(String nome, String dni, String estado, String interesses) {
-        this.controllerDeputados.cadastrarPessoaSemPartido(nome, dni, estado, interesses);
+        this.controllerPessoas.cadastrarPessoaSemPartido(nome, dni, estado, interesses);
     }
 
     /**
@@ -81,7 +81,7 @@ public class SystemControl {
      */
 
     public void cadastrarPessoa(String nome, String dni, String estado, String interesses, String partido) {
-        this.controllerDeputados.cadastrarPessoa(nome, dni, estado, interesses, partido);
+        this.controllerPessoas.cadastrarPessoa(nome, dni, estado, interesses, partido);
     }
 
     /**
@@ -103,7 +103,7 @@ public class SystemControl {
      */
 
     public void cadastraDeputado(String dni, String dataInicio) {
-        this.controllerDeputados.cadastraDeputado(dni, dataInicio);
+        this.controllerPessoas.cadastraDeputado(dni, dataInicio);
     }
 
     /**
@@ -116,7 +116,7 @@ public class SystemControl {
      * @throws IllegalArgumentException Erro ao exibir pessoa: pessoa nao encontrada
      */
     public String exibirPessoa(String dni) {
-        return this.controllerDeputados.exibirPessoa(dni);
+        return this.controllerPessoas.exibirPessoa(dni);
     }
 
     /**
@@ -197,10 +197,10 @@ public class SystemControl {
         HashMap<String, Pessoa> politicosMap = new HashMap<>();
 
         for (String dni : listaDnis) {
-            this.controllerDeputados.procuraDniNoMapa(dni, "Erro ao cadastrar comissao: pessoa inexistente");
-            this.controllerDeputados.ehDeputado(dni, "Erro ao cadastrar comissao: pessoa nao eh deputado");
+            this.controllerPessoas.procuraDniNoMapa(dni, "Erro ao cadastrar comissao: pessoa inexistente");
+            this.controllerPessoas.ehDeputado(dni, "Erro ao cadastrar comissao: pessoa nao eh deputado");
 
-            politicosMap.put(dni, this.controllerDeputados.getPolitico(dni));
+            politicosMap.put(dni, this.controllerPessoas.getPolitico(dni));
         }
 
         this.comissoes.put(tema, new Comissao(tema, politicosMap));
@@ -222,8 +222,8 @@ public class SystemControl {
     public String cadastrarPL(String dni, int ano, String ementa, String interesses, String url, boolean conclusivo) {
         this.validaEntradas.validaCadastrarPL(dni, ano, ementa, interesses, url);
 
-        this.controllerDeputados.procuraDniNoMapa(dni, "Erro ao cadastrar projeto: pessoa inexistente");
-        this.controllerDeputados.ehDeputado(dni, "Erro ao cadastrar projeto: pessoa nao eh deputado");
+        this.controllerPessoas.procuraDniNoMapa(dni, "Erro ao cadastrar projeto: pessoa inexistente");
+        this.controllerPessoas.ehDeputado(dni, "Erro ao cadastrar projeto: pessoa nao eh deputado");
 
         return this.controllerLeis.cadastrarPL(dni, ano, ementa, interesses, url, conclusivo);
 
@@ -245,8 +245,8 @@ public class SystemControl {
     public String cadastrarPLP(String dni, int ano, String ementa, String interesses, String url, String artigos) {
         this.validaEntradas.validaCadastrarPLP(dni, ano, ementa, interesses, url, artigos);
 
-        this.controllerDeputados.procuraDniNoMapa(dni, "Erro ao cadastrar projeto: pessoa inexistente");
-        this.controllerDeputados.ehDeputado(dni, "Erro ao cadastrar projeto: pessoa nao eh deputado");
+        this.controllerPessoas.procuraDniNoMapa(dni, "Erro ao cadastrar projeto: pessoa inexistente");
+        this.controllerPessoas.ehDeputado(dni, "Erro ao cadastrar projeto: pessoa nao eh deputado");
 
         return this.controllerLeis.cadastrarPLP(dni, ano, ementa, interesses, url, artigos);
     }
@@ -268,8 +268,8 @@ public class SystemControl {
         this.validaEntradas.validaCadastrarPEC(dni, ano, ementa, interesses, url, artigos);
 
 
-        this.controllerDeputados.procuraDniNoMapa(dni, "Erro ao cadastrar projeto: pessoa inexistente");
-        this.controllerDeputados.ehDeputado(dni, "Erro ao cadastrar projeto: pessoa nao eh deputado");
+        this.controllerPessoas.procuraDniNoMapa(dni, "Erro ao cadastrar projeto: pessoa inexistente");
+        this.controllerPessoas.ehDeputado(dni, "Erro ao cadastrar projeto: pessoa nao eh deputado");
 
         return this.controllerLeis.cadastrarPEC(dni, ano, ementa, interesses, url, artigos);
 
@@ -299,23 +299,19 @@ public class SystemControl {
         this.controllerLeis.temLei(codigoDaLei, "nao tem ainda :3");
         String comissaoVotante = this.controllerLeis.getLei(codigoDaLei).getVotante();
 
-
-        if ("plenario".equals(comissaoVotante)) {
-            throw new NullPointerException("Erro ao votar proposta: proposta encaminhada ao plenario");
-        }
-
         ProjetoDeLei lei = this.controllerLeis.getLeis().get(codigoDaLei);
         if ("APROVADA".equals(lei.getSituacao()) || "ARQUIVADA".equals(lei.getSituacao())) {
             throw new IllegalArgumentException("Erro ao votar proposta: tramitacao encerrada");
         }
 
-        boolean resultadoVotacao = this.votacao.votarComissao(this.controllerLeis.getLeis().get(codigoDaLei), statusGovernista, proximoLocal, this.comissoes.get(comissaoVotante), this.partidos);
-
-        if ("APROVADA".equals(lei.getSituacao())) {
-            this.controllerDeputados.getPolitico(lei.getDniAutor()).addLei();
+        if ("plenario".equals(comissaoVotante)) {
+            throw new NullPointerException("Erro ao votar proposta: proposta encaminhada ao plenario");
         }
 
-        return resultadoVotacao;
+        return this.votacao.votarComissao(this.controllerLeis.getLeis().get(codigoDaLei), statusGovernista, proximoLocal,
+                this.comissoes.get(comissaoVotante), this.partidos, this.controllerPessoas.getPolitico(lei.getDniAutor()));
+
+
     }
 
 
