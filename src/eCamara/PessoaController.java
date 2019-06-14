@@ -6,12 +6,18 @@ import eCamara.individuo.Pessoa;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Controller de Pessoa, tem um HashMap de Pessoa e um Objeto de validacao como atributos.
+ */
 public class PessoaController {
     /** Map de Pessoa */
     private Map<String, Pessoa> mapPessoas;
     /** Validador das entradas dos metodos */
     private Validacao validaEntradas;
 
+    /**
+     * Contrutor de PessoaController, inicia o map e o objeto de validacao.
+     */
     public PessoaController() {
         this.mapPessoas = new HashMap<>();
         this.validaEntradas = new Validacao();

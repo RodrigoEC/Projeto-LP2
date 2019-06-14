@@ -1,5 +1,9 @@
 package eCamara.legislativo;
 
+/**
+ * Objeto que representa uma PEC, herda atributos e metodos de ProjetoDeLeiAbstract. Unico atributo que a PEC tem a mais
+ * eh a String com os artigos.
+ */
 public class PEC extends ProjetoDeLeiAbstract {
 
     private String artigos;

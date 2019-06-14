@@ -1,5 +1,10 @@
 package eCamara.legislativo;
 
+/**
+ * Objeto que representa um Projeto de Lei, herda atributos e metodos de ProjetoDeLeiAbstract. Unico atributo que a PL tem a mais
+ * eh o boolean conclusivo.
+ */
+
 public class PL extends ProjetoDeLeiAbstract {
 
     private boolean conclusivo;
@@ -30,6 +35,12 @@ public class PL extends ProjetoDeLeiAbstract {
         return conclusivo;
     }
 
+    /**
+     * Metodoq ue adciona mais 1 na contagem de quantas votacoes foram realizada. Porem se o contador ja tiver atingido o
+     * valor de 2 e esse metodo for chamado sera lancado excecao.
+     *
+     * @throws IllegalArgumentException Erro ao votar proposta: tramitacao encerrada
+     */
     @Override
     public void addVotacaoRealizada() {
         if (this.votacaoRealizadas == 2) {
@@ -38,6 +49,13 @@ public class PL extends ProjetoDeLeiAbstract {
         this.votacaoRealizadas++;
     }
 
+    /**
+     * Metodo que adiciona APROVADO ou REGEITADO na tramitacao. Recebe um boolean referente a aprovacao da lei
+     * se ela foi aprovada e a situacao dela nao esta como ARQUIVADA e APROVADA, entao eh adicionado "APROVADO (votante)"
+     * onde votante eh a comissao que fez a votacao. Se a lei nao foi aprovada e  a situacao nao esta como ARQUIVADA
+     * e APROVADA entao eh adcionado "REJEITADA (votante)".
+     * @param aprovadoOuNao boolean referente a aprovacao da lei, se for aprovcado eh true, se foi rejeitado eh false.
+     */
     @Override
     public void setTramitacao(boolean aprovadoOuNao) {
         if (aprovadoOuNao && !"ARQUIVADO".equals(this.situacao) && !"APROVADO".equals(this.situacao)) {
@@ -47,6 +65,17 @@ public class PL extends ProjetoDeLeiAbstract {
             this.tramitacao += String.format("REJEITADO (%s), ", this.votante);
         }
     }
+
+    /**
+     * Metodo que muda a situacao da lei. Recebe o proximo local de votacao e um boolean referente ao estado de aprovacao.
+     * Se ela nao foi aprovada e eh conclusiva, entao a situacao vai ser alterada pra ARQUIVADA e na tramitacao vai ser
+     * adicionado "APROVADO (votante)" onde votante eh a comissao que fez a votacao. Se ela foi aprovada, ja houve duas votacoes
+     * e eh conclusiva entao na tramitacao vai ser adcionado "REGEITADO (votante)" e a situacao ira ser alterada para "APROVADO".
+     * Se nao  a situacao vai ser alterada para "EM VOTACAO (proximo local).
+     *
+     * @param estadoAprovacao boolean referente ao estado de aprovacao da lei.
+     * @param proxLocal String com o proximo local de votacao.
+     */
     @Override
     public void setSituacao(boolean estadoAprovacao, String proxLocal) {
         if (!estadoAprovacao && conclusivo) {

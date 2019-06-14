@@ -189,11 +189,18 @@ public class Pessoa {
         return this.interesses;
     }
 
+    /**
+     * Metodo que adicona mais uma lei referente a funcao de uma pessoa.
+     */
     public void addQtdLei() {
         this.funcao.addLei();
-
     }
 
+    /**
+     * Metodo que retorna a quantidade de leis de uma Pessoa se a sua funcao tiver leis.
+     *
+     * @return Inteiro referente a quntidade de leis.
+     */
     public int getQtdLei() {
         return this.funcao.getQtdLeis();
     }

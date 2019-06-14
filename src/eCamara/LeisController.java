@@ -10,11 +10,30 @@ import java.util.Map;
 
 public class LeisController {
 
+    /**
+     * Controlador de leis, temo como atributo um Map de leis, e os contadores referentes a cada tipo de lei.
+     */
+
+    /**
+     * Map de leis.
+     */
     private Map<String, ProjetoDeLei> leis;
+    /**
+     * Contador de PL.
+     */
     private int contadorPL;
+    /**
+     * Contador de PLP.
+     */
     private int contadorPLP;
+    /**
+     * Contador de PEC.
+     */
     private int contadorPEC;
 
+    /**
+     * Constroi o LeisController, inicia o map e os contadores.
+     */
     public LeisController() {
         this.leis = new HashMap<>();
         this.contadorPL = 0;
@@ -103,6 +122,12 @@ public class LeisController {
         return this.leis.get(codigo).toString(codigo);
     }
 
+    /***
+     * Metodo que verifica se tem uma lei a partir do seu codigo, recebe uma String com o codigo da lei e uma String com a
+     * mensagem de excecao, pois se nao contiver a lei sera lancada excecao.
+     * @param codigoDaLei String com o codigo da lei
+     * @param mensagem String com a mensagem de excecao.
+     */
     public void temLei(String codigoDaLei, String mensagem) {
         if(!this.leis.containsKey(codigoDaLei)) {
             throw new NullPointerException(mensagem);

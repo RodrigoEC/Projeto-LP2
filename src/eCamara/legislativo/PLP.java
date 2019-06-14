@@ -1,5 +1,10 @@
 package eCamara.legislativo;
 
+/**
+ * Objeto que representa uma PLP, herda atributos e metodos de ProjetoDeLeiAbstract. Unico atributo que a PLP tem a mais
+ * eh a String com os artigos.
+ */
+
 public class PLP extends ProjetoDeLeiAbstract {
     private String artigos;
 

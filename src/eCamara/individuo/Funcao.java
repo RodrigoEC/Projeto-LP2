@@ -13,11 +13,15 @@ public interface Funcao {
      */
     String toString(String toString);
 
+    /**
+     * Metodo que retorna a quantidade de leis.
+     * @return Inteiro com a quantidade de leis.
+     */
     int getQtdLeis();
 
+
+    /**
+     * Metodo que adiciona uma lei na contagem de lei.
+     */
     void addLei();
-
-
-
-
 }

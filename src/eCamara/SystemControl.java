@@ -203,7 +203,7 @@ public class SystemControl {
             this.controllerPessoas.procuraDniNoMapa(dni, "Erro ao cadastrar comissao: pessoa inexistente");
             this.controllerPessoas.ehDeputado(dni, "Erro ao cadastrar comissao: pessoa nao eh deputado");
 
-            politicosMap.put(dni, this.controllerPessoas.getPolitico(dni));
+            politicosMap.put(dni, this.controllerPessoas.getPessoa(dni));
         }
 
         this.comissoes.put(tema, new Comissao(tema, politicosMap));
@@ -332,7 +332,7 @@ public class SystemControl {
                 this.comissoes.get(comissaoVotante), this.partidos);
 
         if ("APROVADO".equals(lei.getSituacao())) {
-            this.controllerPessoas.getPolitico(lei.getDniAutor()).addQtdLei();
+            this.controllerPessoas.getPessoa(lei.getDniAutor()).addQtdLei();
         }
         return resultadoVotacao;
     }

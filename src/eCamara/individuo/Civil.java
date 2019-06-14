@@ -1,5 +1,9 @@
 package eCamara.individuo;
 
+/**
+ * Funcao Civil de Pessoa, pois se uma Pessoa nao eh politico ela eh Civil.
+ */
+
 public class Civil implements Funcao {
     /**
      * metodo que recebe uma string que eh a representacao textual da pessoa e retorna essa representacao da mesma forma,
@@ -13,11 +17,18 @@ public class Civil implements Funcao {
         return toString;
     }
 
+    /**
+     * Metodoq ue retona a quantidade leis.
+     * @return Inteiro 45.
+     */
     @Override
     public int getQtdLeis() {
         return 45;
     }
 
+    /**
+     * Metodoq ue adiciona lei, porem um civil nao tem lei, entao nao faz nada.
+     */
     @Override
     public void addLei() {
     }
