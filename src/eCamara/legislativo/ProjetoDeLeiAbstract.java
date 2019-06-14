@@ -4,8 +4,15 @@ import eCamara.Validacao;
 
 import java.util.ArrayList;
 
+/**
+ * Classe abstrata de lei para reuso de cofdigo. Tem como atributos votante, dniAutor, ano, votacaoRealizadas, ementa
+ * interesses, url, situacao, tramiacao e o objeto para validar entradas.
+ */
 public abstract class ProjetoDeLeiAbstract implements ProjetoDeLei {
 
+    /**
+     * Comissao que deve fazer a votacao da lei.
+     */
     protected String votante;
     /**
      * Dni do autor do projeto.
@@ -17,7 +24,11 @@ public abstract class ProjetoDeLeiAbstract implements ProjetoDeLei {
      */
     private int ano;
 
+    /**
+     * Quantidade de votacao realizada.
+     */
     protected int votacaoRealizadas;
+
     /**
      * Ementa do projeto.
      */
@@ -42,7 +53,9 @@ public abstract class ProjetoDeLeiAbstract implements ProjetoDeLei {
      * objeto responsavel por validar as entradas dos metodos pertencentes a esta classe.
      */
     private Validacao validaEntrada;
-
+    /**
+     * Tramitacao da lei.
+     */
     protected String tramitacao;
 
     /**
@@ -68,42 +81,78 @@ public abstract class ProjetoDeLeiAbstract implements ProjetoDeLei {
         this.votacaoRealizadas = 0;
     }
 
-
-
+    /**
+     * Metodoq que retorna os interesses da lei.
+     * @return String com os interesses da lei.
+     */
     @Override
     public String getInteresses() {
         return interesses;
     }
 
-
+    /**
+     * Metodo que retorna o ano da lei.
+     * @return int com o ano.
+     */
     public int getAno() {
         return ano;
     }
 
+    /**
+     * Metodo que retorna o dni do autor da lei.
+     * @return String com o dni do autor da lei.
+     */
     public String getDniAutor() {
         return dniAutor;
     }
 
+    /**
+     * Metodo que retorna a ementa da lei.
+     * @return String com a ementa da lei.
+     */
     public String getEmenta() {
         return ementa;
     }
 
+    /**
+     * Metodo que retorna a url da lei.
+     * @return String com a url da lei.
+     */
     public String getUrl() {
         return url;
     }
 
+    /**
+     * Metodo que retorna a comissao que deve fazer a votacao da lei.
+     * @return String com o nome da comissao que deve fazer a votacao da lei.
+     */
     public String getVotante() {
         return votante;
     }
 
+    /**
+     * Metodoq que altera a Comissao que deve fazer a votacao da lei. Recebe uma String com a nova comissao.
+     * @param votante String com a nova comissao
+     */
     public void setVotante(String votante) {
         this.votante = votante;
     }
 
+    /**
+     * Metodo que retorna a tramitacao da lei.
+     * @return String com a tramitacao da lei.
+     */
     public String getTramitacao() {
         return tramitacao;
     }
 
+    /**
+     * Metodo que adciona na tramitacao se ela foi aprovada ou nao. Recebe um boolean referente a aprovacao da lei.
+     * Se o boolean recebido for true, entao sera adicionado "APROVADO (votante)" onde votante eh a comissao atual em que
+     * a lei se encontra. Se for false sera adicionado "REJEITADO (votante)".;
+     *
+     * @param aprovadoOuNao boolean referente a aprovacao da lei, se for aprovcado eh true, se foi rejeitado eh false.
+     */
     public void setTramitacao(boolean aprovadoOuNao) {
         if (aprovadoOuNao) {
             this.tramitacao += String.format("APROVADO (%s), ",this.votante);
@@ -112,17 +161,29 @@ public abstract class ProjetoDeLeiAbstract implements ProjetoDeLei {
         }
     }
 
+    /**
+     * Metodo que retorna a situacao atual da lei.
+     * @return String com a situacao atual da lei.
+     */
     @Override
     public String getSituacao() {
         return situacao;
     }
 
+    /**
+     * Metodo que modifica a situacao atual da lei. Recebe o proximo local de votacao.
+     * @param estadoAprovacao
+     * @param proxLocal String com o proximo local de votacao.
+     */
     @Override
     public void setSituacao(boolean estadoAprovacao, String proxLocal) {
         this.situacao = String.format("EM VOTACAO (%s)", proxLocal);
 
     }
 
+    /**
+     * Metodo que adicona 1 na contagem de votacao da lei.
+     */
     public void addVotacaoRealizada() {
         this.votacaoRealizadas++;
     }

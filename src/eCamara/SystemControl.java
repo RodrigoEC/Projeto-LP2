@@ -291,7 +291,24 @@ public class SystemControl {
         return this.controllerLeis.exibirProjeto(codigo);
     }
 
-
+    /**
+     * Metodo que simula a votacacao de uma lei por uma comissao. Por padrao, toda lei comeca a ser votada na CCJC, caso ela nao estaja
+     * cadastrada sera lancada excecao. Eh passado como parametro Strings contendo o codigo da lei, o statusGovernista da lei (indicando
+     * se eh da base governista ou da oposição) e o proximo local a ser votado. Sera verificado se a lei existe, se nao exiastir sera lancado
+     * excecao, tambem ira verificar se a lei ja foi encerrada, se foi vai ser lancado excecao e tambem vai ser verificado se a lei ja foi encaminhada
+     * pro plenario, se foi  sera lancado excecao. Usa-se a classe Votacao para fazer a votacao, se a lei for aprovada o retorno sera true e
+     * se foi reprovada o retorno sera false. Se a lei for aprovada sera registrado no deputado que fez a lei.
+     *
+     * @param codigoDaLei String com o codigo da lei a ser votada.
+     * @param statusGovernista String com o status gorvernista.
+     * @param proximoLocal String com o proximo local a ser votada a lei.
+     * @return boolean referente a aprovacao da lei, se foi aprovada o retorno sera true, se foi reprovada o retrono sera false.
+     *
+     * @throws NullPointerException Erro ao votar proposta: CCJC nao cadastrada
+     * @throws NullPointerException nao tem ainda :3
+     * @throws IllegalArgumentException Erro ao votar proposta: tramitacao encerrada
+     * @throws NullPointerException Erro ao votar proposta: proposta encaminhada ao plenario
+     */
 
     public boolean votarComissao(String codigoDaLei, String statusGovernista, String proximoLocal) {
         if (!this.comissoes.containsKey("CCJC")) {
@@ -324,6 +341,12 @@ public class SystemControl {
     /*public boolean votarPlenario(String codigo, boolean governista, String presentes) {
     }
 */
+
+    /**
+     * Metodo que exibe a tramitacao de uma lei. Recebe o codigo da lei a ser exibidida.
+     * @param codigo String com o codigo da lei que se quer exibir.
+     * @return String com a tramitacao da lei.
+     */
     public String exibirTramitacao(String codigo) {
         return this.controllerLeis.exibirTramitacao(codigo);
     }

@@ -4,7 +4,6 @@ public class PL extends ProjetoDeLeiAbstract {
 
     private boolean conclusivo;
 
-
     /**
      * Construtor responsavel por construir um objeto do tipo PL(projeto de legislativo) a partir do dni do deputado que o criou,
      * do ano em que ele foi criado, da ementa, dos interesses relacionados ao projeto, da url do site em que o projeto

@@ -57,10 +57,18 @@ public class Comissao {
         return Objects.hash(tema);
     }
 
+    /**
+     * Metodo que retorna o mapa de Deputados que fazem parte da comissao.
+     * @return HashMap de Pessoa.
+     */
     public HashMap<String, Pessoa> getMapDeputados() {
         return mapDeputados;
     }
 
+    /**
+     * Metodo que retorna a quantidade de Deputado que fazem parte da Comissao.
+     * @return Inteiro referente a quantidade de Deputados que fazem parte da comissao.
+     */
     public int tamanhoComissao() {
         return this.mapDeputados.size();
     }

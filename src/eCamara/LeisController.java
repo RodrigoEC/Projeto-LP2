@@ -109,14 +109,29 @@ public class LeisController {
         }
     }
 
+    /**
+     * Metodo que retorna o mapa de leis.
+     *
+     * @return HashMap de leis.
+     */
     public HashMap<String, ProjetoDeLei> getLeis() {
         return (HashMap<String, ProjetoDeLei>) leis;
     }
 
+    /**
+     * Metodo que retorna uma lei que foi cadastrada. Recebe uma String com o codigo da lei.
+     * @param codigoDaLei String com o codigo da lei.
+     * @return ProjetoDeLei referente ao codigo.
+     */
     public ProjetoDeLei getLei(String codigoDaLei) {
         return this.leis.get(codigoDaLei);
     }
 
+    /**
+     * Metodo que exibe a tramitacao de uma lei, recebe uma String com o codigo da lei.
+     * @param codigo String com o codigo da lei.
+     * @return String com a trasmitacao da lei.
+     */
     public String exibirTramitacao(String codigo) {
         return this.leis.get(codigo).getTramitacao() + this.leis.get(codigo).getSituacao();
     }

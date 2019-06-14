@@ -129,19 +129,40 @@ public class PessoaController {
         return this.mapPessoas.get(dni).toStringPelaFuncao();
     }
 
+    /**
+     * Metodo que verifica se um dni esta no mapa. Se nao tiver sera lancado excecao.
+     * Recebe Strings com o dni a ser procurado e a mensagem de excecao.
+     *
+     * @param dni String com o dni.
+     * @param mensagem String com a mensagem.
+     * @throws NullPointerException mensagem.
+     */
     public void procuraDniNoMapa(String dni, String mensagem) {
         if(!this.mapPessoas.containsKey(dni)) {
             throw new NullPointerException(mensagem);
         }
     }
 
+    /**
+     * Metodo que verifica se um dni eh dni de Deputado. Se nao for sera lancado excecao.
+     * Recebe Strings com o dni a ser verificado e a mensagem de excecao.
+     *
+     * @param dni String com o dni.
+     * @param mensagem String com a mensagem.
+     * @throws NullPointerException mensagem.
+     */
     public void ehDeputado(String dni, String mensagem) {
         if(!this.mapPessoas.get(dni).ehDeputado()) {
             throw new NullPointerException(mensagem);
         }
     }
 
-    public Pessoa getPolitico(String dni) {
+    /**
+     * Metodo que retorna uma Pessoa, recebe uma string com o dni.
+     * @param dni String com o dni.
+     * @return Pessoa referente aquele dni.
+     */
+    public Pessoa getPessoa(String dni) {
         return this.mapPessoas.get(dni);
 
     }
