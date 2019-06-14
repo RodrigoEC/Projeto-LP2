@@ -344,6 +344,7 @@ public class SystemControl {
 
     /**
      * Metodo que exibe a tramitacao de uma lei. Recebe o codigo da lei a ser exibidida.
+     *
      * @param codigo String com o codigo da lei que se quer exibir.
      * @return String com a tramitacao da lei.
      */

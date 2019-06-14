@@ -7,6 +7,10 @@ package eCamara.legislativo;
 
 public class PL extends ProjetoDeLeiAbstract {
 
+    /**
+     * Atributo responsavel por determinar se uma pl eh conclusivo. se o atributo for true, implica em uma pl conclusiva,
+     * se o atributo for false implica em uma pl nao conclusiva.
+     */
     private boolean conclusivo;
 
     /**

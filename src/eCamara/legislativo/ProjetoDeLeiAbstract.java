@@ -123,7 +123,7 @@ public abstract class ProjetoDeLeiAbstract implements ProjetoDeLei {
     }
 
     /**
-     * Metodo que retorna a comissao que deve fazer a votacao da lei.
+     * Metodo que retorna a comissao responsavel por realizar a votacao da lei no momento.
      * @return String com o nome da comissao que deve fazer a votacao da lei.
      */
     public String getVotante() {

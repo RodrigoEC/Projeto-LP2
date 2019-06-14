@@ -6,6 +6,9 @@ package eCamara.legislativo;
  */
 
 public class PLP extends ProjetoDeLeiAbstract {
+    /**
+     * Atributo que representa os artigos da constituicao em aos quais o projeto de lei complmentar se relaciona.
+     */
     private String artigos;
 
     /**
