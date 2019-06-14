@@ -79,8 +79,8 @@ expect "POL: M2 - 071222222-0 (PE) - PartidoGov - 29/02/2016 - 1 Leis" exibirPes
 expect "Projeto de Lei - PL 3/2016 - 071222222-0 - Ementa PL conc - Conclusiva - APROVADO" exibirProjeto codigo=${plcgov}
 
 # PL Conc Livre - saude e nutricao
-expect true votarComissao codigo=${plcsaude} statusGovernista="LIVRE" proximoLocal="CGOV"
-expect true votarComissao codigo=${plcsaude} statusGovernista="LIVRE" proximoLocal="plenario"
+expect true votarComissao codigo=${plcaude} statusGovernista="LIVRE" proximoLocal="CGOV"
+expect true votarComissao codigo=${plcaude} statusGovernista="LIVRE" proximoLocal="plenario"
 expectError "Erro ao votar proposta: tramitacao encerrada" votarPlenario codigo=${plcsaude} statusGovernista="GOVERNISTA" presentes="071111111-0,071222222-0,071333333-0,071444444-0,071555555-0,071666666-0,071777777-0,071888888-0,071999999-0,071000000-0"
 expect false votarComissao codigo=${plcnutri} statusGovernista="LIVRE" proximoLocal="CGOV"
 

@@ -41,9 +41,10 @@ public class PL extends ProjetoDeLeiAbstract {
 
     @Override
     public void setTramitacao(boolean aprovadoOuNao) {
-        if (aprovadoOuNao && !"ARQUIVADA".equals(this.situacao) && !"APROVADA".equals(this.situacao)) {
+        if (aprovadoOuNao && !"ARQUIVADA".equals(this.situacao) && !"APROVADO".equals(this.situacao)) {
             this.tramitacao += String.format("APROVADO (%s), ",this.votante);
-        } else if (!aprovadoOuNao && !"ARQUIVADA".equals(this.situacao) && !"APROVADA".equals(this.situacao)) {
+
+        } else if (!aprovadoOuNao && !"ARQUIVADA".equals(this.situacao) && !"APROVADO".equals(this.situacao)) {
             this.tramitacao += String.format("REJEITADO (%s), ", this.votante);
         }
     }
@@ -52,10 +53,11 @@ public class PL extends ProjetoDeLeiAbstract {
         if (!estadoAprovacao && conclusivo) {
             this.tramitacao += String.format("APROVADO (%s), ",this.votante);
             this.situacao = "ARQUIVADA";
-        } else if (this.votacaoRealizadas == 2 && estadoAprovacao && conclusivo) {
 
+        } else if (this.votacaoRealizadas == 2 && estadoAprovacao && conclusivo) {
             this.tramitacao += String.format("REJEITADO (%s), ", this.votante);
             this.situacao = "APROVADO";
+
         } else {
             this.situacao = String.format("EM VOTACAO (%s)", proxLocal);
         }

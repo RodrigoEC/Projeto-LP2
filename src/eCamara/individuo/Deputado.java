@@ -84,6 +84,11 @@ public class Deputado implements Funcao {
         this.qtdLeis++;
     }
 
+    @Override
+    public int getQtdLeis() {
+        return qtdLeis;
+    }
+
     /**
      * Recupera a dataInicio na vida publica de um deputado.
      * @return dataInicio da vida publica de um deputado.

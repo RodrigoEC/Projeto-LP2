@@ -13,7 +13,7 @@ public class Votacao {
 
 
 
-    public boolean votarComissao(ProjetoDeLei lei, String statusGovernista, String proximoLocal, Comissao comissao, Set<String> partidos, Pessoa politico) {
+    public boolean votarComissao(ProjetoDeLei lei, String statusGovernista, String proximoLocal, Comissao comissao, Set<String> partidos) {
         int votosAFavor = contaVotosAFavor(lei, comissao.getMapDeputados() ,statusGovernista, partidos);
 
         lei.addVotacaoRealizada();
@@ -22,9 +22,6 @@ public class Votacao {
         if(votosAFavor >= comissao.tamanhoComissao()/2 + 1) {
             lei.setTramitacao(true);
             lei.setSituacao(true, proximoLocal);
-            if ("APROVADA".equals(lei.getSituacao())) {
-                politico.addLei();
-            }
             return true;
         }
 

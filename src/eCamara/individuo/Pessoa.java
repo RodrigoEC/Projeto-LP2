@@ -189,8 +189,13 @@ public class Pessoa {
         return this.interesses;
     }
 
-    public void addLei() {
+    public void addQtdLei() {
         this.funcao.addLei();
+
+    }
+
+    public int getQtdLei() {
+        return this.funcao.getQtdLeis();
     }
 
     /**

@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class PessoaTest {
-
+    private SystemControl control;
     private Pessoa p;
     private Pessoa p2;
     private Pessoa p3;
@@ -15,6 +15,7 @@ class PessoaTest {
 
     @BeforeEach
     void setUp() {
+        this.control = new SystemControl();
         this.p = new Pessoa("Carlos", "0028490850-4", "PB", "");
         this.p2 = new Pessoa("Joao", "0034240-234", "PB", "Rinha de galo", "LRG - LIBERA RINHA DE GALO");
         this.p3 = new Pessoa("CarlosCarlos", "0028490850-4", "PB", "Saude");
@@ -150,10 +151,26 @@ class PessoaTest {
         assertEquals("Paulo - 1234-5678 (PE) - PTdoB", pessoaComPartido.toString());
     }
 
+
+
     @Test
     void toStringPelaFuncaoTest(){
         this.p.cadastraDeputado("01022018");
 
         assertEquals("POL: Carlos - 0028490850-4 (PB) - 01/02/2018 - 0 Leis", this.p.toStringPelaFuncao());
     }
+
+
+    @Test
+    void testeAddLei() {
+        this.control.cadastrarPessoa("Carlos", "0028490850-4", "PB", "", "ji");
+        this.control.cadastraDeputado("0028490850-4", "02122018");
+        this.control.getControllerDeputados().getMapPessoas().get("0028490850-4").addQtdLei();
+        this.control.getControllerDeputados().getMapPessoas().get("0028490850-4").addQtdLei();
+        this.control.getControllerDeputados().getMapPessoas().get("0028490850-4").addQtdLei();
+        assertEquals(3, this.control.getControllerDeputados().getMapPessoas().get("0028490850-4").getQtdLei());
+    }
+
+
+
 }

@@ -42,7 +42,6 @@ public class PessoaController {
      */
 
     public void cadastrarPessoaSemPartido(String nome, String dni, String estado, String interesses) {
-        this.validaEntradas.validarCadastroPessoa(dni, nome, estado);
 
         if (this.mapPessoas.containsKey(dni)){
             throw new IllegalArgumentException("Erro ao cadastrar pessoa: dni ja cadastrado");
@@ -67,7 +66,6 @@ public class PessoaController {
      */
 
     public void cadastrarPessoa(String nome, String dni, String estado, String interesses, String partido) {
-        this.validaEntradas.validarCadastroPessoa(dni, nome, estado);
 
         if (this.mapPessoas.containsKey(dni)){
             throw new IllegalArgumentException("Erro ao cadastrar pessoa: dni ja cadastrado");
@@ -96,8 +94,6 @@ public class PessoaController {
      */
 
     public void cadastraDeputado(String dni, String dataInicio) {
-        this.validaEntradas.validaDniCadastraDeputado(dni);
-
         if (!(mapPessoas.containsKey(dni))) {
             throw new IllegalArgumentException("Erro ao cadastrar deputado: pessoa nao encontrada");
         }
@@ -125,8 +121,6 @@ public class PessoaController {
      * @return Representacao textual de Pessoa.
      */
     public String exibirPessoa(String dni) {
-
-        this.validaEntradas.validaExibirPessoa(dni);
 
         if (!this.mapPessoas.containsKey(dni)){
             throw new IllegalArgumentException("Erro ao exibir pessoa: pessoa nao encontrada");

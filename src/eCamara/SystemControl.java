@@ -37,17 +37,12 @@ public class SystemControl {
         this.comissoes = new HashMap<>();
     }
 
-    public Map<String, Comissao> getComissoes() {
-        return comissoes;
-    }
+
 
     public PessoaController getControllerDeputados() {
         return controllerPessoas;
     }
 
-    public LeisController getControllerLeis() {
-        return controllerLeis;
-    }
 
     /**
      * Metodo que cadastra um Pessoa que nao tem partido. Recebe Strings com o nome, dni, estado e
@@ -63,6 +58,8 @@ public class SystemControl {
      */
 
     public void cadastrarPessoaSemPartido(String nome, String dni, String estado, String interesses) {
+        this.validaEntradas.validarCadastroPessoa(dni, nome, estado);
+
         this.controllerPessoas.cadastrarPessoaSemPartido(nome, dni, estado, interesses);
     }
 
@@ -81,6 +78,8 @@ public class SystemControl {
      */
 
     public void cadastrarPessoa(String nome, String dni, String estado, String interesses, String partido) {
+        this.validaEntradas.validarCadastroPessoa(dni, nome, estado);
+
         this.controllerPessoas.cadastrarPessoa(nome, dni, estado, interesses, partido);
     }
 
@@ -103,6 +102,8 @@ public class SystemControl {
      */
 
     public void cadastraDeputado(String dni, String dataInicio) {
+        this.validaEntradas.validaDniCadastraDeputado(dni);
+
         this.controllerPessoas.cadastraDeputado(dni, dataInicio);
     }
 
@@ -116,6 +117,8 @@ public class SystemControl {
      * @throws IllegalArgumentException Erro ao exibir pessoa: pessoa nao encontrada
      */
     public String exibirPessoa(String dni) {
+        this.validaEntradas.validaExibirPessoa(dni);
+
         return this.controllerPessoas.exibirPessoa(dni);
     }
 
@@ -267,7 +270,6 @@ public class SystemControl {
     public String cadastrarPEC(String dni, int ano, String ementa, String interesses, String url, String artigos) {
         this.validaEntradas.validaCadastrarPEC(dni, ano, ementa, interesses, url, artigos);
 
-
         this.controllerPessoas.procuraDniNoMapa(dni, "Erro ao cadastrar projeto: pessoa inexistente");
         this.controllerPessoas.ehDeputado(dni, "Erro ao cadastrar projeto: pessoa nao eh deputado");
 
@@ -300,7 +302,7 @@ public class SystemControl {
         String comissaoVotante = this.controllerLeis.getLei(codigoDaLei).getVotante();
 
         ProjetoDeLei lei = this.controllerLeis.getLeis().get(codigoDaLei);
-        if ("APROVADA".equals(lei.getSituacao()) || "ARQUIVADA".equals(lei.getSituacao())) {
+        if ("APROVADO".equals(lei.getSituacao()) || "ARQUIVADA".equals(lei.getSituacao())) {
             throw new IllegalArgumentException("Erro ao votar proposta: tramitacao encerrada");
         }
 
@@ -308,10 +310,14 @@ public class SystemControl {
             throw new NullPointerException("Erro ao votar proposta: proposta encaminhada ao plenario");
         }
 
-        return this.votacao.votarComissao(this.controllerLeis.getLeis().get(codigoDaLei), statusGovernista, proximoLocal,
-                this.comissoes.get(comissaoVotante), this.partidos, this.controllerPessoas.getPolitico(lei.getDniAutor()));
 
+        boolean resultadoVotacao =  this.votacao.votarComissao(this.controllerLeis.getLeis().get(codigoDaLei), statusGovernista, proximoLocal,
+                this.comissoes.get(comissaoVotante), this.partidos);
 
+        if ("APROVADO".equals(lei.getSituacao())) {
+            this.controllerPessoas.getPolitico(lei.getDniAutor()).addQtdLei();
+        }
+        return resultadoVotacao;
     }
 
 

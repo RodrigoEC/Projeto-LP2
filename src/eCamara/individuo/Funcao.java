@@ -13,7 +13,11 @@ public interface Funcao {
      */
     String toString(String toString);
 
+    int getQtdLeis();
+
     void addLei();
+
+
 
 
 }

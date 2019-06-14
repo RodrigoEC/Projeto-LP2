@@ -55,6 +55,13 @@ class DeputadoTest {
     }
 
     @Test
+    void addLeis() {
+        this.deputado.addLei();
+        assertEquals(1,deputado.getQtdLeis());
+
+    }
+
+    @Test
     void toStringTest(){
         assertEquals("POL:  - 13/01/2000 - 0 Leis", this.deputado.toString(""));
     }
