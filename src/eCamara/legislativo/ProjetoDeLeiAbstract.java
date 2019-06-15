@@ -58,6 +58,9 @@ public abstract class ProjetoDeLeiAbstract implements ProjetoDeLei {
      */
     protected String tramitacao;
 
+    protected String tipoLei;
+
+
     /**
      * Construtor responsavel por inicializar os atributosque do objeto ProjetoDeLeiAbstract.
      *
@@ -79,6 +82,7 @@ public abstract class ProjetoDeLeiAbstract implements ProjetoDeLei {
         this.votante = "CCJC";
         this.tramitacao = "";
         this.votacaoRealizadas = 0;
+        this.tipoLei = "";
     }
 
     /**
@@ -175,6 +179,7 @@ public abstract class ProjetoDeLeiAbstract implements ProjetoDeLei {
      * @param estadoAprovacao
      * @param proxLocal String com o proximo local de votacao.
      */
+
     @Override
     public void setSituacao(boolean estadoAprovacao, String proxLocal) {
         this.situacao = String.format("EM VOTACAO (%s)", proxLocal);
@@ -188,4 +193,11 @@ public abstract class ProjetoDeLeiAbstract implements ProjetoDeLei {
         this.votacaoRealizadas++;
     }
 
+    @Override
+    public String getTipoLei() {
+        return tipoLei;
+    }
+
 }
+
+

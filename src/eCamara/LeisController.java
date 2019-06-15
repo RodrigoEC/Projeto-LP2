@@ -148,6 +148,7 @@ public class LeisController {
      * @param codigoDaLei String com o codigo da lei.
      * @return ProjetoDeLei referente ao codigo.
      */
+
     public ProjetoDeLei getLei(String codigoDaLei) {
         return this.leis.get(codigoDaLei);
     }
@@ -157,6 +158,7 @@ public class LeisController {
      * @param codigo String com o codigo da lei.
      * @return String com a trasmitacao da lei.
      */
+
     public String exibirTramitacao(String codigo) {
         return this.leis.get(codigo).getTramitacao() + this.leis.get(codigo).getSituacao();
     }

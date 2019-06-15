@@ -13,6 +13,7 @@ public class PL extends ProjetoDeLeiAbstract {
      */
     private boolean conclusivo;
 
+
     /**
      * Construtor responsavel por construir um objeto do tipo PL(projeto de legislativo) a partir do dni do deputado que o criou,
      * do ano em que ele foi criado, da ementa, dos interesses relacionados ao projeto, da url do site em que o projeto
@@ -28,6 +29,8 @@ public class PL extends ProjetoDeLeiAbstract {
     public PL(String dni, int ano, String ementa, String interesses, String url, boolean conclusivo){
         super(dni, ano, ementa, interesses, url);
         this.conclusivo = conclusivo;
+        this.tipoLei = "PL";
+
     }
 
     /**
@@ -52,6 +55,8 @@ public class PL extends ProjetoDeLeiAbstract {
         }
         this.votacaoRealizadas++;
     }
+
+
 
     /**
      * Metodo que adiciona APROVADO ou REGEITADO na tramitacao. Recebe um boolean referente a aprovacao da lei
@@ -108,4 +113,9 @@ public class PL extends ProjetoDeLeiAbstract {
         }
         return "Projeto de Lei - " + codigo + " - " + super.dniAutor + " - " + super.ementa + " - " + super.situacao;
     }
+
+    public String getTipoLei(){
+        return tipoLei;
+    }
+
 }

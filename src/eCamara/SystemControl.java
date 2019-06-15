@@ -14,6 +14,9 @@ public class SystemControl {
     private PessoaController controllerPessoas;
     private LeisController controllerLeis;
     private Votacao votacao;
+    private PL pl;
+    private Comissao comissao;
+
     /**
      * Set de Partidos (String)
      */
@@ -24,6 +27,7 @@ public class SystemControl {
      * Objeto de Validacao
      */
     private Validacao validaEntradas;
+    private HashMap<String, Pessoa> politicosPresentesMap;
 
     /**
      * Constroi o SystemControl(Controller), inicia o Map e o Set e instancia o Objeto de validacao.
@@ -35,9 +39,8 @@ public class SystemControl {
         this.partidos = new HashSet<>();
         this.validaEntradas = new Validacao();
         this.comissoes = new HashMap<>();
+
     }
-
-
 
     public PessoaController getControllerDeputados() {
         return controllerPessoas;
@@ -274,6 +277,8 @@ public class SystemControl {
         this.controllerPessoas.ehDeputado(dni, "Erro ao cadastrar projeto: pessoa nao eh deputado");
 
         return this.controllerLeis.cadastrarPEC(dni, ano, ementa, interesses, url, artigos);
+
+
     }
 
     /**
@@ -309,15 +314,11 @@ public class SystemControl {
      */
 
     public boolean votarComissao(String codigoDaLei, String statusGovernista, String proximoLocal) {
-
         if (!this.comissoes.containsKey("CCJC")) {
             throw new NullPointerException("Erro ao votar proposta: CCJC nao cadastrada");
         }
-        this.validaEntradas.validaVotarComissao(statusGovernista, proximoLocal);
 
-        this.controllerLeis.temLei(codigoDaLei, "Erro ao votar proposta: projeto inexistente");
-
-
+        this.controllerLeis.temLei(codigoDaLei, "nao tem ainda :3");
         String comissaoVotante = this.controllerLeis.getLei(codigoDaLei).getVotante();
 
         ProjetoDeLei lei = this.controllerLeis.getLeis().get(codigoDaLei);
@@ -329,7 +330,6 @@ public class SystemControl {
             throw new NullPointerException("Erro ao votar proposta: proposta encaminhada ao plenario");
         }
 
-
         boolean resultadoVotacao =  this.votacao.votarComissao(this.controllerLeis.getLeis().get(codigoDaLei), statusGovernista, proximoLocal,
                 this.comissoes.get(comissaoVotante), this.partidos);
 
@@ -340,13 +340,55 @@ public class SystemControl {
     }
 
 
-    /*public boolean votarPlenario(String codigo, boolean governista, String presentes) {
+    public boolean votarPlenario(String codigoDaLei, String statusGovernista, String politicosPresentes, String proxLocal) {
+
+        String[] listaDnis = politicosPresentes.trim().split(",");
+        Map<String, Pessoa> politicosPresentesMap = new HashMap<>();
+
+        for (String dni : listaDnis) {
+            politicosPresentesMap.put(dni, this.controllerPessoas.getPessoa(dni));
+        }
+        String comissaoVotante = this.controllerLeis.getLei(codigoDaLei).getVotante();
+
+        ProjetoDeLei lei = this.controllerLeis.getLeis().get(codigoDaLei);
+        // ainda não tem esse teste no useCase7
+
+        if (politicosPresentesMap.size() == 0) {
+            throw new IllegalArgumentException("Erro ao votar proposta: sem presentes");
+        }
+        // calculos realizados com base na quantidade de politicos presentes (por enquanto)
+
+        if (lei.getTipoLei().toLowerCase().equals("plp")) {
+            int quorumMinimo = politicosPresentesMap.size() / 2 + 1;
+            if (politicosPresentesMap.size() < quorumMinimo) {
+                throw new IllegalArgumentException("Erro ao votar proposta: quorum invalido");
+            }
+        }
+
+        if (lei.getTipoLei().toLowerCase().equals("pl")) {
+            int quorumMinimo = politicosPresentesMap.size() / 2 + 1;
+            if (politicosPresentesMap.size() < quorumMinimo) {
+                throw new IllegalArgumentException("Erro ao votar proposta: quorum invalido");
+            }
+        }
+
+        if (lei.getTipoLei().toLowerCase().equals("pec")) {
+            int quorumMinimo = politicosPresentesMap.size() * 3 / 5 + 1;
+            if (politicosPresentesMap.size() < quorumMinimo) {
+                throw new IllegalArgumentException("Erro ao votar proposta: quorum invalido");
+            }
+        }
+
+        boolean resultadoVotacao = this.votacao.votarPlenario(controllerLeis.getLeis().get(codigoDaLei),
+                statusGovernista, comissoes.get(comissaoVotante), this.partidos, this.politicosPresentesMap, proxLocal);
+
+        return resultadoVotacao;
     }
-*/
+
+
 
     /**
-     * Metodo que exibe a tramitacao de uma lei. Recebe o codigo da lei a ser exibidida.
-     *v
+     * Metodo que exibe a tramitacao de uma lei. Recebe o codigo da lei a ser exibida.
      * @param codigo String com o codigo da lei que se quer exibir.
      * @return String com a tramitacao da lei.
      */

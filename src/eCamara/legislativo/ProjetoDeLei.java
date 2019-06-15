@@ -59,7 +59,7 @@ public interface ProjetoDeLei {
     void setSituacao(boolean estadoAprovacao, String proxLocal);
 
     /**
-     * Metodoq que altera a Comissao que deve fazer a votacao da lei. Recebe uma String com a nova comissao.
+     * Metodo que altera a Comissao que deve fazer a votacao da lei. Recebe uma String com a nova comissao.
      * @param votante String com a nova comissao
      */
     void setVotante(String votante);
@@ -68,4 +68,9 @@ public interface ProjetoDeLei {
      * Metodo que adicona 1 na contagem de votacao da lei.
      */
     void addVotacaoRealizada();
+
+    String getTipoLei();
+
+
+
 }

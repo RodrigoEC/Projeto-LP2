@@ -8,6 +8,7 @@ public class PEC extends ProjetoDeLeiAbstract {
 
     private String artigos;
 
+
     /**
      * Construtor responsavel por construir um objeto do tipo PEC(projeto de ementa constitucional) a partir do dni do deputado
      * que o criou, do ano em que ele foi criado, da ementa, dos interesses relacionados ao projeto, da url do site em que o projeto
@@ -23,6 +24,8 @@ public class PEC extends ProjetoDeLeiAbstract {
     public PEC(String dni, int ano, String ementa, String interesses, String url, String artigos) {
         super(dni, ano, ementa, interesses, url);
         this.artigos = artigos;
+        this.tipoLei = "PEC";
+
     }
 
     /**
@@ -44,5 +47,9 @@ public class PEC extends ProjetoDeLeiAbstract {
     @Override
     public String toString(String codigo){
         return "Projeto de Emenda Constitucional - " + codigo + " - " + super.dniAutor + " - " + super.ementa + " - " + (this.artigos.replace(",", ", ")) + " - " + super.situacao;
+    }
+
+    public String getTipoLei() {
+        return tipoLei;
     }
 }
