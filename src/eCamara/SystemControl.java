@@ -314,11 +314,13 @@ public class SystemControl {
      */
 
     public boolean votarComissao(String codigoDaLei, String statusGovernista, String proximoLocal) {
+        this.validaEntradas.validaVotarComissao(statusGovernista, proximoLocal);
+
         if (!this.comissoes.containsKey("CCJC")) {
             throw new NullPointerException("Erro ao votar proposta: CCJC nao cadastrada");
         }
 
-        this.controllerLeis.temLei(codigoDaLei, "nao tem ainda :3");
+        this.controllerLeis.temLei(codigoDaLei, "Erro ao votar proposta: projeto inexistente");
         String comissaoVotante = this.controllerLeis.getLei(codigoDaLei).getVotante();
 
         ProjetoDeLei lei = this.controllerLeis.getLeis().get(codigoDaLei);
@@ -348,7 +350,7 @@ public class SystemControl {
         for (String dni : listaDnis) {
             politicosPresentesMap.put(dni, this.controllerPessoas.getPessoa(dni));
         }
-        String comissaoVotante = this.controllerLeis.getLei(codigoDaLei).getVotante();
+        String votante = this.controllerLeis.getLei(codigoDaLei).getVotante();
 
         ProjetoDeLei lei = this.controllerLeis.getLeis().get(codigoDaLei);
         // ainda não tem esse teste no useCase7
@@ -379,8 +381,12 @@ public class SystemControl {
             }
         }
 
-        boolean resultadoVotacao = this.votacao.votarPlenario(controllerLeis.getLeis().get(codigoDaLei),
-                statusGovernista, comissoes.get(comissaoVotante), this.partidos, this.politicosPresentesMap, proxLocal);
+        boolean resultadoVotacao = this.votacao.votarPlenario(controllerLeis.getLei(codigoDaLei),
+                statusGovernista, comissoes.get(votante), this.partidos, this.politicosPresentesMap, proxLocal);
+
+        if ("APROVADO".equals(lei.getSituacao())) {
+            this.controllerPessoas.getPessoa(lei.getDniAutor()).addQtdLei();
+        }
 
         return resultadoVotacao;
     }
