@@ -92,6 +92,12 @@ public class Validacao {
         }
     }
 
+    private void validaGovernista(String statusGovernista, String s) {
+        if (!"governista".equals(statusGovernista.toLowerCase()) && !"oposicao".equals(statusGovernista.toLowerCase()) && !"livre".equals(statusGovernista.toLowerCase())) {
+            throw new IllegalArgumentException(s);
+        }
+    }
+
     /**
      * Metodo que valida o cadastro de uma Pessoa, delega as verificacoes para os metodos validaString e validaDni.
      * Recebe Strings com o dni, tema, e estado.
@@ -290,22 +296,23 @@ public class Validacao {
      * @param interesses interesses relacionados o PLP.
      * @param artigos artigos da constituicao que o PLP se relacionam.
      *
-     * @throws NullPointerException mensagem
-     * @throws IllegalArgumentException mensagem
+     * @throws NullPointerException "Erro ao cadastrar projeto: autor nao pode ser vazio ou nulo"
+     * @throws IllegalArgumentException "Erro ao cadastrar projeto: autor nao pode ser vazio ou nulo"
      *
-     * @throws NullPointerException mensagem
-     * @throws IllegalArgumentException mensagem
-
-     * @throws NullPointerException mensagem
-     * @throws IllegalArgumentException mensagem
-
-
-     * @throws NullPointerException mensagem
-     * @throws IllegalArgumentException mensagem
-
-     * @throws IllegalArgumentException mensagem
+     * @throws NullPointerException "Erro ao cadastrar projeto: ementa nao pode ser vazia ou nula"
+     * @throws IllegalArgumentException "Erro ao cadastrar projeto: ementa nao pode ser vazia ou nula"
      *
-     * @throws IllegalArgumentException mensagem
+     * @throws NullPointerException "Erro ao cadastrar projeto: interesse nao pode ser vazio ou nulo"
+     * @throws IllegalArgumentException "Erro ao cadastrar projeto: interesse nao pode ser vazio ou nulo"
+     *
+     *
+     * @throws NullPointerException "Erro ao cadastrar projeto: url nao pode ser vazio ou nulo"
+     * @throws IllegalArgumentException "Erro ao cadastrar projeto: url nao pode ser vazio ou nulo"
+     *
+     * @throws NullPointerException "Erro ao cadastrar projeto: artigo nao pode ser vazio ou nulo"
+     * @throws IllegalArgumentException "Erro ao cadastrar projeto: artigo nao pode ser vazio ou nulo"
+     *
+     * @throws IllegalArgumentException "Erro ao cadastrar projeto: dni invalido"
 
      */
     public void validaCadastrarPLP(String dni, int ano, String ementa, String interesses, String url, String artigos) {
@@ -317,6 +324,7 @@ public class Validacao {
         this.validaDni(dni, "Erro ao cadastrar projeto: dni invalido");
 
         //MUDAR O NEGOCIO DO ANO 2019. TORNAR AUTOMATICO A PARTIR DA BIBLIOTECA JAVA.TIME
+
         if (ano < 1988) {
             throw new IllegalArgumentException("Erro ao cadastrar projeto: ano anterior a 1988");
         }
@@ -341,19 +349,19 @@ public class Validacao {
      * @throws NullPointerException "Erro ao cadastrar projeto: autor nao pode ser vazio ou nulo"
      * @throws IllegalArgumentException mensagem
      *
-     * @throws NullPointerException mensagem
-     * @throws IllegalArgumentException mensagem
+     * @throws NullPointerException "Erro ao cadastrar projeto: ementa nao pode ser vazia ou nula"
+     * @throws IllegalArgumentException "Erro ao cadastrar projeto: ementa nao pode ser vazia ou nula"
 
-     * @throws NullPointerException mensagem
-     * @throws IllegalArgumentException mensagem
+     * @throws NullPointerException "Erro ao cadastrar projeto: interesse nao pode ser vazio ou nulo"
+     * @throws IllegalArgumentException "Erro ao cadastrar projeto: interesse nao pode ser vazio ou nulo"
 
 
-     * @throws NullPointerException mensagem
-     * @throws IllegalArgumentException mensagem
+     * @throws NullPointerException "Erro ao cadastrar projeto: url nao pode ser vazio ou nulo"
+     * @throws IllegalArgumentException "Erro ao cadastrar projeto: url nao pode ser vazio ou nulo"
 
-     * @throws IllegalArgumentException mensagem
+     * @throws IllegalArgumentException "Erro ao cadastrar projeto: ano anterior a 1988"
      *
-     * @throws IllegalArgumentException mensagem
+     * @throws IllegalArgumentException "Erro ao cadastrar projeto: dni invalido"
 
      */
     public void validaCadastrarPEC(String dni, int ano, String ementa, String interesses, String url, String artigos){
@@ -365,6 +373,7 @@ public class Validacao {
         this.validaDni(dni, "Erro ao cadastrar projeto: dni invalido");
 
         //MUDAR O NEGOCIO DO ANO 2019. TORNAR AUTOMATICO A PARTIR DA BIBLIOTECA JAVA.TIME
+
         if (ano > 2019) {
             throw new NullPointerException("Erro ao cadastrar projeto: ano posterior ao ano atual");
         }
@@ -382,5 +391,11 @@ public class Validacao {
      */
     public void validaExibeLei(String codigo){
         this.validaString(codigo, "Ainda nao tem");
+    }
+
+    public void validaVotarComissao(String statusGovernista, String proximoLocal) {
+        validaString(statusGovernista, "Erro ao votar proposta: status nao pode ser vazio ou nulo");
+        validaString(proximoLocal, "Erro ao votar proposta: proximo local vazio");
+        validaGovernista(statusGovernista, "Erro ao votar proposta: status invalido");
     }
 }

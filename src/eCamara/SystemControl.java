@@ -311,11 +311,15 @@ public class SystemControl {
      */
 
     public boolean votarComissao(String codigoDaLei, String statusGovernista, String proximoLocal) {
+
         if (!this.comissoes.containsKey("CCJC")) {
             throw new NullPointerException("Erro ao votar proposta: CCJC nao cadastrada");
         }
+        this.validaEntradas.validaVotarComissao(statusGovernista, proximoLocal);
 
-        this.controllerLeis.temLei(codigoDaLei, "nao tem ainda :3");
+        this.controllerLeis.temLei(codigoDaLei, "Erro ao votar proposta: projeto inexistente");
+
+
         String comissaoVotante = this.controllerLeis.getLei(codigoDaLei).getVotante();
 
         ProjetoDeLei lei = this.controllerLeis.getLeis().get(codigoDaLei);
