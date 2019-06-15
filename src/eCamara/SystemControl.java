@@ -274,8 +274,6 @@ public class SystemControl {
         this.controllerPessoas.ehDeputado(dni, "Erro ao cadastrar projeto: pessoa nao eh deputado");
 
         return this.controllerLeis.cadastrarPEC(dni, ano, ementa, interesses, url, artigos);
-
-
     }
 
     /**

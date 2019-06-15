@@ -9,7 +9,6 @@ import static org.junit.jupiter.api.Assertions.*;
 class SystemControlTest {
 
     private SystemControl systemControl;
-    private Deputado deputado;
 
     @BeforeEach
     public void controleGeral() {
@@ -464,8 +463,6 @@ class SystemControlTest {
         assertEquals("POL: Joao - 0034240-234 (PB) - LRG - LIBERA RINHA DE GALO - Interesses: Rinha de galo - 01/02/2018 - 0 Leis", this.systemControl.exibirPessoa("0034240-234"));
     }
 
-
-
     @Test
     void cadastraPartidoPadrao() {
         this.systemControl.cadastraPartido("PT");
@@ -503,5 +500,97 @@ class SystemControlTest {
     @Test
     void exibePartidosVazio() {
         assertEquals("", this.systemControl.exibirBase());
+    }
+
+    @Test
+    void cadastrarPLPessoaNaoExiste(){
+        try {
+            this.systemControl.cadastrarPL("061222222-0", 2016, "Institui a semana da nutricao nas escolas", "saude,educacao basica", "http://example.com/semana_saude", true);
+        } catch(NullPointerException npe){}
+    }
+
+    @Test
+    void cadastrarPLNaoDeputado(){
+        this.systemControl.cadastrarPessoa("Jao", "061222222-0", "gg", "", "LRG - Libera Rinha de Galo");
+
+        try {
+            this.systemControl.cadastrarPL("061222222-0", 2016, "Institui a semana da nutricao nas escolas", "saude,educacao basica", "http://example.com/semana_saude", true);
+        } catch(NullPointerException npe){}
+    }
+
+    @Test
+    void cadastrarPLCondicoesNormais(){
+        this.systemControl.cadastrarPessoa("Jao", "061222222-0", "gg", "", "LRG - Libera Rinha de Galo");
+        this.systemControl.cadastraDeputado("061222222-0", "29022016");
+
+        assertEquals("PL 1/2016", this.systemControl.cadastrarPL("061222222-0", 2016, "Institui a semana da nutricao nas escolas", "saude,educacao basica", "http://example.com/semana_saude", true));
+    }
+
+    @Test
+    void cadastrarPLPPessoaNaoExiste(){
+        try {
+            this.systemControl.cadastrarPLP("061222222-0", 2016, "Institui a semana da nutricao nas escolas", "saude,educacao basica", "http://example.com/semana_saude", "153");
+        } catch(NullPointerException npe){}
+    }
+
+    @Test
+    void cadastrarPLPNaoDeputado(){
+        this.systemControl.cadastrarPessoa("Jao", "061222222-0", "gg", "", "LRG - Libera Rinha de Galo");
+
+        try {
+            this.systemControl.cadastrarPLP("061222222-0", 2016, "Institui a semana da nutricao nas escolas", "saude,educacao basica", "http://example.com/semana_saude", "153");
+        } catch(NullPointerException npe){}
+    }
+
+    @Test
+    void cadastrarPLPCondicoesNormais(){
+        this.systemControl.cadastrarPessoa("Jao", "061222222-0", "gg", "", "LRG - Libera Rinha de Galo");
+        this.systemControl.cadastraDeputado("061222222-0", "29022016");
+
+        assertEquals("PLP 1/2016", this.systemControl.cadastrarPLP("061222222-0", 2016, "Institui a semana da nutricao nas escolas", "saude,educacao basica", "http://example.com/semana_saude", "153"));
+    }
+
+    @Test
+    void cadastrarPECPessoaNaoExiste(){
+        try {
+            this.systemControl.cadastrarPEC("061222222-0", 2016, "Institui a semana da nutricao nas escolas", "saude,educacao basica", "http://example.com/semana_saude", "153");
+        } catch(NullPointerException npe){}
+    }
+
+    @Test
+    void cadastrarPECNaoDeputado(){
+        this.systemControl.cadastrarPessoa("Jao", "061222222-0", "gg", "", "LRG - Libera Rinha de Galo");
+
+        try {
+            this.systemControl.cadastrarPEC("061222222-0", 2016, "Institui a semana da nutricao nas escolas", "saude,educacao basica", "http://example.com/semana_saude", "153");
+        } catch(NullPointerException npe){}
+    }
+
+    @Test
+    void cadastrarPECCondicoesNormais(){
+        this.systemControl.cadastrarPessoa("Jao", "061222222-0", "gg", "", "LRG - Libera Rinha de Galo");
+        this.systemControl.cadastraDeputado("061222222-0", "29022016");
+
+        assertEquals("PEC 1/2016", this.systemControl.cadastrarPEC("061222222-0", 2016, "Institui a semana da nutricao nas escolas", "saude,educacao basica", "http://example.com/semana_saude", "153"));
+    }
+
+   @Test
+    void exibirProjetoInexistente(){
+        try {
+            this.systemControl.exibirProjeto("PL 1/2016");
+        } catch(NullPointerException npe){}
+    }
+
+    @Test
+    void exibirProjetoCondicoesNormais(){
+        this.systemControl.cadastrarPessoa("Jao", "061222222-0", "gg", "", "LRG - Libera Rinha de Galo");
+        this.systemControl.cadastraDeputado("061222222-0", "29022016");
+        this.systemControl.cadastrarPL("061222222-0",2016,"Institui a semana da nutricao nas escolas","saude,educacao basica","http://example.com/semana_saude",true);
+        this.systemControl.cadastrarPLP("061222222-0",2016,"Regulamenta a tributacao de apostas eletronicas","fiscal,jogos","https://example.net/jogos%40aposta","153");
+        this.systemControl.cadastrarPEC("061222222-0",2016,"Permite a associacao sindical livre e com estrutura hierarquica","trabalho","https://example.com/sindicato/algo.html","7,8");
+
+        assertEquals("Projeto de Lei - PL 1/2016 - 061222222-0 - Institui a semana da nutricao nas escolas - Conclusiva - EM VOTACAO (CCJC)", this.systemControl.exibirProjeto("PL 1/2016"));
+        assertEquals("Projeto de Lei Complementar - PLP 1/2016 - 061222222-0 - Regulamenta a tributacao de apostas eletronicas - 153 - EM VOTACAO (CCJC)", this.systemControl.exibirProjeto("PLP 1/2016"));
+        assertEquals("Projeto de Emenda Constitucional - PEC 1/2016 - 061222222-0 - Permite a associacao sindical livre e com estrutura hierarquica - 7, 8 - EM VOTACAO (CCJC)", this.systemControl.exibirProjeto("PEC 1/2016"));
     }
 }
