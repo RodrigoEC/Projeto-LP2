@@ -7,6 +7,7 @@ package eCamara.legislativo;
 public class PEC extends ProjetoDeLeiAbstract {
 
     private String artigos;
+    private int turnos;
 
 
     /**
@@ -25,6 +26,7 @@ public class PEC extends ProjetoDeLeiAbstract {
         super(dni, ano, ementa, interesses, url);
         this.artigos = artigos;
         this.tipoLei = "PEC";
+        this.turnos = 0;
 
     }
 

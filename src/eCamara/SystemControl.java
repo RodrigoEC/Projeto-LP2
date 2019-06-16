@@ -14,8 +14,7 @@ public class SystemControl {
     private PessoaController controllerPessoas;
     private LeisController controllerLeis;
     private Votacao votacao;
-    private PL pl;
-    private Comissao comissao;
+
 
     /**
      * Set de Partidos (String)
@@ -33,7 +32,6 @@ public class SystemControl {
      * Constroi o SystemControl(Controller), inicia o Map e o Set e instancia o Objeto de validacao.
      */
     public SystemControl() {
-        this.votacao = new Votacao();
         this.controllerLeis = new LeisController();
         this.controllerPessoas = new PessoaController();
         this.partidos = new HashSet<>();
@@ -339,20 +337,20 @@ public class SystemControl {
             this.controllerPessoas.getPessoa(lei.getDniAutor()).addQtdLei();
         }
         return resultadoVotacao;
+
     }
 
+    public boolean votarPlenario(String codigoDaLei, String statusGovernista, String politicosPresentes) {
 
-    public boolean votarPlenario(String codigoDaLei, String statusGovernista, String politicosPresentes, String proxLocal) {
+        String[] politicosPresentesArray = politicosPresentes.trim().split(",");
+        HashMap<String, Pessoa> politicosPresentesMap = new HashMap<>();
 
-        String[] listaDnis = politicosPresentes.trim().split(",");
-        Map<String, Pessoa> politicosPresentesMap = new HashMap<>();
-
-        for (String dni : listaDnis) {
+        for (String dni : politicosPresentesArray) {
             politicosPresentesMap.put(dni, this.controllerPessoas.getPessoa(dni));
         }
-        String votante = this.controllerLeis.getLei(codigoDaLei).getVotante();
 
         ProjetoDeLei lei = this.controllerLeis.getLeis().get(codigoDaLei);
+
         // ainda não tem esse teste no useCase7
 
         if (politicosPresentesMap.size() == 0) {
@@ -381,16 +379,11 @@ public class SystemControl {
             }
         }
 
-        boolean resultadoVotacao = this.votacao.votarPlenario(controllerLeis.getLei(codigoDaLei),
-                statusGovernista, comissoes.get(votante), this.partidos, this.politicosPresentesMap, proxLocal);
-
-        if ("APROVADO".equals(lei.getSituacao())) {
-            this.controllerPessoas.getPessoa(lei.getDniAutor()).addQtdLei();
-        }
+        boolean resultadoVotacao = this.votacao.votarPlenario(this.controllerLeis.getLeis().get(codigoDaLei),
+                this.controllerPessoas.getMapPessoas(), statusGovernista, partidos, politicosPresentesMap);
 
         return resultadoVotacao;
     }
-
 
 
     /**

@@ -11,7 +11,7 @@ import java.util.Map;
  */
 public class PessoaController {
     /** Map de Pessoa */
-    private Map<String, Pessoa> mapPessoas;
+    private HashMap<String, Pessoa> mapPessoas;
     /** Validador das entradas dos metodos */
     private Validacao validaEntradas;
 
@@ -28,7 +28,7 @@ public class PessoaController {
      *
      * @return o mapa de objetos do tipo Pessoa.
      */
-    public Map<String, Pessoa> getMapPessoas() {
+    public HashMap<String, Pessoa> getMapPessoas() {
         return mapPessoas;
     }
 
@@ -172,4 +172,5 @@ public class PessoaController {
         return this.mapPessoas.get(dni);
 
     }
+
 }

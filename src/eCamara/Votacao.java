@@ -10,7 +10,14 @@ import java.util.*;
  * Objeto que faz a Votacao, nao tem atributos.
  */
 
+
 public class Votacao {
+
+    private int contadorDeputados;
+
+    public Votacao(int contadorDeputados) {
+        this.contadorDeputados = 0;
+    }
 
     /**
      * Metodo que simula a votacao de uma lei pela Comissao. Recebe a lei a ser votada, o status governista, o proximo local, a Comissao
@@ -81,6 +88,62 @@ public class Votacao {
         return votosAFavor;
     }
 
+    private HashMap<String, Pessoa> filtraDeputados(HashMap<String, Pessoa> mapPessoas) {
+        HashMap<String, Pessoa> mapDeputados = new HashMap<>();
+        for (Pessoa pessoa : mapPessoas.values()) {
+            String dni = pessoa.getDni();
+            if (pessoa.ehDeputado()) {
+                mapDeputados.put(dni, pessoa);
+            }
+        }
+        return mapDeputados;
+    }
+
+    //private HashMap<String, Pessoa> filtraDeputadosPresentes(HashMap<String, Pessoa> mapDeputados, String[] politicosPresentesArray) {
+       // HashMap<String, Pessoa> mapDeputadosPresentes = new HashMap<>();
+       // for (Pessoa pessoa : mapDeputados.values()) {
+           // String dni = pessoa.getDni();
+           // if (politicosPresentesArray.(pessoa.getDni())) {
+               // mapDeputadosPresentes.put(dni, pessoa);
+
+           // }
+        //}
+       // return mapDeputadosPresentes;
+    //}
+
+    public boolean votarPlenario(ProjetoDeLei lei, HashMap<String, Pessoa> mapPessoas, String statusGovernista, Set partidos, HashMap<String, Pessoa> politicosPresentesMap) {
+
+        int votosAFavor = contaVotosAFavor(lei, mapPessoas, statusGovernista, partidos);
+
+        lei.addVotacaoRealizada();
+
+        if (lei.getTipoLei().toLowerCase().equals("plp")) {
+            if (votosAFavor >= filtraDeputados(mapPessoas).size() / 2 + 1) {
+                lei.setTramitacao(true);
+                return true;
+            }
+            lei.setTramitacao(false);
+            return false;
+
+        } else if (lei.getTipoLei().toLowerCase().equals("pec")) {
+            if (votosAFavor >= filtraDeputados(mapPessoas).size() * 3 / 5 + 1) {
+                lei.setTramitacao(true);
+                return true;
+            }
+            lei.setTramitacao(false);
+            return false;
+
+        } else if (lei.getTipoLei().toUpperCase().equals("pl")) {
+            if (votosAFavor >= politicosPresentesMap.size() / 2 + 1) ;
+            {
+                lei.setTramitacao(true);
+                return true;
+            }
+        }
+        lei.setTramitacao(false);
+        return false;
+    }
+
     /**
      * Metodo que verifica se a Pessoa eh da base governista. Recebe a Pessoa e o Set de partidos (Strings).
      *
@@ -96,43 +159,7 @@ public class Votacao {
         return false;
     }
 
-    public boolean votarPlenario(ProjetoDeLei lei, String statusGovernista, Comissao comissao, Set<String> partidos,
-                                 HashMap<String, Pessoa> politicosPresentesMap, String proxLocal) {
-        int votosAFavor = contaVotosAFavor(lei, comissao.getMapDeputados(), statusGovernista, partidos);
 
-        lei.addVotacaoRealizada();
-
-        if (lei.getTipoLei().toUpperCase().equals("PLP")) {
-            if (votosAFavor >= comissao.tamanhoComissao() / 2 + 1) {
-                lei.setTramitacao(true);
-                lei.setSituacao(true, proxLocal);
-                return true;
-            }
-            lei.setTramitacao(false);
-            return false;
-
-        } else if (lei.getTipoLei().toUpperCase().equals("PEC")) {
-            if (votosAFavor >= comissao.tamanhoComissao() * 3 / 5 + 1) {
-                lei.setTramitacao(true);
-                lei.setSituacao(true, proxLocal);
-                return true;
-            }
-            lei.setTramitacao(false);
-            lei.setSituacao(false, proxLocal);
-            return false;
-
-        } else if (lei.getTipoLei().toUpperCase().equals("PL")) {
-            if (votosAFavor >= politicosPresentesMap.size() / 2 + 1) ;
-            {
-                lei.setTramitacao(true);
-                lei.setSituacao(true, proxLocal);
-                return true;
-            }
-        }
-        lei.setTramitacao(false);
-        lei.setSituacao(false, proxLocal);
-        return false;
-        }
 
 }
 

@@ -72,10 +72,10 @@ public class Facade {
     public boolean votarComissao(String codigo, String statusGovernista, String proximoLocal) {
         return this.systemControl.votarComissao(codigo, statusGovernista, proximoLocal);
     }
-    /*
-    public boolean votarPlenario(String codigo, boolean governista, String presentes) {
+
+    public boolean votarPlenario(String codigo, String governista, String presentes) {
         return this.systemControl.votarPlenario(codigo, governista, presentes);
-    }*/
+    }
 
     public String exibirTramitacao(String codigo) {
         return this.systemControl.exibirTramitacao(codigo);
