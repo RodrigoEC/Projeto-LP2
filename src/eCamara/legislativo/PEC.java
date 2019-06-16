@@ -7,7 +7,7 @@ package eCamara.legislativo;
 public class PEC extends ProjetoDeLeiAbstract {
 
     private String artigos;
-    private int turnos;
+    private int turno;
 
 
     /**
@@ -26,8 +26,7 @@ public class PEC extends ProjetoDeLeiAbstract {
         super(dni, ano, ementa, interesses, url);
         this.artigos = artigos;
         this.tipoLei = "PEC";
-        this.turnos = 0;
-
+        this.turno = 0;
     }
 
     /**
@@ -37,6 +36,10 @@ public class PEC extends ProjetoDeLeiAbstract {
      */
     public String getArtigos() {
         return artigos;
+    }
+
+    public String getTipoLei() {
+        return tipoLei;
     }
 
     /**
@@ -51,7 +54,48 @@ public class PEC extends ProjetoDeLeiAbstract {
         return "Projeto de Emenda Constitucional - " + codigo + " - " + super.dniAutor + " - " + super.ementa + " - " + (this.artigos.replace(",", ", ")) + " - " + super.situacao;
     }
 
-    public String getTipoLei() {
-        return tipoLei;
+    public void addTurno() {
+        if (this.turno >= 2) {
+            throw new NullPointerException("nao existe terceiro turno queridao");
+        }
+        this.turno++;
+    }
+
+    @Override
+    public void setTramitacao(boolean aprovadoOuNao) {
+        if (aprovadoOuNao && "plenario".equals(this.votante.toLowerCase())) {
+            this.tramitacao += String.format("APROVADO (%s %do turno), ",this.votante, this.turno);
+
+        } else if (!aprovadoOuNao && "plenario".equals(this.votante.toLowerCase())) {
+            this.tramitacao += String.format("REJEITADO (%s %do turno), ",this.votante, this.turno);
+
+        } else if (aprovadoOuNao) {
+            this.tramitacao += String.format("APROVADO (%s), ",this.votante);
+
+        } else {
+            this.tramitacao += String.format("REJEITADO (%s), ", this.votante);
+        }
+    }
+    @Override
+    public void setSituacao(boolean estadoAprovacao, String proxLocal) {
+        if (!estadoAprovacao && this.turno == 2) {
+            this.tramitacao += String.format("REJEITADO (%s), ", this.votante);
+            this.situacao = "ARQUIVADO";
+
+        } else if (estadoAprovacao && this.turno == 2) {
+            this.tramitacao += String.format("APROVADO (%s), ", this.votante);
+            this.situacao = "APROVADO";
+
+        } else if (!estadoAprovacao && ("plenario".equals(proxLocal) || "plenario".equals(this.votante))){
+            this.tramitacao += String.format("REJEITADO (%s), ", this.votante);
+            this.situacao = "ARQUIVADO";
+
+
+        }else if(("plenario".equals(proxLocal) || "plenario".equals(this.votante))) {
+            this.situacao = String.format("EM VOTACAO (Plenario - %do turno)", this.turno + 1);
+
+        } else {
+            this.situacao = String.format("EM VOTACAO (%s)", proxLocal);
+        }
     }
 }

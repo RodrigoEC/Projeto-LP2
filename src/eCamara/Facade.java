@@ -90,7 +90,7 @@ public class Facade {
     }
 
     public void limparSistema(){
-
+        this.systemControl = new SystemControl();
     }
 
 }

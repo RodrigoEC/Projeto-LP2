@@ -14,8 +14,6 @@ public class PL extends ProjetoDeLeiAbstract {
     private boolean conclusivo;
 
 
-
-
     /**
      * Construtor responsavel por construir um objeto do tipo PL(projeto de legislativo) a partir do dni do deputado que o criou,
      * do ano em que ele foi criado, da ementa, dos interesses relacionados ao projeto, da url do site em que o projeto
@@ -52,16 +50,20 @@ public class PL extends ProjetoDeLeiAbstract {
      */
     @Override
     public void addVotacaoRealizada() {
-        if (this.votacaoRealizadas == 2) {
+        if (this.votacaoRealizadas == 2 && this.conclusivo) {
             throw new IllegalArgumentException("Erro ao votar proposta: tramitacao encerrada");
         }
         this.votacaoRealizadas++;
     }
 
 
+    @Override
+    public void addTurno() {
+    }
+
 
     /**
-     * Metodo que adiciona APROVADO ou REGEITADO na tramitacao. Recebe um boolean referente a aprovacao da lei
+     * Metodo que adiciona APROVADO ou REJEITADO na tramitacao. Recebe um boolean referente a aprovacao da lei
      * se ela foi aprovada e a situacao dela nao esta como ARQUIVADA e APROVADA, entao eh adicionado "APROVADO (votante)"
      * onde votante eh a comissao que fez a votacao. Se a lei nao foi aprovada e  a situacao nao esta como ARQUIVADA
      * e APROVADA entao eh adcionado "REJEITADA (votante)".
@@ -89,11 +91,19 @@ public class PL extends ProjetoDeLeiAbstract {
      */
     @Override
     public void setSituacao(boolean estadoAprovacao, String proxLocal) {
-        if (!estadoAprovacao && conclusivo) {
+        if (!estadoAprovacao && !this.conclusivo && "plenario".equals(this.votante)) {
             this.tramitacao += String.format("REJEITADO (%s), ",this.votante);
             this.situacao = "ARQUIVADO";
 
-        } else if (this.votacaoRealizadas == 2 && estadoAprovacao && conclusivo) {
+        } else if (estadoAprovacao && !this.conclusivo && "plenario".equals(this.votante)){
+            this.tramitacao += String.format("APROVADO (%s), ", this.votante);
+            this.situacao = "APROVADO";
+
+        } else if (!estadoAprovacao && this.conclusivo) {
+            this.tramitacao += String.format("REJEITADO (%s), ",this.votante);
+            this.situacao = "ARQUIVADO";
+
+        } else if (this.votacaoRealizadas == 2 && estadoAprovacao && this.conclusivo) {
             this.tramitacao += String.format("APROVADO (%s), ", this.votante);
             this.situacao = "APROVADO";
 

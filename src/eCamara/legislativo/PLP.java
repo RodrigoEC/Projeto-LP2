@@ -10,7 +10,7 @@ public class PLP extends ProjetoDeLeiAbstract {
      * Atributo que representa os artigos da constituicao em aos quais o projeto de lei complmentar se relaciona.
      */
     private String artigos;
-    private int turnos;
+    private int turno;
 
 
     /**
@@ -28,7 +28,7 @@ public class PLP extends ProjetoDeLeiAbstract {
         super(dni, ano, ementa, interesses, url);
         this.artigos = artigos;
         this.tipoLei = "PLP";
-        this.turnos = 0;
+        this.turno = 0;
     }
 
     /**
@@ -49,6 +49,49 @@ public class PLP extends ProjetoDeLeiAbstract {
      */
     public String toString(String codigo){
         return "Projeto de Lei Complementar - " + codigo + " - " + super.dniAutor + " - " + super.ementa + " - " + this.artigos + " - " + super.situacao;
+    }
+
+    public void addTurno() {
+        this.turno++;
+    }
+
+    @Override
+    public void setTramitacao(boolean aprovadoOuNao) {
+        if (!aprovadoOuNao && "plenario".equals(this.votante.toLowerCase())) {
+            this.tramitacao += String.format("REJEITADO (plenario %do turno), ", this.turno);
+
+        } else if (aprovadoOuNao && "plenario".equals(this.votante.toLowerCase())) {
+            this.tramitacao += String.format("APROVADO (plenario %do turno), ", this.turno);
+
+        } else if (aprovadoOuNao) {
+            this.tramitacao += String.format("APROVADO (%s), ",this.votante);
+
+        } else {
+            this.tramitacao += String.format("REJEITADO (%s), ", this.votante);
+        }
+    }
+
+    @Override
+    public void setSituacao(boolean estadoAprovacao, String proxLocal) {
+        if (!estadoAprovacao && this.turno == 2) {
+            this.tramitacao += String.format("REJEITADO (%s), ", this.votante);
+            this.situacao = "ARQUIVADO";
+
+        } else if (estadoAprovacao && this.turno == 2) {
+            this.tramitacao += String.format("APROVADO (%s), ", this.votante);
+            this.situacao = "APROVADO";
+
+        } else if (!estadoAprovacao && ("plenario".equals(proxLocal) || "plenario".equals(this.votante))){
+            this.tramitacao += String.format("REJEITADO (%s), ", this.votante);
+            this.situacao = "ARQUIVADO";
+
+
+        }else if(("plenario".equals(proxLocal) || "plenario".equals(this.votante))) {
+            this.situacao = String.format("EM VOTACAO (Plenario - %do turno)", this.turno + 1);
+
+        } else {
+            this.situacao = String.format("EM VOTACAO (%s)", proxLocal);
+        }
     }
 
     public String getTipoLei() {

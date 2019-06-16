@@ -44,6 +44,8 @@ public interface ProjetoDeLei {
      */
     String getDniAutor();
 
+    String getTipoLei();
+
     /**
      * Metodo que modifica a tramitacao.. Recebe um boolean referente a aprovacao da lei.
      *
@@ -69,7 +71,8 @@ public interface ProjetoDeLei {
      */
     void addVotacaoRealizada();
 
-    String getTipoLei();
+    void addTurno();
+
 
 
 

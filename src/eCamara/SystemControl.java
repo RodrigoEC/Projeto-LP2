@@ -15,7 +15,6 @@ public class SystemControl {
     private LeisController controllerLeis;
     private Votacao votacao;
 
-
     /**
      * Set de Partidos (String)
      */
@@ -26,12 +25,12 @@ public class SystemControl {
      * Objeto de Validacao
      */
     private Validacao validaEntradas;
-    private HashMap<String, Pessoa> politicosPresentesMap;
 
     /**
      * Constroi o SystemControl(Controller), inicia o Map e o Set e instancia o Objeto de validacao.
      */
     public SystemControl() {
+        this.votacao = new Votacao();
         this.controllerLeis = new LeisController();
         this.controllerPessoas = new PessoaController();
         this.partidos = new HashSet<>();
@@ -322,13 +321,13 @@ public class SystemControl {
         String comissaoVotante = this.controllerLeis.getLei(codigoDaLei).getVotante();
 
         ProjetoDeLei lei = this.controllerLeis.getLeis().get(codigoDaLei);
+        if ("plenario".equals(comissaoVotante)) {
+            throw new NullPointerException("Erro ao votar proposta: proposta encaminhada ao plenario");
+        }
         if ("APROVADO".equals(lei.getSituacao()) || "ARQUIVADO".equals(lei.getSituacao())) {
             throw new IllegalArgumentException("Erro ao votar proposta: tramitacao encerrada");
         }
 
-        if ("plenario".equals(comissaoVotante)) {
-            throw new NullPointerException("Erro ao votar proposta: proposta encaminhada ao plenario");
-        }
 
         boolean resultadoVotacao =  this.votacao.votarComissao(this.controllerLeis.getLeis().get(codigoDaLei), statusGovernista, proximoLocal,
                 this.comissoes.get(comissaoVotante), this.partidos);
@@ -337,54 +336,106 @@ public class SystemControl {
             this.controllerPessoas.getPessoa(lei.getDniAutor()).addQtdLei();
         }
         return resultadoVotacao;
-
     }
 
+
+    /**
+     * Metodo responsavel por votar um projeto de lei no plenario. Caso o
+     *
+     * @param codigoDaLei
+     * @param statusGovernista
+     * @param politicosPresentes
+     * @return
+     */
     public boolean votarPlenario(String codigoDaLei, String statusGovernista, String politicosPresentes) {
+        this.validaEntradas.validaVotarPlenario(statusGovernista, politicosPresentes);
 
-        String[] politicosPresentesArray = politicosPresentes.trim().split(",");
-        HashMap<String, Pessoa> politicosPresentesMap = new HashMap<>();
+        HashMap<String, Pessoa> deputados = deputadosNoMapa(this.controllerPessoas.getMapPessoas());
+        ProjetoDeLei lei = this.controllerLeis.getLei(codigoDaLei);
 
-        for (String dni : politicosPresentesArray) {
-            politicosPresentesMap.put(dni, this.controllerPessoas.getPessoa(dni));
+        situacaoCorumMinimo(lei, deputados, politicosPresentes);
+
+        if ("APROVADO".equals(lei.getSituacao()) || "ARQUIVADO".equals(lei.getSituacao())) {
+            throw new IllegalArgumentException("Erro ao votar proposta: tramitacao encerrada");
         }
 
-        ProjetoDeLei lei = this.controllerLeis.getLeis().get(codigoDaLei);
-
-        // ainda não tem esse teste no useCase7
-
-        if (politicosPresentesMap.size() == 0) {
-            throw new IllegalArgumentException("Erro ao votar proposta: sem presentes");
+        if (!"plenario".equals(lei.getVotante())) {
+            throw new IllegalArgumentException("Erro ao votar proposta: tramitacao em comissao");
         }
-        // calculos realizados com base na quantidade de politicos presentes (por enquanto)
+
+
+        boolean resultadoVotacao = this.votacao.votarPlenario(lei, statusGovernista, politicosPresentes, deputados, this.partidos);
+
+        if ("APROVADO".equals(lei.getSituacao())) {
+            this.controllerPessoas.getPessoa(lei.getDniAutor()).addQtdLei();
+        }
+
+        return resultadoVotacao;
+    }
+
+    /** Metodo responsavel por a lei obedece a situacao de corus minimo (total de deputados votantes minimo para ocorrer
+     *  a votacao). Cada tipo de lei obedece a uma regra diferente do corus minimo.
+     *
+     *  Se o tipo da lei for PLP ou PL entao para obedecer o corus minimo eh preciso que metade dos deputados presentes + 1 es
+     *  tejam presentes, nao sendo possivel o votacao com 3 deputados apenas por exemplo.
+     *
+     *  Se o tipo da lei for PEC para a votacao obedecer o corus minimo eh preciso que pelo menos 3/5 * deputados presentes
+     *  + 1 estejam presentes.
+     *
+     * @param lei lei que sera avaliada quanto ao corus minimo.
+     * @param deputados total de deputados cadastrados no sistema.
+     * @param politicosPresentes deputados presentes na votacao do plenario.
+     *
+     * @throws IllegalFormatCodePointException "Erro ao votar proposta: quorum invalido"
+     * @throws IllegalFormatCodePointException "Erro ao votar proposta: quorum invalido"
+     * @throws IllegalFormatCodePointException "Erro ao votar proposta: quorum invalido"
+     */
+    private void situacaoCorumMinimo(ProjetoDeLei lei, HashMap<String, Pessoa> deputados, String politicosPresentes) {
+        String[] deputadosPresentes = politicosPresentes.trim().split(",");
 
         if (lei.getTipoLei().toLowerCase().equals("plp")) {
-            int quorumMinimo = politicosPresentesMap.size() / 2 + 1;
-            if (politicosPresentesMap.size() < quorumMinimo) {
+            int quorumMinimo = deputadosPresentes.length / 2 + 1;
+
+            if (deputadosPresentes.length <= quorumMinimo) {
                 throw new IllegalArgumentException("Erro ao votar proposta: quorum invalido");
             }
         }
 
         if (lei.getTipoLei().toLowerCase().equals("pl")) {
-            int quorumMinimo = politicosPresentesMap.size() / 2 + 1;
-            if (politicosPresentesMap.size() < quorumMinimo) {
+            int quorumMinimo = deputadosPresentes.length / 2 + 1;
+
+            if (deputadosPresentes.length <= quorumMinimo) {
                 throw new IllegalArgumentException("Erro ao votar proposta: quorum invalido");
             }
         }
 
         if (lei.getTipoLei().toLowerCase().equals("pec")) {
-            int quorumMinimo = politicosPresentesMap.size() * 3 / 5 + 1;
-            if (politicosPresentesMap.size() < quorumMinimo) {
+            int quorumMinimo = deputadosPresentes.length * 3 / 5 + 1;
+
+            if (deputadosPresentes.length <= quorumMinimo) {
                 throw new IllegalArgumentException("Erro ao votar proposta: quorum invalido");
             }
         }
-
-        boolean resultadoVotacao = this.votacao.votarPlenario(this.controllerLeis.getLeis().get(codigoDaLei),
-                this.controllerPessoas.getMapPessoas(), statusGovernista, partidos, politicosPresentesMap);
-
-        return resultadoVotacao;
     }
 
+
+    /**
+     * Metodo responsavel por selecionar no mapa de pessoas todas as pessoas que sao deputados e retornar um mapa contendo
+     * todas as pessoas que tem a funcao de deputado.
+     *
+     * @param mapPessoas mapa de pessoas.
+     * @return um hashMap contendo todas as pessoas que tem a funcao de deputado.
+     */
+    private HashMap<String, Pessoa> deputadosNoMapa(HashMap<String, Pessoa> mapPessoas) {
+        HashMap<String,Pessoa> deputados = new HashMap<>();
+
+        for (Pessoa pessoa : mapPessoas.values()) {
+            if (pessoa.ehDeputado()) {
+                deputados.put(pessoa.getDni(), pessoa);
+            }
+        }
+        return deputados;
+    }
 
     /**
      * Metodo que exibe a tramitacao de uma lei. Recebe o codigo da lei a ser exibida.

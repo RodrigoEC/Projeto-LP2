@@ -70,7 +70,6 @@ public class PessoaController {
      *
      * @throws IllegalArgumentException Erro ao cadastrar pessoa: dni ja cadastrado.
      */
-
     public void cadastrarPessoa(String nome, String dni, String estado, String interesses, String partido) {
 
         if (this.mapPessoas.containsKey(dni)){
@@ -98,7 +97,6 @@ public class PessoaController {
      * @param dni String que representa o documento nacional de identificacao (dni) de uma pessoa.
      * @param dataInicio String que representa a data de inicio de uma pessoa na vida publica como deputado.
      */
-
     public void cadastraDeputado(String dni, String dataInicio) {
         if (!(mapPessoas.containsKey(dni))) {
             throw new IllegalArgumentException("Erro ao cadastrar deputado: pessoa nao encontrada");
@@ -172,5 +170,4 @@ public class PessoaController {
         return this.mapPessoas.get(dni);
 
     }
-
 }

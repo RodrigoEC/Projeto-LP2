@@ -10,14 +10,7 @@ import java.util.*;
  * Objeto que faz a Votacao, nao tem atributos.
  */
 
-
 public class Votacao {
-
-    private int contadorDeputados;
-
-    public Votacao(int contadorDeputados) {
-        this.contadorDeputados = 0;
-    }
 
     /**
      * Metodo que simula a votacao de uma lei pela Comissao. Recebe a lei a ser votada, o status governista, o proximo local, a Comissao
@@ -37,16 +30,57 @@ public class Votacao {
         int votosAFavor = contaVotosAFavor(lei, comissao.getMapDeputados(), statusGovernista, partidos);
 
         lei.addVotacaoRealizada();
-        lei.setVotante(proximoLocal);
 
         if (votosAFavor >= comissao.tamanhoComissao() / 2 + 1) {
             lei.setTramitacao(true);
             lei.setSituacao(true, proximoLocal);
+            lei.setVotante(proximoLocal);
             return true;
         }
 
         lei.setTramitacao(false);
         lei.setSituacao(false, proximoLocal);
+        lei.setVotante(proximoLocal);
+        return false;
+    }
+
+    public boolean votarPlenario(ProjetoDeLei lei, String statusGovernista, String politicosPresentes, HashMap<String, Pessoa> mapaTotalDeputados, Set<String> partidos) {
+        HashMap<String, Pessoa> deputadosPresentes = identificarDeputadosPresentes(politicosPresentes, mapaTotalDeputados);
+
+        int votosAFavor = contaVotosAFavor(lei, mapaTotalDeputados, statusGovernista, partidos);
+
+        lei.addVotacaoRealizada();
+
+        if ("PLP".equals(lei.getTipoLei().toUpperCase())) {
+            if (votosAFavor >= mapaTotalDeputados.size() / 2 + 1) {
+                lei.addTurno();
+                lei.setTramitacao(true);
+                lei.setSituacao(true, "plenario");
+
+                return true;
+            }
+
+        } else if ("PEC".equals(lei.getTipoLei().toUpperCase())) {
+            if (votosAFavor >= mapaTotalDeputados.size() * 3 / 5 + 1) {
+                lei.addTurno();
+                lei.setTramitacao(true);
+                lei.setSituacao(true, "plenario");
+                return true;
+            }
+
+        } else if ("PL".equals(lei.getTipoLei().toUpperCase())) {
+            votosAFavor = contaVotosAFavor(lei, deputadosPresentes, statusGovernista, partidos);
+
+            if (votosAFavor >= deputadosPresentes.size() / 2 + 1) {
+                lei.addTurno();
+                lei.setTramitacao(true);
+                lei.setSituacao(true, "plenario");
+                return true;
+            }
+        }
+        lei.addTurno();
+        lei.setTramitacao(false);
+        lei.setSituacao(false, "plenario");
         return false;
     }
 
@@ -88,62 +122,6 @@ public class Votacao {
         return votosAFavor;
     }
 
-    private HashMap<String, Pessoa> filtraDeputados(HashMap<String, Pessoa> mapPessoas) {
-        HashMap<String, Pessoa> mapDeputados = new HashMap<>();
-        for (Pessoa pessoa : mapPessoas.values()) {
-            String dni = pessoa.getDni();
-            if (pessoa.ehDeputado()) {
-                mapDeputados.put(dni, pessoa);
-            }
-        }
-        return mapDeputados;
-    }
-
-    //private HashMap<String, Pessoa> filtraDeputadosPresentes(HashMap<String, Pessoa> mapDeputados, String[] politicosPresentesArray) {
-       // HashMap<String, Pessoa> mapDeputadosPresentes = new HashMap<>();
-       // for (Pessoa pessoa : mapDeputados.values()) {
-           // String dni = pessoa.getDni();
-           // if (politicosPresentesArray.(pessoa.getDni())) {
-               // mapDeputadosPresentes.put(dni, pessoa);
-
-           // }
-        //}
-       // return mapDeputadosPresentes;
-    //}
-
-    public boolean votarPlenario(ProjetoDeLei lei, HashMap<String, Pessoa> mapPessoas, String statusGovernista, Set partidos, HashMap<String, Pessoa> politicosPresentesMap) {
-
-        int votosAFavor = contaVotosAFavor(lei, mapPessoas, statusGovernista, partidos);
-
-        lei.addVotacaoRealizada();
-
-        if (lei.getTipoLei().toLowerCase().equals("plp")) {
-            if (votosAFavor >= filtraDeputados(mapPessoas).size() / 2 + 1) {
-                lei.setTramitacao(true);
-                return true;
-            }
-            lei.setTramitacao(false);
-            return false;
-
-        } else if (lei.getTipoLei().toLowerCase().equals("pec")) {
-            if (votosAFavor >= filtraDeputados(mapPessoas).size() * 3 / 5 + 1) {
-                lei.setTramitacao(true);
-                return true;
-            }
-            lei.setTramitacao(false);
-            return false;
-
-        } else if (lei.getTipoLei().toUpperCase().equals("pl")) {
-            if (votosAFavor >= politicosPresentesMap.size() / 2 + 1) ;
-            {
-                lei.setTramitacao(true);
-                return true;
-            }
-        }
-        lei.setTramitacao(false);
-        return false;
-    }
-
     /**
      * Metodo que verifica se a Pessoa eh da base governista. Recebe a Pessoa e o Set de partidos (Strings).
      *
@@ -159,7 +137,13 @@ public class Votacao {
         return false;
     }
 
-
+    private HashMap<String, Pessoa> identificarDeputadosPresentes(String politicosPresentes, HashMap<String, Pessoa> mapaPessoas) {
+        HashMap<String, Pessoa> deputadosPresentes = new HashMap<>();
+        for (String dni : politicosPresentes.trim().split(",")) {
+            deputadosPresentes.put(dni, mapaPessoas.get(dni));
+        }
+        return deputadosPresentes;
+    }
 
 }
 

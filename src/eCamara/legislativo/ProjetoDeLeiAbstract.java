@@ -58,6 +58,10 @@ public abstract class ProjetoDeLeiAbstract implements ProjetoDeLei {
      */
     protected String tramitacao;
 
+    /**
+     * Tipo de lei que a lei intanciada sera, sendo deixado para os filhos dessa classe decidirem seus "tipos", existindo
+     * 3 tipos, PL, PLP e PEC
+     */
     protected String tipoLei;
 
 
@@ -135,34 +139,11 @@ public abstract class ProjetoDeLeiAbstract implements ProjetoDeLei {
     }
 
     /**
-     * Metodoq que altera a Comissao que deve fazer a votacao da lei. Recebe uma String com a nova comissao.
-     * @param votante String com a nova comissao
-     */
-    public void setVotante(String votante) {
-        this.votante = votante;
-    }
-
-    /**
      * Metodo que retorna a tramitacao da lei.
      * @return String com a tramitacao da lei.
      */
     public String getTramitacao() {
         return tramitacao;
-    }
-
-    /**
-     * Metodo que adciona na tramitacao se ela foi aprovada ou nao. Recebe um boolean referente a aprovacao da lei.
-     * Se o boolean recebido for true, entao sera adicionado "APROVADO (votante)" onde votante eh a comissao atual em que
-     * a lei se encontra. Se for false sera adicionado "REJEITADO (votante)".;
-     *
-     * @param aprovadoOuNao boolean referente a aprovacao da lei, se for aprovcado eh true, se foi rejeitado eh false.
-     */
-    public void setTramitacao(boolean aprovadoOuNao) {
-        if (aprovadoOuNao) {
-            this.tramitacao += String.format("APROVADO (%s), ",this.votante);
-        } else {
-            this.tramitacao += String.format("REJEITADO (%s), ", this.votante);
-        }
     }
 
     /**
@@ -175,28 +156,49 @@ public abstract class ProjetoDeLeiAbstract implements ProjetoDeLei {
     }
 
     /**
-     * Metodo que modifica a situacao atual da lei. Recebe o proximo local de votacao.
-     * @param estadoAprovacao
-     * @param proxLocal String com o proximo local de votacao.
+     * Metodo responsavel por retornar o tipo da lei, existindo 3 opcoes: PL, PLP ou PEC
+     * @return uma string que representa o tipo da lei(PL, PLP ou PEC).
      */
-
     @Override
-    public void setSituacao(boolean estadoAprovacao, String proxLocal) {
-        this.situacao = String.format("EM VOTACAO (%s)", proxLocal);
-
+    public String getTipoLei() {
+        return tipoLei;
     }
 
     /**
-     * Metodo que adicona 1 na contagem de votacao da lei.
+     * Metodoq que altera a Comissao que deve fazer a votacao da lei. Recebe uma String com a nova comissao.
+     * @param votante String com a nova comissao
+     */
+    public void setVotante(String votante) {
+        this.votante = votante;
+    }
+
+
+    /**
+     * Metodo que adciona na tramitacao se ela foi aprovada ou nao. Recebe um boolean referente a aprovacao da lei.
+     * Se o boolean recebido for true, entao sera adicionado "APROVADO (votante)" onde votante eh a comissao atual em que
+     * a lei se encontra. Se for false sera adicionado "REJEITADO (votante)".;
+     *
+     * @param aprovadoOuNao boolean referente a aprovacao da lei, se for aprovcado eh true, se foi rejeitado eh false.
+     */
+    public abstract void setTramitacao(boolean aprovadoOuNao);
+
+
+    /**
+     * Metodo que modifica a situacao atual da lei. Recebe o proximo local de votacao.
+     * @param estadoAprovacao boolean que indica se a lei foi aprovada na votacao, true se ela foi aprovada e false se
+     * ela for rejeitada.
+     * @param proxLocal String com o proximo local de votacao.
+     */
+    @Override
+    public abstract void setSituacao(boolean estadoAprovacao, String proxLocal);
+
+    /**
+     * Metodo que adiciona 1 na contagem de votacao da lei.
      */
     public void addVotacaoRealizada() {
         this.votacaoRealizadas++;
     }
 
-    @Override
-    public String getTipoLei() {
-        return tipoLei;
-    }
 
 }
 

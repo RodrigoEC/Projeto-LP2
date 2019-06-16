@@ -18,12 +18,27 @@ public class LeisController {
      * Map de leis.
      */
     private Map<String, ProjetoDeLei> leis;
+    /**
+     * Contador de PL.
+     */
+    private int contadorPL;
+    /**
+     * Contador de PLP.
+     */
+    private int contadorPLP;
+    /**
+     * Contador de PEC.
+     */
+    private int contadorPEC;
 
     /**
      * Constroi o LeisController, inicia o map e os contadores.
      */
     public LeisController() {
         this.leis = new HashMap<>();
+        this.contadorPL = 0;
+        this.contadorPLP = 0;
+        this.contadorPEC = 0;
     }
 
     /**
@@ -145,7 +160,6 @@ public class LeisController {
      * @param codigoDaLei String com o codigo da lei.
      * @return ProjetoDeLei referente ao codigo.
      */
-
     public ProjetoDeLei getLei(String codigoDaLei) {
         return this.leis.get(codigoDaLei);
     }
@@ -155,7 +169,6 @@ public class LeisController {
      * @param codigo String com o codigo da lei.
      * @return String com a trasmitacao da lei.
      */
-
     public String exibirTramitacao(String codigo) {
         return this.leis.get(codigo).getTramitacao() + this.leis.get(codigo).getSituacao();
     }

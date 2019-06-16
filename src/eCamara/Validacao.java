@@ -2,6 +2,7 @@ package eCamara;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.Year;
 import java.util.Date;
 
 /**
@@ -72,6 +73,20 @@ public class Validacao {
             throw new IllegalArgumentException(mensagem);
         }
     }
+
+
+    private void validaAno(String dataInicio, String mensagem){
+        Year dataDeInicio = Year.parse(dataInicio);
+        Year menordataPossivel = Year.parse("1988");
+
+        Year dataAtual = Year.now();
+
+        if (dataDeInicio.compareTo(dataAtual) > 0) {
+            throw new IllegalArgumentException(mensagem);
+        }
+
+    }
+
 
     /**
      * Metodo que verifica se a data passada no parametro esta no formato certo, ddMMyyyy, ou seja dia depois mes e depois
@@ -278,9 +293,7 @@ public class Validacao {
             throw new IllegalArgumentException("Erro ao cadastrar projeto: ano anterior a 1988");
         }
 
-        if (ano > 2019) {
-            throw new NullPointerException("Erro ao cadastrar projeto: ano posterior ao ano atual");
-        }
+        validaAno(ano + "", "Erro ao cadastrar projeto: ano posterior ao ano atual");
     }
 
 
@@ -323,15 +336,11 @@ public class Validacao {
         this.validaString(artigos, "Erro ao cadastrar projeto: artigo nao pode ser vazio ou nulo");
         this.validaDni(dni, "Erro ao cadastrar projeto: dni invalido");
 
-        //MUDAR O NEGOCIO DO ANO 2019. TORNAR AUTOMATICO A PARTIR DA BIBLIOTECA JAVA.TIME
-
         if (ano < 1988) {
             throw new IllegalArgumentException("Erro ao cadastrar projeto: ano anterior a 1988");
         }
 
-        if (ano > 2019) {
-            throw new NullPointerException("Erro ao cadastrar projeto: ano posterior ao ano atual");
-        }
+        validaAno(ano + "", "Erro ao cadastrar projeto: ano posterior ao ano atual");
     }
 
     /**
@@ -372,15 +381,11 @@ public class Validacao {
         this.validaString(artigos, "Erro ao cadastrar projeto: artigo nao pode ser vazio ou nulo");
         this.validaDni(dni, "Erro ao cadastrar projeto: dni invalido");
 
-        //MUDAR O NEGOCIO DO ANO 2019. TORNAR AUTOMATICO A PARTIR DA BIBLIOTECA JAVA.TIME
-
-        if (ano > 2019) {
-            throw new NullPointerException("Erro ao cadastrar projeto: ano posterior ao ano atual");
-        }
-
         if (ano < 1988) {
             throw new IllegalArgumentException("Erro ao cadastrar projeto: ano anterior a 1988");
         }
+
+        validaAno(ano + "", "Erro ao cadastrar projeto: ano posterior ao ano atual");
     }
 
     /**
@@ -396,6 +401,12 @@ public class Validacao {
     public void validaVotarComissao(String statusGovernista, String proximoLocal) {
         validaString(statusGovernista, "Erro ao votar proposta: status nao pode ser vazio ou nulo");
         validaString(proximoLocal, "Erro ao votar proposta: proximo local vazio");
+        validaGovernista(statusGovernista, "Erro ao votar proposta: status invalido");
+    }
+
+    public void validaVotarPlenario(String statusGovernista, String politicosPresentes) {
+        validaString(statusGovernista, "Erro ao votar proposta: status nao pode ser vazio ou nulo");
+        validaString(politicosPresentes, "Erro ao votar proposta: deputados presentes vazio");
         validaGovernista(statusGovernista, "Erro ao votar proposta: status invalido");
     }
 }
