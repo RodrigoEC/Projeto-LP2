@@ -18,27 +18,12 @@ public class LeisController {
      * Map de leis.
      */
     private Map<String, ProjetoDeLei> leis;
-    /**
-     * Contador de PL.
-     */
-    private int contadorPL;
-    /**
-     * Contador de PLP.
-     */
-    private int contadorPLP;
-    /**
-     * Contador de PEC.
-     */
-    private int contadorPEC;
 
     /**
      * Constroi o LeisController, inicia o map e os contadores.
      */
     public LeisController() {
         this.leis = new HashMap<>();
-        this.contadorPL = 0;
-        this.contadorPLP = 0;
-        this.contadorPEC = 0;
     }
 
     /**
@@ -55,12 +40,16 @@ public class LeisController {
      * @return A key do projeto no mapa de projetos.
      */
     public String cadastrarPL(String dni, int ano, String ementa, String interesses, String url, boolean conclusivo) {
-        this.contadorPL++;
-        String key = "PL " + this.contadorPL + "/" + ano;
-
+        int contador = 1;
+        String key = "PL " + contador + "/" + ano;
+        for (int i = 0; i < this.leis.size(); i++){
+            if (this.leis.containsKey(key)){
+                contador += 1;
+                key  = "PL " + contador + "/" + ano;
+            }
+        }
         this.leis.put(key, new PL(dni, ano, ementa, interesses, url, conclusivo));
         return key;
-
     }
 
     /**
@@ -77,12 +66,16 @@ public class LeisController {
      * @return A key do projeto no mapa de projetos.
      */
     public String cadastrarPLP(String dni, int ano, String ementa, String interesses, String url, String artigos) {
-        this.contadorPLP++;
-        String key = "PLP " + this.contadorPLP + "/" + ano;
-
+        int contador = 1;
+        String key = "PLP " + contador + "/" + ano;
+        for (int i = 0; i < this.leis.size(); i++){
+            if (this.leis.containsKey(key)){
+                contador += 1;
+                key  = "PLP " + contador + "/" + ano;
+            }
+        }
         this.leis.put(key, new PLP(dni, ano, ementa, interesses, url, artigos));
         return key;
-
     }
 
     /**
@@ -99,12 +92,16 @@ public class LeisController {
      * @return A key do projeto no mapa de projetos.
      */
     public String cadastrarPEC(String dni, int ano, String ementa, String interesses, String url, String artigos) {
-        this.contadorPEC++;
-        String key = "PEC " + this.contadorPEC + "/" + ano;
-
+        int contador = 1;
+        String key = "PEC " + contador + "/" + ano;
+        for (int i = 0; i < this.leis.size(); i++){
+            if (this.leis.containsKey(key)){
+                contador += 1;
+                key  = "PEC " + contador + "/" + ano;
+            }
+        }
         this.leis.put(key, new PEC(dni, ano, ementa, interesses, url, artigos));
         return key;
-
     }
 
     /**
