@@ -23,6 +23,7 @@ public class PECTest {
         assertEquals("trabalho", this.pec1.getInteresses());
         assertEquals("https://example.com/sindicato/algo.html", this.pec1.getUrl());
         assertEquals("7,8", this.pec1.getArtigos());
+        assertEquals("PEC", this.pec1.getTipoLei());
     }
 
     @Test

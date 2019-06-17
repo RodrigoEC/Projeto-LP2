@@ -349,13 +349,13 @@ class ValidacaoTest {
         try {
             validador.validaCadastrarPL("123456789-5", 2020, "...", "vacas", "sei la meu rapaz");
             fail("era pra dar ruim");
-        } catch (NullPointerException nope) {
+        } catch (IllegalArgumentException nope) {
         }
 
         try {
             validador.validaCadastrarPL("123456789-5", 2025, "...", "vacas", "sei la meu rapaz");
             fail("era pra dar ruim");
-        } catch (NullPointerException nope) {
+        } catch (IllegalArgumentException nope) {
         }
 
         try {
@@ -473,13 +473,13 @@ class ValidacaoTest {
         try {
             validador.validaCadastrarPLP("123456789-5", 2020, "...", "vacas", "sei la meu rapaz", "1");
             fail("era pra dar ruim");
-        } catch (NullPointerException nope) {
+        } catch (IllegalArgumentException nope) {
         }
 
         try {
             validador.validaCadastrarPLP("123456789-5", 2025, "...", "vacas", "sei la meu rapaz", "1");
             fail("era pra dar ruim");
-        } catch (NullPointerException nope) {
+        } catch (IllegalArgumentException nope) {
         }
 
         try {
@@ -619,13 +619,13 @@ class ValidacaoTest {
         try {
             validador.validaCadastrarPEC("123456789-5", 2020, "...", "vacas", "sei la meu rapaz", "1");
             fail("era pra dar ruim");
-        } catch (NullPointerException nope) {
+        } catch (IllegalArgumentException nope) {
         }
 
         try {
             validador.validaCadastrarPEC("123456789-5", 2025, "...", "vacas", "sei la meu rapaz", "1");
             fail("era pra dar ruim");
-        } catch (NullPointerException nope) {
+        } catch (IllegalArgumentException nope) {
         }
 
         try {
@@ -739,5 +739,87 @@ class ValidacaoTest {
             fail("erapra dar ruim");
         } catch (NullPointerException nope) {
         }
+    }
+
+    @Test
+    void validaVotarComissaoStatusGovernista() {
+        try {
+            validador.validaVotarComissao(null, "ACULA");
+            fail("Era esperada uma excecao!");
+        } catch(NullPointerException npe) {}
+
+        try {
+            validador.validaVotarComissao("", "Ali");
+            fail("Era esperada uma exceção!");
+        } catch(IllegalArgumentException iae) {}
+    }
+
+    @Test
+    void validaVotarComissaoProximoLocal() {
+        try {
+            validador.validaVotarComissao("governista", null);
+            fail("Era esperada uma excecao!");
+        } catch(NullPointerException npe) {}
+
+        try {
+            validador.validaVotarComissao("governista", "");
+            fail("Era esperada uma exceção!");
+        } catch(IllegalArgumentException iae) {}
+    }
+
+    @Test
+    void validaVotarComissaoStatusGovernistaInvalido() {
+        try {
+            validador.validaVotarComissao("sei nao", "Ali");
+            fail("Era esperada uma exceção!");
+        } catch(IllegalArgumentException iae) {}
+    }
+
+    @Test
+    void validaVotarComissaoCondicoesNormais() {
+        validador.validaVotarComissao("oposicao", "acula");
+        validador.validaVotarComissao("livre", "acula");
+        validador.validaVotarComissao("governista", "acula");
+    }
+
+    @Test
+    void validaVotarPlenarioStatusGovernista() {
+        try {
+            validador.validaVotarPlenario(null, "123, 456, 789");
+            fail("Era esperada uma excecao!");
+        } catch(NullPointerException npe) {}
+
+        try {
+            validador.validaVotarPlenario("", "123, 456, 789");
+            fail("Era esperada uma exceção!");
+        } catch(IllegalArgumentException iae) {}
+    }
+
+    @Test
+    void validaVotarPlenarioPoliticosPresentes() {
+        try {
+            validador.validaVotarPlenario("governista", null);
+            fail("Era esperada uma excecao!");
+        } catch(NullPointerException npe) {}
+
+        try {
+            validador.validaVotarPlenario("governista", "");
+            fail("Era esperada uma exceção!");
+        } catch(IllegalArgumentException iae) {}
+    }
+
+    @Test
+    void validaVotarPlenarioStatusGovernistaInvalido() {
+        try {
+            validador.validaVotarPlenario("nao me faca perguntas dificeis", "123, 456, 789");
+            fail("Era esperada uma exceção!");
+        } catch(IllegalArgumentException iae) {}
+    }
+
+    @Test
+    void validaVotarPlenarioCondicoesNormais() {
+        validador.validaVotarPlenario("oposicao", "123, 456, 789");
+        validador.validaVotarPlenario("livre", "123, 456, 789");
+        validador.validaVotarPlenario("governista", "123, 456, 789");
     }
 }

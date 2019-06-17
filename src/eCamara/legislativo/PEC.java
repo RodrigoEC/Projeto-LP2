@@ -9,7 +9,6 @@ public class PEC extends ProjetoDeLeiAbstract {
     private String artigos;
     private int turno;
 
-
     /**
      * Construtor responsavel por construir um objeto do tipo PEC(projeto de ementa constitucional) a partir do dni do deputado
      * que o criou, do ano em que ele foi criado, da ementa, dos interesses relacionados ao projeto, da url do site em que o projeto
