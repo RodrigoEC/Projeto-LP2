@@ -80,13 +80,19 @@ public class PL extends ProjetoDeLeiAbstract {
     }
 
     /**
-     * Metodo que muda a situacao da lei. Recebe o proximo local de votacao e um boolean referente ao estado de aprovacao.
-     * Se ela nao foi aprovada e eh conclusiva, entao a situacao vai ser alterada pra ARQUIVADA e na tramitacao vai ser
-     * adicionado "APROVADO (votante)" onde votante eh a comissao que fez a votacao. Se ela foi aprovada, ja houve duas votacoes
-     * e eh conclusiva entao na tramitacao vai ser adcionado "REGEITADO (votante)" e a situacao ira ser alterada para "APROVADO".
-     * Se nao  a situacao vai ser alterada para "EM VOTACAO (proximo local).
+     * Metodo responsavel por modificar a situacao do projeto na camara.
+     * - Caso o resultado da votacao seja FALSE e a quantidade de turnos seja igual a 2 o a string "REJEITADO ([votante])
+     * eh adicionado ao atributo tramitacao e a situcao eh modificada para "ARQUIVADO".
+     * - Caso o estadoAprovacao seja true e a quantidade de turnos seja iguala a 2 a string "APROVADO ([votante]) eh
+     * adicionado ao atributo tramitacao e a situcao eh modificada para "APROVADO".
+     * - Se o estadoAprovacao seja igual a false e o atributo votante seja igual a "Plenario" a tramitacao sera adicionada
+     * a string "REJEITADO ([votante]) e o atributo situacao recebera a string "ARQUIVADO".
+     * - Se as votacoes realizadas igualarem a 2, o estadoAprovacao for igual a true e a PL for conclusiva, o atributo tramitacao
+     * soma a sua string, a string "APROVADO ([votante]).
+     * - No ultimo caso, se o metodo nao entrar em nenhum dos casos acima o atributo situacao recebera "EM VOTACAO ([proxLocal])".
      *
-     * @param estadoAprovacao boolean referente ao estado de aprovacao da lei.
+     * @param estadoAprovacao boolean que indica se a lei foi aprovada na votacao, true se ela foi aprovada e false se
+     * ela for rejeitada.
      * @param proxLocal String com o proximo local de votacao.
      */
     @Override
@@ -126,8 +132,5 @@ public class PL extends ProjetoDeLeiAbstract {
         return "Projeto de Lei - " + codigo + " - " + super.dniAutor + " - " + super.ementa + " - " + super.situacao;
     }
 
-    public String getTipoLei(){
-        return tipoLei;
-    }
 
 }

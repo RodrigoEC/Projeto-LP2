@@ -18,27 +18,12 @@ public class LeisController {
      * Map de leis.
      */
     private Map<String, ProjetoDeLei> leis;
-    /**
-     * Contador de PL.
-     */
-    private int contadorPL;
-    /**
-     * Contador de PLP.
-     */
-    private int contadorPLP;
-    /**
-     * Contador de PEC.
-     */
-    private int contadorPEC;
 
     /**
      * Constroi o LeisController, inicia o map e os contadores.
      */
     public LeisController() {
         this.leis = new HashMap<>();
-        this.contadorPL = 0;
-        this.contadorPLP = 0;
-        this.contadorPEC = 0;
     }
 
     /**
