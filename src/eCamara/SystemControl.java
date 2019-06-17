@@ -314,7 +314,7 @@ public class SystemControl {
      */
 
     public boolean votarComissao(String codigoDaLei, String statusGovernista, String proximoLocal) {
-        this.validaEntradas.validaVotarComissao(statusGovernista, proximoLocal);
+        this.validaEntradas.validaVotarComissao(codigoDaLei, statusGovernista, proximoLocal);
 
         if (!this.comissoes.containsKey("CCJC")) {
             throw new NullPointerException("Erro ao votar proposta: CCJC nao cadastrada");
@@ -330,7 +330,6 @@ public class SystemControl {
         if ("APROVADO".equals(lei.getSituacao()) || "ARQUIVADO".equals(lei.getSituacao())) {
             throw new IllegalArgumentException("Erro ao votar proposta: tramitacao encerrada");
         }
-
 
         boolean resultadoVotacao =  this.votacao.votarComissao(this.controllerLeis.getLeis().get(codigoDaLei), statusGovernista, proximoLocal,
                 this.comissoes.get(comissaoVotante), this.partidos);

@@ -593,4 +593,37 @@ class SystemControlTest {
         assertEquals("Projeto de Lei Complementar - PLP 1/2016 - 061222222-0 - Regulamenta a tributacao de apostas eletronicas - 153 - EM VOTACAO (CCJC)", this.systemControl.exibirProjeto("PLP 1/2016"));
         assertEquals("Projeto de Emenda Constitucional - PEC 1/2016 - 061222222-0 - Permite a associacao sindical livre e com estrutura hierarquica - 7, 8 - EM VOTACAO (CCJC)", this.systemControl.exibirProjeto("PEC 1/2016"));
     }
+
+    @Test
+    void votarComissaoArgumentosInvalidos(){
+        try{
+            this.systemControl.votarComissao("PL 1/2016", null, "acula");
+            fail("era esperada uma excecao!");
+        } catch (NullPointerException npe){}
+
+        try{
+            this.systemControl.votarComissao("PL 1/2016", "", "acula");
+            fail("era esperada uma excecao!");
+        } catch (IllegalArgumentException npe){}
+
+        try{
+            this.systemControl.votarComissao("PL 1/2016", "governista", null);
+            fail("era esperada uma excecao!");
+        } catch (NullPointerException npe){}
+
+        try{
+            this.systemControl.votarComissao("PL 1/2016", "governista", "");
+            fail("era esperada uma excecao!");
+        } catch (IllegalArgumentException npe){}
+    }
+
+    @Test
+    void votarComissaoCCJCNaoCadastrada(){
+
+    }
+
+    @Test
+    void votarComissaoCondicoesNormais(){
+
+    }
 }
