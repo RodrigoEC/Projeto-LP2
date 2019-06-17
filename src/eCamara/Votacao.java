@@ -44,6 +44,20 @@ public class Votacao {
         return false;
     }
 
+    /**
+     * Metodo responsavel por fazer uma votacao de uma lei, passada como parametro, no plenario a partir do status governista
+     * da lei e dos politicos presentes. ao fazer a contagem dos votos, se o tipo da lei for "PLP" ou "PL"e os votosAFavor forem maiores
+     * que o tamanho do mapa de deputados /2 + 1 o metodo retorna true, caso o tipo da lei for "PEC" e os votosAFavor forem maiores ou iguais
+     * a (3/5 * o mapa de deputados)+ 1 o metodo retorna true. Se nenhum dos casos forem satisfeitos o metodo retorna false.
+     *
+     * @param lei lei que esta sendo votada.
+     * @param statusGovernista status da lei a ser votada.
+     * @param politicosPresentes dni dos politicos presetnes
+     * @param mapaTotalDeputados mapa com todos os deputados registrados no sistema.
+     * @param partidos partidos cadastrados no sistema.
+     *
+     * @return true se a lei tiver sido aprovada e false se a lei tiver sido rejeitada.
+     */
     public boolean votarPlenario(ProjetoDeLei lei, String statusGovernista, String politicosPresentes, HashMap<String, Pessoa> mapaTotalDeputados, Set<String> partidos) {
         HashMap<String, Pessoa> deputadosPresentes = identificarDeputadosPresentes(politicosPresentes, mapaTotalDeputados);
 
@@ -97,7 +111,6 @@ public class Votacao {
      * @param partidos         Set de partidos(String);
      * @return quantidade de votos a favor;
      */
-
     private int contaVotosAFavor(ProjetoDeLei lei, HashMap<String, Pessoa> politicos, String statusGovernista, Set<String> partidos) {
         int votosAFavor = 0;
 
@@ -129,7 +142,6 @@ public class Votacao {
      * @param partidos Set de partidos.
      * @return boolean true se a Pessoa for da base e false se nao for.
      */
-
     private boolean ehDaBase(Pessoa pessoa, Set<String> partidos) {
         if (partidos.contains(pessoa.getPartido())) {
             return true;
@@ -137,6 +149,14 @@ public class Votacao {
         return false;
     }
 
+    /**
+     * Metodo responsavel por identificar os deputados presentes a partir dos dnis dos politicos presentes passados como
+     * parametro e um mapa de pessoas, onde sera pego os deputados que tem os dnis iguais aos passados como parametro.
+     *
+     * @param politicosPresentes dni dos politicos presentes
+     * @param mapaPessoas mapa de pessoas.
+     * @return o hashMap de deputadosPresentes.
+     */
     private HashMap<String, Pessoa> identificarDeputadosPresentes(String politicosPresentes, HashMap<String, Pessoa> mapaPessoas) {
         HashMap<String, Pessoa> deputadosPresentes = new HashMap<>();
         for (String dni : politicosPresentes.trim().split(",")) {

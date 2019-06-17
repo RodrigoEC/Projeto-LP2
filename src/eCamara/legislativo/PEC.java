@@ -6,7 +6,11 @@ package eCamara.legislativo;
  */
 public class PEC extends ProjetoDeLeiAbstract {
 
+    /**
+     * Artigos da constituicao que a PEC se relaciona */
     private String artigos;
+
+    /** metodo que representa em qual turno da votacao no plenario a PEC esta */
     private int turno;
 
     /**
@@ -37,10 +41,6 @@ public class PEC extends ProjetoDeLeiAbstract {
         return artigos;
     }
 
-    public String getTipoLei() {
-        return tipoLei;
-    }
-
     /**
      * Metodo responsavel por criar uma representacao textual do objeto atraves do dni do autor, da ementa, da conclusao
      * do projeto de legislativo complementar e da situacao em que ele se encontra.
@@ -53,6 +53,11 @@ public class PEC extends ProjetoDeLeiAbstract {
         return "Projeto de Emenda Constitucional - " + codigo + " - " + super.dniAutor + " - " + super.ementa + " - " + (this.artigos.replace(",", ", ")) + " - " + super.situacao;
     }
 
+    /**
+     * Esse metodo adiciona 1 ao turno da votacao sobre a PEC, caso o turno ja seja maior ou igual a 2 uma excecao sera lancada.
+     *
+     * @throws NullPointerException "nao existe terceiro turno queridao".
+     */
     public void addTurno() {
         if (this.turno >= 2) {
             throw new NullPointerException("nao existe terceiro turno queridao");
@@ -60,13 +65,22 @@ public class PEC extends ProjetoDeLeiAbstract {
         this.turno++;
     }
 
+    /**
+     * Metodo responsavel por modificar a tramitacao do projeto. caso o projeto tenha sido aprovado e quem esteja votando
+     * seja o plenario eh adicionado a string da tramitacao "APROVADO (plenario [this.turno]o turno", caso o projeto
+     * tenha sido rejeitado no plenario "REJEITADO (plenario [this.turn]o turno", se o projeto tiver sido aprovado e o
+     * votante for diferente do plenario entao sera adicionado a string de tramitacao a string "APROVADO ([this.votante]),
+     * caso o contrario, sera adicionado ao atributo tramitacao a string "REJEITADO ([votante]).
+     *
+     * @param aprovadoOuNao boolean referente a aprovacao da lei, se for aprovcado eh true, se foi rejeitado eh false.
+     */
     @Override
     public void setTramitacao(boolean aprovadoOuNao) {
         if (aprovadoOuNao && "plenario".equals(this.votante.toLowerCase())) {
-            this.tramitacao += String.format("APROVADO (%s %do turno), ",this.votante, this.turno);
+            this.tramitacao += String.format("APROVADO (plenario %do turno), ", this.turno);
 
         } else if (!aprovadoOuNao && "plenario".equals(this.votante.toLowerCase())) {
-            this.tramitacao += String.format("REJEITADO (%s %do turno), ",this.votante, this.turno);
+            this.tramitacao += String.format("REJEITADO (plenario %do turno), ", this.turno);
 
         } else if (aprovadoOuNao) {
             this.tramitacao += String.format("APROVADO (%s), ",this.votante);
@@ -75,6 +89,24 @@ public class PEC extends ProjetoDeLeiAbstract {
             this.tramitacao += String.format("REJEITADO (%s), ", this.votante);
         }
     }
+
+    /**
+     * Metodo responsavel por modificar a situacao do projeto na camara.
+     * - Caso o resultado da votacao seja FALSE e a quantidade de turnos seja igual a 2 o a string "REJEITADO ([votante])
+     * eh adicionado ao atributo tramitacao e a situcao eh modificada para "ARQUIVADO".
+     * - Caso o estadoAprovacao seja true e a quantidade de turnos seja iguala a 2 a string "APROVADO ([votante]) eh
+     * adicionado ao atributo tramitacao e a situcao eh modificada para "APROVADO".
+     * - Se o estadoAprovacao seja igual a false e o atributo votante seja igual a "Plenario" a tramitacao sera adicionada
+     * a string "REJEITADO ([votante]) e o atributo situacao recebera a string "ARQUIVADO".
+     * - Se o estadoAprovacao seja igual a true e o atributo votante seja igual "plenario" ou o proximo local a ser votado seja "Plenario"
+     * a tramitacao sera adicionada a string "REJEITADO ([votante]) e o atributo situacao recebera a string "EM VOTACAO (Plenario - [turno]o turno).
+     * - No ultimo caso, se o metodo nao entrar em nenhum dos casos acima o atributo situacao recebera "EM VOTACAO ([proxLocal])".
+     *
+     *
+     * @param estadoAprovacao boolean que indica se a lei foi aprovada na votacao, true se ela foi aprovada e false se
+     * ela for rejeitada.
+     * @param proxLocal String com o proximo local de votacao.
+     */
     @Override
     public void setSituacao(boolean estadoAprovacao, String proxLocal) {
         if (!estadoAprovacao && this.turno == 2) {
@@ -85,7 +117,7 @@ public class PEC extends ProjetoDeLeiAbstract {
             this.tramitacao += String.format("APROVADO (%s), ", this.votante);
             this.situacao = "APROVADO";
 
-        } else if (!estadoAprovacao && ("plenario".equals(proxLocal) || "plenario".equals(this.votante))){
+        } else if (!estadoAprovacao && "plenario".equals(this.votante)){
             this.tramitacao += String.format("REJEITADO (%s), ", this.votante);
             this.situacao = "ARQUIVADO";
 

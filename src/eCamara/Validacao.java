@@ -40,7 +40,6 @@ public class Validacao {
      *
      * @throws IllegalArgumentException mensagem.
      */
-
     private void validaDni(String dni, String mensagem) {
         String[] array = dni.split("-");
         try {
@@ -74,10 +73,14 @@ public class Validacao {
         }
     }
 
-
+    /**
+     * Metodo responsavel por verificar se o ano passado como parametro eh um ano que nao eh do futuro.
+     *
+     * @param dataInicio data que sera valida
+     * @param mensagem mensagem que sera mostrada caso a excecao seja lancada.
+     */
     private void validaAno(String dataInicio, String mensagem){
         Year dataDeInicio = Year.parse(dataInicio);
-        Year menordataPossivel = Year.parse("1988");
 
         Year dataAtual = Year.now();
 
@@ -107,9 +110,18 @@ public class Validacao {
         }
     }
 
-    private void validaGovernista(String statusGovernista, String s) {
+    /**
+     * Metodo responsavel por verificar se o status governista eh "governista", "oposicao" ou "livre" se nao for nenhum
+     * desses 3 tipos uma excecao sera lancada.
+     *
+     * @param statusGovernista status governista.
+     * @param mensagem mensagem de que sera mostrada caso a excecao seja lancada
+     *
+     * @throws IllegalArgumentException mensagem
+     */
+    private void validaGovernista(String statusGovernista, String mensagem) {
         if (!"governista".equals(statusGovernista.toLowerCase()) && !"oposicao".equals(statusGovernista.toLowerCase()) && !"livre".equals(statusGovernista.toLowerCase())) {
-            throw new IllegalArgumentException(s);
+            throw new IllegalArgumentException(mensagem);
         }
     }
 
@@ -263,22 +275,19 @@ public class Validacao {
      * @param interesses interesses relacionados o PL.
      * @param url url do site em que o PL esta hospedada.
      *
-     * @throws NullPointerException mensagem
-     * @throws IllegalArgumentException mensagem
+     * @throws NullPointerException "Erro ao cadastrar projeto: autor nao pode ser vazio ou nulo".
+     * @throws IllegalArgumentException "Erro ao cadastrar projeto: autor nao pode ser vazio ou nulo".
      *
-     * @throws NullPointerException mensagem
-     * @throws IllegalArgumentException mensagem
-
-     * @throws NullPointerException mensagem
-     * @throws IllegalArgumentException mensagem
-
-
-     * @throws NullPointerException mensagem
-     * @throws IllegalArgumentException mensagem
-
-     * @throws IllegalArgumentException mensagem
+     * @throws NullPointerException "Erro ao cadastrar projeto: ementa nao pode ser vazia ou nula".
+     * @throws IllegalArgumentException "Erro ao cadastrar projeto: ementa nao pode ser vazia ou nula".
      *
-     * @throws IllegalArgumentException mensagem
+     * @throws NullPointerException "Erro ao cadastrar projeto: interesse nao pode ser vazio ou nulo"
+     * @throws IllegalArgumentException "Erro ao cadastrar projeto: interesse nao pode ser vazio ou nulo"
+     *
+     * @throws NullPointerException "Erro ao cadastrar projeto: url nao pode ser vazio ou nulo"
+     * @throws IllegalArgumentException "Erro ao cadastrar projeto: url nao pode ser vazio ou nulo"
+     *
+     * @throws IllegalArgumentException "Erro ao cadastrar projeto: dni invalido"
 
      */
     public void validaCadastrarPL(String dni, int ano, String ementa, String interesses, String url){
@@ -398,12 +407,41 @@ public class Validacao {
         this.validaString(codigo, "Ainda nao tem");
     }
 
+    /**
+     * Metodo responsavel por validar as entradas do metodo votarComissao, lancando as excecoes adequadas.
+     *
+     * @param statusGovernista status da lei.
+     * @param proximoLocal proximo local que sera votada a lei.
+     *
+     * @throws NullPointerException "Erro ao votar proposta: status nao pode ser vazio ou nulo".
+     * @throws IllegalArgumentException "Erro ao votar proposta: status nao pode ser vazio ou nulo".
+     *
+     * @throws IllegalArgumentException "Erro ao votar proposta: proximo local vazio"
+     *
+     *
+     * @throws IllegalArgumentException "Erro ao votar proposta: status invalido"
+     *
+     */
     public void validaVotarComissao(String statusGovernista, String proximoLocal) {
         validaString(statusGovernista, "Erro ao votar proposta: status nao pode ser vazio ou nulo");
         validaString(proximoLocal, "Erro ao votar proposta: proximo local vazio");
         validaGovernista(statusGovernista, "Erro ao votar proposta: status invalido");
     }
 
+    /**
+     * Metodo responsavel por validar as entradas do metodo votarComissao, lancando as excecoes adequadas.
+     *
+     * @param statusGovernista status da lei.
+     * @param politicosPresentes politicos presentes na votacao no plenario.
+     *
+     * @throws NullPointerException "Erro ao votar proposta: status nao pode ser vazio ou nulo".
+     * @throws IllegalArgumentException "Erro ao votar proposta: status nao pode ser vazio ou nulo".
+     *
+     * @throws IllegalArgumentException "Erro ao votar proposta: deputados presentes vazio".
+     *
+     * @throws IllegalArgumentException "Erro ao votar proposta: status invalido"
+     *
+     */
     public void validaVotarPlenario(String statusGovernista, String politicosPresentes) {
         validaString(statusGovernista, "Erro ao votar proposta: status nao pode ser vazio ou nulo");
         validaString(politicosPresentes, "Erro ao votar proposta: deputados presentes vazio");

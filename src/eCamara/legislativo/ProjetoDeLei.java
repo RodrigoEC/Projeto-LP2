@@ -44,6 +44,10 @@ public interface ProjetoDeLei {
      */
     String getDniAutor();
 
+    /**
+     * Metodo que retorna o tipo da lei, sendo possivel ser "PL", "PLP" ou "PEC"
+     * @return o tipo da lei.
+     */
     String getTipoLei();
 
     /**
@@ -71,6 +75,9 @@ public interface ProjetoDeLei {
      */
     void addVotacaoRealizada();
 
+    /**
+     * Metodo responsavel por adicionar 1 ao atributo turno.
+     */
     void addTurno();
 
 

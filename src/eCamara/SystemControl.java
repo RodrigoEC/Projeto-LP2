@@ -9,10 +9,16 @@ import java.util.*;
  * Objeto que representa o Controller do sistema, tem como atributos o objeto de Validacao, um Map de Pessoa e um Set de
  * Partido (String).
  */
-
 public class SystemControl {
+    /**
+     * Controller responsavel por coordenar as operacoes feitas sobre os objetos do tipo Pessoa.
+     */
     private PessoaController controllerPessoas;
+
+    /** Controller responsavel por coordenar as operacoes feitas sobre os objetos do tipo ProjetoDeLei */
     private LeisController controllerLeis;
+
+    /** Objeto responsavel por reuniar as operacoes de votacao, sendo nas comissoes ou no plenario */
     private Votacao votacao;
 
     /**
@@ -56,7 +62,6 @@ public class SystemControl {
      * @param interesses String com o(s) interese(s).
      * @throws IllegalArgumentException Erro ao cadastrar pessoa: dni ja cadastrado.
      */
-
     public void cadastrarPessoaSemPartido(String nome, String dni, String estado, String interesses) {
         this.validaEntradas.validarCadastroPessoa(dni, nome, estado);
 
@@ -76,7 +81,6 @@ public class SystemControl {
      * @param partido    String com o partido.
      * @throws IllegalArgumentException Erro ao cadastrar pessoa: dni ja cadastrado.
      */
-
     public void cadastrarPessoa(String nome, String dni, String estado, String interesses, String partido) {
         this.validaEntradas.validarCadastroPessoa(dni, nome, estado);
 
@@ -100,7 +104,6 @@ public class SystemControl {
      * @throws IllegalArgumentException Erro ao cadastrar deputado: pessoa ja e deputado.
      * @throws IllegalArgumentException Erro ao cadastrar deputado: pessoa sem partido
      */
-
     public void cadastraDeputado(String dni, String dataInicio) {
         this.validaEntradas.validaDniCadastraDeputado(dni);
 
@@ -340,12 +343,21 @@ public class SystemControl {
 
 
     /**
-     * Metodo responsavel por votar um projeto de lei no plenario. Caso o
+     * Metodo responsavel por votar um projeto de lei no plenario. Caso os parametros passados seja invalidos ou nulos
+     * uma excecao sera lancada, alem disso eh preciso analisar se o dados passados satisfazem o quorus minimo, se nao o programa
+     * eh parado. Se o projeto ja tiver sido APROVADO ou ARQUIVADO ou quem estiver votando o projeto nao seja o plenario
+     * um excecao sera lancada. Por fim, se o resultado da votacao for true ele foi aprovado, se for false o projeto foi
+     * rejeitado. Se as votacoes sobre a lei tiverem terminado e essa lei tiver sido aprovada a quantidade de leis
+     * aprovadas do autor do projeto eh aumentado em 1.
      *
-     * @param codigoDaLei
-     * @param statusGovernista
-     * @param politicosPresentes
-     * @return
+     * @param codigoDaLei codigo do projeto que sera votada.
+     * @param statusGovernista status do projeto, sendo possivel "governista", "livre" ou "oposicao"
+     * @param politicosPresentes politicos presentes na votacao do projeto.
+     *
+     * @return true se o projeto tiver sido aprovado e false se o projeto tiver sido rejeitado.
+     *
+     * @throws IllegalFormatCodePointException "Erro ao votar proposta: tramitacao encerrada".
+     * @throws IllegalFormatCodePointException "Erro ao votar proposta: tramitacao em comissao".
      */
     public boolean votarPlenario(String codigoDaLei, String statusGovernista, String politicosPresentes) {
         this.validaEntradas.validaVotarPlenario(statusGovernista, politicosPresentes);
@@ -353,7 +365,7 @@ public class SystemControl {
         HashMap<String, Pessoa> deputados = deputadosNoMapa(this.controllerPessoas.getMapPessoas());
         ProjetoDeLei lei = this.controllerLeis.getLei(codigoDaLei);
 
-        situacaoCorumMinimo(lei, deputados, politicosPresentes);
+        situacaoQuorumMinimo(lei, deputados, politicosPresentes);
 
         if ("APROVADO".equals(lei.getSituacao()) || "ARQUIVADO".equals(lei.getSituacao())) {
             throw new IllegalArgumentException("Erro ao votar proposta: tramitacao encerrada");
@@ -373,16 +385,16 @@ public class SystemControl {
         return resultadoVotacao;
     }
 
-    /** Metodo responsavel por a lei obedece a situacao de corus minimo (total de deputados votantes minimo para ocorrer
-     *  a votacao). Cada tipo de lei obedece a uma regra diferente do corus minimo.
+    /** Metodo responsavel por a lei obedece a situacao de quorum minimo (total de deputados votantes minimo para ocorrer
+     *  a votacao). Cada tipo de lei obedece a uma regra diferente do quorum minimo.
      *
-     *  Se o tipo da lei for PLP ou PL entao para obedecer o corus minimo eh preciso que metade dos deputados presentes + 1 es
+     *  Se o tipo da lei for PLP ou PL entao para obedecer o quorum minimo eh preciso que metade dos deputados presentes + 1 es
      *  tejam presentes, nao sendo possivel o votacao com 3 deputados apenas por exemplo.
      *
-     *  Se o tipo da lei for PEC para a votacao obedecer o corus minimo eh preciso que pelo menos 3/5 * deputados presentes
+     *  Se o tipo da lei for PEC para a votacao obedecer o quorum minimo eh preciso que pelo menos 3/5 * deputados presentes
      *  + 1 estejam presentes.
      *
-     * @param lei lei que sera avaliada quanto ao corus minimo.
+     * @param lei lei que sera avaliada quanto ao quorum minimo.
      * @param deputados total de deputados cadastrados no sistema.
      * @param politicosPresentes deputados presentes na votacao do plenario.
      *
@@ -390,7 +402,7 @@ public class SystemControl {
      * @throws IllegalFormatCodePointException "Erro ao votar proposta: quorum invalido"
      * @throws IllegalFormatCodePointException "Erro ao votar proposta: quorum invalido"
      */
-    private void situacaoCorumMinimo(ProjetoDeLei lei, HashMap<String, Pessoa> deputados, String politicosPresentes) {
+    private void situacaoQuorumMinimo(ProjetoDeLei lei, HashMap<String, Pessoa> deputados, String politicosPresentes) {
         String[] deputadosPresentes = politicosPresentes.trim().split(",");
 
         if (lei.getTipoLei().toLowerCase().equals("plp")) {
