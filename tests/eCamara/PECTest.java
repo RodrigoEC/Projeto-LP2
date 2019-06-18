@@ -26,6 +26,8 @@ public class PECTest {
         assertEquals("PEC", this.pec1.getTipoLei());
     }
 
+
+
     @Test
     void toStringTest(){
         assertEquals("Projeto de Emenda Constitucional - PEC 1/2016 - 061222222-0 - Permite a associacao sindical livre e com estrutura hierarquica - 7, 8 - EM VOTACAO (CCJC)", this.pec1.toString("PEC 1/2016"));

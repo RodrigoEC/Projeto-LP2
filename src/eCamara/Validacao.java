@@ -422,7 +422,7 @@ public class Validacao {
      * @throws IllegalArgumentException "Erro ao votar proposta: status invalido"
      *
      */
-    public void validaVotarComissao(String codigoDaLei, String statusGovernista, String proximoLocal) {
+    public void validaVotarComissao(String statusGovernista, String proximoLocal) {
         //validaString(codigoDaLei, "Erro ao votar proposta: codigo nao pode ser vazio ou nulo");
         validaString(statusGovernista, "Erro ao votar proposta: status nao pode ser vazio ou nulo");
         validaString(proximoLocal, "Erro ao votar proposta: proximo local vazio");

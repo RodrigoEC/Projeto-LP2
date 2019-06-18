@@ -56,7 +56,6 @@ public class PL extends ProjetoDeLeiAbstract {
         this.votacaoRealizadas++;
     }
 
-
     @Override
     public void addTurno() {
     }

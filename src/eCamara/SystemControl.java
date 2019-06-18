@@ -314,7 +314,7 @@ public class SystemControl {
      */
 
     public boolean votarComissao(String codigoDaLei, String statusGovernista, String proximoLocal) {
-        this.validaEntradas.validaVotarComissao(codigoDaLei, statusGovernista, proximoLocal);
+        this.validaEntradas.validaVotarComissao(statusGovernista, proximoLocal);
 
         if (!this.comissoes.containsKey("CCJC")) {
             throw new NullPointerException("Erro ao votar proposta: CCJC nao cadastrada");
@@ -373,7 +373,6 @@ public class SystemControl {
         if (!"plenario".equals(lei.getVotante())) {
             throw new IllegalArgumentException("Erro ao votar proposta: tramitacao em comissao");
         }
-
 
         boolean resultadoVotacao = this.votacao.votarPlenario(lei, statusGovernista, politicosPresentes, deputados, this.partidos);
 

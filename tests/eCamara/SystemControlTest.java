@@ -598,32 +598,398 @@ class SystemControlTest {
     void votarComissaoArgumentosInvalidos(){
         try{
             this.systemControl.votarComissao("PL 1/2016", null, "acula");
-            fail("era esperada uma excecao!");
-        } catch (NullPointerException npe){}
+            fail("Era esperada uma excecao!");
+        } catch(NullPointerException npe){}
 
         try{
             this.systemControl.votarComissao("PL 1/2016", "", "acula");
-            fail("era esperada uma excecao!");
-        } catch (IllegalArgumentException npe){}
+            fail("Era esperada uma excecao!");
+        } catch(IllegalArgumentException npe){}
+
+        try{
+            this.systemControl.votarComissao("PL 1/2016", "sei nao", "acula");
+            fail("Era esperada uma excecao!");
+        } catch(IllegalArgumentException npe){}
 
         try{
             this.systemControl.votarComissao("PL 1/2016", "governista", null);
-            fail("era esperada uma excecao!");
-        } catch (NullPointerException npe){}
+            fail("Era esperada uma excecao!");
+        } catch(NullPointerException npe){}
 
         try{
             this.systemControl.votarComissao("PL 1/2016", "governista", "");
-            fail("era esperada uma excecao!");
-        } catch (IllegalArgumentException npe){}
+            fail("Era esperada uma excecao!");
+        } catch(IllegalArgumentException npe){}
+
     }
 
     @Test
     void votarComissaoCCJCNaoCadastrada(){
-
+        try {
+            this.systemControl.votarComissao("PL 1/2016", "governista", "Ali");
+            fail("Era esperada uma excecao!");
+        } catch(NullPointerException npe){}
     }
 
     @Test
-    void votarComissaoCondicoesNormais(){
+    void votarComissaoProjetoInexistente(){
+        this.systemControl.cadastrarPessoa("Jurema", "051444444-0", "RO", "Educacao", "DEF");
+        this.systemControl.cadastraDeputado("051444444-0", "12012000");
+        this.systemControl.cadastrarComissao("CCJC", "051444444-0");
 
+        try {
+            this.systemControl.votarComissao("PL 1/2016", "governista", "Ali");
+            fail("Era esperada uma excecao!");
+        } catch(NullPointerException npe){}
+    }
+
+    //---------------------Votar Comissao - PLP--------------------------------
+    @Test
+    void votarComissaoEncaminhadaAoPlenario(){
+        this.systemControl.cadastraPartido("DEF");
+        this.systemControl.cadastraPartido("ABC");
+
+        this.systemControl.cadastrarPessoa("Jurema", "051444444-0", "RO", "Educacao", "DEF");
+        this.systemControl.cadastraDeputado("051444444-0", "12012000");
+
+        this.systemControl.cadastrarPessoa("Mateus Matia", "051222222-0","PE","","ABC");
+        this.systemControl.cadastraDeputado("051222222-0", "29022016");
+
+        this.systemControl.cadastrarComissao("CCJC","051222222-0,051444444-0");
+        this.systemControl.cadastrarPLP("051444444-0", 2016, "Institui a semana da nutricao nas escolas", "saude,educacao basica", "http://example.com/semana_saude", "1, 2, 3");
+
+        this.systemControl.votarComissao("PLP 1/2016", "governista", "num tem");
+
+        //Plenario nao cadastrado
+        try {
+            this.systemControl.votarComissao("PLP 1/2016", "governista", "plenario");
+            fail("Era esperada uma excecao!");
+        } catch(NullPointerException npe){}
+
+        //Votar no plenario lei que nao foi encaminhada
+        try{
+            this.systemControl.votarPlenario("PLP 1/2016", "governista", "051444444-0, 052444444-0, 053444444-0");
+            fail("Era esperada uma excecao!");
+        } catch(IllegalArgumentException iae){}
+
+        //votar lei que ja foi aprovada
+        this.systemControl.cadastrarPLP("051444444-0", 2016, "Institui a semana da nutricao nas escolas", "saude,educacao basica", "http://example.com/semana_saude", "1, 2, 3");
+        this.systemControl.cadastrarComissao("abc", "051444444-0");
+        this.systemControl.votarComissao("PLP 2/2016", "governista", "plenario");
+        this.systemControl.votarPlenario("PLP 2/2016", "governista", "051444444-0, 052444444-0, 053444444-0");
+        this.systemControl.votarPlenario("PLP 2/2016", "governista", "051444444-0, 052444444-0, 053444444-0");
+
+        //assertEquals("", this.systemControl.exibirTramitacao("PLP 2/2016"));
+
+        try {
+            this.systemControl.votarComissao("PLP 2/2016", "governista", "plenario");
+            fail("Era esperada uma excecao!");
+        } catch(NullPointerException npe){}
+    }
+
+    @Test
+    void votarPlenarioProjetoNaoDirecionado(){
+        this.systemControl.cadastrarPessoa("Jurema", "051444444-0", "RO", "Educacao", "DEF");
+        this.systemControl.cadastraDeputado("051444444-0", "12012000");
+        this.systemControl.cadastrarComissao("CCJC", "051444444-0");
+        this.systemControl.cadastrarPLP("051444444-0", 2016, "Institui a semana da nutricao nas escolas", "saude,educacao basica", "http://example.com/semana_saude", "1, 2, 3");
+
+        this.systemControl.votarComissao("PLP 1/2016", "governista", "idd");
+
+        try{
+            this.systemControl.votarPlenario("PLP 1/2016", "governista", "051444444-0");
+            fail("Era esperada uma excecao!");
+        } catch(IllegalArgumentException iae){}
+    }
+
+    @Test
+    void votarPlenarioCondicoesNormais(){
+
+        this.systemControl.cadastrarPessoa("Jurema", "051444444-0", "RO", "Educacao", "DEF");
+        this.systemControl.cadastraDeputado("051444444-0", "12012000");
+
+        this.systemControl.cadastrarPessoa("Mateus Matia", "051222222-0","PE","","ABC");
+        this.systemControl.cadastraDeputado("051222222-0", "29022016");
+
+        this.systemControl.cadastrarPessoa("Lucivania", "051111111-0", "RO", "Educacao", "DEF");
+        this.systemControl.cadastraDeputado("051111111-0", "12012000");
+
+        this.systemControl.cadastrarPessoa("Maurileide", "051555555-0","PE","","ABC");
+        this.systemControl.cadastraDeputado("051555555-0", "29022016");
+
+        this.systemControl.cadastrarComissao("CCJC","051222222-0,051444444-0");
+        this.systemControl.cadastrarPLP("051444444-0", 2016, "Institui a semana da nutricao nas escolas", "saude,educacao basica", "http://example.com/semana_saude", "1, 2, 3");
+
+        this.systemControl.votarComissao("PLP 1/2016", "oposicao", "plenario");
+        this.systemControl.votarPlenario("PLP 1/2016", "oposicao", "051222222-0,051444444-0,051111111-0,051555555-0");
+        this.systemControl.votarPlenario("PLP 1/2016", "oposicao", "051222222-0,051444444-0,051111111-0,051555555-0");
+    }
+
+    @Test
+    void votarPlenarioReprovadoPrimeiroTurno(){
+        this.systemControl.cadastraPartido("DEF");
+
+        this.systemControl.cadastrarPessoa("Jurema", "051444444-0", "RO", "Educacao", "DEF");
+        this.systemControl.cadastraDeputado("051444444-0", "12012000");
+
+        this.systemControl.cadastrarPessoa("Mateus Matia", "051222222-0","PE","","ABC");
+        this.systemControl.cadastraDeputado("051222222-0", "29022016");
+
+        this.systemControl.cadastrarPessoa("Lucivania", "051111111-0", "RO", "Educacao", "DEF");
+        this.systemControl.cadastraDeputado("051111111-0", "12012000");
+
+        this.systemControl.cadastrarPessoa("Maurileide", "051555555-0","PE","","ABC");
+        this.systemControl.cadastraDeputado("051555555-0", "29022016");
+
+        this.systemControl.cadastrarComissao("CCJC","051444444-0,051111111-0");
+        this.systemControl.cadastrarPLP("051444444-0", 2016, "Institui a semana da nutricao nas escolas", "saude,educacao basica", "http://example.com/semana_saude", "1, 2, 3");
+
+        this.systemControl.votarComissao("PLP 1/2016", "governista", "plenario");
+        this.systemControl.votarPlenario("PLP 1/2016", "governista", "051222222-0,051444444-0,051111111-0,051555555-0");
+
+        //votar projeto encerrado(ARQUIVADO)
+        try{
+            this.systemControl.votarComissao("PLP 1/2016", "governista", "plenario");
+            fail("Era esperada uma excecao!");
+        } catch(NullPointerException iae){}
+    }
+
+    //---------------------Votar Comissao - PEC------------------------------
+    @Test
+    void votarComissaoEncaminhadaAoPlenarioPEC(){
+        this.systemControl.cadastraPartido("DEF");
+        this.systemControl.cadastraPartido("ABC");
+
+        this.systemControl.cadastrarPessoa("Jurema", "051444444-0", "RO", "Educacao", "DEF");
+        this.systemControl.cadastraDeputado("051444444-0", "12012000");
+
+        this.systemControl.cadastrarPessoa("Mateus Matia", "051222222-0","PE","","ABC");
+        this.systemControl.cadastraDeputado("051222222-0", "29022016");
+
+        this.systemControl.cadastrarComissao("CCJC","051222222-0,051444444-0");
+        this.systemControl.cadastrarPEC("051444444-0", 2016, "Institui a semana da nutricao nas escolas", "saude,educacao basica", "http://example.com/semana_saude", "1, 2, 3");
+
+        this.systemControl.votarComissao("PEC 1/2016", "governista", "num tem");
+
+        //Plenario nao cadastrado
+        try {
+            this.systemControl.votarComissao("PEC 1/2016", "governista", "plenario");
+            fail("Era esperada uma excecao!");
+        } catch(NullPointerException npe){}
+
+        //Votar no plenario lei que nao foi encaminhada
+        try{
+            this.systemControl.votarPlenario("PEC 1/2016", "governista", "051444444-0, 052444444-0, 053444444-0");
+            fail("Era esperada uma excecao!");
+        } catch(IllegalArgumentException iae){}
+
+        //votar lei que ja foi aprovada
+        this.systemControl.cadastrarPEC("051444444-0", 2016, "Institui a semana da nutricao nas escolas", "saude,educacao basica", "http://example.com/semana_saude", "1, 2, 3");
+        this.systemControl.cadastrarComissao("abc", "051444444-0");
+        this.systemControl.votarComissao("PEC 2/2016", "governista", "plenario");
+        this.systemControl.votarPlenario("PEC 2/2016", "governista", "051444444-0, 052444444-0, 053444444-0");
+        this.systemControl.votarPlenario("PEC 2/2016", "governista", "051444444-0, 052444444-0, 053444444-0");
+
+        //assertEquals("", this.systemControl.exibirTramitacao("PLP 2/2016"));
+
+        try {
+            this.systemControl.votarComissao("PEC 2/2016", "governista", "plenario");
+            fail("Era esperada uma excecao!");
+        } catch(NullPointerException npe){}
+    }
+
+    @Test
+    void votarPlenarioProjetoNaoDirecionadoPEC(){
+        this.systemControl.cadastrarPessoa("Jurema", "051444444-0", "RO", "Educacao", "DEF");
+        this.systemControl.cadastraDeputado("051444444-0", "12012000");
+        this.systemControl.cadastrarComissao("CCJC", "051444444-0");
+        this.systemControl.cadastrarPEC("051444444-0", 2016, "Institui a semana da nutricao nas escolas", "saude,educacao basica", "http://example.com/semana_saude", "1, 2, 3");
+
+        this.systemControl.votarComissao("PEC 1/2016", "governista", "idd");
+
+        try{
+            this.systemControl.votarPlenario("PEC 1/2016", "governista", "051444444-0");
+            fail("Era esperada uma excecao!");
+        } catch(IllegalArgumentException iae){}
+    }
+
+    @Test
+    void votarPlenarioCondicoesNormaisPEC(){
+
+        this.systemControl.cadastrarPessoa("Jurema", "051444444-0", "RO", "Educacao", "DEF");
+        this.systemControl.cadastraDeputado("051444444-0", "12012000");
+
+        this.systemControl.cadastrarPessoa("Mateus Matia", "051222222-0","PE","Educacao","ABC");
+        this.systemControl.cadastraDeputado("051222222-0", "29022016");
+
+        this.systemControl.cadastrarPessoa("Lucivania", "051111111-0", "RO", "Educacao", "DEF");
+        this.systemControl.cadastraDeputado("051111111-0", "12012000");
+
+        this.systemControl.cadastrarPessoa("Maurileide", "051555555-0","PE","saude","ABC");
+        this.systemControl.cadastraDeputado("051555555-0", "29022016");
+
+        this.systemControl.cadastrarPessoa("Carlucia", "05777777-0", "RO", "Educacao", "DEF");
+        this.systemControl.cadastraDeputado("05777777-0", "12012000");
+
+        this.systemControl.cadastrarComissao("CCJC","051222222-0,051444444-0,051111111-0,051555555-0,05777777-0");
+        this.systemControl.cadastrarPEC("051444444-0", 2016, "Institui a semana da nutricao nas escolas", "Educacao", "http://example.com/semana_saude", "1, 2, 3");
+
+        this.systemControl.votarComissao("PEC 1/2016", "livre", "plenario");
+        this.systemControl.votarPlenario("PEC 1/2016", "livre", "051222222-0,051444444-0,051111111-0,051555555-0,05777777-0");
+        this.systemControl.votarPlenario("PEC 1/2016", "livre", "051222222-0,051444444-0,051111111-0,051555555-0,05777777-0");
+    }
+
+    @Test
+    void votarPlenarioReprovadoPrimeiroTurnoPEC(){
+        this.systemControl.cadastraPartido("DEF");
+
+        this.systemControl.cadastrarPessoa("Jurema", "051444444-0", "RO", "Educacao", "DEF");
+        this.systemControl.cadastraDeputado("051444444-0", "12012000");
+
+        this.systemControl.cadastrarPessoa("Mateus Matia", "051222222-0","PE","","ABC");
+        this.systemControl.cadastraDeputado("051222222-0", "29022016");
+
+        this.systemControl.cadastrarPessoa("Lucivania", "051111111-0", "RO", "Educacao", "DEF");
+        this.systemControl.cadastraDeputado("051111111-0", "12012000");
+
+        this.systemControl.cadastrarPessoa("Maurileide", "051555555-0","PE","","ABC");
+        this.systemControl.cadastraDeputado("051555555-0", "29022016");
+
+        this.systemControl.cadastrarComissao("CCJC","051444444-0,051111111-0");
+        this.systemControl.cadastrarPEC("051444444-0", 2016, "Institui a semana da nutricao nas escolas", "saude,educacao basica", "http://example.com/semana_saude", "1, 2, 3");
+
+        this.systemControl.votarComissao("PEC 1/2016", "governista", "plenario");
+        this.systemControl.votarPlenario("PEC 1/2016", "governista", "051222222-0,051444444-0,051111111-0,051555555-0");
+
+        //votar projeto encerrado(ARQUIVADO)
+        try{
+            this.systemControl.votarComissao("PEC 1/2016", "governista", "plenario");
+            fail("Era esperada uma excecao!");
+        } catch(NullPointerException iae){}
+    }
+
+    //---------------------Votar Comissao - PL------------------------------
+    @Test
+    void votarComissaoEncaminhadaAoPlenarioPL(){
+        this.systemControl.cadastraPartido("DEF");
+        this.systemControl.cadastraPartido("ABC");
+
+        this.systemControl.cadastrarPessoa("Jurema", "051444444-0", "RO", "Educacao", "DEF");
+        this.systemControl.cadastraDeputado("051444444-0", "12012000");
+
+        this.systemControl.cadastrarPessoa("Mateus Matia", "051222222-0","PE","","ABC");
+        this.systemControl.cadastraDeputado("051222222-0", "29022016");
+
+        this.systemControl.cadastrarComissao("CCJC","051222222-0,051444444-0");
+        this.systemControl.cadastrarPL("051444444-0", 2016, "Institui a semana da nutricao nas escolas", "saude,educacao basica", "http://example.com/semana_saude", true);
+
+        this.systemControl.votarComissao("PL 1/2016", "governista", "num tem");
+
+        //Plenario nao cadastrado
+        try {
+            this.systemControl.votarComissao("PL 1/2016", "governista", "plenario");
+            fail("Era esperada uma excecao!");
+        } catch(NullPointerException npe){}
+
+        //Votar no plenario lei que nao foi encaminhada
+        try{
+            this.systemControl.votarPlenario("PL 1/2016", "governista", "051444444-0, 052444444-0, 053444444-0");
+            fail("Era esperada uma excecao!");
+        } catch(IllegalArgumentException iae){}
+
+        //votar lei que ja foi aprovada
+        this.systemControl.cadastrarPL("051444444-0", 2016, "Institui a semana da nutricao nas escolas", "saude,educacao basica", "http://example.com/semana_saude", true);
+        this.systemControl.cadastrarComissao("abc", "051444444-0");
+        this.systemControl.votarComissao("PL 2/2016", "governista", "plenario");
+
+        //assertEquals("", this.systemControl.exibirTramitacao("PLP 2/2016"));
+
+        try {
+            this.systemControl.votarComissao("PL 2/2016", "governista", "plenario");
+            fail("Era esperada uma excecao!");
+        } catch(NullPointerException npe){}
+    }
+
+    @Test
+    void votarPlenarioProjetoNaoDirecionadoPL(){
+        this.systemControl.cadastrarPessoa("Jurema", "051444444-0", "RO", "Educacao", "DEF");
+        this.systemControl.cadastraDeputado("051444444-0", "12012000");
+        this.systemControl.cadastrarComissao("CCJC", "051444444-0");
+        this.systemControl.cadastrarPL("051444444-0", 2016, "Institui a semana da nutricao nas escolas", "saude,educacao basica", "http://example.com/semana_saude", true);
+
+        this.systemControl.votarComissao("PL 1/2016", "governista", "idd");
+
+        try{
+            this.systemControl.votarPlenario("PL 1/2016", "governista", "051444444-0");
+            fail("Era esperada uma excecao!");
+        } catch(IllegalArgumentException iae){}
+    }
+
+    @Test
+    void votarPlenarioCondicoesNormaisPL(){
+        this.systemControl.cadastraPartido("DEF");
+        this.systemControl.cadastraPartido("ABC");
+
+        this.systemControl.cadastrarPessoa("Jurema", "051444444-0", "RO", "Educacao", "DEF");
+        this.systemControl.cadastraDeputado("051444444-0", "12012000");
+
+        this.systemControl.cadastrarPessoa("Mateus Matia", "051222222-0","PE","","ABC");
+        this.systemControl.cadastraDeputado("051222222-0", "29022016");
+
+        this.systemControl.cadastrarPessoa("Lucivania", "051111111-0", "RO", "Educacao", "DEF");
+        this.systemControl.cadastraDeputado("051111111-0", "12012000");
+
+        this.systemControl.cadastrarPessoa("Maurileide", "051555555-0","PE","","ABC");
+        this.systemControl.cadastraDeputado("051555555-0", "29022016");
+
+        this.systemControl.cadastrarComissao("CCJC","051222222-0,051444444-0");
+        this.systemControl.cadastrarPL("051444444-0", 2016, "Institui a semana da nutricao nas escolas", "saude,educacao basica", "http://example.com/semana_saude", true);
+
+        this.systemControl.votarComissao("PL 1/2016", "governista", "plenario");
+        this.systemControl.votarPlenario("PL 1/2016", "governista", "051222222-0,051444444-0,051111111-0,051555555-0");
+    }
+
+    @Test
+    void votarPlenarioReprovadoPrimeiroTurnoPL(){
+        this.systemControl.cadastraPartido("DEF");
+
+        this.systemControl.cadastrarPessoa("Jurema", "051444444-0", "RO", "Educacao", "DEF");
+        this.systemControl.cadastraDeputado("051444444-0", "12012000");
+
+        this.systemControl.cadastrarPessoa("Mateus Matia", "051222222-0","PE","","ABC");
+        this.systemControl.cadastraDeputado("051222222-0", "29022016");
+
+        this.systemControl.cadastrarPessoa("Lucivania", "051111111-0", "RO", "Educacao", "DEF");
+        this.systemControl.cadastraDeputado("051111111-0", "12012000");
+
+        this.systemControl.cadastrarPessoa("Maurileide", "051555555-0","PE","","ABC");
+        this.systemControl.cadastraDeputado("051555555-0", "29022016");
+
+        this.systemControl.cadastrarComissao("CCJC","051444444-0,051111111-0");
+        this.systemControl.cadastrarPL("051444444-0", 2016, "Institui a semana da nutricao nas escolas", "saude,educacao basica", "http://example.com/semana_saude", true);
+
+        this.systemControl.votarComissao("PL 1/2016", "governista", "plenario");
+        this.systemControl.votarPlenario("PL 1/2016", "governista", "051222222-0,051444444-0,051111111-0,051555555-0");
+
+        //votar projeto encerrado(ARQUIVADO)
+        try{
+            this.systemControl.votarComissao("PL 1/2016", "governista", "plenario");
+            fail("Era esperada uma excecao!");
+        } catch(NullPointerException iae){}
+    }
+
+    @Test
+    void ExibirTramitacaoTest(){
+        this.systemControl.cadastraPartido("ABC");
+
+        this.systemControl.cadastrarPessoa("Maurileide", "051444444-0","PE","","ABC");
+        this.systemControl.cadastraDeputado("051444444-0", "29022016");
+
+        this.systemControl.cadastrarComissao("CCJC","051444444-0");
+        this.systemControl.cadastrarPLP("051444444-0", 2016, "Institui a semana da nutricao nas escolas", "saude,educacao basica", "http://example.com/semana_saude", "1, 2, 3");
+
+        this.systemControl.votarComissao("PLP 1/2016", "governista", "plenario");
+
+        assertEquals("APROVADO (CCJC), EM VOTACAO (Plenario - 1o turno)", this.systemControl.exibirTramitacao("PLP 1/2016"));
     }
 }

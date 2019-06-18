@@ -24,6 +24,7 @@ public class PLTest {
         assertEquals("saude,educacao basica", this.pl1.getInteresses());
         assertEquals("http://example.com/semana_saude", this.pl1.getUrl());
         assertTrue(this.pl1.isConclusivo());
+        assertEquals("PL", this.pl1.getTipoLei());
     }
 
     @Test

@@ -23,6 +23,7 @@ public class PLPTest {
         assertEquals("fiscal,jogos", this.plp1.getInteresses());
         assertEquals("https://example.net/jogos%40aposta", this.plp1.getUrl());
         assertEquals("153", this.plp1.getArtigos());
+        assertEquals("PLP", this.plp1.getTipoLei());
     }
 
     @Test

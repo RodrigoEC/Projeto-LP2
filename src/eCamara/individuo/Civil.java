@@ -23,7 +23,7 @@ public class Civil implements Funcao {
      */
     @Override
     public int getQtdLeis() {
-        return 45;
+        return 0;
     }
 
     /**

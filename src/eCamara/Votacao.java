@@ -69,7 +69,7 @@ public class Votacao {
             if (votosAFavor >= mapaTotalDeputados.size() / 2 + 1) {
                 lei.addTurno();
                 lei.setTramitacao(true);
-                lei.setSituacao(true, "plenario");
+                lei.setSituacao(true, "senado");
 
                 return true;
             }
@@ -78,7 +78,7 @@ public class Votacao {
             if (votosAFavor >= mapaTotalDeputados.size() * 3 / 5 + 1) {
                 lei.addTurno();
                 lei.setTramitacao(true);
-                lei.setSituacao(true, "plenario");
+                lei.setSituacao(true, "senado");
                 return true;
             }
 
@@ -88,13 +88,13 @@ public class Votacao {
             if (votosAFavor >= deputadosPresentes.size() / 2 + 1) {
                 lei.addTurno();
                 lei.setTramitacao(true);
-                lei.setSituacao(true, "plenario");
+                lei.setSituacao(true, "senado");
                 return true;
             }
         }
         lei.addTurno();
         lei.setTramitacao(false);
-        lei.setSituacao(false, "plenario");
+        lei.setSituacao(false, "encerrado");
         return false;
     }
 
