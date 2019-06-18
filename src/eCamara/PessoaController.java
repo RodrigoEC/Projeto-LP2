@@ -57,7 +57,7 @@ public class PessoaController {
     }
 
     /**
-     * Metodo que cadastra um Pessoa que tem partido. Recebe Strings com o nome, dni, estado, interesses e
+     * Metodo que cadastra uma Pessoa que tem partido. Recebe Strings com o nome, dni, estado, interesses e
      * partido. Delega a validacao para o objeto validador Validacao, faz uso do seu metodo validarCadastroPessoa.
      * Tambem verifica (antes de inserir no Map) se a Pessoa ja se encontra cadastrada pelo seu dni, se ja estiver sera
      * lancada excecao, se nao tiver sera cadastrada com sucesso.

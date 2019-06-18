@@ -23,7 +23,7 @@ public class Comissao {
     private HashMap<String, Pessoa> mapDeputados;
 
     /**
-     * Constroi a Comissao, recebe uma string com o tema e mapa de politicos.
+     * Constroi a Comissao, recebe uma string com o tema e o mapa de politicos.
      * @param tema String com o tema.
      * @param mapDeputados Map com os politicos.
      */
@@ -48,7 +48,7 @@ public class Comissao {
     }
 
     /**
-     * Metodo que calcula o hashcode de Comissao, o hashcode eh calculado a partir do atribto tema.
+     * Metodo que calcula o hashcode de Comissao, o hashcode eh calculado a partir do atributo tema.
      *
      * @return Inteiro referente ao calculo do hashcode.
      */

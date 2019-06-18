@@ -18,7 +18,7 @@ public class Civil implements Funcao {
     }
 
     /**
-     * Metodoq ue retona a quantidade leis.
+     * Metodo que retona a quantidade de leis.
      * @return Inteiro 45.
      */
     @Override
@@ -27,7 +27,7 @@ public class Civil implements Funcao {
     }
 
     /**
-     * Metodoq ue adiciona lei, porem um civil nao tem lei, entao nao faz nada.
+     * Metodo que adiciona lei, porem um civil nao tem lei, entao nao faz nada.
      */
     @Override
     public void addLei() {

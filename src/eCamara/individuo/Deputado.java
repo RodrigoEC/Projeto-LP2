@@ -79,11 +79,19 @@ public class Deputado implements Funcao {
         return "POL: " + toString + " - " + dataFormatada + " - " + this.qtdLeis + " Leis";
     }
 
+    /**
+     * Metodo responsavel por adicionar uma lei na quantidade de leis criadas por um deputado.
+     */
+
     @Override
     public void addLei() {
         this.qtdLeis++;
     }
 
+    /**
+     * Recupera a quantidade de leis criadas por um deputado.
+     * @return qtdLeis
+     */
     @Override
     public int getQtdLeis() {
         return qtdLeis;

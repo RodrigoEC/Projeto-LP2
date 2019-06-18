@@ -92,7 +92,7 @@ public class PEC extends ProjetoDeLeiAbstract {
 
     /**
      * Metodo responsavel por modificar a situacao do projeto na camara.
-     * - Caso o resultado da votacao seja FALSE e a quantidade de turnos seja igual a 2 o a string "REJEITADO ([votante])
+     * - Caso o resultado da votacao seja FALSE e a quantidade de turnos seja igual a 2 a string "REJEITADO ([votante])
      * eh adicionado ao atributo tramitacao e a situcao eh modificada para "ARQUIVADO".
      * - Caso o estadoAprovacao seja true e a quantidade de turnos seja iguala a 2 a string "APROVADO ([votante]) eh
      * adicionado ao atributo tramitacao e a situcao eh modificada para "APROVADO".

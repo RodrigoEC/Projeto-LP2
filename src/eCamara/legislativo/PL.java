@@ -43,7 +43,7 @@ public class PL extends ProjetoDeLeiAbstract {
     }
 
     /**
-     * Metodoq ue adciona mais 1 na contagem de quantas votacoes foram realizada. Porem se o contador ja tiver atingido o
+     * Metodo que adiciona mais 1 na contagem de quantas votacoes foram realizada. Porem se o contador ja tiver atingido o
      * valor de 2 e esse metodo for chamado sera lancado excecao.
      *
      * @throws IllegalArgumentException Erro ao votar proposta: tramitacao encerrada
@@ -56,6 +56,7 @@ public class PL extends ProjetoDeLeiAbstract {
         this.votacaoRealizadas++;
     }
 
+    /** Metodo responsavel por adicionar 1 ao atributo turno.*/
     @Override
     public void addTurno() {
     }
