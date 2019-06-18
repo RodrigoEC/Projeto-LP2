@@ -29,6 +29,7 @@ class PessoaTest {
         assertEquals("0034240-234", this.p2.getDni());
         assertEquals("LRG - LIBERA RINHA DE GALO", this.p2.getPartido());
         assertEquals("Rinha de galo", this.p2.getInteresses());
+        assertEquals(0, this.p2.getQtdLei());
     }
 
     @Test

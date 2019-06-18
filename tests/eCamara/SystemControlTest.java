@@ -723,6 +723,11 @@ class SystemControlTest {
         this.systemControl.votarComissao("PLP 1/2016", "oposicao", "plenario");
         this.systemControl.votarPlenario("PLP 1/2016", "oposicao", "051222222-0,051444444-0,051111111-0,051555555-0");
         this.systemControl.votarPlenario("PLP 1/2016", "oposicao", "051222222-0,051444444-0,051111111-0,051555555-0");
+
+        try{
+            this.systemControl.votarPlenario("PLP 1/2016", "oposicao", "051222222-0,051444444-0,051111111-0,051555555-0");
+            fail("Era esperada uma excecao!");
+        } catch(IllegalArgumentException iae){}
     }
 
     @Test
@@ -789,8 +794,6 @@ class SystemControlTest {
         this.systemControl.votarComissao("PEC 2/2016", "governista", "plenario");
         this.systemControl.votarPlenario("PEC 2/2016", "governista", "051444444-0, 052444444-0, 053444444-0");
         this.systemControl.votarPlenario("PEC 2/2016", "governista", "051444444-0, 052444444-0, 053444444-0");
-
-        //assertEquals("", this.systemControl.exibirTramitacao("PLP 2/2016"));
 
         try {
             this.systemControl.votarComissao("PEC 2/2016", "governista", "plenario");

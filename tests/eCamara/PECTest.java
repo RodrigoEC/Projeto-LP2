@@ -5,6 +5,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 public class PECTest {
 
@@ -25,12 +26,20 @@ public class PECTest {
         assertEquals("7,8", this.pec1.getArtigos());
         assertEquals("PEC", this.pec1.getTipoLei());
     }
-
-
-
     @Test
     void toStringTest(){
         assertEquals("Projeto de Emenda Constitucional - PEC 1/2016 - 061222222-0 - Permite a associacao sindical livre e com estrutura hierarquica - 7, 8 - EM VOTACAO (CCJC)", this.pec1.toString("PEC 1/2016"));
+    }
+
+    @Test
+    void addTurnoTest(){
+        this.pec1.addTurno();
+        this.pec1.addTurno();
+
+        try{
+            this.pec1.addTurno();
+            fail("Era esperada uma excecao!");
+        } catch(NullPointerException npe){}
     }
 
 }
