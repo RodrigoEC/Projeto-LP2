@@ -455,5 +455,16 @@ public class SystemControl {
     public String exibirTramitacao(String codigo) {
         return this.controllerLeis.exibirTramitacao(codigo);
     }
+
+    public void configurarEstrategiaPropostaRelacionada(String dni, String estrategia) {
+        this.validaEntradas.validaconfigurarEstrategiaPropostaRelacionada(dni, estrategia);
+
+        this.controllerPessoas.configurarEstrategiaPropostaRelacionada(dni, estrategia);
+
+    }
+
+    public String pegarPropostaRelacionada(String dni) {
+        return "";
+    }
 }
 

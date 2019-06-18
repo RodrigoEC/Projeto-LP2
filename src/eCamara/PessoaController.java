@@ -170,4 +170,12 @@ public class PessoaController {
         return this.mapPessoas.get(dni);
 
     }
+
+    public void configurarEstrategiaPropostaRelacionada(String dni, String estrategia) {
+        if(!this.mapPessoas.containsKey(dni)){
+            throw new IllegalArgumentException("Erro ao configurar estrategia da proposta relacionada: pessoa nao cadastrada");
+        }
+
+        this.mapPessoas.get(dni).configurarEstrategiaPropostaRelacionada(estrategia);
+    }
 }

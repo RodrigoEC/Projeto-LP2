@@ -81,6 +81,14 @@ public class Facade {
         return this.systemControl.exibirTramitacao(codigo);
     }
 
+    public void configurarEstrategiaPropostaRelacionada(String dni, String estrategia){
+        this.systemControl.configurarEstrategiaPropostaRelacionada(dni, estrategia);
+    }
+
+    public String pegarPropostaRelacionada(String dni){
+        return this.systemControl.pegarPropostaRelacionada(dni);
+    }
+
     public void carregarSistema(){
 
     }

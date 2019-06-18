@@ -448,4 +448,16 @@ public class Validacao {
         validaString(politicosPresentes, "Erro ao votar proposta: deputados presentes vazio");
         validaGovernista(statusGovernista, "Erro ao votar proposta: status invalido");
     }
+
+    public void validaconfigurarEstrategiaPropostaRelacionada(String dni, String estrategia) {
+        validaString(dni, "Erro ao configurar estrategia de proposta relacionada: dni nao pode ser vazio ou nulo");
+        validaString(estrategia, "Erro ao configurar estrategia de proposta relacionada: estrategia nao pode ser vazia ou nula");
+        validaEstrategia(estrategia, "Erro ao configurar estrategia de proposta relacionada: estrategia invalida");
+    }
+
+    private void validaEstrategia(String estrategia, String s) {
+        if (!estrategia.toLowerCase().equals("constitucional") && !estrategia.toLowerCase().equals("conclusao") && !estrategia.toLowerCase().equals("aprovacao")){
+            throw new IllegalArgumentException(s);
+        }
+    }
 }

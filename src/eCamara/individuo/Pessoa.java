@@ -21,6 +21,8 @@ public class Pessoa {
     private String interesses; // precisa virar um ArrayList (US7)
     /** Funcao do tipo Funcao. */
     private Funcao funcao;
+    /** estrategia do tipo EstrategiaPropostaRelacionada **/
+    private EstrategiaPropostaRelacionada estrategia;
     /** validaEntrada do tipo Validacao*/
     private Validacao validaEntrada;
 
@@ -43,6 +45,7 @@ public class Pessoa {
         this.estado = estado;
         this.interesses = interesses;
         this.funcao = new Civil();
+        this.estrategia = new Constitucional();
     }
 
     /**
@@ -229,5 +232,15 @@ public class Pessoa {
             return true;
         }
         return false;
+    }
+
+    public void configurarEstrategiaPropostaRelacionada(String estrategia) {
+        if (estrategia.toLowerCase().equals("constitucional")){
+            this.estrategia = new Constitucional();
+        } else if(estrategia.toLowerCase().equals("conclusao")){
+            this.estrategia = new Conclusao();
+        } else if (estrategia.toLowerCase().equals("aprovacao")){
+            this.estrategia = new Aprovacao();
+        }
     }
 }
