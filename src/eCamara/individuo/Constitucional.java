@@ -14,7 +14,7 @@ public class Constitucional implements EstrategiaProposta {
         HashMap<String, ProjetoDeLei> propostasRelacionadas = new HashMap<>();
 
         for (String proposta: leis.keySet()){
-            if(interesseComum(leis.get(proposta), interesses)){
+            if(interesseComum(leis.get(proposta), interesses) && leis.get(proposta).emTramite()){
                 propostasRelacionadas.put(proposta, leis.get(proposta));
             }
         }
@@ -28,15 +28,9 @@ public class Constitucional implements EstrategiaProposta {
             if (propostasRelacionadas.get(proposta).getTipoLei().toLowerCase().equals("pec")){
                 propostasPec.add(proposta);
             }
-        }
-
-        for (String proposta: propostasRelacionadas.keySet()){
             if (propostasRelacionadas.get(proposta).getTipoLei().toLowerCase().equals("plp")){
                 propostasPlp.add(proposta);
             }
-        }
-
-        for (String proposta: propostasRelacionadas.keySet()){
             if (propostasRelacionadas.get(proposta).getTipoLei().toLowerCase().equals("pl")){
                 propostasPl.add(proposta);
             }
@@ -49,12 +43,14 @@ public class Constitucional implements EstrategiaProposta {
             }
 
             return propostasPec.get(propostaMaisAntiga(propostasPec));
+
         } else if (propostasPlp.size() > 0){
             if (propostasPlp.size() == 1){
                 return propostasPlp.get(0);
             }
 
             return propostasPlp.get(propostaMaisAntiga(propostasPlp));
+
         } else if (propostasPl.size() > 0){
             if (propostasPl.size() == 1){
                 return propostasPl.get(0);
@@ -63,7 +59,7 @@ public class Constitucional implements EstrategiaProposta {
             return propostasPl.get(propostaMaisAntiga(propostasPl));
         }
 
-        return "kd a proposta meu pai";
+        return "";
     }
 
     private int propostaMaisAntiga(ArrayList<String> propostasPec) {

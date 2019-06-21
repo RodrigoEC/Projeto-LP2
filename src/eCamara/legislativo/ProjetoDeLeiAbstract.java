@@ -64,7 +64,6 @@ public abstract class ProjetoDeLeiAbstract implements ProjetoDeLei {
      */
     protected String tipoLei;
 
-
     /**
      * Construtor responsavel por inicializar os atributosque do objeto ProjetoDeLeiAbstract.
      *
@@ -199,7 +198,12 @@ public abstract class ProjetoDeLeiAbstract implements ProjetoDeLei {
         this.votacaoRealizadas++;
     }
 
-
+    public boolean emTramite(){
+        if (this.getSituacao().toLowerCase().equals("aprovado") || this.getSituacao().toLowerCase().equals("arquivado")){
+            return false;
+        }
+        return true;
+    }
 }
 
 

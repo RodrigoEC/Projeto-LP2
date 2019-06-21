@@ -80,4 +80,5 @@ public interface ProjetoDeLei {
      */
     void addTurno();
 
+    boolean emTramite();
 }
