@@ -464,7 +464,7 @@ public class SystemControl {
     }
 
     public String pegarPropostaRelacionada(String dni) {
-        return "";
+        return this.controllerPessoas.pegarPropostaRelacionada(dni, this.controllerLeis.getLeis());
     }
 }
 

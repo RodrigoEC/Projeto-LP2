@@ -2,6 +2,7 @@ package eCamara;
 
 import eCamara.individuo.Deputado;
 import eCamara.individuo.Pessoa;
+import eCamara.legislativo.ProjetoDeLei;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -177,5 +178,13 @@ public class PessoaController {
         }
 
         this.mapPessoas.get(dni).configurarEstrategiaPropostaRelacionada(estrategia);
+    }
+
+    public String pegarPropostaRelacionada(String dni, Map<String, ProjetoDeLei> leis) {
+        if(!this.mapPessoas.containsKey(dni)){
+            throw new IllegalArgumentException("Erro ao pegar proposta relacionada: pessoa nao cadastrada");
+        }
+
+        return this.mapPessoas.get(dni).pegarPropostaRelacionada(leis);
     }
 }

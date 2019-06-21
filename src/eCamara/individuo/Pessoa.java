@@ -1,7 +1,10 @@
 package eCamara.individuo;
 
 import eCamara.Validacao;
+import eCamara.legislativo.ProjetoDeLei;
 
+import java.util.HashSet;
+import java.util.Map;
 import java.util.Objects;
 
 /**
@@ -21,8 +24,8 @@ public class Pessoa {
     private String interesses; // precisa virar um ArrayList (US7)
     /** Funcao do tipo Funcao. */
     private Funcao funcao;
-    /** estrategia do tipo EstrategiaPropostaRelacionada **/
-    private EstrategiaPropostaRelacionada estrategia;
+    /** estrategia do tipo EstrategiaProposta **/
+    private EstrategiaProposta estrategia;
     /** validaEntrada do tipo Validacao*/
     private Validacao validaEntrada;
 
@@ -242,5 +245,15 @@ public class Pessoa {
         } else if (estrategia.toLowerCase().equals("aprovacao")){
             this.estrategia = new Aprovacao();
         }
+    }
+
+    public String pegarPropostaRelacionada(Map<String, ProjetoDeLei> leis){
+        HashSet<String> grupo = new HashSet<>();
+
+        for (String interesse: this.interesses.trim().split(",")){
+            grupo.add(interesse);
+        }
+
+        return estrategia.pegarPropostaRelacionada(leis, grupo);
     }
 }

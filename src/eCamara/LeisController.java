@@ -158,5 +158,4 @@ public class LeisController {
         return this.leis.get(codigo).getTramitacao() + this.leis.get(codigo).getSituacao();
     }
 
-
 }
