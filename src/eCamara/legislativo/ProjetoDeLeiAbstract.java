@@ -5,7 +5,7 @@ import eCamara.Validacao;
 import java.util.ArrayList;
 
 /**
- * Classe abstrata de lei para reuso de cofdigo. Tem como atributos votante, dniAutor, ano, votacaoRealizadas, ementa
+ * Classe abstrata de lei para reuso de codigo. Tem como atributos votante, dniAutor, ano, votacaoRealizadas, ementa
  * interesses, url, situacao, tramiacao e o objeto para validar entradas.
  */
 public abstract class ProjetoDeLeiAbstract implements ProjetoDeLei {

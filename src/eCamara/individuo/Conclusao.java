@@ -14,8 +14,14 @@ public class Conclusao extends EstrategiaPropostaAbstract {
         HashMap<String, ProjetoDeLei> propostasRelacionadas = new HashMap<>();
 
         for (String proposta: leis.keySet()){
-            if (leis.get(proposta).emTramite() && super.interesseComum(leis.get(proposta), interesses)){
-                propostasRelacionadas.put(proposta, leis.get(proposta));
+            if (leis.get(proposta).emTramite()){
+                propostasRelacionadas = super.interesseComum(leis, interesses);
+            }
+        }
+
+        if(propostasRelacionadas.size() == 1){
+            for (String proposta: propostasRelacionadas.keySet()){
+                return proposta;
             }
         }
 
