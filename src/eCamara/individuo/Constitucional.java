@@ -14,7 +14,7 @@ public class Constitucional extends EstrategiaPropostaAbstract {
         HashMap<String, ProjetoDeLei> propostasRelacionadas = new HashMap<>();
 
         for (String proposta: leis.keySet()){
-            if(super.interesseComum(leis.get(proposta), interesses) && leis.get(proposta).emTramite()){
+            if (leis.get(proposta).emTramite() && super.interesseComum(leis.get(proposta), interesses)){
                 propostasRelacionadas.put(proposta, leis.get(proposta));
             }
         }

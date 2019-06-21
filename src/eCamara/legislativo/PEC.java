@@ -78,12 +78,14 @@ public class PEC extends ProjetoDeLeiAbstract {
     public void setTramitacao(boolean aprovadoOuNao) {
         if (aprovadoOuNao && "plenario".equals(this.votante.toLowerCase())) {
             this.tramitacao += String.format("APROVADO (plenario %do turno), ", this.turno);
+            super.qntAprovacoes += 1;
 
         } else if (!aprovadoOuNao && "plenario".equals(this.votante.toLowerCase())) {
             this.tramitacao += String.format("REJEITADO (plenario %do turno), ", this.turno);
 
         } else if (aprovadoOuNao) {
             this.tramitacao += String.format("APROVADO (%s), ",this.votante);
+            super.qntAprovacoes += 1;
 
         } else {
             this.tramitacao += String.format("REJEITADO (%s), ", this.votante);

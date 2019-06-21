@@ -64,6 +64,8 @@ public abstract class ProjetoDeLeiAbstract implements ProjetoDeLei {
      */
     protected String tipoLei;
 
+    protected int qntAprovacoes;
+
     /**
      * Construtor responsavel por inicializar os atributosque do objeto ProjetoDeLeiAbstract.
      *
@@ -86,6 +88,7 @@ public abstract class ProjetoDeLeiAbstract implements ProjetoDeLei {
         this.tramitacao = "";
         this.votacaoRealizadas = 0;
         this.tipoLei = "";
+        this.qntAprovacoes = 0;
     }
 
     /**
@@ -203,6 +206,10 @@ public abstract class ProjetoDeLeiAbstract implements ProjetoDeLei {
             return false;
         }
         return true;
+    }
+
+    public int getQntAprovacoes(){
+        return this.qntAprovacoes;
     }
 }
 

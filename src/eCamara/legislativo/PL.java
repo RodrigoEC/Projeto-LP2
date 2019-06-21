@@ -73,6 +73,7 @@ public class PL extends ProjetoDeLeiAbstract {
     public void setTramitacao(boolean aprovadoOuNao) {
         if (aprovadoOuNao && !"ARQUIVADO".equals(this.situacao) && !"APROVADO".equals(this.situacao)) {
             this.tramitacao += String.format("APROVADO (%s), ",this.votante);
+            super.qntAprovacoes += 1;
 
         } else if (!aprovadoOuNao && !"ARQUIVADO".equals(this.situacao) && !"APROVADO".equals(this.situacao)) {
             this.tramitacao += String.format("REJEITADO (%s), ", this.votante);
