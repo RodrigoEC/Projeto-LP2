@@ -7,8 +7,21 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
+/**
+ * Classe que define a estrategia CONSTITUCIONAL para pegar a proposta mais relacionada com determinada pessoa.
+ */
 public class Constitucional extends EstrategiaPropostaAbstract {
 
+    /**
+     * Metodo que retorna o codigo da proposta mais relacionada com uma pessoa. Recebe como parametros um map com
+     * todas as leis e um set com os interesses de uma pessoa. Nesta estrategia, o criterio utilizado e a proximidade
+     * que determinada lei esta de alterar a constituicao, na ordem crescente: PL - PLP - PEC.
+     *
+     * @param leis as leis cadastradas.
+     * @param interesses os interesses da pessoa.
+     *
+     * @return o codigo da proposta de lei mais relacionada com a pessoa.
+     */
     @Override
     public String pegarPropostaRelacionada(Map<String, ProjetoDeLei> leis, Set<String> interesses) {
         HashMap<String, ProjetoDeLei> propostasRelacionadas = new HashMap<>();

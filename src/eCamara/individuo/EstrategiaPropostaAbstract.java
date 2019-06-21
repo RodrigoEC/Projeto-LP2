@@ -24,12 +24,13 @@ public abstract class EstrategiaPropostaAbstract implements  EstrategiaProposta{
     public abstract String pegarPropostaRelacionada(Map<String, ProjetoDeLei> leis, Set<String> interesses);
 
     /**
-     * Metodo que retorna a quantidade de interesses que uma pessoa tem em comum com uma lei.
+     * Metodo que retorna um HashMap com as leis que possuem interesses mais em comum com a Pessoa. Recebe como
+     * parâmetros um Map com todas as leis cadastradas e um Set com todos os interesses de determinada pessoa.
      *
-     * @param lei
-     * @param interesses
+     * @param leis as leis cadastradas.
+     * @param interesses os interesses de uma pessoa.
      *
-     * @return
+     * @return HashMap com as leis mais proximas dos interesses da pessoa.
      */
     protected HashMap<String, ProjetoDeLei> interesseComum(Map<String, ProjetoDeLei> leis, Set<String> interesses){
         HashMap<String, ProjetoDeLei> propostasRelacionadas = new HashMap<>();
@@ -49,6 +50,14 @@ public abstract class EstrategiaPropostaAbstract implements  EstrategiaProposta{
         return propostasRelacionadas;
     }
 
+    /**
+     * Metodo que retorna a quantidade de interesses em comum que uma pessoa tem com determinada lei.
+     *
+     * @param lei uma lei.
+     * @param interesses os interesses de uma pessoa.
+     *
+     * @return a quantidade de interesses em comum entre lei e pessoa.
+     */
     private int quantidadeInteressesComuns(ProjetoDeLei lei, Set<String> interesses){
         int quantidade = 0;
         for (String interesse: lei.getInteresses().trim().split(",")){
@@ -60,26 +69,33 @@ public abstract class EstrategiaPropostaAbstract implements  EstrategiaProposta{
         return quantidade;
     }
 
+    /**
+     * Metodo que define a proposta mais antiga cadastrada a partir de um array de propostas recebido como parâmetro.
+     *
+     * @param propostas um ArrayList com o codigo de algumas propostas de lei.
+     *
+     * @return o indice da proposta mais antiga.
+     */
     protected int propostaMaisAntiga(ArrayList<String> propostas) {
         int indiceMaisAntigo = 0;
-        int maisAntigo = 0;
+        int anoMaisAntigo = 0;
         int precedencia = 0;
         for (int i = 0; i < propostas.size(); i++) {
             String[] ano = propostas.get(i).trim().split("/");
 
             String[] criacaoMaisAntiga = ano[0].split(" ");
 
-            if (maisAntigo == 0) {
-                maisAntigo = Integer.parseInt(ano[1]);
+            if (anoMaisAntigo == 0) {
+                anoMaisAntigo = Integer.parseInt(ano[1]);
                 precedencia = Integer.parseInt(criacaoMaisAntiga[1]);
                 indiceMaisAntigo = i;
 
-            } else if (Integer.parseInt(ano[1]) < maisAntigo) {
-                maisAntigo = Integer.parseInt(ano[1]);
+            } else if (Integer.parseInt(ano[1]) < anoMaisAntigo) {
+                anoMaisAntigo = Integer.parseInt(ano[1]);
                 precedencia = Integer.parseInt(criacaoMaisAntiga[1]);
                 indiceMaisAntigo = i;
 
-            } else if (Integer.parseInt(ano[1]) == maisAntigo) {
+            } else if (Integer.parseInt(ano[1]) == anoMaisAntigo) {
                 if (Integer.parseInt(criacaoMaisAntiga[1]) < precedencia) {
                     precedencia = Integer.parseInt(criacaoMaisAntiga[1]);
                     indiceMaisAntigo = i;

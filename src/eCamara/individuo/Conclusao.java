@@ -7,8 +7,21 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
+/**
+ * Classe que define a estrategia CONCLUSAO para pegar a proposta mais relacionada com determinada pessoa.
+ */
 public class Conclusao extends EstrategiaPropostaAbstract {
 
+    /**
+     * Metodo que retorna o codigo da proposta mais relacionada com uma pessoa. Recebe como parametros um map com
+     * todas as leis e um set com os interesses de uma pessoa. Nesta estrategia, o criterio utilizado e a proximidade
+     * que determinada lei esta de sua conclusao.
+     *
+     * @param leis as leis cadastradas.
+     * @param interesses os interesses da pessoa.
+     *
+     * @return o codigo da proposta de lei mais relacionada com a pessoa.
+     */
     @Override
     public String pegarPropostaRelacionada(Map<String, ProjetoDeLei> leis, Set<String> interesses) {
         HashMap<String, ProjetoDeLei> propostasRelacionadas = new HashMap<>();
@@ -80,17 +93,32 @@ public class Conclusao extends EstrategiaPropostaAbstract {
         return "";
     }
 
+    /**
+     * Metodo que retorna o estado atual de uma lei.
+     *
+     * @param situacaoProposta a situacao atual da proposta de lei.
+     *
+     * @return o estado da proposta de lei.
+     */
     private String pegaEstado(String situacaoProposta) {
         String[] array = situacaoProposta.split("[(]");
         return "(" + array[1].toLowerCase();
     }
 
-    private int maisComissoes(Map<String, ProjetoDeLei> leis, ArrayList<String> propostas){
+    /**
+     * Metodo que retorna o indice da proposta de lei que passou por mais comissoes.
+     *
+     * @param leis as leis cadastradas.
+     * @param outrasComissoes as comissoes que ja passaram pela ccjc mas nao chegaram ao plenario
+     *
+     * @return o indice da proposta de lei que passou por mais comissoes.
+     */
+    private int maisComissoes(Map<String, ProjetoDeLei> leis, ArrayList<String> outrasComissoes){
         int qntComissoes = 0;
         String maisComissoes = "";
         HashMap<String, Integer> mapa = new HashMap<>();
 
-        for (String p: propostas){
+        for (String p: outrasComissoes){
             String[] array = leis.get(p).getTramitacao().split(",");
             mapa.put(p, array.length);
         }
@@ -113,7 +141,7 @@ public class Conclusao extends EstrategiaPropostaAbstract {
             }
         }
 
-        return propostas.indexOf(maisComissoes);
+        return outrasComissoes.indexOf(maisComissoes);
     }
 
 }

@@ -456,6 +456,13 @@ public class SystemControl {
         return this.controllerLeis.exibirTramitacao(codigo);
     }
 
+    /**
+     * Metodo que realiza a configuracao da estrategia para a busca de proposta de lei mais relacionada
+     * com determinada pessoa.
+     *
+     * @param dni o dni da pessoa.
+     * @param estrategia estrategia que sera implementada.
+     */
     public void configurarEstrategiaPropostaRelacionada(String dni, String estrategia) {
         this.validaEntradas.validaconfigurarEstrategiaPropostaRelacionada(dni, estrategia);
 
@@ -463,6 +470,13 @@ public class SystemControl {
 
     }
 
+    /**
+     * Retorna a proposta mais relacionada com uma pessoa, de acordo com a estrategia previamente cadastrada.
+     *
+     * @param dni o dni da pessoa.
+     *
+     * @return retorna o codigo da proposta de lei mais relacionada com uma pessoa.
+     */
     public String pegarPropostaRelacionada(String dni) {
         return this.controllerPessoas.pegarPropostaRelacionada(dni, this.controllerLeis.getLeis());
     }

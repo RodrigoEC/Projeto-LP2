@@ -237,6 +237,12 @@ public class Pessoa {
         return false;
     }
 
+    /**
+     * Metodo que realiza a configuracao da estrategia para a busca de proposta de lei mais relacionada
+     * com determinada pessoa. Ela pode ser do tipo Constitucional, Conclusao ou Aprovacao.
+     *
+     * @param estrategia estrategia que sera implementada.
+     */
     public void configurarEstrategiaPropostaRelacionada(String estrategia) {
         if (estrategia.toLowerCase().equals("constitucional")){
             this.estrategia = new Constitucional();
@@ -247,6 +253,13 @@ public class Pessoa {
         }
     }
 
+    /**
+     * Retorna a proposta mais relacionada com uma pessoa, de acordo com a estrategia previamente cadastrada.
+     *
+     * @param leis as leis cadastradas.
+     *
+     * @return retorna o codigo da proposta de lei mais relacionada com uma pessoa.
+     */
     public String pegarPropostaRelacionada(Map<String, ProjetoDeLei> leis){
         HashSet<String> grupo = new HashSet<>();
 

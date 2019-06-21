@@ -172,6 +172,13 @@ public class PessoaController {
 
     }
 
+    /**
+     * Metodo que realiza a configuracao da estrategia para a busca de proposta de lei mais relacionada
+     * com determinada pessoa.
+     *
+     * @param dni o dni da pessoa.
+     * @param estrategia estrategia que sera implementada.
+     */
     public void configurarEstrategiaPropostaRelacionada(String dni, String estrategia) {
         if(!this.mapPessoas.containsKey(dni)){
             throw new IllegalArgumentException("Erro ao configurar estrategia da proposta relacionada: pessoa nao cadastrada");
@@ -180,6 +187,14 @@ public class PessoaController {
         this.mapPessoas.get(dni).configurarEstrategiaPropostaRelacionada(estrategia);
     }
 
+    /**
+     * Retorna a proposta mais relacionada com uma pessoa, de acordo com a estrategia previamente cadastrada.
+     *
+     * @param dni o dni da pessoa.
+     * @param leis as leis cadastradas.
+     *
+     * @return retorna o codigo da proposta de lei mais relacionada com uma pessoa.
+     */
     public String pegarPropostaRelacionada(String dni, Map<String, ProjetoDeLei> leis) {
         if(!this.mapPessoas.containsKey(dni)){
             throw new IllegalArgumentException("Erro ao pegar proposta relacionada: pessoa nao cadastrada");
