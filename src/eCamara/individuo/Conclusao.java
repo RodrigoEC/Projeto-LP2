@@ -7,14 +7,14 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-public class Conclusao implements EstrategiaProposta {
+public class Conclusao extends EstrategiaPropostaAbstract {
 
     @Override
     public String pegarPropostaRelacionada(Map<String, ProjetoDeLei> leis, Set<String> interesses) {
         HashMap<String, ProjetoDeLei> propostasRelacionadas = new HashMap<>();
 
         for (String proposta: leis.keySet()){
-            if (leis.get(proposta).emTramite() && this.interesseComum(leis.get(proposta), interesses)){
+            if (leis.get(proposta).emTramite() && super.interesseComum(leis.get(proposta), interesses)){
                 propostasRelacionadas.put(proposta, leis.get(proposta));
             }
         }
@@ -44,7 +44,7 @@ public class Conclusao implements EstrategiaProposta {
                 return segundoTurno.get(0);
             }
 
-            //quando tem mais de uma proposta no segundo turno
+            return segundoTurno.get(super.propostaMaisAntiga(segundoTurno));
         }
 
         if (primeiroTurno.size() > 0){
@@ -52,7 +52,7 @@ public class Conclusao implements EstrategiaProposta {
                 return primeiroTurno.get(0);
             }
 
-            //quando tem mais de uma proposta no primeiro turno
+            return primeiroTurno.get(super.propostaMaisAntiga(primeiroTurno));
         }
 
         if (outrasComissoes.size() > 0){
@@ -60,7 +60,7 @@ public class Conclusao implements EstrategiaProposta {
                 return outrasComissoes.get(0);
             }
 
-            //quando tem mais de uma proposta em outras comissões
+            return outrasComissoes.get(this.maisComissoes(leis, outrasComissoes));
         }
 
         if (ccjc.size() > 0){
@@ -68,7 +68,7 @@ public class Conclusao implements EstrategiaProposta {
                 return ccjc.get(0);
             }
 
-            //quando tem mais de uma proposta na ccjc
+            return ccjc.get(super.propostaMaisAntiga(ccjc));
         }
 
         return "";
@@ -79,12 +79,35 @@ public class Conclusao implements EstrategiaProposta {
         return "(" + array[1].toLowerCase();
     }
 
-    private boolean interesseComum(ProjetoDeLei lei, Set<String> interesses){
-        for (String interesse: lei.getInteresses().trim().split(",")){
-            if (interesses.contains(interesse)){
-                return true;
+    private int maisComissoes(Map<String, ProjetoDeLei> leis, ArrayList<String> propostas){
+        int qntComissoes = 0;
+        String maisComissoes = "";
+        HashMap<String, Integer> mapa = new HashMap<>();
+
+        for (String p: propostas){
+            String[] array = leis.get(p).getTramitacao().split(",");
+            mapa.put(p, array.length);
+        }
+
+        for (String p: mapa.keySet()){
+            if (qntComissoes == 0){
+                qntComissoes = mapa.get(p);
+                maisComissoes = p;
+
+            } else if (mapa.get(p) > qntComissoes){
+                qntComissoes = mapa.get(p);
+                maisComissoes = p;
+
+            } else if (mapa.get(p) == qntComissoes){
+                ArrayList<String> iguais = new ArrayList<>();
+                iguais.add(maisComissoes);
+                iguais.add(p);
+
+                return super.propostaMaisAntiga(iguais);
             }
         }
-        return false;
+
+        return propostas.indexOf(maisComissoes);
     }
+
 }
