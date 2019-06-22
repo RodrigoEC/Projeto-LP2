@@ -5,10 +5,11 @@ import eCamara.legislativo.PL;
 import eCamara.legislativo.PLP;
 import eCamara.legislativo.ProjetoDeLei;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
-public class LeisController {
+public class LeisController implements Serializable {
 
     /**
      * Controlador de leis, temo como atributo um Map de leis, e os contadores referentes a cada tipo de lei.

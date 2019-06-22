@@ -4,13 +4,14 @@ import eCamara.individuo.Pessoa;
 import eCamara.legislativo.Comissao;
 import eCamara.legislativo.ProjetoDeLei;
 
+import java.io.Serializable;
 import java.util.*;
 
 /***
  * Objeto que faz a Votacao, nao tem atributos.
  */
 
-public class Votacao {
+public class Votacao implements Serializable {
 
     /**
      * Metodo que simula a votacao de uma lei pela Comissao. Recebe a lei a ser votada, o status governista, o proximo local, a Comissao

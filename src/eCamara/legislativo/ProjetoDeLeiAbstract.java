@@ -2,13 +2,14 @@ package eCamara.legislativo;
 
 import eCamara.Validacao;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * Classe abstrata de lei para reuso de codigo. Tem como atributos votante, dniAutor, ano, votacaoRealizadas, ementa
  * interesses, url, situacao, tramiacao e o objeto para validar entradas.
  */
-public abstract class ProjetoDeLeiAbstract implements ProjetoDeLei {
+public abstract class ProjetoDeLeiAbstract implements ProjetoDeLei, Serializable {
 
     /**
      * Comissao que deve fazer a votacao da lei.

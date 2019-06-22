@@ -90,15 +90,14 @@ public class Facade {
     }
 
     public void carregarSistema(){
-
+        this.systemControl.carregarSistema(this.systemControl);
     }
 
     public void salvarSistema(){
-
+        this.systemControl.salvarSistema(this.systemControl);
     }
 
-    public void limparSistema(){
-        this.systemControl = new SystemControl();
+    public void limparSistema() {
+        this.systemControl = GerenciadorArquivos.limparSistema(this.systemControl);
     }
-
 }

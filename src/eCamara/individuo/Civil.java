@@ -1,10 +1,12 @@
 package eCamara.individuo;
 
+import java.io.Serializable;
+
 /**
  * Funcao Civil de Pessoa, pois se uma Pessoa nao eh politico ela eh Civil.
  */
 
-public class Civil implements Funcao {
+public class Civil implements Funcao, Serializable {
     /**
      * metodo que recebe uma string que eh a representacao textual da pessoa e retorna essa representacao da mesma forma,
      * uma vez que a pessoa que possuir um atributo do tipo Civil nao tera funcao na politica, fazendo que sua representacao

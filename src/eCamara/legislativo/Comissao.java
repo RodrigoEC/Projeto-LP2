@@ -2,6 +2,7 @@ package eCamara.legislativo;
 
 import eCamara.individuo.Pessoa;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -11,7 +12,7 @@ import java.util.Objects;
  * Objeto que representa uma Comissao de votacao, tem como atributos uma string com o tema e o map com os politicos que fazem parte dela.
  */
 
-public class Comissao {
+public class Comissao implements Serializable {
 
     /**
      * Tema da comissao.

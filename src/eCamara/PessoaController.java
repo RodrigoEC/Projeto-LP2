@@ -4,13 +4,14 @@ import eCamara.individuo.Deputado;
 import eCamara.individuo.Pessoa;
 import eCamara.legislativo.ProjetoDeLei;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
 /**
  * Controller de Pessoa, tem um HashMap de Pessoa e um Objeto de validacao como atributos.
  */
-public class PessoaController {
+public class PessoaController implements Serializable {
     /** Map de Pessoa */
     private HashMap<String, Pessoa> mapPessoas;
     /** Validador das entradas dos metodos */

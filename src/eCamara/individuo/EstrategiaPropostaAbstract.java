@@ -2,6 +2,7 @@ package eCamara.individuo;
 
 import eCamara.legislativo.ProjetoDeLei;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -10,7 +11,7 @@ import java.util.Set;
 /**
  * Classe abstrata para as Estrategias de pegar proposta (Constitucional, Conclusao, Aprovacao) para reuso de codigo.
  */
-public abstract class EstrategiaPropostaAbstract implements  EstrategiaProposta{
+public abstract class EstrategiaPropostaAbstract implements  EstrategiaProposta, Serializable {
 
     /**
      * Metodo que retorna a proposta de lei que tem mais a ver com os interesses de determinada pessoa. Ela recebe

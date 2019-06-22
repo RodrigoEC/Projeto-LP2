@@ -2,13 +2,14 @@ package eCamara.individuo;
 
 import eCamara.Validacao;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 /**
  * Classe que representa um deputado, possui os atributos String dataInicio, Integer qtdLeis e o objeto de validacao de entradas.
  */
 
-public class Deputado implements Funcao {
+public class Deputado implements Funcao, Serializable {
 
     /**
      * Data em que a pessoa virou deputado.

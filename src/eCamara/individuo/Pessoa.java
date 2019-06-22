@@ -3,13 +3,14 @@ package eCamara.individuo;
 import eCamara.Validacao;
 import eCamara.legislativo.ProjetoDeLei;
 
+import java.io.Serializable;
 import java.util.*;
 
 /**
  * Objeto que representa uma Pessoa, tem como atributos, em String, um DNI, Nome, Estado, Partido e Interesses, tem tambem
  * uma Funcao do tipo Funcao, essa Funcao vai indicar se ele eh ou nao Deputado, por ultimo tem um Objeto de Validacao.
  */
-public class Pessoa {
+public class Pessoa implements Serializable {
     /** String  com o dni. */
     private String dni;
     /** String com o nome. */

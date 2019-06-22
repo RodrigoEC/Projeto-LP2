@@ -3,13 +3,14 @@ package eCamara;
 import eCamara.individuo.Pessoa;
 import eCamara.legislativo.*;
 
+import java.io.Serializable;
 import java.util.*;
 
 /**
  * Objeto que representa o Controller do sistema, tem como atributos o objeto de Validacao, um Map de Pessoa e um Set de
  * Partido (String).
  */
-public class SystemControl {
+public class SystemControl implements Serializable {
     /**
      * Controller responsavel por coordenar as operacoes feitas sobre os objetos do tipo Pessoa.
      */
@@ -35,6 +36,7 @@ public class SystemControl {
     /**
      * Constroi o SystemControl(Controller), inicia o Map e o Set e instancia o Objeto de validacao.
      */
+
     public SystemControl() {
         this.votacao = new Votacao();
         this.controllerLeis = new LeisController();
@@ -479,6 +481,18 @@ public class SystemControl {
      */
     public String pegarPropostaRelacionada(String dni) {
         return this.controllerPessoas.pegarPropostaRelacionada(dni, this.controllerLeis.getLeis());
+    }
+
+    public void carregarSistema(Object sistema){
+        GerenciadorArquivos.carregarSistema(sistema);
+    }
+
+    public void salvarSistema(Object sistema){
+        GerenciadorArquivos.salvarSistema(sistema);
+    }
+
+    public SystemControl limparSistema(Object sistema){
+       return GerenciadorArquivos.limparSistema(sistema);
     }
 }
 

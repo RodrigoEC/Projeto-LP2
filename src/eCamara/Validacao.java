@@ -1,5 +1,6 @@
 package eCamara;
 
+import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.Year;
@@ -10,7 +11,7 @@ import java.util.Date;
  * forem invalidoss o nulos as excecoes adequadas serao lancadas.
  *
  */
-public class Validacao {
+public class Validacao implements Serializable {
 
     /**
      * Metodo que verifica se uma String e valida, uma String eh valida se ela nao for nula nem vazia. Recebe uma
