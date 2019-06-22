@@ -115,10 +115,8 @@ public class Votacao {
         int votosAFavor = 0;
 
         for (Pessoa politicoDaComissao : politicos.values()) {
-            if (ehDaBase(politicoDaComissao, partidos) && "governista".equals(statusGovernista.toLowerCase())) {
-                votosAFavor++;
 
-            } else if (!ehDaBase(politicoDaComissao, partidos) && "oposicao".equals(statusGovernista.toLowerCase())) {
+            if (politicoDaComissao.decideVoto(statusGovernista, partidos)){
                 votosAFavor++;
 
             } else if ("livre".equals(statusGovernista.toLowerCase())) {

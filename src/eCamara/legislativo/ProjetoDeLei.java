@@ -7,7 +7,7 @@ package eCamara.legislativo;
 public interface ProjetoDeLei {
 
     /**
-     * Representacao textual que representa o objeto que implemeneta a interface de projeto de legislativo.
+     * Representacao textual que representa o objeto que implementa a interface de projeto de legislativo.
      *
      * @param codigo codigo do projeto.
      * @return a representacao textual do projeto de legislativo.
@@ -15,7 +15,7 @@ public interface ProjetoDeLei {
     String toString(String codigo);
 
     /**
-     * Metodoq que retorna os interesses da lei.
+     * Metodo que retorna os interesses da lei.
      * @return String com os interesses da lei.
      */
     String getInteresses();

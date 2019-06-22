@@ -3,9 +3,7 @@ package eCamara.individuo;
 import eCamara.Validacao;
 import eCamara.legislativo.ProjetoDeLei;
 
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 /**
  * Objeto que representa uma Pessoa, tem como atributos, em String, um DNI, Nome, Estado, Partido e Interesses, tem tambem
@@ -28,6 +26,9 @@ public class Pessoa {
     private EstrategiaProposta estrategia;
     /** validaEntrada do tipo Validacao*/
     private Validacao validaEntrada;
+
+    private boolean voto;
+
 
     /**
      * Constroi a Pessoa recebe como parametro Strings com o nome, dni, estado e interesses. Lanca uma excecao caso o dni
@@ -196,7 +197,7 @@ public class Pessoa {
     }
 
     /**
-     * Metodo que adicona mais uma lei referente a funcao de uma pessoa.
+     * Metodo que adiciona mais uma lei referente a funcao de uma pessoa.
      */
     public void addQtdLei() {
         this.funcao.addLei();
@@ -236,6 +237,25 @@ public class Pessoa {
         }
         return false;
     }
+
+    /**
+     * Metodo responsavel por delegar a responsabilidade do voto a pessoa.
+     * @param statusGovernista String com o status governista da lei
+     * @param partidos  Set de partidos(String);
+     * @return true se o voto for a favor e false quando o voto for contra.
+     */
+
+    public boolean decideVoto(String statusGovernista, Set<String> partidos) {
+        if ("governista".equals(statusGovernista.toLowerCase()) && partidos.contains(this.partido)) {
+            return true;
+
+        } else if ("oposicao".equals(statusGovernista.toLowerCase()) && !partidos.contains(this.partido)) {
+            return true;
+        }
+
+        return false;
+    }
+
 
     /**
      * Metodo que realiza a configuracao da estrategia para a busca de proposta de lei mais relacionada
