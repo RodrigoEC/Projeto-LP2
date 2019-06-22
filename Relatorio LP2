@@ -1,15 +1,12 @@
-Link do relatorio no Docs do Google:
-https://docs.google.com/document/d/1ovTD-c8GjVwDTdVFWpObIar83fOmQgvp6a2auCszOAE/edit?usp=sharing
-
-Esse foi o que eu fiz ate agora, fiz os das us que eu fiquei mais diretamente. Deem sugestoes sobre mudanças e
-LOGUEM NO GOOGLE para acessar o docs, pra a gente saber quem é quem.
-
 Relatório de Projeto LP2 2019.1
 
 E-Camara Organizada(E-CO)
 
 Alunos:
-Daniel Gomes de Lima - 118210357.
+Daniel Gomes de Lima - 118210357
+Franciclaudio Dantas da Silva - 4002-8922
+Leandra de Oliveira Silva - 118112068
+Rodrigo Eloy Cavalcanti - 118210111
 
 Design geral:
 
@@ -23,13 +20,15 @@ As próximas seções detalham a implementação em cada caso.
 Caso 1:
 
 O caso 1 pede que seja possível o cadastro de pessoas no sistema, seja pra consulta ou para depois virar Político. Para isso usamos o padrão strategy, criando uma entidade Pessoa que tem composição com uma Interface representando a sua função na política, para esse primeiro caso de uso foi criado apenas duas funções, a função Deputado e a função Civil. O uso do strategy permite que um Civil facilmente se torne Deputado e, de mesmo modo, um Deputado deixe (simulando a finalização do mandato) de ser Deputado e passe a ser um Civil. O uso do strategy também permite a expansibilidade do sistema, permitindo ainda mais funções para uma Pessoa, e também um Deputado e Civil serão sempre do tipo Pessoa, com isso facilita o reaproveitamento de código, pois Deputado e Civil  terão os atributos de Pessoa.
-Para gerenciar as Pessoas, foi criada uma classe chamada PessoaController . Nesta classe, há uma coleção que armazena todos as Pessoas. Essa coleção é um mapa, onde a chave é o dni, que foi passado como parâmetro no cadastro de Pessoa, único para cada Pessoa.
+Para gerenciar as Pessoas, foi criada uma classe chamada PessoaController . Nesta classe, há uma coleção que armazena todas as Pessoas. Essa coleção é um mapa, onde a chave é o dni, que foi passado como parâmetro no cadastro de Pessoa, único para cada Pessoa.
 
 Caso 2:
 
 O caso 2 pede para que seja possível realizar o cadastro de um deputado no sistema a partir dos dados de uma pessoa. O método recebe como parâmetros o DNI (Documento Nacional de Identificação) da pessoa que deverá ser cadastrada como deputado e a data de início na vida pública. Desse modo tornou-se necessário a criação de uma nova entidade que representa um deputado, decidimos utilizar o padrão Strategy com o uso da interface Função que generaliza as classes Deputado e Civil, que são possíveis funções de uma pessoa. Como estamos tratando Deputado como uma função de pessoa, foi criado, para fazer o gerenciamento de Pessoas, a classe chamada PessoaController. Nesta mesma classe, há um mapa de Strings que armazena todas as pessoas,  inclusive os deputados cadastrados, a chave deste mapa é o dni, que foi passado como parâmetro no método cadastraDeputado.
 
-Caso 4:
+Caso 3:
+é o método que faz o negócio lá . (Parte de Cláudio)
+ Caso 4:
 
 O caso 4 pede que seja possível o cadastro de um partido no nosso sistema a partir de uma sigla, que representa o nome do partido, passada como parâmetro no método.Sendo assim, nosso grupo optou pelo uso de apenas uma string, seu nome, para representar esse partido, uma vez que não se fazia necessária a criação de uma entidade Partido, pois que essa entidade teria apenas seu nome como atributo. O partido é armazenado em um HashSet de strings na classe SystemControl, representando um conjunto dos partidos cadastrados.
 
@@ -37,7 +36,22 @@ Caso 5:
 
 O caso 5 pede que seja possível o cadastro de Comissões no sistema, para simular a câmara de deputados que se organizam em comissões temáticas com um número limitado de deputados. Foi criada uma entidade que representará uma comissão com alguns Deputados, foi usado uma coleção para armazenar os Deputados, esta coleção é um mapa de Pessoas com função Deputado (value) e que tem o dni de cada um como chave para o mapa. A Comissão terá também um tema que é seu identificador único. O gerenciamento de Comissões fica com a classe SystemControl, quem tem uma coleção do tipo mapa que armazenará as Comissões (value) e terá como chave o tema da Comissão, único para cada Comissão.
 
-
 Caso 6:
 
-O caso 6 pede que seja possível cadastrar e exibir uma proposta legislativa no sistema. Optamos pelo uso de herança e interface, pois podem ser cadastradas 3 tipos de proposta legislativa Projeto de Lei (PL), Projeto de Emenda Constitucional (PEC e Projeto de Lei Complementar (PLP). Para representar esses diferentes tipos, criamos uma classe abstrata chamada ProjetoDeLeiAbstrata, que é pai desses diferentes tipo e contém todos os comportamentos (atributos e métodos) em comum entre esses tipos, porém cada um dos tipos definirá seu próprio toString, pois a representação diferem entre os tipos. Além disso, para abstrair ainda mais e ter um maior reuso de tipo, foi criado uma Interface chamada ProjetoDeLei. Para gerenciar as leis, foi criada uma classe chamada LeisController. Nesta classe, há uma coleção que armazena todos as Leis, através da abstração com a Interface. Essa coleção é um mapa, onde a chave é um código de identificação gerado no cadastro de algum Projeto de Lei, o código é gerado a partir do ano em que a lei foi criada e de quantas leis foram cadastradas antes dela, contudo essa contagem será feita para cada tipo de lei, ou seja, o código é sequencial por tipo e por ano. A primeira PL de 2019 têm o código PL 1/2019, a segunda PL de 2019 será PL 2/2019 e assim sucessivamente para cada tipo, o código é único para cada Projeto de Lei.
+O caso 6 pede que seja possível cadastrar e exibir uma proposta legislativa no sistema. Decidimos optar pelo uso de herança e interface, pois podem ser cadastradas 3 tipos de propostas legislativas: Projeto de Lei (PL), Projeto de Emenda Constitucional (PEC e Projeto de Lei Complementar (PLP). Para representar esses diferentes tipos, criamos uma classe abstrata chamada ProjetoDeLeiAbstract, que é pai desses diferentes tipos e contém todos os comportamentos (atributos e métodos) em comum dentre essas 3 classes, porém cada um dos tipos definirá seu próprio toString, pois a representação diferem entre os tipos. Além disso, para abstrair ainda mais e ter um maior reuso de tipo, foi criado uma Interface chamada ProjetoDeLei. A fim de gerenciar as leis, foi criada uma classe chamada LeisController. Nesta classe, há uma coleção que armazena todos as Leis, através da abstração com a Interface. Essa coleção é um mapa, onde a chave é um código de identificação gerado no cadastro de algum Projeto de Lei, o código é criado a partir do ano em que a lei foi criada e de quantas leis foram cadastradas antes dela, contudo essa contagem será feita para cada tipo de lei, ou seja, se uma PL for cadastrada seu código conterá 1/ano e em seguida uma PLP for cadastrada o seu código também conterá 1/ano, dessa maneira, o código é sequencial por tipo e por ano. A primeira PL de 2019 têm o código PL 1/2019, a segunda PL de 2019 será PL 2/2019 e assim sucessivamente para cada tipo, o código é único para cada Projeto de Lei.
+
+Caso 7:
+O caso 7 pede que seja possível fazer votações dos projetos de lei em comissões e no plenário. Sendo assim, decidimos criar uma classe Votacao responsável por conter e executar a lógica relacionada com as votações. Para a criação do método votarComissao decidimos criar um método ContaVotosAfavor que contabiliza os votos a favor a partir do método decideVoto da classe Pessoa, que retorna true se o voto for a favor do projeto e false se o deputado for contra o projeto, e retorna a quantidade de votos a favor da aprovação do projeto. Caso a quantidade de votos a favor seja maior ou igual que a metade da quantidade de deputados da comissão + 1 então os atributos tramitação e situação são alterados, adicionando “APROVADO ([ComissaoVotante ])” ao atributo  tramitação e mudando a situação do projeto para “EM VOTACAO ([ProximaVotacaoVotante)]”, além disso, o atributo votante do projeto de lei será mudado para o nome da próxima comissão responsável por fazer a próxima votação, o nome dessa próxima comissão é passado como parâmetro no método. Se a quantidade de votos a favor for menor que metade da quantidade de deputados da comissão + 1 então, o atributo tramitação receberá a string “REJEITADO ([comissaoVotante])” e o atributo situacao do projeto será alterado para “EM VOTACAO ([ProximaVotacaoVotante)]”, assim como quando aprovado, o atributo votante será mudado para o nome da próxima comissão responsável pela próxima votação.
+Caso o projeto votado seja uma PL conclusiva se ao ser votado na CCJC ela for rejeitada o projeto é arquivado(seu atributo situacao muda para “ARQUIVADO”), concluindo o processo de votações sobre o projeto. Caso seja aprovada segue para a comissão seguinte, e ao ser votada pela próxima comissão se ela for rejeitada ela será arquivada e se for aprovada será aprovada(atributo situacao alterado para “APROVADO”), a PL conclusiva é votada apenas por no máximo duas comissões.
+
+Caso 8:
+O caso 8 pede que seja possível exibir o status da tramitação do projeto de lei nas votações da câmara. Sendo assim, nosso grupo optou por ter um atributo nas classes PL, PLP e PEC que representam o processo tramitação do projeto que é modificado durante o processo de votação. Por exemplo, caso o projeto tenha sido aprovado na CCJC, aprovado na comissão de direitos humanos e rejeitado na  comissão fazenda2019 então esse método deve retornar o seguinte status: “APROVADO (CCJC), APROVADO (direitos humanos), REJEITADO (fazenda2019)”.
+
+Caso 9:
+Não sei só sei que foi assim. (Parte de Cláudio)
+
+Caso 10:
+O caso 10 foi pedido que fosse adicionado a funcionalidade de salvar o sistema, com todos os dados, ou seja, persistir todos os dados após o encerramento, carregar o sistema e limpar o sistema. Para isso, foi necessário implementar a interface serializable em todas as classes. Foi feita a criação da classe GerenciadorArquivo que controlará o salvamento, carregamento e limpeza de dados, quando o salvamento ocorrer será criado um arquivo ArquivosSistema.bin que é um arquivo que contém sequências de bytes. Foi percebido que o atributo “SystemControl systemControl”, na classe Facade, tinha todos os dados salvos. Para isso, a classe facade tem os métodos “carregarSistema”, “salvarSistema” e “limparSistema” que delegará essas responsabilidades ao SystemControl e o SystemControl delegará ao GerenciadorArquivos.
+No primeiro método, tem um try/catch, onde é verificado se há algum sistema já salvo, se não houver então o controller é iniciado sem nenhum dado salvo. Caso haja um arquivo de sistema para ser carregado, é aberto um novo stream de dados ( ObjectInputStream ), e são lidos os dados que foram salvos, é feita a desserialização do arquivo que contém as sequências de bytes, é feito a partir do comando .readObject, onde o objeto é lido e atribuído ao atributo controller .
+No segundo método será criado um arquivo ArquivosSistema.bin (como descrito anteriormente), caso seja primeira execução, onde serão armazenados os dados do sistema, é criado um stream do tipo ObjectOutputStream é chamado o método .writeObject que fará escrita dos dados, ou seja a serialização, que é converter o objeto para uma sequência de bytes, esses dados serão armazenados no arquivo ArquivosSistema.bin.
+Por fim, no último método, terá um try/catch para verificar se o objeto pode ser instanciado para um SystemControl novo, limpo de dados, se for possível o objeto será instanciado, senão será lançado exceção.
