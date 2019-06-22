@@ -461,4 +461,8 @@ public class Validacao implements Serializable {
             throw new IllegalArgumentException(s);
         }
     }
+
+    public void validaExibirTramitacao(String codigo, String vazioooo) {
+        validaString(codigo, vazioooo);
+    }
 }

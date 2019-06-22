@@ -127,7 +127,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="15" language="java" name="eCamara.LeisController" project="Projeto-LP2" 
+  <class id="15" language="java" name="eCamara.legislativo.LeisController" project="Projeto-LP2"
     file="/Projeto-LP2/src/eCamara/LeisController.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="602" y="880"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 

@@ -455,6 +455,8 @@ public class SystemControl implements Serializable {
      * @return String com a tramitacao da lei.
      */
     public String exibirTramitacao(String codigo) {
+        this.validaEntradas.validaExibirTramitacao(codigo, "vazioooo");
+
         return this.controllerLeis.exibirTramitacao(codigo);
     }
 

@@ -34,6 +34,7 @@ public class Votacao implements Serializable {
 
         if (votosAFavor >= comissao.tamanhoComissao() / 2 + 1) {
             lei.setTramitacao(true);
+
             lei.setSituacao(true, proximoLocal);
             lei.setVotante(proximoLocal);
             return true;
@@ -116,10 +117,8 @@ public class Votacao implements Serializable {
         int votosAFavor = 0;
 
         for (Pessoa politicoDaComissao : politicos.values()) {
-
             if (politicoDaComissao.decideVoto(statusGovernista, partidos, lei.getInteresses())){
                 votosAFavor++;
-
             }
         }
         return votosAFavor;

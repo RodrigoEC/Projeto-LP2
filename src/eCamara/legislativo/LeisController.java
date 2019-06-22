@@ -1,4 +1,4 @@
-package eCamara;
+package eCamara.legislativo;
 
 import eCamara.legislativo.PEC;
 import eCamara.legislativo.PL;
@@ -156,6 +156,10 @@ public class LeisController implements Serializable {
      * @return String com a trasmitacao da lei.
      */
     public String exibirTramitacao(String codigo) {
+        if (!this.leis.containsKey(codigo)) {
+            throw new NullPointerException("linha 160 : LeisController");
+        }
+
         return this.leis.get(codigo).getTramitacao() + this.leis.get(codigo).getSituacao();
     }
 
