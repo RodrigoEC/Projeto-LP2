@@ -239,9 +239,11 @@ public class Pessoa {
     }
 
     /**
-     * Metodo responsavel por delegar a responsabilidade do voto a pessoa.
+     * Metodo responsavel por delegar a responsabilidade da escolha do voto a pessoa.
+     *
      * @param statusGovernista String com o status governista da lei
-     * @param partidos  Set de partidos(String);
+     * @param partidos  Set de partidos representados por String;
+     *
      * @return true se o voto for a favor e false quando o voto for contra.
      */
 
