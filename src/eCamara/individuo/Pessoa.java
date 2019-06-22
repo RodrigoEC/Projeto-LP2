@@ -2,6 +2,10 @@ package eCamara.individuo;
 
 import eCamara.Validacao;
 import eCamara.legislativo.ProjetoDeLei;
+import eCamara.propostaMaisRelacionada.Aprovacao;
+import eCamara.propostaMaisRelacionada.Conclusao;
+import eCamara.propostaMaisRelacionada.Constitucional;
+import eCamara.propostaMaisRelacionada.EstrategiaProposta;
 
 import java.io.Serializable;
 import java.util.*;
@@ -245,16 +249,28 @@ public class Pessoa implements Serializable {
      * @param statusGovernista String com o status governista da lei
      * @param partidos  Set de partidos representados por String;
      *
+     * @param interesses
      * @return true se o voto for a favor e false quando o voto for contra.
      */
 
-    public boolean decideVoto(String statusGovernista, Set<String> partidos) {
+    public boolean decideVoto(String statusGovernista, Set<String> partidos, String interesses) {
         if ("governista".equals(statusGovernista.toLowerCase()) && partidos.contains(this.partido)) {
             return true;
 
         } else if ("oposicao".equals(statusGovernista.toLowerCase()) && !partidos.contains(this.partido)) {
             return true;
+
+        } else if ("livre".equals(statusGovernista.toLowerCase())) {
+            String[] arrayInteressesLei = interesses.split(",");
+            List<String> listaInteressesLei = Arrays.asList(arrayInteressesLei);
+
+            for (String interessePolitico : this.interesses.split(",")) {
+                if (listaInteressesLei.contains(interessePolitico)) {
+                    return true;
+                }
+            }
         }
+
 
         return false;
     }

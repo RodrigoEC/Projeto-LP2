@@ -1,5 +1,6 @@
-package eCamara.individuo;
+package eCamara.propostaMaisRelacionada;
 
+import eCamara.individuo.EstrategiaPropostaAbstract;
 import eCamara.legislativo.ProjetoDeLei;
 
 import java.util.ArrayList;

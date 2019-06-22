@@ -117,18 +117,9 @@ public class Votacao implements Serializable {
 
         for (Pessoa politicoDaComissao : politicos.values()) {
 
-            if (politicoDaComissao.decideVoto(statusGovernista, partidos)){
+            if (politicoDaComissao.decideVoto(statusGovernista, partidos, lei.getInteresses())){
                 votosAFavor++;
 
-            } else if ("livre".equals(statusGovernista.toLowerCase())) {
-                String[] arrayInteressesLei = lei.getInteresses().split(",");
-                List<String> listaInteressesLei = Arrays.asList(arrayInteressesLei);
-
-                for (String interessePolitico : politicoDaComissao.getInteresses().split(",")) {
-                    if (listaInteressesLei.contains(interessePolitico)) {
-                        votosAFavor++;
-                    }
-                }
             }
         }
         return votosAFavor;
