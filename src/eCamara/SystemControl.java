@@ -485,14 +485,30 @@ public class SystemControl implements Serializable {
         return this.controllerPessoas.pegarPropostaRelacionada(dni, this.controllerLeis.getLeis());
     }
 
+    /**
+     * Metodo responsavel por fazer a desserializacao do dos dados,, recebe o objeto a ser carregado com os dados salvos e delega
+     * essa responsabilidade ao GerenciadorArquivos. Recebe o objeto a ser carregado com os dados.
+     * @param sistema Object a ser desserializado, carregado com os dados.
+     */
     public void carregarSistema(Object sistema){
         GerenciadorArquivos.carregarSistema(sistema);
     }
 
+    /**
+     * Metodo responsavel por fazer a serilizacao dos dados de um objeto, recebe o objeto a ser serilizado e delega essa responsabilidade
+     * ao GerenciadorArquivos. Recebe o objeto a ser salvo.
+     * @param sistema Object a ser serializado.
+     */
     public void salvarSistema(Object sistema){
         GerenciadorArquivos.salvarSistema(sistema);
     }
 
+    /**
+     * Metodo responsavel por limpar o sistema salvo anteriormente. Recebe o objeto a ser limpo e retorna o objeto do tipo SystemControl
+     * a ser limpo.
+     * @param sistema Object a ser limpo.
+     * @return SystemControl limpo.
+     */
     public SystemControl limparSistema(Object sistema){
        return GerenciadorArquivos.limparSistema(sistema);
     }
