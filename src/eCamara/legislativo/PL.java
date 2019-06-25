@@ -71,12 +71,19 @@ public class PL extends ProjetoDeLeiAbstract {
      */
     @Override
     public void setTramitacao(boolean aprovadoOuNao) {
-        if (aprovadoOuNao && !"ARQUIVADO".equals(this.situacao) && !"APROVADO".equals(this.situacao)) {
-            this.tramitacao += String.format("APROVADO (%s), ",this.votante);
+        if (aprovadoOuNao && !"ARQUIVADO".equals(this.situacao) && !"APROVADO".equals(this.situacao) && "Plenario".equals(this.votante)) {
+            this.tramitacao.add("APROVADO (Plenario)");
             super.qntAprovacoes += 1;
 
+        } else if (aprovadoOuNao && !"ARQUIVADO".equals(this.situacao) && !"APROVADO".equals(this.situacao)) {
+            this.tramitacao.add(String.format("APROVADO (%s)",this.votante));
+            super.qntAprovacoes += 1;
+
+        } else if (!aprovadoOuNao && !"ARQUIVADO".equals(this.situacao) && !"APROVADO".equals(this.situacao) && "plenario".equals(this.votante)) {
+            this.tramitacao.add("REJEITADO (Plenario)");
+
         } else if (!aprovadoOuNao && !"ARQUIVADO".equals(this.situacao) && !"APROVADO".equals(this.situacao)) {
-            this.tramitacao += String.format("REJEITADO (%s), ", this.votante);
+            this.tramitacao.add(String.format("REJEITADO (%s)", this.votante));
         }
     }
 
@@ -99,21 +106,19 @@ public class PL extends ProjetoDeLeiAbstract {
     @Override
     public void setSituacao(boolean estadoAprovacao, String proxLocal) {
         if (!estadoAprovacao && !this.conclusivo && "plenario".equals(this.votante)) {
-            this.tramitacao += String.format("REJEITADO (%s)",this.votante);
             this.situacao = "ARQUIVADO";
 
         } else if (estadoAprovacao && !this.conclusivo && "plenario".equals(this.votante)){
-            this.tramitacao += String.format("APROVADO (%s)", this.votante);
             this.situacao = "APROVADO";
 
-        } else if (!estadoAprovacao && this.conclusivo) {
-            this.tramitacao += String.format("REJEITADO (%s)",this.votante);
+        } else if (!estadoAprovacao && this.conclusivo ) {
             this.situacao = "ARQUIVADO";
 
         } else if (this.votacaoRealizadas == 2 && estadoAprovacao && this.conclusivo) {
-            this.tramitacao += String.format("APROVADO (%s)", this.votante);
             this.situacao = "APROVADO";
 
+        } else if ("plenario".equals(this.votante) || "plenario".equals(proxLocal)){
+            this.situacao = "EM VOTACAO (Plenario)";
         } else {
             this.situacao = String.format("EM VOTACAO (%s)", proxLocal);
         }

@@ -127,8 +127,8 @@ public class Conclusao extends EstrategiaPropostaAbstract {
         HashMap<String, Integer> mapa = new HashMap<>();
 
         for (String p: outrasComissoes){
-            String[] array = leis.get(p).getTramitacao().split(",");
-            mapa.put(p, array.length);
+            ArrayList<String> array = leis.get(p).getTramitacao();
+            mapa.put(p, array.size());
         }
 
         for (String p: mapa.keySet()){
