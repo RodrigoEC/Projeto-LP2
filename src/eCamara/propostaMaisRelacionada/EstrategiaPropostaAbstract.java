@@ -1,7 +1,6 @@
-package eCamara.individuo;
+package eCamara.propostaMaisRelacionada;
 
 import eCamara.legislativo.ProjetoDeLei;
-import eCamara.propostaMaisRelacionada.EstrategiaProposta;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -39,14 +38,17 @@ public abstract class EstrategiaPropostaAbstract implements EstrategiaProposta, 
         int quantidade = 0;
 
         for (String proposta: leis.keySet()){
-            if (quantidadeInteressesComuns(leis.get(proposta), interesses) > quantidade){
-                quantidade = quantidadeInteressesComuns(leis.get(proposta), interesses);
-                propostasRelacionadas.clear();
-                propostasRelacionadas.put(proposta, leis.get(proposta));
+            if (!(quantidadeInteressesComuns(leis.get(proposta), interesses) == 0)){
+                if (quantidadeInteressesComuns(leis.get(proposta), interesses) > quantidade){
+                    quantidade = quantidadeInteressesComuns(leis.get(proposta), interesses);
+                    propostasRelacionadas.clear();
+                    propostasRelacionadas.put(proposta, leis.get(proposta));
 
-            } else if (quantidadeInteressesComuns(leis.get(proposta), interesses) == quantidade){
-                propostasRelacionadas.put(proposta, leis.get(proposta));
+                } else if (quantidadeInteressesComuns(leis.get(proposta), interesses) == quantidade){
+                    propostasRelacionadas.put(proposta, leis.get(proposta));
+                }
             }
+
         }
 
         return propostasRelacionadas;
@@ -82,6 +84,7 @@ public abstract class EstrategiaPropostaAbstract implements EstrategiaProposta, 
         int indiceMaisAntigo = 0;
         int anoMaisAntigo = 0;
         int precedencia = 0;
+
         for (int i = 0; i < propostas.size(); i++) {
             String[] ano = propostas.get(i).trim().split("/");
 

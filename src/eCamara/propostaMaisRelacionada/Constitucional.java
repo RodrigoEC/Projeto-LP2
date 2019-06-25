@@ -1,6 +1,5 @@
 package eCamara.propostaMaisRelacionada;
 
-import eCamara.individuo.EstrategiaPropostaAbstract;
 import eCamara.legislativo.ProjetoDeLei;
 
 import java.util.ArrayList;
@@ -31,6 +30,10 @@ public class Constitucional extends EstrategiaPropostaAbstract {
             if (leis.get(proposta).emTramite()){
                 propostasRelacionadas = super.interesseComum(leis, interesses);
             }
+        }
+
+        if(propostasRelacionadas.size() == 0){
+            return "";
         }
 
         if(propostasRelacionadas.size() == 1){

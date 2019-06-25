@@ -181,8 +181,10 @@ public class PessoaController implements Serializable {
      * @param estrategia estrategia que sera implementada.
      */
     public void configurarEstrategiaPropostaRelacionada(String dni, String estrategia) {
+        this.validaEntradas.validaconfigurarEstrategiaPropostaRelacionada(dni, estrategia);
+
         if(!this.mapPessoas.containsKey(dni)){
-            throw new IllegalArgumentException("Erro ao configurar estrategia da proposta relacionada: pessoa nao cadastrada");
+            throw new IllegalArgumentException("Erro ao configurar estrategia: dni invalido");
         }
 
         this.mapPessoas.get(dni).configurarEstrategiaPropostaRelacionada(estrategia);
@@ -197,6 +199,8 @@ public class PessoaController implements Serializable {
      * @return retorna o codigo da proposta de lei mais relacionada com uma pessoa.
      */
     public String pegarPropostaRelacionada(String dni, Map<String, ProjetoDeLei> leis) {
+        this.validaEntradas.validaPegarPropostaRelacionada(dni);
+
         if(!this.mapPessoas.containsKey(dni)){
             throw new IllegalArgumentException("Erro ao pegar proposta relacionada: pessoa nao cadastrada");
         }

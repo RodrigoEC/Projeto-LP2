@@ -283,6 +283,10 @@ public class Pessoa implements Serializable {
      * @param estrategia estrategia que sera implementada.
      */
     public void configurarEstrategiaPropostaRelacionada(String estrategia) {
+        if (estrategia.trim().equals("")){
+            throw new IllegalArgumentException("Erro ao configurar estrategia: estrategia vazia");
+        }
+
         if (estrategia.toLowerCase().equals("constitucional")){
             this.estrategia = new Constitucional();
         } else if(estrategia.toLowerCase().equals("conclusao")){

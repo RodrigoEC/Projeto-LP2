@@ -1,6 +1,5 @@
 package eCamara.propostaMaisRelacionada;
 
-import eCamara.individuo.EstrategiaPropostaAbstract;
 import eCamara.legislativo.ProjetoDeLei;
 
 import java.util.ArrayList;
@@ -31,6 +30,10 @@ public class Conclusao extends EstrategiaPropostaAbstract {
             if (leis.get(proposta).emTramite()){
                 propostasRelacionadas = super.interesseComum(leis, interesses);
             }
+        }
+
+        if(propostasRelacionadas.size() == 0){
+            return "";
         }
 
         if(propostasRelacionadas.size() == 1){
@@ -102,8 +105,12 @@ public class Conclusao extends EstrategiaPropostaAbstract {
      * @return o estado da proposta de lei.
      */
     private String pegaEstado(String situacaoProposta) {
-        String[] array = situacaoProposta.split("[(]");
-        return "(" + array[1].toLowerCase();
+        if (situacaoProposta.contains("(")){
+            String[] array = situacaoProposta.split("[(]");
+            return "(" + array[1].toLowerCase();
+        }
+
+        return "";
     }
 
     /**

@@ -482,6 +482,8 @@ public class SystemControl implements Serializable {
      * @return retorna o codigo da proposta de lei mais relacionada com uma pessoa.
      */
     public String pegarPropostaRelacionada(String dni) {
+        this.validaEntradas.validaPegarPropostaRelacionada(dni);
+
         return this.controllerPessoas.pegarPropostaRelacionada(dni, this.controllerLeis.getLeis());
     }
 
