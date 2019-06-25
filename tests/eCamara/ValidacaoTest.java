@@ -822,4 +822,78 @@ class ValidacaoTest {
         validador.validaVotarPlenario("livre", "123, 456, 789");
         validador.validaVotarPlenario("governista", "123, 456, 789");
     }
+
+    @Test
+    void validaconfigurarEstrategiaPropostaRelacionadaPessoaVazia(){
+        try{
+            validador.validaconfigurarEstrategiaPropostaRelacionada("", "conclusao");
+            fail("Era esperada uma exceção!");
+        }catch (IllegalArgumentException iae){}
+
+    }
+
+    @Test
+    void validaconfigurarEstrategiaPropostaRelacionadaPessoaNula(){
+        try{
+            validador.validaconfigurarEstrategiaPropostaRelacionada(null, "conclusao");
+            fail("Era esperada uma exceção!");
+        }catch (NullPointerException npe){}
+
+    }
+
+
+    @Test
+    void validaconfigurarEstrategiaPropostaRelacionadaEstrategiaVazia(){
+        try{
+            validador.validaconfigurarEstrategiaPropostaRelacionada("123456", "");
+            fail("Era esperada uma exceção!");
+        }catch (IllegalArgumentException iae){}
+
+    }
+
+
+    @Test
+    void validaconfigurarEstrategiaPropostaRelacionadaDniInvalido(){
+        try{
+            validador.validaconfigurarEstrategiaPropostaRelacionada("123456Abc", "conclusao");
+            fail("Era esperada uma exceção!");
+        }catch (IllegalArgumentException iae){}
+
+    }
+
+    @Test
+    void validaconfigurarEstrategiaPropostaRelacionadaEstrategiaInvalida(){
+        try{
+            validador.validaconfigurarEstrategiaPropostaRelacionada("963258-1", "vencer");
+            fail("Era esperada uma exceção!");
+        }catch (IllegalArgumentException iae){}
+
+    }
+
+    @Test
+    void validaPegarPropostaRelacionadaPessoaVazia(){
+        try{
+            validador.validaPegarPropostaRelacionada("");
+            fail("Era esperada uma exceção!");
+        }catch (IllegalArgumentException iae){}
+
+    }
+
+    @Test
+    void validaPegarPropostaRelacionadaPessoaNula(){
+        try{
+            validador.validaPegarPropostaRelacionada(null);
+            fail("Era esperada uma exceção!");
+        }catch (NullPointerException npe){}
+
+    }
+
+    @Test
+    void validaPegarPropostaRelacionadaDniInvalido(){
+        try{
+            validador.validaPegarPropostaRelacionada("125478Abc");
+            fail("Era esperada uma exceção!");
+        }catch (IllegalArgumentException iae){}
+
+    }
 }
