@@ -33,8 +33,8 @@ public class Votacao implements Serializable {
         lei.addVotacaoRealizada();
 
         if (votosAFavor >= comissao.tamanhoComissao() / 2 + 1) {
-            lei.setTramitacao(true);
 
+            lei.setTramitacao(true);
             lei.setSituacao(true, proximoLocal);
             lei.setVotante(proximoLocal);
             return true;

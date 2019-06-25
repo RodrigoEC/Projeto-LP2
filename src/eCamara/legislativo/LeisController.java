@@ -157,10 +157,10 @@ public class LeisController implements Serializable {
      */
     public String exibirTramitacao(String codigo) {
         if (!this.leis.containsKey(codigo)) {
-            throw new NullPointerException("linha 160 : LeisController");
+            throw new NullPointerException("Erro ao exibir tramitacao: projeto inexistente");
         }
 
-        return this.leis.get(codigo).getTramitacao() + this.leis.get(codigo).getSituacao();
+        return this.leis.get(codigo).getTodaTramitacao();
     }
 
 }

@@ -24,7 +24,7 @@ public class Pessoa implements Serializable {
     /** String com o partido. */
     private String partido;
     /** String com os interesses. */
-    private String interesses; // precisa virar um ArrayList (US7)
+    private String interesses;
     /** Funcao do tipo Funcao. */
     private Funcao funcao;
     /** estrategia do tipo EstrategiaProposta **/
@@ -270,7 +270,6 @@ public class Pessoa implements Serializable {
                 }
             }
         }
-
 
         return false;
     }

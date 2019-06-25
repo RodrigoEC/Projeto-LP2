@@ -167,6 +167,17 @@ public abstract class ProjetoDeLeiAbstract implements ProjetoDeLei, Serializable
         return tipoLei;
     }
 
+    public String getTodaTramitacao() {
+        if ("APROVADO".equals(this.situacao) || "ARQUIVADO".equals(this.situacao)) {
+            return this.tramitacao;
+        }
+        if ("".equals(this.tramitacao)) {
+            return this.situacao;
+        }
+
+        return this.tramitacao + ", " + this.situacao;
+    }
+
     /**
      * Metodoq que altera a Comissao que deve fazer a votacao da lei. Recebe uma String com a nova comissao.
      * @param votante String com a nova comissao
@@ -203,7 +214,7 @@ public abstract class ProjetoDeLeiAbstract implements ProjetoDeLei, Serializable
     }
 
     public boolean emTramite(){
-        if (this.getSituacao().toLowerCase().equals("aprovado") || this.getSituacao().toLowerCase().equals("arquivado")){
+        if ("aprovado".equals(this.getSituacao().toLowerCase()) || "arquivado".equals(this.getSituacao().toLowerCase())){
             return false;
         }
         return true;
