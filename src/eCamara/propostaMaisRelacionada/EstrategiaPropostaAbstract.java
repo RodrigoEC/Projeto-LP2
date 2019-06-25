@@ -14,7 +14,7 @@ import java.util.Set;
 public abstract class EstrategiaPropostaAbstract implements EstrategiaProposta, Serializable {
 
     /**
-     * Metodo que retorna a proposta de lei que tem mais a ver com os interesses de determinada pessoa. Ela recebe
+     * Metodo que retorna a proposta de lei que tem mais a ver com os inter0000000000000000esses de determinada pessoa. Ela recebe
      * como parâmetro um Map com todas as leis cadastradas e uma String com os interesses da pessoa.
      *
      * @param leis as leis cadastradas.
