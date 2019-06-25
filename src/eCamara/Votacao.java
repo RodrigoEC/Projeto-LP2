@@ -124,19 +124,6 @@ public class Votacao implements Serializable {
         return votosAFavor;
     }
 
-    /**
-     * Metodo que verifica se a Pessoa eh da base governista. Recebe a Pessoa e o Set de partidos (Strings).
-     *
-     * @param pessoa   Pessoa a ser verificada.
-     * @param partidos Set de partidos.
-     * @return boolean true se a Pessoa for da base e false se nao for.
-     */
-    private boolean ehDaBase(Pessoa pessoa, Set<String> partidos) {
-        if (partidos.contains(pessoa.getPartido())) {
-            return true;
-        }
-        return false;
-    }
 
     /**
      * Metodo responsavel por identificar os deputados presentes a partir dos dnis dos politicos presentes passados como

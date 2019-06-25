@@ -1,5 +1,7 @@
 package eCamara.legislativo;
 
+import java.util.ArrayList;
+
 /**
  * Interface que serve para abstrair os diferentes tipos de lei.
  */
@@ -30,7 +32,7 @@ public interface ProjetoDeLei {
      * Metodo que retorna a tramitacao da lei.
      * @return String com a tramitacao da lei.
      */
-    String getTramitacao();
+    ArrayList<String> getTramitacao();
 
     /**
      * Metodo que retorna a comissao que deve fazer a votacao da lei.

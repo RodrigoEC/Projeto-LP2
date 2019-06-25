@@ -72,18 +72,18 @@ public class PLP extends ProjetoDeLeiAbstract {
     @Override
     public void setTramitacao(boolean aprovadoOuNao) {
         if (!aprovadoOuNao && "plenario".equals(this.votante.toLowerCase())) {
-            this.tramitacao += String.format("REJEITADO (plenario %do turno), ", this.turno);
+            this.tramitacao.add(String.format("REJEITADO (Plenario - %do turno)", this.turno));
 
         } else if (aprovadoOuNao && "plenario".equals(this.votante.toLowerCase())) {
-            this.tramitacao += String.format("APROVADO (plenario %do turno), ", this.turno);
+            this.tramitacao.add(String.format("APROVADO (Plenario - %do turno)", this.turno));
             super.qntAprovacoes += 1;
 
         } else if (aprovadoOuNao) {
-            this.tramitacao += String.format("APROVADO (%s), ",this.votante);
+            this.tramitacao.add(String.format("APROVADO (%s)",this.votante));
             super.qntAprovacoes += 1;
 
         } else {
-            this.tramitacao += String.format("REJEITADO (%s), ", this.votante);
+            this.tramitacao.add(String.format("REJEITADO (%s)", this.votante));
         }
     }
 
@@ -107,20 +107,18 @@ public class PLP extends ProjetoDeLeiAbstract {
     @Override
     public void setSituacao(boolean estadoAprovacao, String proxLocal) {
         if (!estadoAprovacao && this.turno == 2) {
-            this.tramitacao += String.format("REJEITADO (%s)", this.votante);
             this.situacao = "ARQUIVADO";
 
         } else if (estadoAprovacao && this.turno == 2) {
-            this.tramitacao += String.format("APROVADO (%s)", this.votante);
             this.situacao = "APROVADO";
 
         } else if (!estadoAprovacao && ("plenario".equals(proxLocal) || "plenario".equals(this.votante))){
-            this.tramitacao += String.format("REJEITADO (%s)", this.votante);
             this.situacao = "ARQUIVADO";
 
 
         }else if(("plenario".equals(proxLocal) || "plenario".equals(this.votante))) {
             this.situacao = String.format("EM VOTACAO (Plenario - %do turno)", this.turno + 1);
+
 
         } else {
             this.situacao = String.format("EM VOTACAO (%s)", proxLocal);
