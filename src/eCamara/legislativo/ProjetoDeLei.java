@@ -50,6 +50,8 @@ public interface ProjetoDeLei {
      */
     String getTipoLei();
 
+    String getTodaTramitacao();
+
     /**
      * Metodo que modifica a tramitacao.. Recebe um boolean referente a aprovacao da lei.
      *

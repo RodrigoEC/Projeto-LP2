@@ -99,19 +99,19 @@ public class PL extends ProjetoDeLeiAbstract {
     @Override
     public void setSituacao(boolean estadoAprovacao, String proxLocal) {
         if (!estadoAprovacao && !this.conclusivo && "plenario".equals(this.votante)) {
-            this.tramitacao += String.format("REJEITADO (%s), ",this.votante);
+            this.tramitacao += String.format("REJEITADO (%s)",this.votante);
             this.situacao = "ARQUIVADO";
 
         } else if (estadoAprovacao && !this.conclusivo && "plenario".equals(this.votante)){
-            this.tramitacao += String.format("APROVADO (%s), ", this.votante);
+            this.tramitacao += String.format("APROVADO (%s)", this.votante);
             this.situacao = "APROVADO";
 
         } else if (!estadoAprovacao && this.conclusivo) {
-            this.tramitacao += String.format("REJEITADO (%s), ",this.votante);
+            this.tramitacao += String.format("REJEITADO (%s)",this.votante);
             this.situacao = "ARQUIVADO";
 
         } else if (this.votacaoRealizadas == 2 && estadoAprovacao && this.conclusivo) {
-            this.tramitacao += String.format("APROVADO (%s), ", this.votante);
+            this.tramitacao += String.format("APROVADO (%s)", this.votante);
             this.situacao = "APROVADO";
 
         } else {

@@ -107,15 +107,15 @@ public class PLP extends ProjetoDeLeiAbstract {
     @Override
     public void setSituacao(boolean estadoAprovacao, String proxLocal) {
         if (!estadoAprovacao && this.turno == 2) {
-            this.tramitacao += String.format("REJEITADO (%s), ", this.votante);
+            this.tramitacao += String.format("REJEITADO (%s)", this.votante);
             this.situacao = "ARQUIVADO";
 
         } else if (estadoAprovacao && this.turno == 2) {
-            this.tramitacao += String.format("APROVADO (%s), ", this.votante);
+            this.tramitacao += String.format("APROVADO (%s)", this.votante);
             this.situacao = "APROVADO";
 
         } else if (!estadoAprovacao && ("plenario".equals(proxLocal) || "plenario".equals(this.votante))){
-            this.tramitacao += String.format("REJEITADO (%s), ", this.votante);
+            this.tramitacao += String.format("REJEITADO (%s)", this.votante);
             this.situacao = "ARQUIVADO";
 
 
