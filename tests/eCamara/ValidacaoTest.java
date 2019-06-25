@@ -851,6 +851,15 @@ class ValidacaoTest {
 
     }
 
+    @Test
+    void validaconfigurarEstrategiaPropostaRelacionadaEstrategiaNula(){
+        try{
+            validador.validaconfigurarEstrategiaPropostaRelacionada("123456", null);
+            fail("Era esperada uma exceção!");
+        }catch (NullPointerException iae){}
+
+    }
+
 
     @Test
     void validaconfigurarEstrategiaPropostaRelacionadaDniInvalido(){
@@ -860,6 +869,24 @@ class ValidacaoTest {
         }catch (IllegalArgumentException iae){}
 
     }
+    @Test
+    void validaconfigurarEstrategiaPropostaRelacionadaDniVazio(){
+        try{
+            validador.validaconfigurarEstrategiaPropostaRelacionada("", "conclusao");
+            fail("Era esperada uma exceção!");
+        }catch (IllegalArgumentException iae){}
+
+    }
+
+    @Test
+    void validaconfigurarEstrategiaPropostaRelacionadaDniNulo(){
+        try{
+            validador.validaconfigurarEstrategiaPropostaRelacionada(null, "conclusao");
+            fail("Era esperada uma exceção!");
+        }catch (NullPointerException npe){}
+
+    }
+
 
     @Test
     void validaconfigurarEstrategiaPropostaRelacionadaEstrategiaInvalida(){
@@ -896,4 +923,6 @@ class ValidacaoTest {
         }catch (IllegalArgumentException iae){}
 
     }
+
+
 }

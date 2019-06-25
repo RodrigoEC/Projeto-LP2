@@ -67,6 +67,8 @@ public abstract class ProjetoDeLeiAbstract implements ProjetoDeLei, Serializable
 
     protected int qntAprovacoes;
 
+    private int numeroLei;
+
     /**
      * Construtor responsavel por inicializar os atributosque do objeto ProjetoDeLeiAbstract.
      *
@@ -90,6 +92,7 @@ public abstract class ProjetoDeLeiAbstract implements ProjetoDeLei, Serializable
         this.votacaoRealizadas = 0;
         this.tipoLei = "";
         this.qntAprovacoes = 0;
+        this.numeroLei = 0;
     }
 
     /**
@@ -245,6 +248,13 @@ public abstract class ProjetoDeLeiAbstract implements ProjetoDeLei, Serializable
     public int getQntAprovacoes(){
         return this.qntAprovacoes;
     }
+
+    public void setNumeroLei(int numero){
+        this.numeroLei = numero;
+    }
+
+    public int getNumeroLei(){
+        return this.numeroLei;
+    }
+
 }
-
-

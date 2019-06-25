@@ -67,7 +67,7 @@ public class Conclusao extends EstrategiaPropostaAbstract {
                 return segundoTurno.get(0);
             }
 
-            return segundoTurno.get(super.propostaMaisAntiga(segundoTurno));
+            return segundoTurno.get(super.propostaMaisAntiga(segundoTurno, leis));
         }
 
         if (primeiroTurno.size() > 0){
@@ -75,7 +75,7 @@ public class Conclusao extends EstrategiaPropostaAbstract {
                 return primeiroTurno.get(0);
             }
 
-            return primeiroTurno.get(super.propostaMaisAntiga(primeiroTurno));
+            return primeiroTurno.get(super.propostaMaisAntiga(primeiroTurno, leis));
         }
 
         if (outrasComissoes.size() > 0){
@@ -91,7 +91,7 @@ public class Conclusao extends EstrategiaPropostaAbstract {
                 return ccjc.get(0);
             }
 
-            return ccjc.get(super.propostaMaisAntiga(ccjc));
+            return ccjc.get(super.propostaMaisAntiga(ccjc, leis));
         }
 
         return "";
@@ -145,7 +145,7 @@ public class Conclusao extends EstrategiaPropostaAbstract {
                 iguais.add(maisComissoes);
                 iguais.add(p);
 
-                return super.propostaMaisAntiga(iguais);
+                return super.propostaMaisAntiga(iguais, leis);
             }
         }
 

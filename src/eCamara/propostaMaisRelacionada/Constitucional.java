@@ -65,21 +65,21 @@ public class Constitucional extends EstrategiaPropostaAbstract {
                 return propostasPec.get(0);
             }
 
-            return propostasPec.get(super.propostaMaisAntiga(propostasPec));
+            return propostasPec.get(super.propostaMaisAntiga(propostasPec, leis));
 
         } else if (propostasPlp.size() > 0){
             if (propostasPlp.size() == 1){
                 return propostasPlp.get(0);
             }
 
-            return propostasPlp.get(super.propostaMaisAntiga(propostasPlp));
+            return propostasPlp.get(super.propostaMaisAntiga(propostasPlp, leis));
 
         } else if (propostasPl.size() > 0){
             if (propostasPl.size() == 1){
                 return propostasPl.get(0);
             }
 
-            return propostasPl.get(super.propostaMaisAntiga(propostasPl));
+            return propostasPl.get(super.propostaMaisAntiga(propostasPl, leis));
         }
 
         return "";
