@@ -57,7 +57,7 @@ public abstract class ProjetoDeLeiAbstract implements ProjetoDeLei, Serializable
     /**
      * Tramitacao da lei.
      */
-    protected String tramitacao;
+    protected ArrayList<String> tramitacao;
 
     /**
      * Tipo de lei que a lei intanciada sera, sendo deixado para os filhos dessa classe decidirem seus "tipos", existindo
@@ -86,7 +86,7 @@ public abstract class ProjetoDeLeiAbstract implements ProjetoDeLei, Serializable
         this.url = url;
         this.situacao = "EM VOTACAO (CCJC)";
         this.votante = "CCJC";
-        this.tramitacao = "";
+        this.tramitacao = new ArrayList<>();
         this.votacaoRealizadas = 0;
         this.tipoLei = "";
         this.qntAprovacoes = 0;
@@ -145,7 +145,7 @@ public abstract class ProjetoDeLeiAbstract implements ProjetoDeLei, Serializable
      * Metodo que retorna a tramitacao da lei.
      * @return String com a tramitacao da lei.
      */
-    public String getTramitacao() {
+    public ArrayList<String> getTramitacao() {
         return tramitacao;
     }
 
@@ -167,15 +167,37 @@ public abstract class ProjetoDeLeiAbstract implements ProjetoDeLei, Serializable
         return tipoLei;
     }
 
+    /**
+     * Metodo responsavel por retornar uma string que representa toda a tramitacao feita em cima do projeto de lei.
+     * Caso nenhuma votacao tiver sido feita em cima da proposta apenas a suta situacao sera retornada, caso as votacoes
+     * realizadas sobre a proposta ja tiverem se encerrado o metodo retorna apenas a string com todas as votacoes separados
+     * por virgulas. Por fim, caso nenhuma das condicoes sejam satisfeitas o metodo retornara uma string com todas as votacoes
+     * feitas e a situacao atual do projeto na camara, tudo separado por virgula.
+     *
+     * @return uma string que representa a tramitacao do projeto na camara.
+     */
     public String getTodaTramitacao() {
-        if ("APROVADO".equals(this.situacao) || "ARQUIVADO".equals(this.situacao)) {
-            return this.tramitacao;
+        String stringSaida = "";
+
+        if (this.tramitacao.size() != 0) {
+            for (int i = 0; i < this.tramitacao.size(); i++) {
+                if (i == 0) {
+                    stringSaida += this.tramitacao.get(i);
+                } else {
+                    stringSaida += String.format(", %s", this.tramitacao.get(i));
+                }
+            }
         }
-        if ("".equals(this.tramitacao)) {
+
+
+        if ("APROVADO".equals(this.situacao) || "ARQUIVADO".equals(this.situacao)) {
+            return stringSaida;
+        }
+        if (this.tramitacao.size() == 0) {
             return this.situacao;
         }
 
-        return this.tramitacao + ", " + this.situacao;
+        return stringSaida + ", " + this.situacao;
     }
 
     /**
