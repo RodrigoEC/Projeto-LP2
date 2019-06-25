@@ -27,6 +27,9 @@ public class SystemControl implements Serializable {
      */
     private Set<String> partidos;
 
+    /**
+     * Mapa de Comissoes
+     */
     private Map<String, Comissao> comissoes;
     /**
      * Objeto de Validacao
@@ -51,6 +54,13 @@ public class SystemControl implements Serializable {
         return controllerPessoas;
     }
 
+    public LeisController getControllerLeis(){
+        return controllerLeis;
+    }
+
+    public Map<String, Comissao> getComissoes(){
+        return this.comissoes;
+    }
 
     /**
      * Metodo que cadastra um Pessoa que nao tem partido. Recebe Strings com o nome, dni, estado e
@@ -492,17 +502,16 @@ public class SystemControl implements Serializable {
      * essa responsabilidade ao GerenciadorArquivos. Recebe o objeto a ser carregado com os dados.
      * @param sistema Object a ser desserializado, carregado com os dados.
      */
-    public void carregarSistema(Object sistema){
+    public void carregarSistema(SystemControl sistema){
         GerenciadorArquivos.carregarSistema(sistema);
     }
 
     /**
      * Metodo responsavel por fazer a serilizacao dos dados de um objeto, recebe o objeto a ser serilizado e delega essa responsabilidade
      * ao GerenciadorArquivos. Recebe o objeto a ser salvo.
-     * @param sistema Object a ser serializado.
      */
-    public void salvarSistema(Object sistema){
-        GerenciadorArquivos.salvarSistema(sistema);
+    public void salvarSistema(){
+        GerenciadorArquivos.salvarSistema(this.controllerPessoas.getMapPessoas(), this.controllerLeis.getLeis(), this.partidos, this.comissoes);
     }
 
     /**
@@ -511,8 +520,16 @@ public class SystemControl implements Serializable {
      * @param sistema Object a ser limpo.
      * @return SystemControl limpo.
      */
-    public SystemControl limparSistema(Object sistema){
-       return GerenciadorArquivos.limparSistema(sistema);
+    public void limparSistema(SystemControl sistema){
+        GerenciadorArquivos.limparSistema(sistema);
+    }
+
+    public void setPartidos(Set partidos) {
+        this.partidos = partidos;
+    }
+
+    public  void setComissoes(Map comissoes){
+        this.comissoes =  comissoes;
     }
 }
 

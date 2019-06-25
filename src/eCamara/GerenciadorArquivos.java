@@ -1,6 +1,10 @@
 package eCamara;
 
 import java.io.*;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 
 
 /**
@@ -24,7 +28,7 @@ public class GerenciadorArquivos implements Serializable {
     private static void salvarObj(Object objeto, String nomeArquivo) throws FileNotFoundException, IOException {
         ObjectOutputStream arqObjectos = null;
         try{
-            arqObjectos = new ObjectOutputStream(new FileOutputStream(nomeArquivo));
+            arqObjectos = new ObjectOutputStream(new FileOutputStream("arquivos" + File.separator + nomeArquivo));
             arqObjectos.writeObject(objeto);
         }finally{
             if(arqObjectos != null)
@@ -47,7 +51,7 @@ public class GerenciadorArquivos implements Serializable {
     private static Object carregarObj(String nomeArquivo) throws FileNotFoundException, IOException, ClassNotFoundException{
         ObjectInputStream arqObjectos = null;
         try{
-            arqObjectos = new ObjectInputStream(new FileInputStream(nomeArquivo));
+            arqObjectos = new ObjectInputStream(new FileInputStream("arquivos" + File.separator + nomeArquivo));
             return arqObjectos.readObject();
         }finally{
             if(arqObjectos != null)
@@ -59,11 +63,13 @@ public class GerenciadorArquivos implements Serializable {
      * Metodo que salva o sistem em um arquivo de bytes (Serializacao), sera usado o metodo auxiliar salvarObj.
      * Caso uma execao IOException seja lancada por esse metodo, sera capturada a excecao e mostrara a mensagem "Deu erro ai".
      * Recebe o objeto a ser salvo.
-     * @param sistema Object a ser salvo.
      */
-    public static void salvarSistema(Object sistema) {
+    public static void salvarSistema(HashMap pessoas, HashMap leis, Set partidos, Map comissoes) {
         try{
-            GerenciadorArquivos.salvarObj(sistema, "ArquivosSistema.bin");
+            GerenciadorArquivos.salvarObj(pessoas, "ArquivoSistemaPessoa.bin");
+            GerenciadorArquivos.salvarObj(leis, "ArquivoSistemaLeis.bin");
+            GerenciadorArquivos.salvarObj(partidos, "ArquivoSistemaPartidos.bin");
+            GerenciadorArquivos.salvarObj(comissoes, "ArquivoSistemaComicoes.bin");
         }catch(IOException e){
             System.out.println("Deu erro ai");
             e.printStackTrace();
@@ -80,9 +86,12 @@ public class GerenciadorArquivos implements Serializable {
      *
      * @param sistema Object a ser carregado com os dados.
      */
-    public static void carregarSistema(Object sistema) {
+    public static void carregarSistema(SystemControl sistema) {
         try{
-            sistema = (SystemControl) GerenciadorArquivos.carregarObj("ArquivosSistema.bin");
+            sistema.getControllerDeputados().setMap((HashMap) GerenciadorArquivos.carregarObj("ArquivoSistemaPessoa.bin"));
+            sistema.getControllerLeis().setMap((HashMap) GerenciadorArquivos.carregarObj("ArquivoSistemaLeis.bin"));
+            sistema.setPartidos((Set) GerenciadorArquivos.carregarObj("ArquivoSistemaPartidos.bin"));
+            sistema.setComissoes((Map) GerenciadorArquivos.carregarObj("ArquivoSistemaComicoes.bin"));
         }catch(FileNotFoundException e){
             sistema = new SystemControl();
         }catch(ClassNotFoundException | IOException e){
@@ -99,13 +108,11 @@ public class GerenciadorArquivos implements Serializable {
      * @param sistema Object a ser limpo.
      * @return SystemControll limpo.
      */
-    public static SystemControl limparSistema(Object sistema){
-      try {
-          sistema = new SystemControl();
-          return (SystemControl) sistema;
-      // Nao sei qual excecao lancar
-      } catch (Exception e){
-          throw new IllegalArgumentException("Deu erro ai " + e.getMessage());
-      }
+    public static void limparSistema(SystemControl sistema){
+        sistema.getControllerDeputados().getMapPessoas().clear();
+        sistema.getControllerLeis().getLeis().clear();
+        sistema.getPartidos().clear();
+        sistema.getComissoes().clear();
+        GerenciadorArquivos.salvarSistema(sistema.getControllerDeputados().getMapPessoas(), sistema.getControllerLeis().getLeis(), sistema.getPartidos(), sistema.getComissoes());
     }
 }

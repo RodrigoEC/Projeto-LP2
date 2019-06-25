@@ -163,4 +163,7 @@ public class LeisController implements Serializable {
         return this.leis.get(codigo).getTodaTramitacao();
     }
 
+    public void setMap(HashMap leis) {
+        this.leis = leis;
+    }
 }

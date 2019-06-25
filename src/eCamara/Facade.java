@@ -96,10 +96,10 @@ public class Facade {
     }
 
     public void salvarSistema(){
-        this.systemControl.salvarSistema(this.systemControl);
+        this.systemControl.salvarSistema();
     }
 
     public void limparSistema() {
-        this.systemControl = GerenciadorArquivos.limparSistema(this.systemControl);
+        this.systemControl.limparSistema(this.systemControl);
     }
 }

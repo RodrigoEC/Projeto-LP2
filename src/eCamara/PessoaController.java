@@ -208,4 +208,7 @@ public class PessoaController implements Serializable {
         return this.mapPessoas.get(dni).pegarPropostaRelacionada(leis);
     }
 
+    public void setMap(HashMap pessoas) {
+        this.mapPessoas = pessoas;
+    }
 }
