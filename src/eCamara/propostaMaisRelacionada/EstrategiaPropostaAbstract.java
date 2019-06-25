@@ -80,10 +80,12 @@ public abstract class EstrategiaPropostaAbstract implements EstrategiaProposta, 
      *
      * @return o indice da proposta mais antiga.
      */
-    protected int propostaMaisAntiga(ArrayList<String> propostas) {
+    protected int propostaMaisAntiga(ArrayList<String> propostas, Map<String, ProjetoDeLei> leis) {
         int indiceMaisAntigo = 0;
         int anoMaisAntigo = 0;
         int precedencia = 0;
+        String tipoMaisAntigo = "";
+        int numeroLei = 0;
 
         for (int i = 0; i < propostas.size(); i++) {
             String[] ano = propostas.get(i).trim().split("/");
@@ -93,18 +95,33 @@ public abstract class EstrategiaPropostaAbstract implements EstrategiaProposta, 
             if (anoMaisAntigo == 0) {
                 anoMaisAntigo = Integer.parseInt(ano[1]);
                 precedencia = Integer.parseInt(criacaoMaisAntiga[1]);
+                tipoMaisAntigo = leis.get(propostas.get(i)).getTipoLei();
                 indiceMaisAntigo = i;
+                numeroLei = leis.get(i).getNumeroLei();
 
             } else if (Integer.parseInt(ano[1]) < anoMaisAntigo) {
                 anoMaisAntigo = Integer.parseInt(ano[1]);
                 precedencia = Integer.parseInt(criacaoMaisAntiga[1]);
+                tipoMaisAntigo = leis.get(propostas.get(i)).getTipoLei();
                 indiceMaisAntigo = i;
+                numeroLei = leis.get(i).getNumeroLei();
 
             } else if (Integer.parseInt(ano[1]) == anoMaisAntigo) {
-                if (Integer.parseInt(criacaoMaisAntiga[1]) < precedencia) {
-                    precedencia = Integer.parseInt(criacaoMaisAntiga[1]);
-                    indiceMaisAntigo = i;
+                if (propostas.get(i).trim().split(" ")[0].equals(tipoMaisAntigo)){
+                    if (Integer.parseInt(criacaoMaisAntiga[1]) < precedencia) {
+                        precedencia = Integer.parseInt(criacaoMaisAntiga[1]);
+                        indiceMaisAntigo = i;
+                        numeroLei = leis.get(i).getNumeroLei();
+                    }
+                } else{
+                    if (leis.get(propostas.get(i)).getNumeroLei() < numeroLei){
+                        precedencia = Integer.parseInt(criacaoMaisAntiga[1]);
+                        tipoMaisAntigo = leis.get(propostas.get(i)).getTipoLei();
+                        indiceMaisAntigo = i;
+                        numeroLei = leis.get(i).getNumeroLei();
+                    }
                 }
+
             }
 
         }

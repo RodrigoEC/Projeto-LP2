@@ -21,10 +21,16 @@ public class LeisController implements Serializable {
     private Map<String, ProjetoDeLei> leis;
 
     /**
+     * Numero da lei.
+     */
+    private int numeroLei;
+
+    /**
      * Constroi o LeisController, inicia o map e os contadores.
      */
     public LeisController() {
         this.leis = new HashMap<>();
+        this.numeroLei = 0;
     }
 
     /**
@@ -50,6 +56,8 @@ public class LeisController implements Serializable {
             }
         }
         this.leis.put(key, new PL(dni, ano, ementa, interesses, url, conclusivo));
+        this.numeroLei += 1;
+        this.leis.get(key).setNumeroLei(this.numeroLei);
         return key;
     }
 
@@ -76,6 +84,8 @@ public class LeisController implements Serializable {
             }
         }
         this.leis.put(key, new PLP(dni, ano, ementa, interesses, url, artigos));
+        this.numeroLei += 1;
+        this.leis.get(key).setNumeroLei(this.numeroLei);
         return key;
     }
 
@@ -102,6 +112,8 @@ public class LeisController implements Serializable {
             }
         }
         this.leis.put(key, new PEC(dni, ano, ementa, interesses, url, artigos));
+        this.numeroLei += 1;
+        this.leis.get(key).setNumeroLei(this.numeroLei);
         return key;
     }
 

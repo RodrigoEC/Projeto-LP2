@@ -85,4 +85,8 @@ public interface ProjetoDeLei {
     boolean emTramite();
 
     int getQntAprovacoes();
+
+    void setNumeroLei(int numero);
+
+    int getNumeroLei();
 }

@@ -64,7 +64,7 @@ public class Aprovacao extends EstrategiaPropostaAbstract {
         if (maisAprovacoes.size() == 1){
             return maisAprovacoes.get(0);
         } else {
-            return maisAprovacoes.get(super.propostaMaisAntiga(maisAprovacoes));
+            return maisAprovacoes.get(super.propostaMaisAntiga(maisAprovacoes, leis));
         }
     }
 }
