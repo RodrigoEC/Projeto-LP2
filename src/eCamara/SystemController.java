@@ -10,7 +10,7 @@ import java.util.*;
  * Objeto que representa o Controller do sistema, tem como atributos o objeto de Validacao, um Map de Pessoa e um Set de
  * Partido (String).
  */
-public class SystemControl implements Serializable {
+public class SystemController implements Serializable {
     /**
      * Controller responsavel por coordenar as operacoes feitas sobre os objetos do tipo Pessoa.
      */
@@ -37,10 +37,10 @@ public class SystemControl implements Serializable {
     private Validacao validaEntradas;
 
     /**
-     * Constroi o SystemControl(Controller), inicia o Map e o Set e instancia o Objeto de validacao.
+     * Constroi o SystemController(Controller), inicia o Map e o Set e instancia o Objeto de validacao.
      */
 
-    public SystemControl() {
+    public SystemController() {
         this.votacao = new Votacao();
         this.controllerLeis = new LeisController();
         this.controllerPessoas = new PessoaController();
@@ -179,7 +179,7 @@ public class SystemControl implements Serializable {
 
     /**
      * Metodo responsavel por deixar disponivel o atributo partidos, um set de string que representam partidos, os quais
-     * serao usado nos testes do SystemControl.
+     * serao usado nos testes do SystemController.
      *
      * @return O set de string que representam os partidos.
      */
@@ -502,7 +502,7 @@ public class SystemControl implements Serializable {
      * essa responsabilidade ao GerenciadorArquivos. Recebe o objeto a ser carregado com os dados.
      * @param sistema Object a ser desserializado, carregado com os dados.
      */
-    public void carregarSistema(SystemControl sistema){
+    public void carregarSistema(SystemController sistema){
         GerenciadorArquivos.carregarSistema(sistema);
     }
 
@@ -515,12 +515,12 @@ public class SystemControl implements Serializable {
     }
 
     /**
-     * Metodo responsavel por limpar o sistema salvo anteriormente. Recebe o objeto a ser limpo e retorna o objeto do tipo SystemControl
+     * Metodo responsavel por limpar o sistema salvo anteriormente. Recebe o objeto a ser limpo e retorna o objeto do tipo SystemController
      * a ser limpo.
      * @param sistema Object a ser limpo.
-     * @return SystemControl limpo.
+     * @return SystemController limpo.
      */
-    public void limparSistema(SystemControl sistema){
+    public void limparSistema(SystemController sistema){
         GerenciadorArquivos.limparSistema(sistema);
     }
 

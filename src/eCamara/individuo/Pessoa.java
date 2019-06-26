@@ -2,10 +2,10 @@ package eCamara.individuo;
 
 import eCamara.Validacao;
 import eCamara.legislativo.ProjetoDeLei;
-import eCamara.propostaMaisRelacionada.Aprovacao;
-import eCamara.propostaMaisRelacionada.Conclusao;
-import eCamara.propostaMaisRelacionada.Constitucional;
-import eCamara.propostaMaisRelacionada.EstrategiaProposta;
+import eCamara.legislativo.propostaMaisRelacionada.Aprovacao;
+import eCamara.legislativo.propostaMaisRelacionada.Conclusao;
+import eCamara.legislativo.propostaMaisRelacionada.Constitucional;
+import eCamara.legislativo.propostaMaisRelacionada.EstrategiaProposta;
 
 import java.io.Serializable;
 import java.util.*;

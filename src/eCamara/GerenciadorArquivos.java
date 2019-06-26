@@ -2,7 +2,6 @@ package eCamara;
 
 import java.io.*;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
@@ -81,19 +80,19 @@ public class GerenciadorArquivos implements Serializable {
     /**
      * Metodo que carregara o sistema salvo. Recebe o o objeto a ser carregado com os dados (especie de entradas).
      * Primeiramente sera tentado instaciar o objeto passado como parametro para o objeto salvo no arquivo de bytes, fara uso
-     * do metodo carregarObj, caso esse metodo lance um FileNotFoundException sera iniciado o objeto "limpo", do tipo SystemControl, pois nada foi salvo,
+     * do metodo carregarObj, caso esse metodo lance um FileNotFoundException sera iniciado o objeto "limpo", do tipo SystemController, pois nada foi salvo,
      * caso a excecao lancada seja ClassNotFoundException ou IOException sera printada a mensagem de erro da excecao.
      *
      * @param sistema Object a ser carregado com os dados.
      */
-    public static void carregarSistema(SystemControl sistema) {
+    public static void carregarSistema(SystemController sistema) {
         try{
             sistema.getControllerDeputados().setMap((HashMap) GerenciadorArquivos.carregarObj("ArquivoSistemaPessoa.bin"));
             sistema.getControllerLeis().setMap((HashMap) GerenciadorArquivos.carregarObj("ArquivoSistemaLeis.bin"));
             sistema.setPartidos((Set) GerenciadorArquivos.carregarObj("ArquivoSistemaPartidos.bin"));
             sistema.setComissoes((Map) GerenciadorArquivos.carregarObj("ArquivoSistemaComicoes.bin"));
         }catch(FileNotFoundException e){
-            sistema = new SystemControl();
+            sistema = new SystemController();
         }catch(ClassNotFoundException | IOException e){
             System.out.println(e.getMessage());
 
@@ -102,13 +101,13 @@ public class GerenciadorArquivos implements Serializable {
 
     /**
      * Metodo que limpa o sistema, recebe o objeto a ser limpo. Primeiramente sera tentado instancia o objeto passado como parametro
-     * para o tipo SystemControl, caso uma excecao seja capturada, sera lancada excecao.
-     * o retorno sera o SystemControl novo, limpo, sem dados se nenhum erro ocorrer.
+     * para o tipo SystemController, caso uma excecao seja capturada, sera lancada excecao.
+     * o retorno sera o SystemController novo, limpo, sem dados se nenhum erro ocorrer.
      *
      * @param sistema Object a ser limpo.
      * @return SystemControll limpo.
      */
-    public static void limparSistema(SystemControl sistema){
+    public static void limparSistema(SystemController sistema){
         sistema.getControllerDeputados().getMapPessoas().clear();
         sistema.getControllerLeis().getLeis().clear();
         sistema.getPartidos().clear();

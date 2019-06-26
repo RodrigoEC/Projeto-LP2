@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class PessoaTest {
-    private SystemControl control;
+    private SystemController control;
     private Pessoa p;
     private Pessoa p2;
     private Pessoa p3;
@@ -15,7 +15,7 @@ class PessoaTest {
 
     @BeforeEach
     void setUp() {
-        this.control = new SystemControl();
+        this.control = new SystemController();
         this.p = new Pessoa("Carlos", "0028490850-4", "PB", "");
         this.p2 = new Pessoa("Joao", "0034240-234", "PB", "Rinha de galo", "LRG - LIBERA RINHA DE GALO");
         this.p3 = new Pessoa("CarlosCarlos", "0028490850-4", "PB", "Saude");

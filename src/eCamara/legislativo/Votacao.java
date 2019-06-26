@@ -1,4 +1,4 @@
-package eCamara;
+package eCamara.legislativo;
 
 import eCamara.individuo.Pessoa;
 import eCamara.legislativo.Comissao;
