@@ -49,11 +49,7 @@ public class Aprovacao extends EstrategiaPropostaAbstract {
         ArrayList<String> maisAprovacoes = new ArrayList<>();
 
         for (String proposta: propostasRelacionadas.keySet()){
-            if (qntAprovacoes == 0){
-                qntAprovacoes = leis.get(proposta).getQntAprovacoes();
-                maisAprovacoes.add(proposta);
-
-            } else if (leis.get(proposta).getQntAprovacoes() > qntAprovacoes){
+           if (leis.get(proposta).getQntAprovacoes() > qntAprovacoes){
                 qntAprovacoes = leis.get(proposta).getQntAprovacoes();
                 maisAprovacoes.clear();
                 maisAprovacoes.add(proposta);
