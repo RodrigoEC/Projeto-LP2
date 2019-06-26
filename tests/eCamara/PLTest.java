@@ -35,4 +35,17 @@ public class PLTest {
         assertEquals("Projeto de Lei - PL 2/2016 - 061222222-0 - Institui a semana do carinho nas escolas - EM VOTACAO (CCJC)", pl2.toString("PL 2/2016"));
     }
 
+    @Test
+    void testeAddVotacaoRealizadasExcessao() {
+        PL pl = new PL("061222222-0",2016,"Institui a semana da nutricao nas escolas","saude,educacao basica","http://example.com/semana_saude",true);
+
+        pl.addTurno();
+        pl.addTurno();
+
+        try {
+
+        } catch (IllegalArgumentException IAE) {
+        }
+    }
+
 }
