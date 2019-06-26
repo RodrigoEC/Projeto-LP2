@@ -845,7 +845,7 @@ class ValidacaoTest {
     @Test
     void validaconfigurarEstrategiaPropostaRelacionadaEstrategiaVazia(){
         try{
-            validador.validaconfigurarEstrategiaPropostaRelacionada("123456", "");
+            validador.validaconfigurarEstrategiaPropostaRelacionada("123456-8", "");
             fail("Era esperada uma exceção!");
         }catch (IllegalArgumentException iae){}
 
@@ -854,7 +854,7 @@ class ValidacaoTest {
     @Test
     void validaconfigurarEstrategiaPropostaRelacionadaEstrategiaNula(){
         try{
-            validador.validaconfigurarEstrategiaPropostaRelacionada("123456", null);
+            validador.validaconfigurarEstrategiaPropostaRelacionada("123456-2", null);
             fail("Era esperada uma exceção!");
         }catch (NullPointerException iae){}
 

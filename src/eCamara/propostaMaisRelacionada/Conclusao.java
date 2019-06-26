@@ -107,7 +107,7 @@ public class Conclusao extends EstrategiaPropostaAbstract {
      *
      * @return o estado da proposta de lei.
      */
-    public String pegaEstado(String situacaoProposta) {
+    private String pegaEstado(String situacaoProposta) {
         if (situacaoProposta.contains("(")){
             String[] array = situacaoProposta.split("[(]");
             return "(" + array[1].toLowerCase();

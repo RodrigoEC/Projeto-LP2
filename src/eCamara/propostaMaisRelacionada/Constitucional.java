@@ -35,9 +35,6 @@ public class Constitucional extends EstrategiaPropostaAbstract {
 
         propostasRelacionadas = super.interesseComum(propostasEmTramite, interesses);
 
-        if(propostasRelacionadas.size() == 0){
-            return "";
-        }
 
         if(propostasRelacionadas.size() == 1){
             for (String proposta: propostasRelacionadas.keySet()){
