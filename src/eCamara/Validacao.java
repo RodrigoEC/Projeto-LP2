@@ -452,8 +452,8 @@ public class Validacao implements Serializable {
 
     public void validaconfigurarEstrategiaPropostaRelacionada(String dni, String estrategia) {
         this.validaString(dni, "Erro ao configurar estrategia: pessoa nao pode ser vazia ou nula");
-        this.validaString(estrategia, "Erro ao configurar estrategia: estrategia vazia");
         this.validaDni(dni, "Erro ao configurar estrategia: dni invalido");
+        this.validaString(estrategia, "Erro ao configurar estrategia: estrategia vazia");
         this.validaEstrategia(estrategia, "Erro ao configurar estrategia: estrategia invalida"); }
 
 

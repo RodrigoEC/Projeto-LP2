@@ -24,13 +24,16 @@ public class Conclusao extends EstrategiaPropostaAbstract {
      */
     @Override
     public String pegarPropostaRelacionada(Map<String, ProjetoDeLei> leis, Set<String> interesses) {
-        HashMap<String, ProjetoDeLei> propostasRelacionadas = new HashMap<>();
+        HashMap<String, ProjetoDeLei> propostasEmTramite = new HashMap<>();
+        HashMap<String, ProjetoDeLei> propostasRelacionadas;
 
         for (String proposta: leis.keySet()){
             if (leis.get(proposta).emTramite()){
-                propostasRelacionadas = super.interesseComum(leis, interesses);
+                propostasEmTramite.put(proposta, leis.get(proposta));
             }
         }
+
+        propostasRelacionadas = super.interesseComum(propostasEmTramite, interesses);
 
         if(propostasRelacionadas.size() == 0){
             return "";
@@ -49,14 +52,14 @@ public class Conclusao extends EstrategiaPropostaAbstract {
         ArrayList<String> ccjc = new ArrayList<>();
 
         for (String proposta: propostasRelacionadas.keySet()){
-            if (pegaEstado(propostasRelacionadas.get(proposta).getSituacao()).equals("(plenario 2o turno)")){
+            if (pegaEstado(propostasRelacionadas.get(proposta).getSituacao()).equals("(plenario 2o turno)") || pegaEstado(propostasRelacionadas.get(proposta).getSituacao()).equals("(plenario)")){
                 segundoTurno.add(proposta);
             }
             if (pegaEstado(propostasRelacionadas.get(proposta).getSituacao()).equals("(plenario 1o turno)")){
-                segundoTurno.add(proposta);
+                primeiroTurno.add(proposta);
             }
             if (pegaEstado(propostasRelacionadas.get(proposta).getSituacao()).equals("(ccjc)")){
-                segundoTurno.add(proposta);
+                ccjc.add(proposta);
             } else{
                 outrasComissoes.add(proposta);
             }
@@ -82,7 +85,7 @@ public class Conclusao extends EstrategiaPropostaAbstract {
             if (outrasComissoes.size() == 1){
                 return outrasComissoes.get(0);
             }
-
+            //return "sei de nada";
             return outrasComissoes.get(this.maisComissoes(leis, outrasComissoes));
         }
 
@@ -104,7 +107,7 @@ public class Conclusao extends EstrategiaPropostaAbstract {
      *
      * @return o estado da proposta de lei.
      */
-    private String pegaEstado(String situacaoProposta) {
+    public String pegaEstado(String situacaoProposta) {
         if (situacaoProposta.contains("(")){
             String[] array = situacaoProposta.split("[(]");
             return "(" + array[1].toLowerCase();

@@ -24,13 +24,16 @@ public class Constitucional extends EstrategiaPropostaAbstract {
      */
     @Override
     public String pegarPropostaRelacionada(Map<String, ProjetoDeLei> leis, Set<String> interesses) {
-        HashMap<String, ProjetoDeLei> propostasRelacionadas = new HashMap<>();
+        HashMap<String, ProjetoDeLei> propostasEmTramite = new HashMap<>();
+        HashMap<String, ProjetoDeLei> propostasRelacionadas;
 
         for (String proposta: leis.keySet()){
             if (leis.get(proposta).emTramite()){
-                propostasRelacionadas = super.interesseComum(leis, interesses);
+                propostasEmTramite.put(proposta, leis.get(proposta));
             }
         }
+
+        propostasRelacionadas = super.interesseComum(propostasEmTramite, interesses);
 
         if(propostasRelacionadas.size() == 0){
             return "";
