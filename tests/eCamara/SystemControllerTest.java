@@ -2107,7 +2107,6 @@ class SystemControlTest {
         this.systemControl.votarComissao("PL 1/2016", "governista", "plenario");
         this.systemControl.votarPlenario("PL 1/2016", "governista", "051444444-0,051444445-0,051444446-0,051444447-0");
 
-
         assertEquals("APROVADO (CCJC), APROVADO (Plenario)", this.systemControl.exibirTramitacao("PL 1/2016"));
 
     }

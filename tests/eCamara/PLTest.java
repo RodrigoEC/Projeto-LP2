@@ -4,8 +4,7 @@ import eCamara.legislativo.PL;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class PLTest {
 
@@ -39,11 +38,13 @@ public class PLTest {
     void testeAddVotacaoRealizadasExcessao() {
         PL pl = new PL("061222222-0",2016,"Institui a semana da nutricao nas escolas","saude,educacao basica","http://example.com/semana_saude",true);
 
-        pl.addTurno();
-        pl.addTurno();
+        pl.addVotacaoRealizada();
+        pl.addVotacaoRealizada();
+
 
         try {
-
+            pl.addVotacaoRealizada();
+            fail("era pra dar ruim");
         } catch (IllegalArgumentException IAE) {
         }
     }
