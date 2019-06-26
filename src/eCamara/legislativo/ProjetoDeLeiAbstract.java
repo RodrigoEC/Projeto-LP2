@@ -245,6 +245,7 @@ public abstract class ProjetoDeLeiAbstract implements ProjetoDeLei, Serializable
         return true;
     }
 
+
     public int getQntAprovacoes(){
         return this.qntAprovacoes;
     }
@@ -256,5 +257,8 @@ public abstract class ProjetoDeLeiAbstract implements ProjetoDeLei, Serializable
     public int getNumeroLei(){
         return this.numeroLei;
     }
+
+    public abstract void situacaoQuorumMinimo(String[] deputadosPresentes);
+
 
 }

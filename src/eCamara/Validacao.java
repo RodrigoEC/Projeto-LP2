@@ -298,7 +298,6 @@ public class Validacao implements Serializable {
         this.validaString(url, "Erro ao cadastrar projeto: url nao pode ser vazio ou nulo");
         this.validaDni(dni, "Erro ao cadastrar projeto: dni invalido");
 
-        //MUDAR O NEGOCIO DO ANO 2019. TORNAR AUTOMATICO A PARTIR DA BIBLIOTECA JAVA.TIME
         if (ano < 1988) {
             throw new IllegalArgumentException("Erro ao cadastrar projeto: ano anterior a 1988");
         }
@@ -450,6 +449,21 @@ public class Validacao implements Serializable {
         validaGovernista(statusGovernista, "Erro ao votar proposta: status invalido");
     }
 
+    /**
+     * Metodo responsavel por validar as entradas do metodo configuraEstrategiaPropostaRelacionada.
+     *
+     * @param dni dni que sera validado.
+     * @param estrategia string que representa  estrategia usada;
+     *
+     * @throws NullPointerException "Erro ao configurar estrategia: pessoa nao pode ser vazia ou nula"
+     * @throws IllegalArgumentException "Erro ao configurar estrategia: pessoa nao pode ser vazia ou nula"
+     *
+     * @throws IllegalArgumentException "Erro ao configurar estrategia: dni invalido".
+     *
+     * @throws IllegalArgumentException "Erro ao configurar estrategia: estrategia vazia".
+     *
+     * @throws IllegalArgumentException "Erro ao configurar estrategia: estrategia invalida".
+     */
     public void validaconfigurarEstrategiaPropostaRelacionada(String dni, String estrategia) {
         this.validaString(dni, "Erro ao configurar estrategia: pessoa nao pode ser vazia ou nula");
         this.validaDni(dni, "Erro ao configurar estrategia: dni invalido");
@@ -463,10 +477,27 @@ public class Validacao implements Serializable {
         }
     }
 
-    public void validaExibirTramitacao(String codigo, String vazioooo) {
-        validaString(codigo, vazioooo);
+    /**
+     * Metodo responsavel por validar as entradas do metodo exibirTramitacao.
+     *
+     * @param codigo codigo da lei que sera validada.
+     *
+     * @throws NullPointerException "nao tem excessao para isso".
+     */
+    public void validaExibirTramitacao(String codigo) {
+        validaString(codigo, "nao tem excessao para isso");
     }
 
+    /**
+     * Metodo que valida o dni passado como parametro no metodo pegarPropostaRelacionada
+     *
+     * @param dni dni que sera validado.
+     *
+     * @throws NullPointerException "Erro ao pegar proposta relacionada: pessoa nao pode ser vazia ou nula".
+     * @throws IllegalArgumentException "Erro ao pegar proposta relacionada: pessoa nao pode ser vazia ou nula".
+     *
+     * @throws IllegalArgumentException "Erro ao pegar proposta relacionada: dni invalido".
+     */
     public void validaPegarPropostaRelacionada(String dni) {
         this.validaString(dni, "Erro ao pegar proposta relacionada: pessoa nao pode ser vazia ou nula");
         this.validaDni(dni, "Erro ao pegar proposta relacionada: dni invalido");

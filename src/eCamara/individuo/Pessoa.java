@@ -75,97 +75,6 @@ public class Pessoa implements Serializable {
     }
 
     /**
-     * Metodo responsavel por fazer atribuicao da funcao de deputado a uma determinada pessoa.
-     * Lanca uma excecao caso a data de inicio na vida publica como deputado seja invalida, a data sera invalida se for nula, ou vazia.
-     * @param dataInicio String que contem a data de inicio na vida publica de deputado.
-     */
-
-    public void cadastraDeputado(String dataInicio){
-        this.validaEntrada.validaDeputado(dataInicio);
-        this.funcao = new Deputado(dataInicio);
-    }
-
-    /**
-     * Metodo que verifica se uma Pessoa eh igual a outro objeto. Uma Pessoa eh igual a outro objeto se esse outro objeto
-     * for do tipo Pessoa e se tiverem o mesmo dni. Retorna True se forem iguais e False se forem diferentes.
-     *
-     * @param o Objeto a ser comparado a igualdade.
-     * @return boolean True se forem iguais e False se forem diferentes.
-     */
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Pessoa pessoa = (Pessoa) o;
-        return Objects.equals(dni, pessoa.dni);
-    }
-
-    /**
-     * Metodo que calcula o HashCode de uma Pessoa. Retorna um inteiro referente ao calculo do HashCode.
-     * O HashCode eh calculado a partir do dni.
-     *
-     * @return Inteiro calculado a partir do dni.
-     */
-    @Override
-    public int hashCode() {
-        return Objects.hash(dni);
-    }
-
-    /**
-     * Metodo responsavel por deixar disponivel o partido em que a pessoa esta filiada.
-     *
-     * @return uma string que representa o partido.
-     */
-    public String getPartido() {
-        return partido;
-    }
-
-    /**
-     * Metodo responsavel por deixar disponivel a funcao da pessoa na politica.
-     *
-     * @return o atributo funcao, um objeto do tipo Funcao
-     */
-    public Funcao getFuncao() {
-        return funcao;
-    }
-
-    /**
-     * Metodo que retorna a representacao textual de uma Pessoa que tem funcao. Essa representacao e feita a partir
-     * da concatenacao do toString() de pessoa com o toString() da funcao.
-     *
-     * @return Representacao textual de Pessoa com funcao.
-     */
-    public String toStringPelaFuncao(){
-        return this.funcao.toString(this.toString());
-    }
-
-    /**
-     * Metodo que retorna a representacao textual de Pessoa. Existem 4 representacoes possiveis: quando Pessoa
-     * tem partido e interesses; quando Pessoa só tem partido, mas nao tem interesses; quando Pessoa apenas tem
-     * interesses, mas nao tem partido; e quando Pessoa nao tem partido e nao tem interesses. Essa representacao
-     * e feita na forma: [nome] - [dni] ([estado]) - [partido] - Interesses: [interesses]
-     *
-     * @return representacao textual de Pessoa.
-     */
-    @Override
-    public String toString(){
-        if (this.partido == null){
-            if (this.interesses.trim().equals("")) {
-                return this.nome + " - " + this.dni + " (" + this.estado + ")";
-            } else{
-                return this.nome + " - " + this.dni + " (" + this.estado + ")" + " - Interesses: " + this.interesses;
-            }
-        } else{
-            if ("".trim().equals(this.interesses)){
-                return this.nome + " - " + this.dni + " (" + this.estado + ")" + " - " + this.partido;
-            }
-        }
-
-        return this.nome + " - " + this.dni + " (" + this.estado + ")" + " - " + this.partido + " - Interesses: " + this.interesses;
-    }
-
-    /**
      * Metodo que retorna uma String com o dni da Pessoa.
      *
      * @return String com o dni.
@@ -216,6 +125,100 @@ public class Pessoa implements Serializable {
     public int getQtdLei() {
         return this.funcao.getQtdLeis();
     }
+
+    /**
+     * Metodo responsavel por deixar disponivel o partido em que a pessoa esta filiada.
+     *
+     * @return uma string que representa o partido.
+     */
+    public String getPartido() {
+        return partido;
+    }
+
+    /**
+     * Metodo responsavel por deixar disponivel a funcao da pessoa na politica.
+     *
+     * @return o atributo funcao, um objeto do tipo Funcao
+     */
+    public Funcao getFuncao() {
+        return funcao;
+    }
+
+
+    /**
+     * Metodo responsavel por fazer atribuicao da funcao de deputado a uma determinada pessoa.
+     * Lanca uma excecao caso a data de inicio na vida publica como deputado seja invalida, a data sera invalida se for nula, ou vazia.
+     * @param dataInicio String que contem a data de inicio na vida publica de deputado.
+     */
+
+    public void cadastraDeputado(String dataInicio){
+        this.validaEntrada.validaDeputado(dataInicio);
+        this.funcao = new Deputado(dataInicio);
+    }
+
+    /**
+     * Metodo que verifica se uma Pessoa eh igual a outro objeto. Uma Pessoa eh igual a outro objeto se esse outro objeto
+     * for do tipo Pessoa e se tiverem o mesmo dni. Retorna True se forem iguais e False se forem diferentes.
+     *
+     * @param o Objeto a ser comparado a igualdade.
+     * @return boolean True se forem iguais e False se forem diferentes.
+     */
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Pessoa pessoa = (Pessoa) o;
+        return Objects.equals(dni, pessoa.dni);
+    }
+
+    /**
+     * Metodo que calcula o HashCode de uma Pessoa. Retorna um inteiro referente ao calculo do HashCode.
+     * O HashCode eh calculado a partir do dni.
+     *
+     * @return Inteiro calculado a partir do dni.
+     */
+    @Override
+    public int hashCode() {
+        return Objects.hash(dni);
+    }
+
+
+    /**
+     * Metodo que retorna a representacao textual de uma Pessoa que tem funcao. Essa representacao e feita a partir
+     * da concatenacao do toString() de pessoa com o toString() da funcao.
+     *
+     * @return Representacao textual de Pessoa com funcao.
+     */
+    public String toStringPelaFuncao(){
+        return this.funcao.toString(this.toString());
+    }
+
+    /**
+     * Metodo que retorna a representacao textual de Pessoa. Existem 4 representacoes possiveis: quando Pessoa
+     * tem partido e interesses; quando Pessoa só tem partido, mas nao tem interesses; quando Pessoa apenas tem
+     * interesses, mas nao tem partido; e quando Pessoa nao tem partido e nao tem interesses. Essa representacao
+     * e feita na forma: [nome] - [dni] ([estado]) - [partido] - Interesses: [interesses]
+     *
+     * @return representacao textual de Pessoa.
+     */
+    @Override
+    public String toString(){
+        if (this.partido == null){
+            if (this.interesses.trim().equals("")) {
+                return this.nome + " - " + this.dni + " (" + this.estado + ")";
+            } else{
+                return this.nome + " - " + this.dni + " (" + this.estado + ")" + " - Interesses: " + this.interesses;
+            }
+        } else{
+            if ("".trim().equals(this.interesses)){
+                return this.nome + " - " + this.dni + " (" + this.estado + ")" + " - " + this.partido;
+            }
+        }
+
+        return this.nome + " - " + this.dni + " (" + this.estado + ")" + " - " + this.partido + " - Interesses: " + this.interesses;
+    }
+
 
     /**
      * Metodo que mostra se a pessoa tem uma funcao na politica, se o atributo funcao da pessoa for do tipo Civil

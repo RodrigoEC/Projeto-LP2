@@ -52,6 +52,7 @@ public interface ProjetoDeLei {
      */
     String getTipoLei();
 
+    /** Metodo que retorna toda a tramitacao feita sobre a lei ate o momento. */
     String getTodaTramitacao();
 
     /**
@@ -84,11 +85,30 @@ public interface ProjetoDeLei {
      */
     void addTurno();
 
+    /**
+     * Metodo que retorna se o projeto de lei esta em tramitacao no momento.
+     *
+     * @return true se estiver em tramitacao e false se nao estiver.
+     */
     boolean emTramite();
 
+    /** Metodo que retorna a quantidade de aprovacoes nas votacoes que essa lei possui */
     int getQntAprovacoes();
 
+    /**
+     * Metodo responsavel por alterar o numero da lei, alterando para o numero passado como parametro.
+     *
+     * @param numero novo numero que a lei assumira como sua.
+     */
     void setNumeroLei(int numero);
 
+    /** Metodo que retorna o numero da lei, a fim de verificar a "idade" da lei em relacao as outras cadastradas */
     int getNumeroLei();
+
+    /**
+     * Metodo responsavel por verificar se a votacao ue esta sendo feita sobre o projeto de lei satisfaz a situacao de quorum minimo.
+     *
+     * @param deputadosPresentes deputados presentes.
+     */
+    void situacaoQuorumMinimo(String[] deputadosPresentes);
 }

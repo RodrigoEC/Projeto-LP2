@@ -166,10 +166,10 @@ class PessoaTest {
     void testeAddLei() {
         this.control.cadastrarPessoa("Carlos", "0028490850-4", "PB", "", "ji");
         this.control.cadastraDeputado("0028490850-4", "02122018");
-        this.control.getControllerDeputados().getMapPessoas().get("0028490850-4").addQtdLei();
-        this.control.getControllerDeputados().getMapPessoas().get("0028490850-4").addQtdLei();
-        this.control.getControllerDeputados().getMapPessoas().get("0028490850-4").addQtdLei();
-        assertEquals(3, this.control.getControllerDeputados().getMapPessoas().get("0028490850-4").getQtdLei());
+        this.control.getControllerPessoas().getMapPessoas().get("0028490850-4").addQtdLei();
+        this.control.getControllerPessoas().getMapPessoas().get("0028490850-4").addQtdLei();
+        this.control.getControllerPessoas().getMapPessoas().get("0028490850-4").addQtdLei();
+        assertEquals(3, this.control.getControllerPessoas().getMapPessoas().get("0028490850-4").getQtdLei());
     }
 
 

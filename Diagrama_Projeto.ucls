@@ -109,7 +109,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="13" language="java" name="eCamara.PessoaController" project="Projeto-LP2" 
+  <class id="13" language="java" name="eCamara.individuo.PessoaController" project="Projeto-LP2"
     file="/Projeto-LP2/src/eCamara/PessoaController.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="4717" y="2623"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
