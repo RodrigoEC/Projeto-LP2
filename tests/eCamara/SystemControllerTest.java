@@ -1478,5 +1478,540 @@ class SystemControlTest {
         assertTrue(this.systemControl2.getComissoes().isEmpty());
     }
 
+    // TESTES EXIBIR TRAMITACAO
+
+    @Test
+    void ExibirTramitacaoTestPadrao() {
+        this.systemControl.cadastraPartido("ABC");
+
+        this.systemControl.cadastrarPessoa("Maurileide", "051444444-0", "PE", "", "ABC");
+        this.systemControl.cadastraDeputado("051444444-0", "29022016");
+
+        this.systemControl.cadastrarComissao("CCJC", "051444444-0");
+
+        this.systemControl.cadastrarPLP("051444444-0", 2016, "Institui a semana da nutricao nas escolas", "saude,educacao basica", "http://example.com/semana_saude", "1, 2, 3");
+        this.systemControl.votarComissao("PLP 1/2016", "governista", "plenario");
+
+        assertEquals("APROVADO (CCJC), EM VOTACAO (Plenario - 1o turno)", this.systemControl.exibirTramitacao("PLP 1/2016"));
     }
+
+    @Test
+    void testExibirTramitacaoEntradaInvalidaOuNula() {
+        this.systemControl.cadastraPartido("ABC");
+
+        this.systemControl.cadastrarPessoa("Maurileide", "051444444-0", "PE", "", "ABC");
+        this.systemControl.cadastraDeputado("051444444-0", "29022016");
+
+        this.systemControl.cadastrarComissao("CCJC", "051444444-0");
+        this.systemControl.cadastrarPLP("051444444-0", 2016, "Institui a semana da nutricao nas escolas", "saude,educacao basica", "http://example.com/semana_saude", "1, 2, 3");
+
+
+        try {
+            this.systemControl.exibirTramitacao(null);
+            fail("era pra dar ruim");
+        } catch (NullPointerException npe) {
+        }
+
+
+        try {
+            this.systemControl.exibirTramitacao("  ");
+            fail("era pra dar ruim");
+        } catch (IllegalArgumentException iae) {
+        }
+    }
+
+    // EXIBIR TRAMITACAO DA PLP
+
+    @Test
+    void testExibirTramitacaoPLPNenhumaVotacaoRealizada() {
+        this.systemControl.cadastraPartido("ABC");
+
+        this.systemControl.cadastrarPessoa("Maurileide", "051444444-0", "PE", "", "ABC");
+        this.systemControl.cadastraDeputado("051444444-0", "29022016");
+
+        this.systemControl.cadastrarComissao("CCJC", "051444444-0");
+        this.systemControl.cadastrarPLP("051444444-0", 2016, "Institui a semana da nutricao nas escolas", "saude,educacao basica", "http://example.com/semana_saude", "1, 2, 3");
+
+
+        assertEquals("EM VOTACAO (CCJC)", this.systemControl.exibirTramitacao("PLP 1/2016"));
+    }
+
+    @Test
+    void testeExibirTramitacaoVotacaoPLPEncerrada() {
+        this.systemControl.cadastraPartido("ABC");
+
+        this.systemControl.cadastrarPessoa("Maurileide", "051444444-0", "PE", "", "ABC");
+        this.systemControl.cadastraDeputado("051444444-0", "29022016");
+
+
+        this.systemControl.cadastrarPessoa("Maurileide", "051444445-0", "PE", "", "ABC");
+        this.systemControl.cadastraDeputado("051444445-0", "29022016");
+
+
+        this.systemControl.cadastrarPessoa("Maurileide", "051444446-0", "PE", "", "ABC");
+        this.systemControl.cadastraDeputado("051444446-0", "29022016");
+
+        this.systemControl.cadastrarPessoa("Maurileide", "051444447-0", "PE", "", "ABC");
+        this.systemControl.cadastraDeputado("051444447-0", "29022016");
+
+        this.systemControl.cadastrarComissao("CCJC", "051444444-0");
+        this.systemControl.cadastrarPLP("051444444-0", 2016, "Institui a semana da nutricao nas escolas", "saude,educacao basica", "http://example.com/semana_saude","artigos");
+
+        this.systemControl.votarComissao("PLP 1/2016", "governista", "plenario");
+        this.systemControl.votarPlenario("PLP 1/2016", "governista", "051444444-0,051444445-0,051444446-0,051444447-0");
+        this.systemControl.votarPlenario("PLP 1/2016", "governista", "051444444-0,051444445-0,051444446-0,051444447-0");
+
+
+        assertEquals("APROVADO (CCJC), APROVADO (Plenario - 1o turno), APROVADO (Plenario - 2o turno)", this.systemControl.exibirTramitacao("PLP 1/2016"));
+    }
+
+    @Test
+    void testeExibirTramitacaoVotacaoPLPrejeitadaNoPlenario() {
+        this.systemControl.cadastraPartido("ABC");
+
+        this.systemControl.cadastrarPessoa("Maurileide", "051444444-0", "PE", "", "ABC");
+        this.systemControl.cadastraDeputado("051444444-0", "29022016");
+
+
+        this.systemControl.cadastrarPessoa("Maurileide", "051444445-0", "PE", "", "ABC");
+        this.systemControl.cadastraDeputado("051444445-0", "29022016");
+
+
+        this.systemControl.cadastrarPessoa("Maurileide", "051444446-0", "PE", "", "ABC");
+        this.systemControl.cadastraDeputado("051444446-0", "29022016");
+
+        this.systemControl.cadastrarPessoa("Maurileide", "051444447-0", "PE", "", "ADBC");
+        this.systemControl.cadastraDeputado("051444447-0", "29022016");
+
+
+        this.systemControl.cadastrarPessoa("Maurileide", "051444448-0", "PE", "", "CABC");
+        this.systemControl.cadastraDeputado("051444448-0", "29022016");
+
+
+        this.systemControl.cadastrarPessoa("Maurileide", "051444449-0", "PE", "", "ABRC");
+        this.systemControl.cadastraDeputado("051444449-0", "29022016");
+
+
+        this.systemControl.cadastrarPessoa("Maurileide", "051444440-0", "PE", "", "ABWC");
+        this.systemControl.cadastraDeputado("051444440-0", "29022016");
+
+        this.systemControl.cadastrarComissao("CCJC", "051444444-0");
+        this.systemControl.cadastrarPLP("051444444-0", 2016, "Institui a semana da nutricao nas escolas", "saude,educacao basica", "http://example.com/semana_saude","artigos");
+
+        this.systemControl.votarComissao("PLP 1/2016", "governista", "plenario");
+        this.systemControl.votarPlenario("PLP 1/2016", "governista", "051444448-0,051444449-0,051444440-0,051444447-0");
+
+        assertEquals("APROVADO (CCJC), REJEITADO (Plenario - 1o turno)", this.systemControl.exibirTramitacao("PLP 1/2016"));
+
+    }
+
+    @Test
+    void testeExibirTramitacaoVotacaoPLPaCaminho() {
+        this.systemControl.cadastraPartido("ABC");
+
+        this.systemControl.cadastrarPessoa("Maurileide", "051444444-0", "PE", "", "ABC");
+        this.systemControl.cadastraDeputado("051444444-0", "29022016");
+
+
+        this.systemControl.cadastrarPessoa("Maurileide", "051444445-0", "PE", "", "ABC");
+        this.systemControl.cadastraDeputado("051444445-0", "29022016");
+
+
+        this.systemControl.cadastrarPessoa("Maurileide", "051444446-0", "PE", "", "ABC");
+        this.systemControl.cadastraDeputado("051444446-0", "29022016");
+
+        this.systemControl.cadastrarPessoa("Maurileide", "051444447-0", "PE", "", "ABC");
+        this.systemControl.cadastraDeputado("051444447-0", "29022016");
+
+        this.systemControl.cadastrarComissao("CCJC", "051444444-0");
+        this.systemControl.cadastrarPLP("051444444-0", 2016, "Institui a semana da nutricao nas escolas", "saude,educacao basica", "http://example.com/semana_saude","artigos");
+
+        this.systemControl.votarComissao("PLP 1/2016", "governista", "plenario");
+        this.systemControl.votarPlenario("PLP 1/2016", "governista", "051444444-0,051444445-0,051444446-0,051444447-0");
+
+        assertEquals("APROVADO (CCJC), APROVADO (Plenario - 1o turno), EM VOTACAO (Plenario - 2o turno)", this.systemControl.exibirTramitacao("PLP 1/2016"));
+
+    }
+
+
+
+
+    @Test
+    void testeExibirTramitacaoVotacaoPLPVotadoNaComissao() {
+        this.systemControl.cadastraPartido("ABC");
+
+        this.systemControl.cadastrarPessoa("Maurileide", "051444444-0", "PE", "", "ABC");
+        this.systemControl.cadastraDeputado("051444444-0", "29022016");
+
+
+        this.systemControl.cadastrarPessoa("Maurileide", "051444445-0", "PE", "", "ABC");
+        this.systemControl.cadastraDeputado("051444445-0", "29022016");
+
+
+        this.systemControl.cadastrarPessoa("Maurileide", "051444446-0", "PE", "", "ABC");
+        this.systemControl.cadastraDeputado("051444446-0", "29022016");
+
+        this.systemControl.cadastrarPessoa("Maurileide", "051444447-0", "PE", "", "ABC");
+        this.systemControl.cadastraDeputado("051444447-0", "29022016");
+
+        this.systemControl.cadastrarComissao("CCJC", "051444444-0");
+        this.systemControl.cadastrarPLP("051444444-0", 2016, "Institui a semana da nutricao nas escolas", "saude,educacao basica", "http://example.com/semana_saude","artigos");
+
+        this.systemControl.votarComissao("PLP 1/2016", "governista", "plenario");
+
+        assertEquals("APROVADO (CCJC), EM VOTACAO (Plenario - 1o turno)", this.systemControl.exibirTramitacao("PLP 1/2016"));
+    }
+
+    @Test
+    void testeExibirTramitacaoVotacaoPLPEncerradaArquivada() {
+        this.systemControl.cadastraPartido("ABC");
+
+        this.systemControl.cadastrarPessoa("Maurileide", "051444444-0", "PE", "", "ABC");
+        this.systemControl.cadastraDeputado("051444444-0", "29022016");
+
+
+        this.systemControl.cadastrarPessoa("Maurileide", "051444445-0", "PE", "", "ABC");
+        this.systemControl.cadastraDeputado("051444445-0", "29022016");
+
+
+        this.systemControl.cadastrarPessoa("Maurileide", "051444446-0", "PE", "", "ABC");
+        this.systemControl.cadastraDeputado("051444446-0", "29022016");
+
+        this.systemControl.cadastrarPessoa("Maurileide", "051444447-0", "PE", "", "AdBC");
+        this.systemControl.cadastraDeputado("051444447-0", "29022016");
+
+
+        this.systemControl.cadastrarPessoa("Maurileide", "051444448-0", "PE", "", "CABC");
+        this.systemControl.cadastraDeputado("051444448-0", "29022016");
+
+
+        this.systemControl.cadastrarPessoa("Maurileide", "051444449-0", "PE", "", "ABRC");
+        this.systemControl.cadastraDeputado("051444449-0", "29022016");
+
+
+        this.systemControl.cadastrarPessoa("Maurileide", "051444440-0", "PE", "", "ABWC");
+        this.systemControl.cadastraDeputado("051444440-0", "29022016");
+
+        this.systemControl.cadastrarComissao("CCJC", "051444444-0");
+        this.systemControl.cadastrarPLP("051444444-0", 2016, "Institui a semana da nutricao nas escolas", "saude,educacao basica", "http://example.com/semana_saude","artigos");
+
+        this.systemControl.votarComissao("PLP 1/2016", "governista", "plenario");
+        this.systemControl.votarPlenario("PLP 1/2016", "governista", "051444444-0,051444445-0,051444446-0,051444447-0");
+
+
+        assertEquals("APROVADO (CCJC), REJEITADO (Plenario - 1o turno)", this.systemControl.exibirTramitacao("PLP 1/2016"));
+    }
+
+
+    // EXIBIR TRAMITACAO DA PEC
+
+    @Test
+    void testExibirTramitacaoPECNenhumaVotacaoRealizada() {
+        this.systemControl.cadastraPartido("ABC");
+
+        this.systemControl.cadastrarPessoa("Maurileide", "051444444-0", "PE", "", "ABC");
+        this.systemControl.cadastraDeputado("051444444-0", "29022016");
+
+        this.systemControl.cadastrarComissao("CCJC", "051444444-0");
+        this.systemControl.cadastrarPEC("051444444-0", 2016, "Institui a semana da nutricao nas escolas", "saude,educacao basica", "http://example.com/semana_saude", "1, 2, 3");
+
+
+        assertEquals("EM VOTACAO (CCJC)", this.systemControl.exibirTramitacao("PEC 1/2016"));
+    }
+
+    @Test
+    void testeExibirTramitacaoVotacaoPECrejeitadaNoPlenario() {
+        this.systemControl.cadastraPartido("ABC");
+
+        this.systemControl.cadastrarPessoa("Maurileide", "051444444-0", "PE", "", "ABC");
+        this.systemControl.cadastraDeputado("051444444-0", "29022016");
+
+
+        this.systemControl.cadastrarPessoa("Maurileide", "051444445-0", "PE", "", "ABC");
+        this.systemControl.cadastraDeputado("051444445-0", "29022016");
+
+
+        this.systemControl.cadastrarPessoa("Maurileide", "051444446-0", "PE", "", "ABC");
+        this.systemControl.cadastraDeputado("051444446-0", "29022016");
+
+        this.systemControl.cadastrarPessoa("Maurileide", "051444447-0", "PE", "", "ABC");
+        this.systemControl.cadastraDeputado("051444447-0", "29022016");
+
+
+        this.systemControl.cadastrarPessoa("Maurileide", "051444448-0", "PE", "", "CABC");
+        this.systemControl.cadastraDeputado("051444448-0", "29022016");
+
+
+        this.systemControl.cadastrarPessoa("Maurileide", "051444449-0", "PE", "", "ABRC");
+        this.systemControl.cadastraDeputado("051444449-0", "29022016");
+
+
+        this.systemControl.cadastrarPessoa("Maurileide", "051444440-0", "PE", "", "ABWC");
+        this.systemControl.cadastraDeputado("051444440-0", "29022016");
+
+        this.systemControl.cadastrarComissao("CCJC", "051444444-0");
+        this.systemControl.cadastrarPEC("051444444-0", 2016, "Institui a semana da nutricao nas escolas", "saude,educacao basica", "http://example.com/semana_saude","artigos");
+
+        this.systemControl.votarComissao("PEC 1/2016", "governista", "plenario");
+        this.systemControl.votarPlenario("PEC 1/2016", "governista", "051444448-0,051444449-0,051444440-0,051444447-0");
+
+        assertEquals("APROVADO (CCJC), REJEITADO (Plenario - 1o turno)", this.systemControl.exibirTramitacao("PEC 1/2016"));
+
+    }
+
+    @Test
+    void testeExibirTramitacaoVotacaoPECaCaminho() {
+        this.systemControl.cadastraPartido("ABC");
+
+        this.systemControl.cadastrarPessoa("Maurileide", "051444444-0", "PE", "", "ABC");
+        this.systemControl.cadastraDeputado("051444444-0", "29022016");
+
+
+        this.systemControl.cadastrarPessoa("Maurileide", "051444445-0", "PE", "", "ABC");
+        this.systemControl.cadastraDeputado("051444445-0", "29022016");
+
+
+        this.systemControl.cadastrarPessoa("Maurileide", "051444446-0", "PE", "", "ABC");
+        this.systemControl.cadastraDeputado("051444446-0", "29022016");
+
+        this.systemControl.cadastrarPessoa("Maurileide", "051444447-0", "PE", "", "ABC");
+        this.systemControl.cadastraDeputado("051444447-0", "29022016");
+
+        this.systemControl.cadastrarComissao("CCJC", "051444444-0");
+        this.systemControl.cadastrarPEC("051444444-0", 2016, "Institui a semana da nutricao nas escolas", "saude,educacao basica", "http://example.com/semana_saude","artigos");
+
+        this.systemControl.votarComissao("PEC 1/2016", "governista", "plenario");
+        this.systemControl.votarPlenario("PEC 1/2016", "governista", "051444444-0,051444445-0,051444446-0,051444447-0");
+
+        assertEquals("APROVADO (CCJC), APROVADO (Plenario - 1o turno), EM VOTACAO (Plenario - 2o turno)", this.systemControl.exibirTramitacao("PEC 1/2016"));
+
+    }
+
+    @Test
+    void testeExibirTramitacaoVotacaoPECVotandoNaComissao() {
+        this.systemControl.cadastraPartido("ABC");
+
+        this.systemControl.cadastrarPessoa("Maurileide", "051444444-0", "PE", "", "ACBC");
+        this.systemControl.cadastraDeputado("051444444-0", "29022016");
+
+
+        this.systemControl.cadastrarPessoa("Maurileide", "051444445-0", "PE", "", "ABCC");
+        this.systemControl.cadastraDeputado("051444445-0", "29022016");
+
+
+        this.systemControl.cadastrarPessoa("Maurileide", "051444446-0", "PE", "", "ABCC ");
+        this.systemControl.cadastraDeputado("051444446-0", "29022016");
+
+        this.systemControl.cadastrarPessoa("Maurileide", "051444447-0", "PE", "", "CABC");
+        this.systemControl.cadastraDeputado("051444447-0", "29022016");
+
+        this.systemControl.cadastrarComissao("CCJC", "051444444-0");
+        this.systemControl.cadastrarPEC("051444444-0", 2016, "Institui a semana da nutricao nas escolas", "saude,educacao basica", "http://example.com/semana_saude","artigos");
+
+        this.systemControl.votarComissao("PEC 1/2016", "governista", "plenario");
+
+        assertEquals("REJEITADO (CCJC), EM VOTACAO (Plenario - 1o turno)", this.systemControl.exibirTramitacao("PEC 1/2016"));
+    }
+
+
+
+    @Test
+    void testeExibirTramitacaoVotacaoPECEncerrada() {
+        this.systemControl.cadastraPartido("ABC");
+
+        this.systemControl.cadastrarPessoa("Maurileide", "051444444-0", "PE", "", "ABC");
+        this.systemControl.cadastraDeputado("051444444-0", "29022016");
+
+
+        this.systemControl.cadastrarPessoa("Maurileide", "051444445-0", "PE", "", "ABC");
+        this.systemControl.cadastraDeputado("051444445-0", "29022016");
+
+
+        this.systemControl.cadastrarPessoa("Maurileide", "051444446-0", "PE", "", "ABC");
+        this.systemControl.cadastraDeputado("051444446-0", "29022016");
+
+        this.systemControl.cadastrarPessoa("Maurileide", "051444447-0", "PE", "", "ABC");
+        this.systemControl.cadastraDeputado("051444447-0", "29022016");
+
+        this.systemControl.cadastrarComissao("CCJC", "051444444-0");
+        this.systemControl.cadastrarPEC("051444444-0", 2016, "Institui a semana da nutricao nas escolas", "saude,educacao basica", "http://example.com/semana_saude","artigos");
+
+        this.systemControl.votarComissao("PEC 1/2016", "governista", "plenario");
+        this.systemControl.votarPlenario("PEC 1/2016", "governista", "051444444-0,051444445-0,051444446-0,051444447-0");
+        this.systemControl.votarPlenario("PEC 1/2016", "governista", "051444444-0,051444445-0,051444446-0,051444447-0");
+
+
+        assertEquals("APROVADO (CCJC), APROVADO (Plenario - 1o turno), APROVADO (Plenario - 2o turno)", this.systemControl.exibirTramitacao("PEC 1/2016"));
+    }
+
+    @Test
+    void testeExibirTramitacaoVotacaoPECEncerradaArquivada() {
+        this.systemControl.cadastraPartido("ABC");
+
+        this.systemControl.cadastrarPessoa("Maurileide", "051444444-0", "PE", "", "ABC");
+        this.systemControl.cadastraDeputado("051444444-0", "29022016");
+
+
+        this.systemControl.cadastrarPessoa("Maurileide", "051444445-0", "PE", "", "ABC");
+        this.systemControl.cadastraDeputado("051444445-0", "29022016");
+
+
+        this.systemControl.cadastrarPessoa("Maurileide", "051444446-0", "PE", "", "ABC");
+        this.systemControl.cadastraDeputado("051444446-0", "29022016");
+
+        this.systemControl.cadastrarPessoa("Maurileide", "051444447-0", "PE", "", "AdBC");
+        this.systemControl.cadastraDeputado("051444447-0", "29022016");
+
+
+        this.systemControl.cadastrarPessoa("Maurileide", "051444448-0", "PE", "", "CABC");
+        this.systemControl.cadastraDeputado("051444448-0", "29022016");
+
+
+        this.systemControl.cadastrarPessoa("Maurileide", "051444449-0", "PE", "", "ABRC");
+        this.systemControl.cadastraDeputado("051444449-0", "29022016");
+
+
+        this.systemControl.cadastrarPessoa("Maurileide", "051444440-0", "PE", "", "ABWC");
+        this.systemControl.cadastraDeputado("051444440-0", "29022016");
+
+        this.systemControl.cadastrarComissao("CCJC", "051444444-0");
+        this.systemControl.cadastrarPEC("051444444-0", 2016, "Institui a semana da nutricao nas escolas", "saude,educacao basica", "http://example.com/semana_saude","artigos");
+
+        this.systemControl.votarComissao("PEC 1/2016", "governista", "plenario");
+        this.systemControl.votarPlenario("PEC 1/2016", "governista", "051444444-0,051444445-0,051444446-0,051444447-0");
+
+
+        assertEquals("APROVADO (CCJC), REJEITADO (Plenario - 1o turno)", this.systemControl.exibirTramitacao("PEC 1/2016"));
+    }
+
+
+    // TESTES EXIBIR TRAMITACAO PL
+    @Test
+    void testExibirTramitacaoPLNenhumaVotacaoRealizada() {
+        this.systemControl.cadastraPartido("ABC");
+
+        this.systemControl.cadastrarPessoa("Maurileide", "051444444-0", "PE", "", "ABC");
+        this.systemControl.cadastraDeputado("051444444-0", "29022016");
+
+        this.systemControl.cadastrarComissao("CCJC", "051444444-0");
+        this.systemControl.cadastrarPL("051444444-0", 2016, "Institui a semana da nutricao nas escolas", "saude,educacao basica", "http://example.com/semana_saude", false);
+
+
+        assertEquals("EM VOTACAO (CCJC)", this.systemControl.exibirTramitacao("PL 1/2016"));
+    }
+
+    @Test
+    void testeExibirTramitacaoVotacaoPLNaoConclusivaACaminho() {
+        this.systemControl.cadastraPartido("ABC");
+
+        this.systemControl.cadastrarPessoa("Maurileide", "051444444-0", "PE", "", "ABC");
+        this.systemControl.cadastraDeputado("051444444-0", "29022016");
+
+
+        this.systemControl.cadastrarPessoa("Maurileide", "051444445-0", "PE", "", "ABC");
+        this.systemControl.cadastraDeputado("051444445-0", "29022016");
+
+
+        this.systemControl.cadastrarPessoa("Maurileide", "051444446-0", "PE", "", "ABC");
+        this.systemControl.cadastraDeputado("051444446-0", "29022016");
+
+        this.systemControl.cadastrarPessoa("Maurileide", "051444447-0", "PE", "", "ABC");
+        this.systemControl.cadastraDeputado("051444447-0", "29022016");
+
+        this.systemControl.cadastrarComissao("CCJC", "051444444-0");
+        this.systemControl.cadastrarPL("051444444-0", 2016, "Institui a semana da nutricao nas escolas", "saude,educacao basica", "http://example.com/semana_saude",false);
+
+        this.systemControl.votarComissao("PL 1/2016", "governista", "plenario");
+
+        assertEquals("APROVADO (CCJC), EM VOTACAO (Plenario)", this.systemControl.exibirTramitacao("PL 1/2016"));
+    }
+
+
+    @Test
+    void testeExibirTramitacaoVotacaoPLConclusivaEncerrada() {
+        this.systemControl.cadastraPartido("ABC");
+
+        this.systemControl.cadastrarPessoa("Maurileide", "051444444-0", "PE", "", "ABCd");
+        this.systemControl.cadastraDeputado("051444444-0", "29022016");
+
+        this.systemControl.cadastrarComissao("CCJC", "051444444-0");
+        this.systemControl.cadastrarPL("051444444-0", 2016, "Institui a semana da nutricao nas escolas", "saude,educacao basica", "http://example.com/semana_saude",true);
+
+        this.systemControl.votarComissao("PL 1/2016", "governista", "plenario");
+        assertEquals("REJEITADO (CCJC)", this.systemControl.exibirTramitacao("PL 1/2016"));
+    }
+
+    @Test
+    void testeExibirTramitacaoVotacaoPLNaoConclusivaEncerrada() {
+        this.systemControl.cadastraPartido("ABC");
+
+        this.systemControl.cadastrarPessoa("Maurileide", "051444444-0", "PE", "", "ABC");
+        this.systemControl.cadastraDeputado("051444444-0", "29022016");
+
+
+        this.systemControl.cadastrarPessoa("Maurileide", "051444445-0", "PE", "", "ABC");
+        this.systemControl.cadastraDeputado("051444445-0", "29022016");
+
+
+        this.systemControl.cadastrarPessoa("Maurileide", "051444446-0", "PE", "", "ABC");
+        this.systemControl.cadastraDeputado("051444446-0", "29022016");
+
+        this.systemControl.cadastrarPessoa("Maurileide", "051444447-0", "PE", "", "ABC");
+        this.systemControl.cadastraDeputado("051444447-0", "29022016");
+
+        this.systemControl.cadastrarComissao("CCJC", "051444444-0");
+        this.systemControl.cadastrarPL("051444444-0", 2016, "Institui a semana da nutricao nas escolas", "saude,educacao basica", "http://example.com/semana_saude",false);
+
+        this.systemControl.votarComissao("PL 1/2016", "governista", "plenario");
+        this.systemControl.votarPlenario("PL 1/2016", "governista", "051444444-0,051444445-0,051444446-0,051444447-0");
+
+
+        assertEquals("APROVADO (CCJC), APROVADO (Plenario)", this.systemControl.exibirTramitacao("PL 1/2016"));
+
+    }
+
+
+    @Test
+    void testeExibirTramitacaoVotacaoPLNaoConclusivaEncerradaArquivada() {
+        this.systemControl.cadastraPartido("ABC");
+
+        this.systemControl.cadastrarPessoa("Maurileide", "051444444-0", "PE", "", "ABC");
+        this.systemControl.cadastraDeputado("051444444-0", "29022016");
+
+
+        this.systemControl.cadastrarPessoa("Maurileide", "051444445-0", "PE", "", "ABC");
+        this.systemControl.cadastraDeputado("051444445-0", "29022016");
+
+
+        this.systemControl.cadastrarPessoa("Maurileide", "051444446-0", "PE", "", "ABC");
+        this.systemControl.cadastraDeputado("051444446-0", "29022016");
+
+        this.systemControl.cadastrarPessoa("Maurileide", "051444447-0", "PE", "", "AdBC");
+        this.systemControl.cadastraDeputado("051444447-0", "29022016");
+
+
+        this.systemControl.cadastrarPessoa("Maurileide", "051444448-0", "PE", "", "CABC");
+        this.systemControl.cadastraDeputado("051444448-0", "29022016");
+
+
+        this.systemControl.cadastrarPessoa("Maurileide", "051444449-0", "PE", "", "ABRC");
+        this.systemControl.cadastraDeputado("051444449-0", "29022016");
+
+
+        this.systemControl.cadastrarPessoa("Maurileide", "051444440-0", "PE", "", "ABWC");
+        this.systemControl.cadastraDeputado("051444440-0", "29022016");
+
+        this.systemControl.cadastrarComissao("CCJC", "051444444-0");
+        this.systemControl.cadastrarPL("051444444-0", 2016, "Institui a semana da nutricao nas escolas", "saude,educacao basica", "http://example.com/semana_saude",false);
+
+        this.systemControl.votarComissao("PL 1/2016", "governista", "plenario");
+        this.systemControl.votarPlenario("PL 1/2016", "governista", "051444448-0,051444449-0,051444440-0,051444447-0");
+
+
+        assertEquals("APROVADO (CCJC), REJEITADO (Plenario)", this.systemControl.exibirTramitacao("PL 1/2016"));
+
+    }
+
+    }
+
 
