@@ -60,9 +60,14 @@ public class GerenciadorArquivos implements Serializable {
     }
 
     /**
-     * Metodo que salva o sistem em um arquivo de bytes (Serializacao), sera usado o metodo auxiliar salvarObj.
+     * Metodo que salva as colecoes do sistema em um arquivo com sequencias de bytes (Serializacao), sera usado o metodo auxiliar salvarObj.
      * Caso uma execao IOException seja lancada por esse metodo, sera capturada a excecao e mostrara a mensagem "Deu erro ai".
-     * Recebe o objeto a ser salvo.
+     * Recebe um dois HashMap, um Set e um Map, essas estruturas sao responsaveis por armazenar Pessoas, Leis, Partidos (String) e Comissoes
+     * respectivamente.
+     * @param pessoas HashMap de Pessoas.
+     * @param leis HashMap de leis.
+     * @param partidos Set de Partidos (String).
+     * @param comissoes Map de Comissoes.
      */
     public static void salvarSistema(HashMap pessoas, HashMap leis, Set partidos, Map comissoes) {
         try{
@@ -79,8 +84,8 @@ public class GerenciadorArquivos implements Serializable {
 
 
     /**
-     * Metodo que carregara o sistema salvo. Recebe o o objeto a ser carregado com os dados (especie de entradas).
-     * Primeiramente sera tentado instaciar o objeto passado como parametro para o objeto salvo no arquivo de bytes, fara uso
+     * Metodo que carregara o sistema salvo, faz a desserialisacao, que eh aconversao de uma sequencia de bytes em objeto. Recebe o o objeto a ser carregado com os dados (especie de entradas).
+     * Primeiramente sera tentado iniciar as colecoes do objeto passado como parametro com os dados salvos no arquivo que contem a sequencia bytes, fara uso
      * do metodo carregarObj, caso esse metodo lance um FileNotFoundException sera iniciado o objeto "limpo", do tipo SystemControl, pois nada foi salvo,
      * caso a excecao lancada seja ClassNotFoundException ou IOException sera printada a mensagem de erro da excecao.
      *
@@ -101,12 +106,10 @@ public class GerenciadorArquivos implements Serializable {
     }
 
     /**
-     * Metodo que limpa o sistema, recebe o objeto a ser limpo. Primeiramente sera tentado instancia o objeto passado como parametro
-     * para o tipo SystemControl, caso uma excecao seja capturada, sera lancada excecao.
-     * o retorno sera o SystemControl novo, limpo, sem dados se nenhum erro ocorrer.
+     * Metodo que limpa o sistema, recebe o objeto a ser limpo e vai em cada colecao e dar clear, por fim chama o metodo salvar sistema e salva o sistema com
+     * as colecoes vazias, ou seja, os dados sao limpos.
      *
-     * @param sistema Object a ser limpo.
-     * @return SystemControll limpo.
+     * @param sistema SystemControl controle geral do sistema a ser limpo.
      */
     public static void limparSistema(SystemControl sistema){
         sistema.getControllerDeputados().getMapPessoas().clear();
