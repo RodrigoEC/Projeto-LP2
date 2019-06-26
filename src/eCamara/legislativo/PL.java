@@ -56,6 +56,22 @@ public class PL extends ProjetoDeLeiAbstract {
         this.votacaoRealizadas++;
     }
 
+    /**
+     * Método que verifica se a PEC satisfaz a situacao de quorum minimo, onde eh necessario que pelo menos metade dos deputados
+     * + 1 estejam votando.
+     *
+     * @param deputadosPresentes deputados presentes na votacao.
+     * @throws NullPointerException "Erro ao votar proposta: quorum invalido"
+     */
+    @Override
+    public void situacaoQuorumMinimo(String[] deputadosPresentes) {
+        int quorumMinimo = deputadosPresentes.length / 2 + 1;
+
+        if (deputadosPresentes.length <= quorumMinimo) {
+            throw new IllegalArgumentException("Erro ao votar proposta: quorum invalido");
+        }
+    }
+
     /** Metodo responsavel por adicionar 1 ao atributo turno.*/
     @Override
     public void addTurno() {

@@ -1,4 +1,4 @@
-package eCamara.propostaMaisRelacionada;
+package eCamara.legislativo.propostaMaisRelacionada;
 
 import eCamara.legislativo.ProjetoDeLei;
 

@@ -1,6 +1,7 @@
 package eCamara;
 
 import eCamara.individuo.Pessoa;
+import eCamara.individuo.PessoaController;
 import eCamara.legislativo.*;
 
 import java.io.Serializable;
@@ -10,7 +11,7 @@ import java.util.*;
  * Objeto que representa o Controller do sistema, tem como atributos o objeto de Validacao, um Map de Pessoa e um Set de
  * Partido (String).
  */
-public class SystemControl implements Serializable {
+public class SystemController implements Serializable {
     /**
      * Controller responsavel por coordenar as operacoes feitas sobre os objetos do tipo Pessoa.
      */
@@ -37,10 +38,10 @@ public class SystemControl implements Serializable {
     private Validacao validaEntradas;
 
     /**
-     * Constroi o SystemControl(Controller), inicia o Map e o Set e instancia o Objeto de validacao.
+     * Constroi o SystemController(Controller), inicia o Map e o Set e instancia o Objeto de validacao.
      */
 
-    public SystemControl() {
+    public SystemController() {
         this.votacao = new Votacao();
         this.controllerLeis = new LeisController();
         this.controllerPessoas = new PessoaController();
@@ -50,16 +51,41 @@ public class SystemControl implements Serializable {
 
     }
 
-    public PessoaController getControllerDeputados() {
+    /**
+     * Metodo que deixa disponivel para acesso o controller de pessoas.
+     *
+     * @return controller de pessoas.
+     */
+    public PessoaController getControllerPessoas() {
         return controllerPessoas;
     }
 
+    /**
+     * Metodo que deixa disponivel para acesso o controller de leis.
+     *
+     * @return controller de leis.
+     */
     public LeisController getControllerLeis(){
         return controllerLeis;
     }
 
+    /**
+     * Metodo responsavel por retornar o mapa de comissoes cadastradas no sistema.
+     *
+     * @return o mapa de comissoes
+     */
     public Map<String, Comissao> getComissoes(){
         return this.comissoes;
+    }
+
+    /** Metodo responsavel por mudar o set de partidos no sistema por um passado como parametro */
+    public void setPartidos(Set partidos) {
+        this.partidos = partidos;
+    }
+
+    /** Metodo responsavel por mudar o mapa de comissoes no sistema por um passado como parametro */
+    public  void setComissoes(Map comissoes){
+        this.comissoes =  comissoes;
     }
 
     /**
@@ -179,7 +205,7 @@ public class SystemControl implements Serializable {
 
     /**
      * Metodo responsavel por deixar disponivel o atributo partidos, um set de string que representam partidos, os quais
-     * serao usado nos testes do SystemControl.
+     * serao usado nos testes do SystemController.
      *
      * @return O set de string que representam os partidos.
      */
@@ -376,7 +402,8 @@ public class SystemControl implements Serializable {
         HashMap<String, Pessoa> deputados = deputadosNoMapa(this.controllerPessoas.getMapPessoas());
         ProjetoDeLei lei = this.controllerLeis.getLei(codigoDaLei);
 
-        situacaoQuorumMinimo(lei, deputados, politicosPresentes);
+        String[] deputadosPresentes = politicosPresentes.trim().split(",");
+        lei.situacaoQuorumMinimo(deputadosPresentes);
 
         if ("APROVADO".equals(lei.getSituacao()) || "ARQUIVADO".equals(lei.getSituacao())) {
             throw new IllegalArgumentException("Erro ao votar proposta: tramitacao encerrada");
@@ -393,51 +420,6 @@ public class SystemControl implements Serializable {
         }
 
         return resultadoVotacao;
-    }
-
-    /** Metodo responsavel por a lei obedece a situacao de quorum minimo (total de deputados votantes minimo para ocorrer
-     *  a votacao). Cada tipo de lei obedece a uma regra diferente do quorum minimo.
-     *
-     *  Se o tipo da lei for PLP ou PL entao para obedecer o quorum minimo eh preciso que metade dos deputados presentes + 1 es
-     *  tejam presentes, nao sendo possivel o votacao com 3 deputados apenas por exemplo.
-     *
-     *  Se o tipo da lei for PEC para a votacao obedecer o quorum minimo eh preciso que pelo menos 3/5 * deputados presentes
-     *  + 1 estejam presentes.
-     *
-     * @param lei lei que sera avaliada quanto ao quorum minimo.
-     * @param deputados total de deputados cadastrados no sistema.
-     * @param politicosPresentes deputados presentes na votacao do plenario.
-     *
-     * @throws IllegalFormatCodePointException "Erro ao votar proposta: quorum invalido"
-     * @throws IllegalFormatCodePointException "Erro ao votar proposta: quorum invalido"
-     * @throws IllegalFormatCodePointException "Erro ao votar proposta: quorum invalido"
-     */
-    private void situacaoQuorumMinimo(ProjetoDeLei lei, HashMap<String, Pessoa> deputados, String politicosPresentes) {
-        String[] deputadosPresentes = politicosPresentes.trim().split(",");
-
-        if (lei.getTipoLei().toLowerCase().equals("plp")) {
-            int quorumMinimo = deputadosPresentes.length / 2 + 1;
-
-            if (deputadosPresentes.length <= quorumMinimo) {
-                throw new IllegalArgumentException("Erro ao votar proposta: quorum invalido");
-            }
-        }
-
-        if (lei.getTipoLei().toLowerCase().equals("pl")) {
-            int quorumMinimo = deputadosPresentes.length / 2 + 1;
-
-            if (deputadosPresentes.length <= quorumMinimo) {
-                throw new IllegalArgumentException("Erro ao votar proposta: quorum invalido");
-            }
-        }
-
-        if (lei.getTipoLei().toLowerCase().equals("pec")) {
-            int quorumMinimo = deputadosPresentes.length * 3 / 5 + 1;
-
-            if (deputadosPresentes.length <= quorumMinimo) {
-                throw new IllegalArgumentException("Erro ao votar proposta: quorum invalido");
-            }
-        }
     }
 
 
@@ -465,7 +447,7 @@ public class SystemControl implements Serializable {
      * @return String com a tramitacao da lei.
      */
     public String exibirTramitacao(String codigo) {
-        this.validaEntradas.validaExibirTramitacao(codigo, "vazioooo");
+        this.validaEntradas.validaExibirTramitacao(codigo);
 
         return this.controllerLeis.exibirTramitacao(codigo);
     }
@@ -502,7 +484,7 @@ public class SystemControl implements Serializable {
      * essa responsabilidade ao GerenciadorArquivos. Recebe o objeto a ser carregado com os dados.
      * @param sistema Object a ser desserializado, carregado com os dados.
      */
-    public void carregarSistema(SystemControl sistema){
+    public void carregarSistema(SystemController sistema){
         GerenciadorArquivos.carregarSistema(sistema);
     }
 
@@ -515,21 +497,14 @@ public class SystemControl implements Serializable {
     }
 
     /**
-     * Metodo responsavel por limpar o sistema salvo anteriormente. Recebe o objeto a ser limpo e retorna o objeto do tipo SystemControl
+     * Metodo responsavel por limpar o sistema salvo anteriormente. Recebe o objeto a ser limpo e retorna o objeto do tipo SystemController
      * a ser limpo.
      * @param sistema Object a ser limpo.
-     * @return SystemControl limpo.
      */
-    public void limparSistema(SystemControl sistema){
+    public void limparSistema(SystemController sistema){
         GerenciadorArquivos.limparSistema(sistema);
     }
 
-    public void setPartidos(Set partidos) {
-        this.partidos = partidos;
-    }
 
-    public  void setComissoes(Map comissoes){
-        this.comissoes =  comissoes;
-    }
 }
 

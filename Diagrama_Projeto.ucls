@@ -28,7 +28,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <class id="4" language="java" name="eCamara.Votacao" project="Projeto-LP2" 
+  <class id="4" language="java" name="eCamara.legislativo.Votacao" project="Projeto-LP2"
     file="/Projeto-LP2/src/eCamara/Votacao.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="4848" y="1994"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -37,7 +37,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="5" language="java" name="eCamara.SystemControl" project="Projeto-LP2" 
+  <class id="5" language="java" name="eCamara.SystemController" project="Projeto-LP2"
     file="/Projeto-LP2/src/eCamara/SystemControl.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="3768" y="1993"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -109,7 +109,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="13" language="java" name="eCamara.PessoaController" project="Projeto-LP2" 
+  <class id="13" language="java" name="eCamara.individuo.PessoaController" project="Projeto-LP2"
     file="/Projeto-LP2/src/eCamara/PessoaController.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="4717" y="2623"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 

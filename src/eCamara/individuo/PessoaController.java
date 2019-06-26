@@ -1,5 +1,6 @@
-package eCamara;
+package eCamara.individuo;
 
+import eCamara.Validacao;
 import eCamara.individuo.Deputado;
 import eCamara.individuo.Pessoa;
 import eCamara.legislativo.ProjetoDeLei;

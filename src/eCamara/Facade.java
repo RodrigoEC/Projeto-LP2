@@ -4,10 +4,10 @@ import easyaccept.EasyAccept;
 
 public class Facade {
 
-    private SystemControl systemControl;
+    private SystemController systemController;
 
     public Facade() {
-        this.systemControl = new SystemControl();
+        this.systemController = new SystemController();
     }
 
     public static void main(String[] args) {
@@ -24,82 +24,82 @@ public class Facade {
     }
 
     public void cadastrarPessoa(String nome, String dni, String estado, String interesses) {
-        this.systemControl.cadastrarPessoaSemPartido(nome, dni, estado, interesses);
+        this.systemController.cadastrarPessoaSemPartido(nome, dni, estado, interesses);
     }
 
     public void cadastrarPessoa(String nome, String dni, String estado, String interesses, String partido) {
-        this.systemControl.cadastrarPessoa(nome, dni, estado, interesses, partido);
+        this.systemController.cadastrarPessoa(nome, dni, estado, interesses, partido);
     }
 
     public void cadastrarDeputado(String dni, String dataDeInicio) {
-        this.systemControl.cadastraDeputado(dni, dataDeInicio);
+        this.systemController.cadastraDeputado(dni, dataDeInicio);
     }
 
 
     public String exibirPessoa(String dni) {
-        return this.systemControl.exibirPessoa(dni);
+        return this.systemController.exibirPessoa(dni);
     }
 
 
     public void cadastrarPartido(String partido) {
-        this.systemControl.cadastraPartido(partido);
+        this.systemController.cadastraPartido(partido);
     }
 
     public String exibirBase() {
-        return this.systemControl.exibirBase();
+        return this.systemController.exibirBase();
     }
 
     //
     public void cadastrarComissao(String tema, String politicos) {
-        this.systemControl.cadastrarComissao(tema, politicos);
+        this.systemController.cadastrarComissao(tema, politicos);
     }
 
     public String cadastrarPL(String dni, int ano, String ementa, String interesses, String url, boolean conclusivo) {
-        return this.systemControl.cadastrarPL(dni, ano, ementa, interesses, url, conclusivo);
+        return this.systemController.cadastrarPL(dni, ano, ementa, interesses, url, conclusivo);
     }
 
     public String cadastrarPLP(String dni, int ano, String ementa, String interesses, String url, String artigos) {
-        return this.systemControl.cadastrarPLP(dni, ano, ementa, interesses, url, artigos);
+        return this.systemController.cadastrarPLP(dni, ano, ementa, interesses, url, artigos);
     }
 
     public String cadastrarPEC(String dni, int ano, String ementa, String interesses, String url, String artigos) {
-        return this.systemControl.cadastrarPEC(dni, ano, ementa, interesses, url, artigos);
+        return this.systemController.cadastrarPEC(dni, ano, ementa, interesses, url, artigos);
     }
 
     public String exibirProjeto(String codigo){
-        return  this.systemControl.exibirProjeto(codigo);
+        return  this.systemController.exibirProjeto(codigo);
     }
 
 
     public boolean votarComissao(String codigo, String statusGovernista, String proximoLocal) {
-        return this.systemControl.votarComissao(codigo, statusGovernista, proximoLocal);
+        return this.systemController.votarComissao(codigo, statusGovernista, proximoLocal);
     }
 
     public boolean votarPlenario(String codigo, String governista, String presentes) {
-        return this.systemControl.votarPlenario(codigo, governista, presentes);
+        return this.systemController.votarPlenario(codigo, governista, presentes);
     }
 
     public String exibirTramitacao(String codigo) {
-        return this.systemControl.exibirTramitacao(codigo);
+        return this.systemController.exibirTramitacao(codigo);
     }
 
     public void configurarEstrategiaPropostaRelacionada(String dni, String estrategia){
-        this.systemControl.configurarEstrategiaPropostaRelacionada(dni, estrategia);
+        this.systemController.configurarEstrategiaPropostaRelacionada(dni, estrategia);
     }
 
     public String pegarPropostaRelacionada(String dni){
-        return this.systemControl.pegarPropostaRelacionada(dni);
+        return this.systemController.pegarPropostaRelacionada(dni);
     }
 
     public void carregarSistema(){
-        this.systemControl.carregarSistema(this.systemControl);
+        this.systemController.carregarSistema(this.systemController);
     }
 
     public void salvarSistema(){
-        this.systemControl.salvarSistema();
+        this.systemController.salvarSistema();
     }
 
     public void limparSistema() {
-        this.systemControl.limparSistema(this.systemControl);
+        this.systemController.limparSistema(this.systemController);
     }
 }
