@@ -209,6 +209,11 @@ public class PessoaController implements Serializable {
         return this.mapPessoas.get(dni).pegarPropostaRelacionada(leis);
     }
 
+    /**
+     * Metodo que muda permite a alteracao do mapa de Pessoas, recebe um mapa como parametro e altera o mapa
+     * atual para o mapa passado como parametro. Metodo usado no carregar do sistema.
+     * @param pessoas HashMap novo.
+     */
     public void setMap(HashMap pessoas) {
         this.mapPessoas = pessoas;
     }
