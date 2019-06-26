@@ -34,6 +34,31 @@ public class LeisController implements Serializable {
     }
 
     /**
+     * Metodo que retorna o mapa de leis.
+     *
+     * @return HashMap de leis.
+     */
+    public HashMap<String, ProjetoDeLei> getLeis() {
+        return (HashMap<String, ProjetoDeLei>) leis;
+    }
+
+    /**
+     * Metodo que retorna uma lei que foi cadastrada. Recebe uma String com o codigo da lei.
+     * @param codigoDaLei String com o codigo da lei.
+     * @return ProjetoDeLei referente ao codigo.
+     */
+    public ProjetoDeLei getLei(String codigoDaLei) {
+        return this.leis.get(codigoDaLei);
+    }
+
+
+    /** metodo que altera o mapa de leis baseado no mapa de leis passado como parametro */
+    public void setMap(HashMap leis) {
+        this.leis = leis;
+    }
+
+
+    /**
      * Metodo responsavel por cadastrar um projeto de legislativo no sistema, o metodo recebe o dni do deputado que criou o projeto
      * de legislativo, o que o projeto propoe(ementa), os interesses relacionados ao projeto, a url do site em que o projeto esta
      * hospedado, e um boolean que indica se o projeto eh ou nao conclusivo.
@@ -145,24 +170,6 @@ public class LeisController implements Serializable {
     }
 
     /**
-     * Metodo que retorna o mapa de leis.
-     *
-     * @return HashMap de leis.
-     */
-    public HashMap<String, ProjetoDeLei> getLeis() {
-        return (HashMap<String, ProjetoDeLei>) leis;
-    }
-
-    /**
-     * Metodo que retorna uma lei que foi cadastrada. Recebe uma String com o codigo da lei.
-     * @param codigoDaLei String com o codigo da lei.
-     * @return ProjetoDeLei referente ao codigo.
-     */
-    public ProjetoDeLei getLei(String codigoDaLei) {
-        return this.leis.get(codigoDaLei);
-    }
-
-    /**
      * Metodo que exibe a tramitacao de uma lei, recebe uma String com o codigo da lei.
      * @param codigo String com o codigo da lei.
      * @return String com a trasmitacao da lei.
@@ -175,7 +182,5 @@ public class LeisController implements Serializable {
         return this.leis.get(codigo).getTodaTramitacao();
     }
 
-    public void setMap(HashMap leis) {
-        this.leis = leis;
-    }
+
 }

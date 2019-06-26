@@ -88,7 +88,7 @@ public class GerenciadorArquivos implements Serializable {
      */
     public static void carregarSistema(SystemControl sistema) {
         try{
-            sistema.getControllerDeputados().setMap((HashMap) GerenciadorArquivos.carregarObj("ArquivoSistemaPessoa.bin"));
+            sistema.getControllerPessoas().setMap((HashMap) GerenciadorArquivos.carregarObj("ArquivoSistemaPessoa.bin"));
             sistema.getControllerLeis().setMap((HashMap) GerenciadorArquivos.carregarObj("ArquivoSistemaLeis.bin"));
             sistema.setPartidos((Set) GerenciadorArquivos.carregarObj("ArquivoSistemaPartidos.bin"));
             sistema.setComissoes((Map) GerenciadorArquivos.carregarObj("ArquivoSistemaComicoes.bin"));
@@ -106,13 +106,13 @@ public class GerenciadorArquivos implements Serializable {
      * o retorno sera o SystemControl novo, limpo, sem dados se nenhum erro ocorrer.
      *
      * @param sistema Object a ser limpo.
-     * @return SystemControll limpo.
+     *
      */
     public static void limparSistema(SystemControl sistema){
-        sistema.getControllerDeputados().getMapPessoas().clear();
+        sistema.getControllerPessoas().getMapPessoas().clear();
         sistema.getControllerLeis().getLeis().clear();
         sistema.getPartidos().clear();
         sistema.getComissoes().clear();
-        GerenciadorArquivos.salvarSistema(sistema.getControllerDeputados().getMapPessoas(), sistema.getControllerLeis().getLeis(), sistema.getPartidos(), sistema.getComissoes());
+        GerenciadorArquivos.salvarSistema(sistema.getControllerPessoas().getMapPessoas(), sistema.getControllerLeis().getLeis(), sistema.getPartidos(), sistema.getComissoes());
     }
 }

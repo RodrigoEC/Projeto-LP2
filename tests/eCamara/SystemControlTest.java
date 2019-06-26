@@ -17,7 +17,7 @@ class SystemControlTest {
 
     @Test
     void SystemControlTest() {
-        assertTrue(this.systemControl.getControllerDeputados().getMapPessoas().isEmpty());
+        assertTrue(this.systemControl.getControllerPessoas().getMapPessoas().isEmpty());
     }
 
     @Test
@@ -86,7 +86,7 @@ class SystemControlTest {
     @Test
     void cadastraPessoaSemPartidoTest8() {
         this.systemControl.cadastrarPessoaSemPartido("Jao", "233-2", "gg", "");
-        assertFalse(this.systemControl.getControllerDeputados().getMapPessoas().isEmpty());
+        assertFalse(this.systemControl.getControllerPessoas().getMapPessoas().isEmpty());
     }
 
     @Test
@@ -173,7 +173,7 @@ class SystemControlTest {
     @Test
     void cadastraPessoaTest8() {
         this.systemControl.cadastrarPessoa("Jao", "233-2", "gg", "", "LRG - Libera Rinha de Galo");
-        assertFalse(this.systemControl.getControllerDeputados().getMapPessoas().isEmpty());
+        assertFalse(this.systemControl.getControllerPessoas().getMapPessoas().isEmpty());
     }
 
     @Test
@@ -198,14 +198,14 @@ class SystemControlTest {
     void cadastraDeputadoTest() {
         this.systemControl.cadastrarPessoa("Maria", "159-2", "PB", "ganhar", "PRB");
         this.systemControl.cadastraDeputado("159-2", "13012018");
-        assertTrue(this.systemControl.getControllerDeputados().getMapPessoas().get("159-2").getFuncao() != null);
+        assertTrue(this.systemControl.getControllerPessoas().getMapPessoas().get("159-2").getFuncao() != null);
     }
 
     @Test
     void cadastraDeputadoFuncaoNula() {
         this.systemControl.cadastrarPessoa("Joao", "169-2", "PB", "ganhar", "PRB");
         this.systemControl.cadastraDeputado("169-2", "21032019");
-        assertFalse(this.systemControl.getControllerDeputados().getMapPessoas().get("169-2").getFuncao() == null);
+        assertFalse(this.systemControl.getControllerPessoas().getMapPessoas().get("169-2").getFuncao() == null);
     }
 
     @Test
@@ -222,7 +222,7 @@ class SystemControlTest {
     void cadastraDeputadoFuncaoVazia() {
         this.systemControl.cadastrarPessoa("Mariana", "168-2", "PB", "ganhar", "PRB");
         this.systemControl.cadastraDeputado("168-2", "13012000");
-        assertFalse(this.systemControl.getControllerDeputados().getMapPessoas().get("168-2").getFuncao().equals(""));
+        assertFalse(this.systemControl.getControllerPessoas().getMapPessoas().get("168-2").getFuncao().equals(""));
     }
 
     @Test

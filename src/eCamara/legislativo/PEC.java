@@ -65,6 +65,7 @@ public class PEC extends ProjetoDeLeiAbstract {
         this.turno++;
     }
 
+
     /**
      * Metodo responsavel por modificar a tramitacao do projeto. caso o projeto tenha sido aprovado e quem esteja votando
      * seja o plenario eh adicionado a string da tramitacao "APROVADO (plenario [this.turno]o turno", caso o projeto
@@ -126,6 +127,22 @@ public class PEC extends ProjetoDeLeiAbstract {
 
         } else {
             this.situacao = String.format("EM VOTACAO (%s)", proxLocal);
+        }
+    }
+
+    /**
+     * Método que verifica se a PEC satisfaz a situacao de quorum minimo, onde eh necessario que pelo menos 3/5 dos deputados
+     * + 1 estejam votando.
+     *
+     * @param deputadosPresentes deputados presentes na votacao.
+     * @throws NullPointerException "Erro ao votar proposta: quorum invalido"
+     */
+    @Override
+    public void situacaoQuorumMinimo(String[] deputadosPresentes) {
+        int quorumMinimo = deputadosPresentes.length * 3 / 5 + 1;
+
+        if (deputadosPresentes.length <= quorumMinimo) {
+            throw new IllegalArgumentException("Erro ao votar proposta: quorum invalido");
         }
     }
 }
