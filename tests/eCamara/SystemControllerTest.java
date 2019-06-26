@@ -1,27 +1,37 @@
 package eCamara;
 
 import eCamara.individuo.Deputado;
+import eCamara.SystemController;
+import eCamara.individuo.Pessoa;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.util.HashMap;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class SystemControlTest {
 
-    private SystemControl systemControl;
+    private SystemController systemControl;
+    private SystemController systemControl2;
 
     @BeforeEach
     public void controleGeral() {
-        this.systemControl = new SystemControl();
+        this.systemControl = new SystemController();
+        this.systemControl2 = new SystemController();
+        this.systemControl2.cadastrarPessoa("Daniel", "34-3", "PB", "Rinha de Galo","lrg");
+        this.systemControl2.cadastraDeputado("34-3", "12102001");
+        this.systemControl2.cadastrarComissao("Bla", "34-3");
+        this.systemControl2.salvarSistema();
     }
 
     @Test
     void SystemControlTest() {
-        assertTrue(this.systemControl.getControllerDeputados().getMapPessoas().isEmpty());
+        assertTrue(this.systemControl.getControllerPessoas().getMapPessoas().isEmpty());
     }
 
     @Test
-    void cadastraPessoaSemPartidoTest() {
+    void cadastraPessoaSemPartidoNomeVazio() {
         try {
             this.systemControl.cadastrarPessoaSemPartido(" ", "0053-3", "GG", "");
             fail("Era esperado excecao");
@@ -30,7 +40,7 @@ class SystemControlTest {
     }
 
     @Test
-    void cadastraPessoaSemPartidoTest2() {
+    void cadastraPessoaSemPartidoNomeNull() {
         try {
             this.systemControl.cadastrarPessoaSemPartido(null, "0053-3", "GG", "");
             fail("Era esperado excecao");
@@ -39,7 +49,7 @@ class SystemControlTest {
     }
 
     @Test
-    void cadastraPessoaSemPartidoTest3() {
+    void cadastraPessoaSemPartidoDniVazio() {
         try {
             this.systemControl.cadastrarPessoaSemPartido("Jao", " ", "GG", "");
             fail("Era esperado excecao");
@@ -48,7 +58,7 @@ class SystemControlTest {
     }
 
     @Test
-    void cadastraPessoaSemPartidoTest4() {
+    void cadastraPessoaSemPartidoDniNull() {
         try {
             this.systemControl.cadastrarPessoaSemPartido("Jao", null, "GG", "");
             fail("Era esperado excecao");
@@ -57,7 +67,7 @@ class SystemControlTest {
     }
 
     @Test
-    void cadastraPessoaSemPartidoTest5() {
+    void cadastraPessoaSemPartidoDniInvalido() {
         try {
             this.systemControl.cadastrarPessoaSemPartido("Jao", "adaa", "GG", "");
             fail("Era esperado excecao");
@@ -66,7 +76,7 @@ class SystemControlTest {
     }
 
     @Test
-    void cadastraPessoaSemPartidoTest6() {
+    void cadastraPessoaSemPartidoEstadoVazio() {
         try {
             this.systemControl.cadastrarPessoaSemPartido("Jao", "234-2", " ", "");
             fail("Era esperado excecao");
@@ -75,7 +85,7 @@ class SystemControlTest {
     }
 
     @Test
-    void cadastraPessoaSemPartidoTest7() {
+    void cadastraPessoaSemPartidoEstadoNull() {
         try {
             this.systemControl.cadastrarPessoaSemPartido("Jao", "233-2", null, "");
             fail("Era esperado excecao");
@@ -84,13 +94,13 @@ class SystemControlTest {
     }
 
     @Test
-    void cadastraPessoaSemPartidoTest8() {
+    void cadastraPessoaSemPartidoValida() {
         this.systemControl.cadastrarPessoaSemPartido("Jao", "233-2", "gg", "");
-        assertFalse(this.systemControl.getControllerDeputados().getMapPessoas().isEmpty());
+        assertFalse(this.systemControl.getControllerPessoas().getMapPessoas().isEmpty());
     }
 
     @Test
-    void cadastraPessoaSemPartidoTest9() {
+    void cadastraPessoaSemPartidoPessoaJaCadastrada() {
         this.systemControl.cadastrarPessoaSemPartido("Jao", "233-2", "gg", "");
         try {
             this.systemControl.cadastrarPessoaSemPartido("Jao", "233-2", "AM", "");
@@ -99,7 +109,7 @@ class SystemControlTest {
     }
 
     @Test
-    void cadastraPessoaSemPartidoTest10() {
+    void cadastraPessoaSemPartidoPessoaJaCadastradaComPartido() {
         this.systemControl.cadastrarPessoa("Jao", "233-2", "gg", "", "LRG - Libera Rinha de Galo");
         try {
             this.systemControl.cadastrarPessoaSemPartido("Jao", "233-2", "AM", "");
@@ -108,7 +118,7 @@ class SystemControlTest {
     }
 
     @Test
-    void cadastraPessoaTest() {
+    void cadastraPessoaComPartidoNomeVazio() {
         try {
             this.systemControl.cadastrarPessoa(" ", "0053-3", "GG", "", "LRG - Libera Rinha de Galo");
             fail("Era esperado excecao");
@@ -117,7 +127,7 @@ class SystemControlTest {
     }
 
     @Test
-    void cadastraPessoaTest2() {
+    void cadastraPessoaComPartidoNomeNull() {
         try {
             this.systemControl.cadastrarPessoa(null, "0053-3", "GG", "", "LRG - Libera Rinha de Galo");
             fail("Era esperado excecao");
@@ -126,7 +136,7 @@ class SystemControlTest {
     }
 
     @Test
-    void cadastraPessoaTest3() {
+    void cadastraPessoaComPartidoDniVazio() {
         try {
             this.systemControl.cadastrarPessoa("Jao", " ", "GG", "", "LRG - Libera Rinha de Galo");
             fail("Era esperado excecao");
@@ -135,7 +145,7 @@ class SystemControlTest {
     }
 
     @Test
-    void cadastraPessoaTest4() {
+    void cadastraPessoaComPartidoDniNull() {
         try {
             this.systemControl.cadastrarPessoa("Jao", null, "GG", "", "LRG - Libera Rinha de Galo");
             fail("Era esperado excecao");
@@ -144,7 +154,7 @@ class SystemControlTest {
     }
 
     @Test
-    void cadastraPessoaTest5() {
+    void cadastraPessoaComPartidoDniInvalido() {
         try {
             this.systemControl.cadastrarPessoa("Jao", "adaa", "GG", "", "LRG - Libera Rinha de Galo");
             fail("Era esperado excecao");
@@ -153,7 +163,7 @@ class SystemControlTest {
     }
 
     @Test
-    void cadastraPessoaTest6() {
+    void cadastraPessoaComPartidoEstadoVazio() {
         try {
             this.systemControl.cadastrarPessoa("Jao", "234-2", " ", "", "LRG - Libera Rinha de Galo");
             fail("Era esperado excecao");
@@ -162,7 +172,7 @@ class SystemControlTest {
     }
 
     @Test
-    void cadastraPessoaTest7() {
+    void cadastraPessoaEstadoNUll() {
         try {
             this.systemControl.cadastrarPessoa("Jao", "233-2", null, "", "LRG - Libera Rinha de Galo");
             fail("Era esperado excecao");
@@ -171,13 +181,13 @@ class SystemControlTest {
     }
 
     @Test
-    void cadastraPessoaTest8() {
+    void cadastraPessoaComPartidoValida() {
         this.systemControl.cadastrarPessoa("Jao", "233-2", "gg", "", "LRG - Libera Rinha de Galo");
-        assertFalse(this.systemControl.getControllerDeputados().getMapPessoas().isEmpty());
+        assertFalse(this.systemControl.getControllerPessoas().getMapPessoas().isEmpty());
     }
 
     @Test
-    void cadastraPessoaTest9() {
+    void cadastraPessoaJaCadastrada() {
         this.systemControl.cadastrarPessoa("Jao", "233-2", "gg", "", "LRG - Libera Rinha de Galo");
         try {
             this.systemControl.cadastrarPessoa("Jao", "233-2", "AM", "", "LRG - Libera Rinha de Galo");
@@ -186,7 +196,7 @@ class SystemControlTest {
     }
 
     @Test
-    void cadastraPessoaTest10() {
+    void cadastraPessoaJaCadastradaSemPartido() {
         this.systemControl.cadastrarPessoaSemPartido("Jao", "233-2", "gg", "");
         try {
             this.systemControl.cadastrarPessoa("Jao", "233-2", "AM", "", "LRG - Libera Rinha de Galo");
@@ -198,14 +208,14 @@ class SystemControlTest {
     void cadastraDeputadoTest() {
         this.systemControl.cadastrarPessoa("Maria", "159-2", "PB", "ganhar", "PRB");
         this.systemControl.cadastraDeputado("159-2", "13012018");
-        assertTrue(this.systemControl.getControllerDeputados().getMapPessoas().get("159-2").getFuncao() != null);
+        assertTrue(this.systemControl.getControllerPessoas().getMapPessoas().get("159-2").getFuncao() != null);
     }
 
     @Test
     void cadastraDeputadoFuncaoNula() {
         this.systemControl.cadastrarPessoa("Joao", "169-2", "PB", "ganhar", "PRB");
         this.systemControl.cadastraDeputado("169-2", "21032019");
-        assertFalse(this.systemControl.getControllerDeputados().getMapPessoas().get("169-2").getFuncao() == null);
+        assertFalse(this.systemControl.getControllerPessoas().getMapPessoas().get("169-2").getFuncao() == null);
     }
 
     @Test
@@ -222,7 +232,7 @@ class SystemControlTest {
     void cadastraDeputadoFuncaoVazia() {
         this.systemControl.cadastrarPessoa("Mariana", "168-2", "PB", "ganhar", "PRB");
         this.systemControl.cadastraDeputado("168-2", "13012000");
-        assertFalse(this.systemControl.getControllerDeputados().getMapPessoas().get("168-2").getFuncao().equals(""));
+        assertFalse(this.systemControl.getControllerPessoas().getMapPessoas().get("168-2").getFuncao().equals(""));
     }
 
     @Test
@@ -1449,6 +1459,24 @@ class SystemControlTest {
         assertEquals("PL 1/2016", this.systemControl.pegarPropostaRelacionada("051222222-0"));
     }
 
+    @Test
+    void setControllerPessoa(){
+        HashMap<String, Pessoa> mapVazio = new HashMap<>();
+        this.systemControl.getControllerPessoas().setMap(mapVazio);
+        assertTrue(this.systemControl.getControllerPessoas().getMapPessoas().isEmpty());
+    }
+
+    @Test
+    void carregarSistemaTest(){
+        this.systemControl2.carregarSistema(this.systemControl2);
+        assertFalse(this.systemControl2.getComissoes().isEmpty());
+    }
+
+    @Test
+    void limparSistema(){
+        this.systemControl2.limparSistema(this.systemControl2);
+        assertTrue(this.systemControl2.getComissoes().isEmpty());
+    }
 
     }
 
