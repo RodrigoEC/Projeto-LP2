@@ -87,7 +87,7 @@ public class PL extends ProjetoDeLeiAbstract {
      */
     @Override
     public void setTramitacao(boolean aprovadoOuNao) {
-        if (aprovadoOuNao && !"ARQUIVADO".equals(this.situacao) && !"APROVADO".equals(this.situacao) && "Plenario".equals(this.votante)) {
+        if (aprovadoOuNao && !"ARQUIVADO".equals(this.situacao) && !"APROVADO".equals(this.situacao) && "plenario".equals(this.votante)) {
             this.tramitacao.add("APROVADO (Plenario)");
             super.qntAprovacoes += 1;
 
