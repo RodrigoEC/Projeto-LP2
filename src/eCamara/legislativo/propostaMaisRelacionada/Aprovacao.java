@@ -13,7 +13,7 @@ import java.util.Set;
 public class Aprovacao extends EstrategiaPropostaAbstract {
 
     /**
-     * Metodo que retorna o codigo da proposta mais relacionada com uma pessoa. Recebe como parametros um map com
+     * Metodo que retorna o codigo da proposta mais relacionada com uma pessoa. Recebe como parametros um HashMap com
      * todas as leis e um set com os interesses de uma pessoa. Nesta estrategia, o criterio utilizado e a quantidade
      * de votacoes aprovadas que uma lei teve.
      *
@@ -23,17 +23,10 @@ public class Aprovacao extends EstrategiaPropostaAbstract {
      * @return o codigo da proposta de lei mais relacionada com a pessoa.
      */
     @Override
-    public String pegarPropostaRelacionada(Map<String, ProjetoDeLei> leis, Set<String> interesses) {
-        HashMap<String, ProjetoDeLei> propostasEmTramite = new HashMap<>();
+    public String pegarPropostaRelacionada(HashMap<String, ProjetoDeLei> leis, Set<String> interesses) {
         HashMap<String, ProjetoDeLei> propostasRelacionadas;
 
-        for (String proposta: leis.keySet()){
-            if (leis.get(proposta).emTramite()){
-                propostasEmTramite.put(proposta, leis.get(proposta));
-            }
-        }
-
-        propostasRelacionadas = super.interesseComum(propostasEmTramite, interesses);
+        propostasRelacionadas = super.filtro(leis, interesses);
 
         if(propostasRelacionadas.size() == 0){
             return "";

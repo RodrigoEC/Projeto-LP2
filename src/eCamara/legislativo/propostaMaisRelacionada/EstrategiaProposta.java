@@ -2,7 +2,7 @@ package eCamara.legislativo.propostaMaisRelacionada;
 
 import eCamara.legislativo.ProjetoDeLei;
 
-import java.util.Map;
+import java.util.HashMap;
 import java.util.Set;
 
 /**
@@ -20,5 +20,5 @@ public interface EstrategiaProposta {
      *
      * @return o codgio da lei mais proxima da pessoa.
      */
-    String pegarPropostaRelacionada(Map<String, ProjetoDeLei> leis, Set<String> interesses);
+    String pegarPropostaRelacionada(HashMap<String, ProjetoDeLei> leis, Set<String> interesses);
 }

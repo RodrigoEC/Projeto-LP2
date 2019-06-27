@@ -199,7 +199,7 @@ public class PessoaController implements Serializable {
      *
      * @return retorna o codigo da proposta de lei mais relacionada com uma pessoa.
      */
-    public String pegarPropostaRelacionada(String dni, Map<String, ProjetoDeLei> leis) {
+    public String pegarPropostaRelacionada(String dni, HashMap<String, ProjetoDeLei> leis) {
         this.validaEntradas.validaPegarPropostaRelacionada(dni);
 
         if(!this.mapPessoas.containsKey(dni)){

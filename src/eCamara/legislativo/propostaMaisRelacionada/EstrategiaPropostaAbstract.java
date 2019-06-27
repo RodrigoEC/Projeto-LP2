@@ -22,7 +22,29 @@ public abstract class EstrategiaPropostaAbstract implements EstrategiaProposta, 
      *
      * @return a proposta de lei mais relacionada com a pessoa.
      */
-    public abstract String pegarPropostaRelacionada(Map<String, ProjetoDeLei> leis, Set<String> interesses);
+    public abstract String pegarPropostaRelacionada(HashMap<String, ProjetoDeLei> leis, Set<String> interesses);
+
+    /**
+     * Metodo que realiza a filtragem das leis cadastradas, de modo que nao sejam retornadas as leis que nao
+     * estao mais em tramite ou as leis que nao possuem interesses em comum com a pessoa.
+     *
+     * @param leis as leis cadastradas.
+     * @param interesses os interesses da pessoa.
+     *
+     * @return HashMap com as leis que foram filtradas.
+     */
+    protected HashMap<String, ProjetoDeLei> filtro(HashMap<String, ProjetoDeLei> leis, Set<String> interesses){
+        HashMap<String, ProjetoDeLei> propostasEmTramite = new HashMap<>();
+
+        for (String proposta: leis.keySet()){
+            if (leis.get(proposta).emTramite()){
+                propostasEmTramite.put(proposta, leis.get(proposta));
+            }
+        }
+
+        return this.interesseComum(propostasEmTramite, interesses);
+
+    }
 
     /**
      * Metodo que retorna um HashMap com as leis que possuem interesses mais em comum com a Pessoa. Recebe como
