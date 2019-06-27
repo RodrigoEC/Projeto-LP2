@@ -305,7 +305,7 @@ public class Pessoa implements Serializable {
      *
      * @return retorna o codigo da proposta de lei mais relacionada com uma pessoa.
      */
-    public String pegarPropostaRelacionada(Map<String, ProjetoDeLei> leis){
+    public String pegarPropostaRelacionada(HashMap<String, ProjetoDeLei> leis){
         HashSet<String> grupo = new HashSet<>();
 
         for (String interesse: this.interesses.trim().split(",")){
