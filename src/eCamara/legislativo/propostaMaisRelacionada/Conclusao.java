@@ -79,7 +79,6 @@ public class Conclusao extends EstrategiaPropostaAbstract {
             if (outrasComissoes.size() == 1){
                 return outrasComissoes.get(0);
             }
-            //return "sei de nada";
             return outrasComissoes.get(this.maisComissoes(leis, outrasComissoes));
         }
 

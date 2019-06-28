@@ -1827,30 +1827,7 @@ class SystemControlTest {
 
     }
 
-    @Test
-    void pegarPropostaRelacionadaConstitucionalEmpatePL() {
-        this.systemControl.cadastraPartido("DEF");
-        this.systemControl.cadastraPartido("ABC");
 
-        this.systemControl.cadastrarPessoa("Jurema", "051444444-0", "RO", "saude", "DEF");
-        this.systemControl.cadastraDeputado("051444444-0", "12012000");
-
-        this.systemControl.cadastrarPessoa("Mateus Matia", "051222222-0", "PE", "educacao basica", "ABC");
-        this.systemControl.cadastraDeputado("051222222-0", "29022016");
-
-        this.systemControl.cadastrarPessoa("Lucivania", "051111111-0", "RO", "saude", "DEF");
-        this.systemControl.cadastraDeputado("051111111-0", "12012000");
-
-        this.systemControl.cadastrarPessoa("Maurileide", "051555555-0", "PE", "", "ABC");
-        this.systemControl.cadastraDeputado("051555555-0", "29022016");
-
-        this.systemControl.cadastrarComissao("CCJC", "051222222-0,051444444-0");
-
-        this.systemControl.cadastrarPL("051444444-0", 2016, "Institui a semana da nutricao nas escolas", "saude,educacao basica", "http://example.com/semana_saude", true);
-        this.systemControl.cadastrarPL("051444444-0", 2016, "Institui a semana da nutricao nas escolas", "saude", "http://example.com/semana_saude", true);
-
-        assertEquals("PL 1/2016", this.systemControl.pegarPropostaRelacionada("051222222-0"));
-    }
     // deveria estar sendo tido como testado
     @Test
     void pegarPropostaRelacionadaConstitucionalUmaPL() {
@@ -2034,6 +2011,7 @@ class SystemControlTest {
 
         assertEquals("PL 1/2016", this.systemControl.pegarPropostaRelacionada("051222222-0"));
     }
+
 // deveria estar sendo testado
     @Test
     void pegarPropostaRelacionadaConclusaoNenhumaProposta() {
@@ -2115,7 +2093,6 @@ class SystemControlTest {
 
         this.systemControl.cadastrarComissao("CCJC", "051222222-0,051444444-0");
 
-
         this.systemControl.cadastrarPLP("051444444-0", 2017, "ementa da plp", "educacao,saude", "http://example.com/semana_da_seguranca", "15,18");
         this.systemControl.cadastrarPLP("051444444-0", 2017, "ementa da plp", "educacao,saude", "http://example.com/semana_da_seguranca", "15,18");
 
@@ -2128,6 +2105,7 @@ class SystemControlTest {
 
         assertEquals("PLP 2/2017", this.systemControl.pegarPropostaRelacionada("051111111-0"));
     }
+
 
     @Test
     void pegarPropostaRelacionadaConclusaoMaisVotadaPECSegundoTurno() {
@@ -2228,7 +2206,9 @@ class SystemControlTest {
 
         assertEquals("PEC 1/2017", this.systemControl.pegarPropostaRelacionada("051111111-0"));
     }
-    // lei que passou por mais comissoes
+
+
+    //------------lei que passou por mais comissoes --------------
 
     @Test
     void pegarPropostaRelacionadaConclusaoMaisVotadaPLPMaisComissoes() {
@@ -2307,8 +2287,7 @@ class SystemControlTest {
 
         assertEquals("PL 1/2017", this.systemControl.pegarPropostaRelacionada("051111111-0"));
     }
-
-    //////deve ser quando empata
+// tambem deveria estar sendo tida como testado
     @Test
     void pegarPropostaRelacionadaConclusaoMaisVotadaPECMaisAntiga() {
         this.systemControl.cadastraPartido("DEF");
@@ -2330,13 +2309,12 @@ class SystemControlTest {
 
         this.systemControl.cadastrarPEC("051444444-0", 2010, "ementa da Pec", "saude", "http://example.com/semana_saude", "12,36");
         this.systemControl.cadastrarPEC("051444444-0", 2015, "ementa da Pec", "saude", "http://example.com/semana_saude", "12,36");
-        this.systemControl.cadastrarPEC("051444444-0", 2010, "ementa da Pec", "saude", "http://example.com/semana_saude", "12,36");
-        this.systemControl.cadastrarPEC("051444444-0", 2015, "ementa da Pec", "saude", "http://example.com/semana_saude", "12,36");
 
         this.systemControl.votarComissao("PEC 1/2010", "governista", "plenario");
         this.systemControl.votarPlenario("PEC 1/2010", "governista", "051222222-0,051444444-0,051111111-0,051555555-0");
-        this.systemControl.votarComissao("PEC 2/2015", "livre", "plenario");
-        this.systemControl.votarPlenario("PEC 2/2015", "governista", "051222222-0,051444444-0,051111111-0,051555555-0");
+        this.systemControl.votarComissao("PEC 1/2015", "governista", "plenario");
+        this.systemControl.votarPlenario("PEC 1/2015", "governista", "051222222-0,051444444-0,051111111-0,051555555-0");
+
 
         this.systemControl.configurarEstrategiaPropostaRelacionada("051111111-0", "conclusao");
 
@@ -2378,7 +2356,7 @@ class SystemControlTest {
     }
 
 
-
+//--------------------- ccjc------------------------
     @Test
     void pegarPropostaRelacionadaConclusaoCcjc() {
         this.systemControl.cadastraPartido("DEF");
@@ -2410,7 +2388,7 @@ class SystemControlTest {
 
     }
 
-///////////////////////
+// deveria estar sendo tido como testado
     @Test
     void pegarPropostaRelacionadaConclusaoCcjcApenasUma() {
         this.systemControl.cadastraPartido("DEF");
@@ -2437,6 +2415,8 @@ class SystemControlTest {
         assertEquals("PLP 1/2015", this.systemControl.pegarPropostaRelacionada("051222222-0"));
 
     }
+
+    // deveria estar sendo tido como testado
 
     @Test
     void pegarPropostaRelacionadaConclusaoSemInteresse() {
@@ -2468,7 +2448,7 @@ class SystemControlTest {
     }
 
 
-    //--------Testes Estrategia Aprovacao-------------
+    //--------Testes Estrategia Aprovacao---------
 
     @Test
     void pegarPropostaRelacionadaAprovacao(){
