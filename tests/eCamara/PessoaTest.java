@@ -172,6 +172,13 @@ class PessoaTest {
         assertEquals(3, this.control.getControllerPessoas().getMapPessoas().get("0028490850-4").getQtdLei());
     }
 
-
+    @Test
+    void configurarEstrategiaVazia(){
+        Pessoa p = new Pessoa("Carlos", "0028490850-4", "PB", "", "ji");
+        try{
+            p.configurarEstrategiaPropostaRelacionada("");
+            fail("Era esperada uma exceção!");
+        } catch (IllegalArgumentException iae){}
+    }
 
 }

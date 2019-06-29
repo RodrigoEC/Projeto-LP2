@@ -28,12 +28,6 @@ public class Constitucional extends EstrategiaPropostaAbstract {
 
         propostasRelacionadas = super.filtro(leis, interesses);
 
-        if(propostasRelacionadas.size() == 1){
-            for (String proposta: propostasRelacionadas.keySet()){
-                return proposta;
-            }
-        }
-
         //Organizando os tipos de propostas
         ArrayList<String> propostasPec = new ArrayList<>();
         ArrayList<String> propostasPlp = new ArrayList<>();

@@ -28,17 +28,6 @@ public class Conclusao extends EstrategiaPropostaAbstract {
 
         propostasRelacionadas = super.filtro(leis, interesses);
 
-
-        if(propostasRelacionadas.size() == 0){
-            return "";
-        }
-
-        if(propostasRelacionadas.size() == 1){
-            for (String proposta: propostasRelacionadas.keySet()){
-                return proposta;
-            }
-        }
-
         //Organizando as propostas pelo estado de votação
         ArrayList<String> segundoTurno = new ArrayList<>();
         ArrayList<String> primeiroTurno = new ArrayList<>();
@@ -74,7 +63,6 @@ public class Conclusao extends EstrategiaPropostaAbstract {
 
             return primeiroTurno.get(super.propostaMaisAntiga(primeiroTurno, leis));
         }
-
         if (outrasComissoes.size() > 0){
             if (outrasComissoes.size() == 1){
                 return outrasComissoes.get(0);
@@ -89,7 +77,6 @@ public class Conclusao extends EstrategiaPropostaAbstract {
 
             return ccjc.get(super.propostaMaisAntiga(ccjc, leis));
         }
-
         return "";
     }
 
@@ -101,12 +88,8 @@ public class Conclusao extends EstrategiaPropostaAbstract {
      * @return o estado da proposta de lei.
      */
     private String pegaEstado(String situacaoProposta) {
-        if (situacaoProposta.contains("(")){
-            String[] array = situacaoProposta.split("[(]");
-            return "(" + array[1].toLowerCase();
-        }
-
-        return "";
+        String[] array = situacaoProposta.split("[(]");
+        return "(" + array[1].toLowerCase();
     }
 
     /**
