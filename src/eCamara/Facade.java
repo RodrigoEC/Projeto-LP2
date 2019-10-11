@@ -23,6 +23,9 @@ public class Facade {
         EasyAccept.main(args);
     }
 
+    /**
+     * testing how to use the brnach thing on github for hacktoberfest2019, let's see how it goes
+     */
     public void cadastrarPessoa(String nome, String dni, String estado, String interesses) {
         this.systemController.cadastrarPessoaSemPartido(nome, dni, estado, interesses);
     }
