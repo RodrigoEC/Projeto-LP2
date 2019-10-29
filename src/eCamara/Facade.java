@@ -20,6 +20,8 @@ public class Facade {
                                                "acceptance_test/use_case_7.txt",
                                                "acceptance_test/use_case_8.txt",
                                                "acceptance_test/use_case_9.txt"};
+
+System.out.println("As vezes é impossível dizer o que não estamos sabendo");
         EasyAccept.main(args);
     }
 
